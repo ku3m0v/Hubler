@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "Hubler"
+  "defaultProject": "Hubler",
+  "cli": {
+    "analytics": "4404a19a-d2af-4d7b-9c12-76f2870efcec"
+  }
 }
