@@ -9,7 +9,6 @@ export class AuthenticationService {
 
   // This is just a mock example, replace with your actual authentication logic
   private isAuthenticated: boolean = false;
-
   // Call this method when user signs in
   signIn(): void {
     this.isAuthenticated = true;
@@ -24,4 +23,5 @@ export class AuthenticationService {
   isUserSignedIn(): boolean {
     return this.isAuthenticated;
   }
+
 }

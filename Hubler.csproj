@@ -20,11 +20,23 @@
         <Content Remove="$(SpaRoot)**"/>
         <None Remove="$(SpaRoot)**"/>
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**"/>
+        <Content Remove="ClientApp\.angular\**" />
+        <None Remove="ClientApp\.angular\**" />
     </ItemGroup>
 
 
     <ItemGroup>
       <Folder Include="ClientApp\src\app\auth\" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Compile Remove="ClientApp\.angular\**" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <EmbeddedResource Remove="ClientApp\.angular\**" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

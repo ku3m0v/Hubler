@@ -1,0 +1,9 @@
+.getstarted {
+  background-image: linear-gradient(to left, #310a68, #1e1b4b);
+  transition: ease-out;
+}
+
+.getstarted:hover {
+  background-image: linear-gradient(to left, #310a68, #170334);
+  transition: ease-in;
+}

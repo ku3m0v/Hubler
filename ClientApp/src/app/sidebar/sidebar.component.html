@@ -3,14 +3,14 @@
     <ng-container *ngFor="let link of sidebarLinks">
       <a [routerLink]="link.route"
          class="leftsidebar_link"
-         routerLinkActive="bg-primary-500">
+         routerLinkActive="bg-gradient-to-l from-indigo-950 to-purple-950">
         <img [alt]="link.label" [src]="link.imgURL" height="24" width="24"/>
         <p class="text-light-1 max-lg:hidden">{{ link.label }}</p>
       </a>
     </ng-container>
   </div>
   <div class="px-4 pb-3">
-    <a class="leftsidebar_link"
+    <a (click)="signOut()" *ngIf="isSignedIn" class="leftsidebar_link"
        routerLink="/">
       <img alt="Logout" height="24" src="/assets/assets/logout.svg" width="24"/>
       <p class="text-light-1 max-lg:hidden">Logout</p>

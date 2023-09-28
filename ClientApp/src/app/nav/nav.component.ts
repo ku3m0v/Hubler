@@ -7,11 +7,18 @@ import {AuthenticationService} from "../authentication.service";
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
+  showModal: boolean = false;
+
   constructor(private authService: AuthenticationService) {}
 
   get isSignedIn(): boolean {
     return this.authService.isUserSignedIn();
   }
+
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
+
 
   signOut(): void {
     this.authService.signOut();
@@ -19,6 +26,7 @@ export class NavComponent {
 
   signIn(): void {
     this.authService.signIn();
+    this.showModal = false;
   }
 
 }
