@@ -1,7 +1,7 @@
 <nav class='topbar'>
   <a class='flex items-center gap-4' href='/'>
-    <img alt='logo' height='40' src='/assets/logo/2-modified.png' width='40'/>
-    <p class='text-heading3-bold text-light-1 max-xs:hidden'>Hubler</p>
+    <img alt='logo' height='40' src='/assets/donut.png' width='40'/>
+    <p class='text-heading2-bold text-light-1 max-xs:hidden'>Hubler</p>
   </a>
 
   <div class='flex items-center gap-3'>
@@ -20,7 +20,7 @@
         </div>
       </a>
     </div>
-    <a (click)="signOut()" *ngIf="isSignedIn" class="max-md:hidden" href="/">
+    <a *ngIf="isSignedIn" class="max-md:hidden" href="/">
       <div class="flex cursor-pointer">
         <img alt="logout" height="24" src="/assets/assets/logout.svg" width="24">
       </div>

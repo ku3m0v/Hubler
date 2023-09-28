@@ -9,8 +9,8 @@ export class SidebarComponent {
   public sidebarLinks = [
     { route: '/home', label: 'Home', imgURL: '/assets/assets/home.svg' },
     { route: '/sing-in', label: 'User', imgURL: '/assets/assets/user.svg' },
-    { route: '/card', label: 'Card', imgURL: '/assets/assets/community.svg' },
-    { route: '/logout', label: 'Logout', imgURL: '/assets/assets/logout.svg' }
+    { route: '/card', label: 'Warehouse', imgURL: '/assets/assets/store.svg' },
+    { route: '/about', label: 'About', imgURL: '/assets/assets/csv.svg' },
   ];
 
   public isActive(linkRoute: string, currentPath: string): boolean {

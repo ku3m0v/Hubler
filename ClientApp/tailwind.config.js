@@ -169,8 +169,11 @@ module.exports = {
       ],
     },
     extend: {
+      fontFamily: {
+        'sans': ['Roboto', 'ui-sans-serif', 'system-ui']
+      },
       colors: {
-        "primary-500": "#3253ff",
+        "primary-500": "#542966",
         "secondary-500": "#FFB620",
         blue: "#0095F6",
         "logout-btn": "#FF5A5A",
