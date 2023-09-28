@@ -170,7 +170,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        "primary-500": "#6410d0",
+        "primary-500": "#3253ff",
         "secondary-500": "#FFB620",
         blue: "#0095F6",
         "logout-btn": "#FF5A5A",

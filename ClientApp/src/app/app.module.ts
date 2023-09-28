@@ -9,6 +9,9 @@ import {FooterComponent} from "./footer/footer.component";
 import {SidebarComponent} from "./sidebar/sidebar.component";
 import {HomeComponent} from "./home/home.component";
 import {CardComponent} from "./card/card.component";
+import {SignInComponent} from "./auth/sign-in/sign-in.component";
+import {SignUpComponent} from "./auth/sign-up/sign-up.component";
+import {NavComponent} from "./nav/nav.component";
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import {CardComponent} from "./card/card.component";
     SidebarComponent,
     HomeComponent,
     CardComponent,
+    SignInComponent,
+    SignUpComponent,
     FooterComponent,
+    NavComponent,
   ],
   bootstrap: [ AppComponent ]
 })

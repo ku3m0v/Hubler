@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { initFlowbite } from 'flowbite';
+import {AuthenticationService} from "./authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -12,5 +13,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     initFlowbite();
+  }
+  constructor(private authService: AuthenticationService) {}
+
+  get isSignedIn(): boolean {
+    return this.authService.isUserSignedIn();
   }
 }

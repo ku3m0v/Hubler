@@ -1,0 +1,31 @@
+<nav class='topbar'>
+  <a class='flex items-center gap-4' href='/'>
+    <img alt='logo' height='40' src='/assets/logo/2-modified.png' width='40'/>
+    <p class='text-heading3-bold text-light-1 max-xs:hidden'>Hubler</p>
+  </a>
+
+  <div class='flex items-center gap-3'>
+    <button (click)="signIn()" *ngIf="!isSignedIn" class="md:bg-primary-500 text-white text-base-regular font-semibold rounded-lg px-8 py-2 max-md:hidden"
+            href="/home">Get started
+    </button>
+    <div class="flex flex-row gap-2 md:hidden">
+      <div class="flex cursor-pointer">
+        <button (click)="signIn()" *ngIf="!isSignedIn" href="/home">
+          <img alt="logout" height={24} src="/assets/assets/user.svg" width={24}>
+        </button>
+      </div>
+      <a (click)="signOut()" *ngIf="isSignedIn" href="/">
+        <div class="flex cursor-pointer">
+          <img alt="logout" height={24} src="/assets/assets/logout.svg" width={24}>
+        </div>
+      </a>
+    </div>
+    <a (click)="signOut()" *ngIf="isSignedIn" class="max-md:hidden" href="/">
+      <div class="flex cursor-pointer">
+        <img alt="logout" height="24" src="/assets/assets/logout.svg" width="24">
+      </div>
+    </a>
+  </div>
+
+
+</nav>
