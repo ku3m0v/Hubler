@@ -8,25 +8,26 @@ import {AuthenticationService} from "../authentication.service";
 })
 export class NavComponent {
   showModal: boolean = false;
+  showToast: boolean = false;
 
   constructor(private authService: AuthenticationService) {}
 
   get isSignedIn(): boolean {
     return this.authService.isUserSignedIn();
   }
-
   toggleModal() {
     this.showModal = !this.showModal;
   }
-
-
   signOut(): void {
     this.authService.signOut();
   }
-
   signIn(): void {
     this.authService.signIn();
     this.showModal = false;
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+    }, 2000);
   }
 
 }

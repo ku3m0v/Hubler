@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthenticationService} from "../authentication.service";
 
 @Component({
@@ -8,19 +8,22 @@ import {AuthenticationService} from "../authentication.service";
 })
 export class SidebarComponent {
   public sidebarLinks = [
-    { route: '/home', label: 'Home', imgURL: '/assets/assets/home.svg' },
-    { route: '/sing-in', label: 'User', imgURL: '/assets/assets/user.svg' },
-    { route: '/card', label: 'Card', imgURL: '/assets/assets/store.svg' },
+    {route: '/home', label: 'Home', imgURL: '/assets/assets/home.svg'},
+    {route: '/sign-in', label: 'User', imgURL: '/assets/assets/user.svg'},
+    {route: '/card', label: 'Card', imgURL: '/assets/assets/store.svg'},
   ];
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService) {
+  }
 
   get isSignedIn(): boolean {
     return this.authService.isUserSignedIn();
   }
+
   signOut(): void {
     this.authService.signOut();
   }
+
   signIn(): void {
     this.authService.signIn();
   }
