@@ -1,9 +1,7 @@
 .getstarted {
-  background-image: linear-gradient(to left, #310a68, #1e1b4b);
-  transition: ease-out;
+  background-image: linear-gradient(to right, #310a68, #1e1b4b);
 }
 
 .getstarted:hover {
-  background-image: linear-gradient(to left, #310a68, #170334);
-  transition: ease-in;
+  background-image: linear-gradient(to right, #310a68, #170334);
 }
