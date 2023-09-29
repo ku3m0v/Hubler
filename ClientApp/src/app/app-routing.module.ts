@@ -14,8 +14,8 @@ const routes: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'home', component: HomeComponent },
   { path: 'card', component: CardComponent },
-  { path: 'sing-in', component: SignInComponent },
-  { path: 'sing-in', component: SignUpComponent },
+  { path: 'sign-in', component: SignInComponent },
+  { path: 'sign-up', component: SignUpComponent },
 ];
 
 @NgModule({

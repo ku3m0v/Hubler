@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-home',
@@ -16,4 +17,15 @@ export class HomeComponent {
     }, 1000);
   }
 
+  constructor(private authService: AuthenticationService) {}
+
+  get isSignedIn(): boolean {
+    return this.authService.isUserSignedIn();
+  }
+  signOut(): void {
+    this.authService.signOut();
+  }
+  signIn(): void {
+    this.authService.signIn();
+  }
 }
