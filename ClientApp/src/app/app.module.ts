@@ -12,6 +12,7 @@ import {CardComponent} from "./card/card.component";
 import {SignInComponent} from "./auth/sign-in/sign-in.component";
 import {SignUpComponent} from "./auth/sign-up/sign-up.component";
 import {NavComponent} from "./nav/nav.component";
+import {LandingComponent} from "./landing/landing.component";
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {NavComponent} from "./nav/nav.component";
     SignUpComponent,
     FooterComponent,
     NavComponent,
+    LandingComponent
   ],
   bootstrap: [ AppComponent ]
 })
