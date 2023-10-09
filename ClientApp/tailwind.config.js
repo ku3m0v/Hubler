@@ -173,6 +173,7 @@ module.exports = {
         'sans': ['Roboto', 'ui-sans-serif', 'system-ui']
       },
       colors: {
+        "pink-main" : "#fda5d9",
         "primary-500": "#542966",
         "secondary-500": "#FFB620",
         blue: "#0095F6",

@@ -38,7 +38,7 @@
         </div>
       </a>
     </div>
-    <a *ngIf="isSignedIn" [routerLink]="['/sign-in']" class="max-md:hidden">
+    <a *ngIf="isSignedIn" [routerLink]="['/sign-in']" class="max-md:hidden px-3">
       <div class="relative">
         <img alt="" class="w-10 h-10 rounded" src="/assets/logo/hubler.png">
         <span
@@ -50,7 +50,8 @@
 
 <div *ngIf="showModal">
   <div
-    class="fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-40 w-full h-5/6 rounded-lg shadow-lg backdrop-blur-md"></div>
+    class="fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-40 w-full h-5/6 rounded-lg shadow-lg backdrop-blur-md">
+  </div>
   <div aria-hidden="true" class="fixed top-0 left-0 right-0 bottom-0 z-50 w-full h-full flex items-center justify-center overflow-x-hidden overflow-y-auto md:inset-0" id="authentication-modal"
        tabindex="-1">
     <div class="relative w-full max-w-md max-h-full">
