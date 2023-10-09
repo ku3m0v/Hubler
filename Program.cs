@@ -1,8 +1,16 @@
+using Hubler.BAL.Implementations;
+using Hubler.BAL.Interfaces;
+using Hubler.DAL.Implementations;
+using Hubler.DAL.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<IEmployeeBAL, EmployeeBAL>();
+builder.Services.AddSingleton<IEmployeeDAL, EmployeeDAL>();
 
 var app = builder.Build();
 
