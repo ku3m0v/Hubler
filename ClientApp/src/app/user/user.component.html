@@ -1,1 +1,51 @@
-<p>user works!</p>
+<div class="mx-auto px-6">
+  <!-- User Information Card -->
+  <div class="bg-gray-900 shadow rounded-lg p-8 w-full mx-auto">
+    <!-- Nested User Card -->
+    <div class="flex flex-row items-center justify-center gap-4 py-8 rounded-lg mb-6"
+         style="background-image: url('/assets/bg_contact.jpg');" >
+      <div class="flex justify-center">
+        <img class="rounded-full w-44 h-44 object-cover border-4 border-white" src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg" alt="Profile picture">
+      </div>
+      <div class="mt-6 text-center flex flex-col gap-2 w-1/4">
+        <input class="text-[24px] font-medium bg-none border-0 text-center rounded-xl" value="Jessica Jones" disabled>
+        <input class="text-[16px] font-medium bg-none border-0 text-center rounded-xl" value="Manager" disabled>
+      </div>
+    </div>
+    <!-- User Information Details -->
+    <div class="flex flex-wrap -mx-3">
+      <div class="w-full md:w-1/2 px-3 mb-6">
+        <label class="text-gray-400">Email</label>
+        <input type="email"
+               class="mt-1 p-2 w-full bg-gray-600 border-gray-700 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-pink-main text-sm rounded-lg"
+               placeholder="jessica@example.com">
+      </div>
+      <div class="w-full md:w-1/2 px-3 mb-6">
+        <label class="text-gray-400">Password</label>
+        <input type="password"
+               class="mt-1 p-2 w-full bg-gray-600 border-gray-700 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-pink-main text-sm rounded-lg"
+               placeholder="••••••••">
+      </div>
+      <div class="w-full md:w-1/2 px-3 mb-6">
+        <label class="text-gray-400">Hire Date</label>
+        <input type="date"
+               class="mt-1 p-2 w-full bg-gray-600 border-gray-700 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-pink-main text-sm rounded-lg cursor-not-allowed"
+               value="2021-01-01"
+               disabled
+        >
+      </div>
+      <div class="w-full md:w-1/2 px-3 mb-6">
+        <label class="text-gray-400">Supermarket Name</label>
+        <input type="text"
+               class="mt-1 p-2 w-full bg-gray-600 border-gray-700 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-pink-main text-sm rounded-lg cursor-not-allowed"
+               placeholder="Supermarket Name"
+               value="SuperFresh Market"
+               disabled
+        >
+      </div>
+    </div>
+    <button class="w-full bg-gradient-to-l from-violet-600 to-fuchsia-700 text-white text-base-medium rounded-lg py-2"
+            type="submit"> Edit
+    </button>
+  </div>
+</div>
