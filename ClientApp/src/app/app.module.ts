@@ -5,15 +5,13 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
-import {FooterComponent} from "./footer/footer.component";
 import {SidebarComponent} from "./sidebar/sidebar.component";
 import {HomeComponent} from "./home/home.component";
-import {CardComponent} from "./card/card.component";
 import {SignInComponent} from "./auth/sign-in/sign-in.component";
-
 import {NavComponent} from "./nav/nav.component";
 import {LandingComponent} from "./landing/landing.component";
 import {SignUpComponent} from "./auth/sign-up/sign-up.component";
+import {UserComponent} from "./user/user.component";
 
 
 @NgModule({
@@ -26,11 +24,10 @@ import {SignUpComponent} from "./auth/sign-up/sign-up.component";
   declarations: [
     AppComponent,
     SidebarComponent,
+    UserComponent,
     HomeComponent,
-    CardComponent,
     SignInComponent,
     SignUpComponent,
-    FooterComponent,
     NavComponent,
     LandingComponent
   ],
