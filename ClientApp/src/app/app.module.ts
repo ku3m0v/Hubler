@@ -10,9 +10,10 @@ import {SidebarComponent} from "./sidebar/sidebar.component";
 import {HomeComponent} from "./home/home.component";
 import {CardComponent} from "./card/card.component";
 import {SignInComponent} from "./auth/sign-in/sign-in.component";
-import {SignUpComponent} from "./auth/sign-up/sign-up.component";
+
 import {NavComponent} from "./nav/nav.component";
 import {LandingComponent} from "./landing/landing.component";
+import {SignUpComponent} from "./auth/sign-up/sign-up.component";
 
 
 @NgModule({

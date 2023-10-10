@@ -7,7 +7,7 @@ import {AuthenticationService} from "../authentication.service";
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
-  showModal: boolean = false;
+  showModal: boolean = false
   showToast: boolean = false;
 
   constructor(private authService: AuthenticationService) {}
@@ -28,6 +28,10 @@ export class NavComponent {
     setTimeout(() => {
       this.showToast = false;
     }, 2000);
+  }
+
+  closeModalAndNavigate() {
+    this.showModal = false;
   }
 
 }
