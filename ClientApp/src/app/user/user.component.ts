@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-user',
@@ -10,6 +10,7 @@ export class UserComponent {
   public profileForm: FormGroup;
   public isEditing = false;
 
+  @ViewChild('imageInput', { static: false }) imageInput!: ElementRef;
   constructor(private fb: FormBuilder) {
     this.profileForm = this.fb.group({
       name: ['John Doe'],
@@ -24,7 +25,6 @@ export class UserComponent {
 
   saveProfile() {
     if (this.profileForm.valid) {
-      // API call or other logic can go here
       this.toggleEdit();
     }
   }
@@ -32,5 +32,21 @@ export class UserComponent {
   cancelEdit() {
     this.profileForm.reset(this.profileForm.value);
     this.toggleEdit();
+  }
+
+  changeImage() {
+    this.imageInput.nativeElement.click();
+  }
+
+  onImageChange(event: Event) {
+    const file = (event.target as HTMLInputElement).files![0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const imageElement: HTMLImageElement = document.querySelector('img[alt="Profile picture"]') as HTMLImageElement;
+        imageElement.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 }
