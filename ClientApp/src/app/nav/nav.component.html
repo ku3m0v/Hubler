@@ -72,7 +72,7 @@
           <span class="sr-only">Close modal</span>
         </button>
         <div class="px-6 py-6 lg:px-8">
-          <h3 class="mb-4 text-xl font-medium text-gray-200">Sign in to our platform</h3>
+          <h3 class="mb-4 text-xl font-medium text-gray-200">Sign up to our platform</h3>
           <form action="#" class="space-y-6">
             <div>
               <label class="block mb-2 text-sm font-medium text-gray-200" for="email">Your email</label>
@@ -97,8 +97,48 @@
               <input
                 class="bg-gray-600 border-gray-700 text-gray-100 placeholder-gray-400 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 id="confirmpassword" name="confirmpassword" placeholder="••••••••"
-                required=""
-                type="confirmpassword">
+                required
+                type="password">
+            </div>
+            <div>
+              <label class="block mb-2 text-sm font-medium text-gray-200" for="dropdownRadioButton">Market address</label>
+              <button
+                (click)="toggleDropdown()"
+                class="text-white bg-gray-600 font-medium rounded-lg text-sm w-full py-2.5 justify-center inline-flex items-center"
+                id="dropdownRadioButton"
+                type="button">
+                {{ selectedOption || 'Please choose an option' }}
+                <svg aria-hidden="true" class="w-2.5 h-2.5 ml-2.5" fill="none" viewBox="0 0 10 6"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"/>
+                </svg>
+              </button>
+
+              <!-- Dropdown menu -->
+              <div
+                *ngIf="isDropdownVisible"
+                @fadeInOut
+                class="w-full bg-gray-800 divide-gray-100 rounded-lg shadow mt-2"
+                id="dropdownDefaultRadio">
+                <ul aria-labelledby="dropdownRadioButton"
+                    class="p-3 space-y-3 text-sm text-gray-100">
+                  <li *ngFor="let radio of radioButtons">
+                    <div class="flex items-center">
+                      <input
+                        (change)="updateSelection(radio.label)"
+                        [(ngModel)]="selectedOption"
+                        [id]="radio.id"
+                        [value]="radio.label"
+                        class="w-4 h-4 text-fuchsia-600 bg-gray-100 border-gray-300 focus:ring-fuchsia-700 focus:ring-2"
+                        name="default-radio"
+                        type="radio">
+                      <label [for]="radio.id"
+                             class="cursor-pointer ml-2 text-sm font-medium">{{radio.label}}</label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
             <div class="flex justify-between">
               <div class="flex items-start">
@@ -130,7 +170,7 @@
     <img alt="men_blue_suit" class="absolute w-60 bottom-[17%] right-[22%]" src="/assets/people/men_blue_suit.png">
     <img alt="woman_with_book" class="absolute w-32 bottom-[16%] right-[14%]" src="/assets/people/woman_with_book.png">
     <img alt="waving_man" class="absolute w-36 bottom-[17%] left-[15%]" src="/assets/people/waving_man.png">
-    <img alt="thumbs-up_man" class="absolute w-[22em] bottom-[17%] left-[18%]" src="/assets/people/thumbsup_person.png">
+    <img alt="thumbs-up_man" class="absolute w-[12em] bottom-[17%] left-[24%]" src="/assets/people/thumbsup_person.png">
   </div>
 
 

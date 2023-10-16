@@ -12,6 +12,7 @@ import {NavComponent} from "./nav/nav.component";
 import {LandingComponent} from "./landing/landing.component";
 import {SignUpComponent} from "./auth/sign-up/sign-up.component";
 import {UserComponent} from "./user/user.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {UserComponent} from "./user/user.component";
     FormsModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     AppRoutingModule
   ],
   declarations: [
