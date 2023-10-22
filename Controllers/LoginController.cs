@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Hubler.BAL.Interfaces;
+using Hubler.DAL.Interfaces;
 using Hubler.Models;
 
 namespace Hubler.Controllers;
@@ -10,28 +11,34 @@ namespace Hubler.Controllers;
 [ApiController]
 public class LoginController : ControllerBase
 {
-    private readonly IEmployeeBAL _employeeBAL;
+    private readonly IEmployeeDAL _employeeDAL;
 
-    public LoginController(IEmployeeBAL employeeBAL)
+    public LoginController(IEmployeeDAL employeeDAL)
     {
-        _employeeBAL = employeeBAL ?? throw new ArgumentNullException(nameof(employeeBAL));
+        _employeeDAL = employeeDAL ?? throw new ArgumentNullException(nameof(employeeDAL));
     }
 
-    [HttpPost("authenticate")]
-    public ActionResult Authenticate(LoginModel model)
+    [HttpPost]
+    public IActionResult Login([FromBody] LoginModel loginModel)
     {
-        if (model == null || string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
+        if (loginModel == null || string.IsNullOrWhiteSpace(loginModel.Email) ||
+            string.IsNullOrWhiteSpace(loginModel.Password))
         {
-            return BadRequest("Invalid user credentials provided.");
+            return BadRequest(new { message = "Invalid credentials." });
         }
 
-        var userId = _employeeBAL.Authenticate(model.Email, model.Password);
-        if (userId.HasValue)
+        // Assuming the password stored in the database is hashed and you would need to hash the provided password.
+        // For this example, we are using the plain password, but you should definitely use a hash function before calling Authenticate.
+        int? employeeId = _employeeDAL.Authenticate(loginModel.Email, loginModel.Password);
+
+        if (!employeeId.HasValue)
         {
-            // Assuming you want to return the employee's Id for a successful login
-            return Ok(new { UserId = userId.Value });
+            return Unauthorized(new { message = "Invalid email or password." });
         }
 
-        return Unauthorized();
+        // You might also want to generate a JWT token or any other authentication mechanism here.
+        // For now, simply returning a success message and the ID of the authenticated employee.
+
+        return Ok(new { message = "Logged in successfully.", id = employeeId.Value });
     }
 }

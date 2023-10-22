@@ -14,18 +14,18 @@ public class EmployeeBAL : IEmployeeBAL
         _employeeDAL = employeeDAL;
     }
     
-    public int? Authenticate(string email, string passHash)
-    {
-        string encryptedPassword = EncryptPassword(passHash);
-        foreach (Employee employee in _employeeDAL.FindByEmail(email))
-        {
-            if (employee.PassHash == passHash)
-            {
-                return employee.Id;
-            }
-        }
-        return null;
-    }
+    // public int? Authenticate(string email, string passHash)
+    // {
+    //     string encryptedPassword = EncryptPassword(passHash);
+    //     foreach (Employee employee in _employeeDAL.FindByEmail(email))
+    //     {
+    //         if (employee.PassHash == passHash)
+    //         {
+    //             return employee.Id;
+    //         }
+    //     }
+    //     return null;
+    // }
     
     public string EncryptPassword(string passHash)
     {

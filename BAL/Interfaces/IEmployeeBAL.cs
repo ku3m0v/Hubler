@@ -2,5 +2,5 @@ namespace Hubler.BAL.Interfaces;
 
 public interface IEmployeeBAL
 {
-    int? Authenticate(string email, string password);
+    // int? Authenticate(string email, string password);
 }
