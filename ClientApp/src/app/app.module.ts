@@ -20,7 +20,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     FormsModule,
-    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule

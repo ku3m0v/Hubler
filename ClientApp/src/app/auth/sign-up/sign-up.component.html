@@ -50,6 +50,47 @@
               required=""
               type="confirmpassword">
           </div>
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-200" for="dropdownRadioButton">Market address</label>
+            <button
+              (click)="toggleDropdown()"
+              class="text-white bg-gray-600 font-medium rounded-lg text-sm w-full py-2.5 justify-center inline-flex items-center"
+              id="dropdownRadioButton"
+              type="button">
+              {{ selectedOption || 'Please choose an option' }}
+              <svg aria-hidden="true" class="w-2.5 h-2.5 ml-2.5" fill="none" viewBox="0 0 10 6"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2"/>
+              </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div
+              *ngIf="isDropdownVisible"
+              @fadeInOut
+              class="w-full bg-gray-800 divide-gray-100 rounded-lg shadow mt-2"
+              id="dropdownDefaultRadio">
+              <ul aria-labelledby="dropdownRadioButton"
+                  class="p-3 space-y-3 text-sm text-gray-100">
+                <li *ngFor="let radio of radioButtons">
+                  <div class="flex items-center">
+                    <input
+                      (change)="updateSelection(radio.label)"
+                      [(ngModel)]="selectedOption"
+                      [id]="radio.id"
+                      [value]="radio.label"
+                      class="cursor-pointer w-4 h-4 text-fuchsia-600 bg-gray-100 border-gray-300 focus:ring-fuchsia-700 focus:ring-2"
+                      name="default-radio"
+                      type="radio">
+                    <label [for]="radio.id"
+                           class="cursor-pointer ml-2 text-sm font-medium">{{radio.label}}</label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <div class="flex justify-between">
             <div class="flex items-start">
               <div class="absolute">
