@@ -1,0 +1,78 @@
+<div class="relative bg-gray-900 rounded-lg overflow-hidden">
+
+  <div class="absolute inset-0 bg-cover bg-center"
+       style="background-image: url('/assets/bg_sign.jpg'); filter: blur(3px);"></div>
+
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+
+  <div class="py-5 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16 relative">
+    <div class="flex flex-col justify-center">
+      <img alt="waving_man" class="absolute w-[19em] bottom-[13%] left-[30%] z-1" src="/assets/people/glad_to_see.png">
+      <h1
+        class="mb-4 text-heading2-semibold font-extrabold tracking-tight leading-none text-gray-50 z-2 md:text-5xl lg:text-6xl dark:text-white">
+        We invest in the world’s potential</h1>
+      <p class="mb-6 text-heading4-medium font-light text-gray-100 z-2 lg:text-xl dark:text-gray-400">Here at Flowbite we
+        focus on
+        markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+      <a class="text-gray-50 hover:underline font-medium text-lg inline-flex items-center" href="/landing">Read
+        more about our app
+        <svg aria-hidden="true" class="w-3.5 h-3.5 ml-2" fill="none" viewBox="0 0 14 10"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"/>
+        </svg>
+      </a>
+    </div>
+    <div>
+      <div class="lg:max-w-xl p-6 space-y-8 sm:p-8 rounded-lg shadow-xl bg-gray-800">
+        <h2 class="text-heading2-semibold font-semibold text-white">
+          Sign in to Hubler.io
+        </h2>
+        <form action="#" class="space-y-6">
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-200" for="email">Your email</label>
+            <input
+              class="bg-gray-600 border-gray-700 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-pink-main text-sm rounded-lg block w-full p-2.5"
+              id="email" name="email"
+              placeholder="name@company.com"
+              required type="email">
+          </div>
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-200 dark:text-white" for="password">Your
+              password</label>
+            <input
+              class="bg-gray-600 border-gray-700 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-pink-main text-sm rounded-lg block w-full p-2.5"
+              id="password" name="password"
+              placeholder="••••••••"
+              required
+              type="password">
+          </div>
+          <div class="flex justify-between">
+            <div class="flex items-start">
+              <div class="absolute">
+                <input
+                  class="w-4 h-4 text-pink-main bg-gray-100 border-0 rounded cursor-pointer focus:ring-2 focus:ring-pink-main"
+                  id="remember" required
+                  type="checkbox"
+                  value="">
+              </div>
+              <label class="ml-6 text-sm font-medium text-gray-200" for="remember">Remember me</label>
+            </div>
+            <a class="text-base-medium text-gray-300 hover:text-pink-main hover:underline cursor-pointer" href="#">Lost
+              Password?</a>
+          </div>
+          <button (click)="signIn()" *ngIf="!isSignedIn" [routerLink]="['/home']"
+                  class="w-full bg-gradient-to-l from-indigo-600 to-pink-main text-white text-base-medium rounded-lg py-2"
+                  type="submit">
+            Sign in
+          </button>
+          <div class="text-base-medium text-gray-300">
+            Not registered? <a *ngIf="!isSignedIn" [routerLink]="['/sign-up']"
+                               class="text-base-medium hover:text-pink-main hover:underline">Create
+            account</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

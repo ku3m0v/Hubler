@@ -1,0 +1,12 @@
+.getstarted {
+  background-image: linear-gradient(to right, #391c77, #a020b0);
+}
+
+.getstarted:hover {
+  background-image: linear-gradient(to right, #310a68, #670375);
+}
+
+#dropdownDefaultRadio {
+  transition: all 0.3s ease-out;
+  /* other styles... */
+}

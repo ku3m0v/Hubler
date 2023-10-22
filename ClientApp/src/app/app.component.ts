@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { initFlowbite } from 'flowbite';
+import {Component, OnInit} from '@angular/core';
+import {initFlowbite} from 'flowbite';
+import {AuthenticationService} from "./authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,13 @@ import { initFlowbite } from 'flowbite';
 })
 export class AppComponent implements OnInit {
   title = 'Hubler';
+
+  constructor(private authService: AuthenticationService) {
+  }
+
+  get isSignedIn(): boolean {
+    return this.authService.isUserSignedIn();
+  }
 
   ngOnInit(): void {
     initFlowbite();

@@ -1,0 +1,84 @@
+<div *ngIf="showLoading" class="flex items-center justify-center pt-28 w-full">
+  <div class="w-5/5 h-5/5 space-y-10 animate-pulse md:space-y-0 md:space-x-10 md:flex md:items-center" role="status">
+    <div class="flex items-center justify-center w-full h-64 bg-gray-700 rounded sm:w-[30rem]">
+      <svg aria-hidden="true" class="w-16 h-16 text-gray-600" fill="currentColor" viewBox="0 0 20 18"
+           xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+      </svg>
+    </div>
+    <div class="w-full">
+      <div class="h-2.5 bg-gray-700 rounded-full w-[500px] mb-6"></div>
+      <div class="h-2.5 bg-gray-700 rounded-full max-w-[600px] mb-4"></div>
+      <div class="h-2.5 bg-gray-700 rounded-full mb-4"></div>
+      <div class="h-2.5 bg-gray-700 rounded-full max-w-[550px] mb-4"></div>
+      <div class="h-2.5 bg-gray-700 rounded-full max-w-[570px] mb-4"></div>
+      <div class="h-2.5 bg-gray-700 rounded-full max-w-[450px]"></div>
+    </div>
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+
+<div *ngIf="showGallery && isSignedIn" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+  <div class="grid gap-4">
+    <div>
+      <img alt="" class="h-auto max-w-full rounded-lg"
+           src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg">
+    </div>
+    <div>
+      <img alt="" class="h-auto max-w-full rounded-lg"
+           src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg">
+    </div>
+    <div>
+      <img alt="" class="h-auto max-w-full rounded-lg"
+           src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg">
+    </div>
+  </div>
+  <div class="grid gap-4">
+    <div>
+      <img alt="" class="h-auto max-w-full rounded-lg"
+           src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg">
+    </div>
+    <div>
+      <img alt="" class="h-auto max-w-full rounded-lg"
+           src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg">
+    </div>
+    <div>
+      <img alt="" class="h-auto max-w-full rounded-lg"
+           src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg">
+    </div>
+  </div>
+  <div class="grid gap-4">
+    <div>
+      <img alt="" class="h-auto max-w-full rounded-lg"
+           src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg">
+    </div>
+    <div>
+      <img alt="" class="h-auto max-w-full rounded-lg"
+           src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg">
+    </div>
+    <div>
+      <img alt="" class="h-auto max-w-full rounded-lg"
+           src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg">
+    </div>
+  </div>
+  <div class="grid gap-4">
+    <div>
+      <img alt="" class="h-auto max-w-full rounded-lg"
+           src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg">
+    </div>
+    <div>
+      <img alt=""
+           class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg">
+    </div>
+    <div>
+      <img alt=""
+           class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg">
+    </div>
+  </div>
+</div>
+
+
+
+
