@@ -8,13 +8,42 @@ namespace Hubler.DAL.Implementations;
 
 public class EmployeeDAL : IEmployeeDAL
 {
-    // public IEnumerable<Employee> FindByEmail(string email)
-    // {
-    //     using (var connection = DBConnection.GetConnection())
-    //     {
-    //         return connection.Query<Employee>("SELECT * FROM EMPLOYEE WHERE EMAIL = :Email", new { Email = email });
-    //     }
-    // }
+    public Employee FindByEmail(string email)
+    {
+        using (var connection = DBConnection.GetConnection())
+        {
+            var parameters = new OracleDynamicParameters();
+            parameters.Add("p_email", email, OracleMappingType.Varchar2);
+            parameters.Add("p_employeeId", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("p_passHash", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+            parameters.Add("p_firstName", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+            parameters.Add("p_lastName", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+            parameters.Add("p_createdDate", dbType: OracleMappingType.Date, direction: ParameterDirection.Output);
+            parameters.Add("p_supermarketId", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("p_roleId", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("p_contentId", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+
+            connection.Execute("findByEmailEmployee", parameters, commandType: CommandType.StoredProcedure);
+
+            if (parameters.Get<int?>("p_employeeId") is not int id) // Check if the ID is null, meaning the email was not found.
+            {
+                return null;
+            }
+
+            return new Employee
+            {
+                Id = id,
+                Email = email,
+                PassHash = parameters.Get<string>("p_passHash"),
+                FirstName = parameters.Get<string>("p_firstName"),
+                LastName = parameters.Get<string>("p_lastName"),
+                CreatedDate = parameters.Get<DateTime>("p_createdDate"),
+                SupermarketId = parameters.Get<int>("p_supermarketId"),
+                RoleId = parameters.Get<int>("p_roleId"),
+                ContentId = parameters.Get<int>("p_contentId")
+            };
+        }
+    }
 
     public Employee FindById(int id)
     {
