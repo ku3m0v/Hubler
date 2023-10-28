@@ -4,7 +4,11 @@ namespace Hubler.DAL.Interfaces;
 
 public interface IEmployeeDAL
 {
-    Employee FindByEmail(String email);
-    Employee FindById(int id);
-    int? Authenticate(string email, string passHash);
+    Employee GetById(int id);
+    void Insert(Employee employee);
+    void Update(Employee employee);
+    void Delete(int id);
+    IEnumerable<Employee> GetAll();
+    Employee GetByEmail(string email);
+
 }

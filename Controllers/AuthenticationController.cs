@@ -39,7 +39,7 @@ namespace Hubler.Controllers
                 return BadRequest("Invalid user request.");
             }
 
-            Employee employee = _employeeDAL.FindByEmail(model.Email);
+            Employee employee = _employeeDAL.GetByEmail(model.Email);
 
             // Assuming the password in your Employee model is hashed.
             // If it's not hashed, you'll want to hash it using a library like BCrypt before comparing.
