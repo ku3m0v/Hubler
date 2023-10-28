@@ -13,6 +13,8 @@ import {LandingComponent} from "./landing/landing.component";
 import {SignUpComponent} from "./auth/sign-up/sign-up.component";
 import {UserComponent} from "./user/user.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ChartComponent} from "./chart/chart.component";
+import {NgApexchartsModule} from "ng-apexcharts";
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgApexchartsModule,
   ],
   declarations: [
     AppComponent,
@@ -32,7 +35,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     SignInComponent,
     SignUpComponent,
     NavComponent,
-    LandingComponent
+    LandingComponent,
+    ChartComponent,
   ],
   bootstrap: [AppComponent]
 })
