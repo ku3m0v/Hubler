@@ -14,6 +14,18 @@ interface Product {
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements AfterViewInit {
+  selectedValue: string = 'Last 7 days';
+  isDropdownVisible: boolean = false;
+  salesValue: string = '12,423';
+  percentageChange: number = 23;
+  toggleDropdown(): void {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+  updateValue(value: string): void {
+    this.selectedValue = value;
+    this.isDropdownVisible = false;
+  }
 
   private options: any;
   topProducts: Product[] = [
@@ -73,17 +85,18 @@ export class ChartComponent implements AfterViewInit {
 
 
   constructor(private elRef: ElementRef) {
+    const lastSevenDays = this.getLastSevenDays();
     this.options = {
       series: [
         {
           name: "Developer Edition",
           data: [1500, 1418, 1456, 1526, 1356, 1256],
-          color: "#1A56DB",
+          color: "#f2cd3b",
         },
         {
           name: "Designer Edition",
           data: [643, 413, 765, 412, 1423, 1731],
-          color: "#7E3BF2",
+          color: "#db1aae",
         },
       ],
       chart: {
@@ -112,8 +125,8 @@ export class ChartComponent implements AfterViewInit {
         gradient: {
           opacityFrom: 0.55,
           opacityTo: 0,
-          shade: "#1C64F2",
-          gradientToColors: ["#1C64F2"],
+          shade: "#f2cd3b",
+          gradientToColors: ["#db1aae"],
         },
       },
       dataLabels: {
@@ -132,7 +145,7 @@ export class ChartComponent implements AfterViewInit {
         },
       },
       xaxis: {
-        categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+        categories: lastSevenDays,
         labels: {
           show: false,
         },
@@ -158,9 +171,36 @@ export class ChartComponent implements AfterViewInit {
 
   private initChart(): void {
     const chartContainer = this.elRef.nativeElement.querySelector('#data-series-chart');
-    if (chartContainer && ApexCharts) {
+    if (chartContainer) {
       const chart = new ApexCharts(chartContainer, this.options);
       chart.render();
     }
   }
+
+  private getLastSevenDays(): string[] {
+    const result = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      result.push(this.formatDate(d));
+    }
+    return result;
+  }
+
+  private formatDate(date: Date): string {
+    const day = String(date.getDate()).padStart(2, '0');
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+
+    return `${day} ${this.getMonthName(monthIndex)} ${year}`;
+  }
+
+
+  private getMonthName(monthIndex: number): string {
+    const date = new Date();
+    date.setMonth(monthIndex);
+    return date.toLocaleString('default', { month: 'long' });
+  }
+
+
 }
