@@ -54,31 +54,31 @@ export class ChartComponent implements AfterViewInit {
       imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg',
       id: 1,
       title: 'Fresh Peaches',
-      date: '2021-02-01'
+      date: '2021/02/01'
     },
     {
       imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
       id: 2,
       title: 'Corn Onion Muffaleta Bread',
-      date: '2021-02-01'
+      date: '2021/02/01'
     },
     {
       imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
       id: 3,
       title: 'Fresh Blueberries',
-      date: '2021-02-03'
+      date: '2021/02/03'
     },
     {
       imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
       id: 4,
       title: 'Fresh Blueberries',
-      date: '2021-02-03'
+      date: '2021/02/03'
     },
     {
       imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
       id: 5,
       title: 'Fresh Blueberries',
-      date: '2021-02-03'
+      date: '2021/02/03'
     },
   ];
 
