@@ -15,8 +15,8 @@ const routes: Routes = [
   {path: 'user', component: UserComponent},
   {path: 'sign-in', component: SignInComponent},
   {path: 'sign-up', component: SignUpComponent},
-  { path: 'contact', component: LandingComponent},
-  { path: 'chart', component: ChartComponent},
+  {path: 'contact', component: LandingComponent},
+  {path: 'chart', component: ChartComponent},
 
 ];
 

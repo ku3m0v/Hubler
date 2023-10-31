@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
+import {AuthenticationService} from "../authentication.service";
 
 declare var ApexCharts: any;
 interface Product {
@@ -84,7 +85,7 @@ export class ChartComponent implements AfterViewInit {
 
 
 
-  constructor(private elRef: ElementRef) {
+  constructor(private elRef: ElementRef, private authService: AuthenticationService) {
     const lastSevenDays = this.getLastSevenDays();
     this.options = {
       series: [
@@ -202,5 +203,8 @@ export class ChartComponent implements AfterViewInit {
     return date.toLocaleString('default', { month: 'long' });
   }
 
+  get isSignedIn(): boolean {
+    return this.authService.isUserSignedIn();
+  }
 
 }

@@ -1,5 +1,5 @@
 <nav class='topbar'>
-  <a [routerLink]="['/home']" class='flex items-center gap-3'>
+  <a [routerLink]="['/chart']" class='flex items-center gap-3'>
     <img alt='logo' height='40' src='/assets/donut.png' width='40'/>
     <p class='text-heading2-bold text-light-1 max-xs:hidden'>hubler.io</p>
   </a>
@@ -28,7 +28,7 @@
 
     <div class="flex flex-row gap-2 md:hidden">
       <div class="flex cursor-pointer">
-        <button (click)="signIn()" *ngIf="!isSignedIn" [routerLink]="['/home']">
+        <button (click)="signIn()" *ngIf="!isSignedIn" [routerLink]="['/chart']">
           <img alt="logout" height={24} src="/assets/assets/user.svg" width={24}>
         </button>
       </div>
@@ -153,7 +153,7 @@
                   Conditions</a></label>
               </div>
             </div>
-            <button (click)="signIn()" *ngIf="!isSignedIn" [routerLink]="['/home']"
+            <button (click)="signIn()" *ngIf="!isSignedIn" [routerLink]="['/chart']"
                     class="w-full bg-gradient-to-l from-indigo-600 to-purple-600 text-white text-base-medium rounded-lg py-2"
                     type="submit">
               Register
