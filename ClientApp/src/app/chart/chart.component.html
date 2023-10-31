@@ -1,4 +1,4 @@
-<div *ngIf="isSignedIn" class="flex flex-row gap-3 items-center justify-content-center">
+<div class="flex flex-row gap-3 items-center justify-content-center">
   <div class="flex-grow h-full">
     <div class="md:max-h-[81vh] w-[22rem] bg-gray-900 rounded-lg shadow p-4">
       <div class="flex justify-between">
@@ -80,7 +80,7 @@
     <div class="md:max-h-[81vh] carousel carousel-vertical w-[26.4rem] space-y-3 p-4 bg-gray-900 shadow rounded-lg">
       <div>
         <h5 class="leading-none text-heading4-medium font-bold text-gray-100 dark:text-white pb-2">Top Products</h5>
-        <p class="text-base font-normal text-gray-400">Sales {{ selectedValue.toLowerCase() }}</p>
+        <p class="text-base font-normal text-gray-400">Sales</p>
       </div>
       <div *ngFor="let product of topProducts" class="relative">
 

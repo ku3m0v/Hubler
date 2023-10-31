@@ -19,6 +19,7 @@ export class ChartComponent implements AfterViewInit {
   isDropdownVisible: boolean = false;
   salesValue: string = '12,423';
   percentageChange: number = 23;
+
   toggleDropdown(): void {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
@@ -84,9 +85,7 @@ export class ChartComponent implements AfterViewInit {
   ];
 
 
-
   constructor(private elRef: ElementRef, private authService: AuthenticationService) {
-    const lastSevenDays = this.getLastSevenDays();
     this.options = {
       series: [
         {
@@ -146,7 +145,7 @@ export class ChartComponent implements AfterViewInit {
         },
       },
       xaxis: {
-        categories: lastSevenDays,
+        categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
         labels: {
           show: false,
         },
@@ -172,39 +171,13 @@ export class ChartComponent implements AfterViewInit {
 
   private initChart(): void {
     const chartContainer = this.elRef.nativeElement.querySelector('#data-series-chart');
-    if (chartContainer) {
+    if (chartContainer && ApexCharts) {
       const chart = new ApexCharts(chartContainer, this.options);
       chart.render();
     }
   }
 
-  private getLastSevenDays(): string[] {
-    const result = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      result.push(this.formatDate(d));
-    }
-    return result;
-  }
-
-  private formatDate(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0');
-    const monthIndex = date.getMonth();
-    const year = date.getFullYear();
-
-    return `${day} ${this.getMonthName(monthIndex)} ${year}`;
-  }
-
-
-  private getMonthName(monthIndex: number): string {
-    const date = new Date();
-    date.setMonth(monthIndex);
-    return date.toLocaleString('default', { month: 'long' });
-  }
-
   get isSignedIn(): boolean {
     return this.authService.isUserSignedIn();
   }
-
 }
