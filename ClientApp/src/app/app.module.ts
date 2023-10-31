@@ -15,7 +15,19 @@ import {UserComponent} from "./user/user.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ChartComponent} from "./chart/chart.component";
 import {NgApexchartsModule} from "ng-apexcharts";
+import {AuthGuard} from "./guards/auth-guard.service";
+import {RouterModule, Routes} from "@angular/router";
+import {LoginComponent} from "./login/login.component";
+import { JwtModule } from "@auth0/angular-jwt";
 
+const routes: Routes = [
+  { path: 'chart', component: ChartComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+];
+//function is use to get jwt token from local storage
+export function tokenGetter() {
+  return localStorage.getItem("jwt");
+}
 
 @NgModule({
   imports: [
@@ -26,7 +38,16 @@ import {NgApexchartsModule} from "ng-apexcharts";
     BrowserAnimationsModule,
     AppRoutingModule,
     NgApexchartsModule,
+    RouterModule.forRoot(routes),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:7234"],
+        disallowedRoutes: []
+      }
+    }),
   ],
+  providers: [AuthGuard],
   declarations: [
     AppComponent,
     SidebarComponent,
@@ -37,6 +58,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
     NavComponent,
     LandingComponent,
     ChartComponent,
+    LoginComponent
   ],
   bootstrap: [AppComponent]
 })
