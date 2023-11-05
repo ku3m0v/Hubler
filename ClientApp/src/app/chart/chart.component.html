@@ -1,6 +1,6 @@
 <div class="flex flex-row gap-3 items-center justify-content-center">
-  <div class="flex-grow h-full">
-    <div class="md:max-h-[81vh] w-[22rem] bg-gray-900 rounded-lg shadow p-4">
+  <div class="h-screen">
+    <div class="h-full w-[22rem] bg-gray-900 rounded-lg shadow p-4">
       <div class="flex justify-between">
         <div>
           <h5 class="leading-none text-heading4-medium font-bold text-white pb-2">${{ salesValue }}</h5>
@@ -14,70 +14,13 @@
                   stroke-width="2"/>
           </svg>
         </div>
-
       </div>
       <div id="data-series-chart"></div>
-      <div class="grid grid-cols-1 items-center border-t border-gray-900 justify-between mt-5">
-        <div class="flex justify-between items-center pt-5">
-          <!-- Button -->
-          <button
-            (click)="toggleDropdown()"
-            class="text-sm font-medium text-gray-400 text-center inline-flex items-center hover:text-gray-200"
-            data-dropdown-placement="bottom"
-            data-dropdown-toggle="lastDaysdropdown"
-            id="dropdownDefaultButton"
-            type="button">
-            {{ selectedValue }}
-            <svg aria-hidden="true" class="w-2.5 m-2.5 ml-1.5" fill="none" viewBox="0 0 10 6"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                    stroke-width="2"/>
-            </svg>
-          </button>
-          <!-- Dropdown menu -->
-          <div  [class.hidden]="!isDropdownVisible"
-                class="z-10 text-center hidden divide-y divide-gray-100 rounded-lg shadow w-40 bg-gray-800"
-                id="lastDaysdropdown">
-            <ul aria-labelledby="dropdownDefaultButton" class="py-2 text-sm text-gray-200">
-              <li>
-                <a (click)="updateValue('Yesterday')"
-                   class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">
-                  Yesterday</a>
-              </li>
-              <li>
-                <a (click)="updateValue('Today')"
-                   class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">Today</a>
-              </li>
-              <li>
-                <a (click)="updateValue('Last 7 days')"
-                   class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">Last 7 days</a>
-              </li>
-              <li>
-                <a (click)="updateValue('Last 30 days')"
-                   class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">Last 30 days</a>
-              </li>
-              <li>
-                <a (click)="updateValue('Last 90 days')"
-                   class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">Last 90 days</a>
-              </li>
-            </ul>
-          </div>
-          <a
-            class="uppercase text-sm font-medium inline-flex items-center rounded-lg text-gray-400 hover:text-purple-500 hover:bg-gray-800 focus:ring-gray-800 border-gray-200 px-3 py-2 cursor-pointer">
-            Sales Report
-            <svg aria-hidden="true" class="w-2.5 h-2.5 ml-1.5" fill="none" viewBox="0 0 6 10"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path d="m1 9 4-4-4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                    stroke-width="2"/>
-            </svg>
-          </a>
-        </div>
-      </div>
     </div>
   </div>
 
-  <div class="flex-grow h-full">
-    <div class="md:max-h-[81vh] carousel carousel-vertical w-[26.4rem] space-y-3 p-4 bg-gray-900 shadow rounded-lg">
+  <div class="h-full">
+    <div class="h-screen carousel carousel-vertical w-[26.4rem] space-y-3 p-4 bg-gray-900 shadow rounded-lg">
       <div>
         <h5 class="leading-none text-heading4-medium font-bold text-gray-100 dark:text-white pb-2">Top Products</h5>
         <p class="text-base font-normal text-gray-400">Sales</p>
@@ -103,8 +46,8 @@
     </div>
   </div>
 
-  <div class="flex-grow h-full">
-    <div class="md:max-h-[81vh] relative overflow-x-auto shadow-md md:rounded-lg">
+  <div class="h-full">
+    <div class="h-screen relative overflow-x-auto shadow-md md:rounded-lg">
       <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
         <h5 class="leading-none text-heading4-medium font-bold text-gray-100 pb-2">Expired products</h5>
       </div>
