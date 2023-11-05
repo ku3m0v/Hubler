@@ -33,18 +33,18 @@ namespace Hubler.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginModel model)
         {
-            if (model is null || string.IsNullOrWhiteSpace(model.Email) ||
+            if (model is null || string.IsNullOrWhiteSpace(model.Username) ||
                 string.IsNullOrWhiteSpace(model.Password))
             {
                 return BadRequest("Invalid user request.");
             }
 
-            Employee employee = _employeeDAL.GetByEmail(model.Email);
+            Employee employee = _employeeDAL.GetByEmail(model.Username);
 
             // Assuming the password in your Employee model is hashed.
             // If it's not hashed, you'll want to hash it using a library like BCrypt before comparing.
-            if (employee != null && model.Email.Equals(employee.Email) && 
-                BCrypt.Net.BCrypt.Verify(model.Password, employee.PassHash))
+            if (employee != null && model.Username.Equals(employee.Email) && model.Password.Equals(employee.PassHash))
+                //BCrypt.Net.BCrypt.Verify(model.Password, employee.PassHash))
             {
                 var tokenClaims = new[]
                 {
@@ -54,7 +54,7 @@ namespace Hubler.Controllers
                 };
 
                 var jwtSettings = _configuration.GetSection("JWTSettings");
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["securityKey"]));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                 var tokenOptions = new JwtSecurityToken(
                     issuer: jwtSettings["Issuer"],

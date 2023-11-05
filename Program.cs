@@ -46,7 +46,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddSingleton<IEmployeeBAL, EmployeeBAL>();
 builder.Services.AddSingleton<IEmployeeDAL, EmployeeDAL>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -65,8 +64,20 @@ builder.Services.AddAuthentication(opt =>
         ValidIssuer = jwtSettings["validIssuer"],
         ValidAudience = jwtSettings["validAudience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-            .GetBytes(jwtSettings.GetSection("securityKey").Value))
+            .GetBytes(jwtSettings["securityKey"]))  
     };
+});
+
+// Add CORS services
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowSpecificOrigins",
+        builder =>
+        {
+            builder.WithOrigins("*") // The origin of the frontend application
+                .AllowAnyHeader()    
+                .AllowAnyMethod();
+        });
 });
 
 var app = builder.Build();
@@ -81,6 +92,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("MyAllowSpecificOrigins");
 app.UseAuthentication();
 
 

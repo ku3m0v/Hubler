@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class LoginComponent {
   invalidLogin?: boolean;
-  url = configurl.apiServer.url + '/api/authentication/';
+  url = configurl.apiServer.url + 'api/authentication/';
   constructor(private router: Router, private http: HttpClient,private jwtHelper : JwtHelperService) { }
   public login = (form: NgForm) => {
     const credentials = JSON.stringify(form.value);
