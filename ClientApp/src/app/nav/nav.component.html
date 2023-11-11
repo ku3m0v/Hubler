@@ -6,24 +6,27 @@
 
   <div *ngIf="!isSignedIn" class="flex flex-row gap-5 mt-2">
     <a [routerLink]="['/']" class="cursor-pointer">
-      <p class='text-body-normal text-light-1 ease-out duration-200 hover:text-purple-400 max-xs:hidden'>Features</p>
+      <p class='nav_link'>Features</p>
     </a>
     <a [routerLink]="['/']" class="cursor-pointer">
-      <p class='text-body-normal text-light-1 ease-out duration-200 hover:text-purple-400 max-xs:hidden'>How it
+      <p class='nav_link'>How it
         works</p>
     </a>
     <a [routerLink]="['/']" class="cursor-pointer">
-      <p class='text-body-normal text-light-1 ease-out duration-200 hover:text-purple-400 max-xs:hidden'>About Us</p>
+      <p class='nav_link'>About Us</p>
     </a>
     <a [routerLink]="['/contact']" fragment="sectionID" class="cursor-pointer">
-      <p class='text-body-normal text-light-1 ease-out duration-200 hover:text-purple-400 max-xs:hidden'>Contact Us</p>
+      <p class='nav_link'>Contact Us</p>
     </a>
   </div>
 
   <div class='flex items-center gap-3 mt-2'>
     <button (click)="toggleModal()" *ngIf="!isSignedIn"
-            [routerLink]="['/']"
-            class="getstarted ease-in-out text-white text-base-medium rounded-lg px-8 py-2 max-md:hidden">Get started
+            [routerLink]="['/sign-in']"
+            class="flex flex-row ease-in-out text-white text-regular font-medium bg-purple-main border-2 border-purple-700/30 rounded-lg px-4 py-2 max-md:hidden shadow-md shadow-black">Sign in
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+      </svg>
     </button>
 
     <div class="flex flex-row gap-2 md:hidden">
@@ -38,163 +41,5 @@
         </div>
       </a>
     </div>
-    <a *ngIf="isSignedIn" [routerLink]="['/user']" class="max-md:hidden px-3">
-      <div class="relative">
-        <img alt="" class="w-10 h-10 rounded" src="/assets/logo/hubler.png">
-        <span
-          class="absolute bottom-0 left-8 transform translate-y-1/4 w-3.5 h-3.5 bg-fuchsia-600 border-2 border-fuchsia-950 rounded-full"></span>
-      </div>
-    </a>
   </div>
 </nav>
-
-<div *ngIf="showModal">
-  <div
-    class="fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-40 w-full h-full rounded-lg shadow-lg backdrop-blur-md">
-  </div>
-  <div aria-hidden="true"
-       class="fixed top-0 left-0 right-0 bottom-0 z-50 w-full h-full flex items-center justify-center overflow-x-hidden overflow-y-auto md:inset-0"
-       id="authentication-modal"
-       tabindex="-1">
-    <div class="relative w-full max-w-md max-h-full">
-      <!-- Modal content -->
-      <div class="relative bg-gray-900 rounded-lg shadow">
-        <!-- Close Modal Button -->
-        <button (click)="toggleModal()"
-                [routerLink]="['/landing']"
-                class="absolute top-3 right-2.5 text-gray-300 bg-transparent hover:text-violet-300 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
-                type="button">
-          <svg aria-hidden="true" class="w-3 h-3" fill="none" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-            <path d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" stroke="currentColor" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"/>
-          </svg>
-          <span class="sr-only">Close modal</span>
-        </button>
-        <div class="px-6 py-6 lg:px-8">
-          <h3 class="mb-4 text-xl font-medium text-gray-200">Sign up to our platform</h3>
-          <form action="#" class="space-y-6">
-            <div>
-              <label class="block mb-2 text-sm font-medium text-gray-200" for="email">Your email</label>
-              <input
-                class="bg-gray-600 border-gray-700 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-violet-400 text-sm rounded-lg block w-full p-2.5"
-                id="email" name="email"
-                placeholder="name@company.com"
-                required type="email">
-            </div>
-            <div>
-              <label class="block mb-2 text-sm font-medium text-gray-200 dark:text-white" for="password">
-                Your password</label>
-              <input
-                class="bg-gray-600 border-gray-700 text-gray-100 placeholder-gray-400 focus:ring-2 focus:ring-violet-400 text-sm rounded-lg block w-full p-2.5"
-                id="password" name="password" placeholder="••••••••"
-                required
-                type="password">
-            </div>
-            <div>
-              <label class="block mb-2 text-sm font-medium text-gray-200 dark:text-white" for="confirmpassword">
-                Confirm password</label>
-              <input
-                class="bg-gray-600 border-gray-700 text-gray-100 placeholder-gray-400 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                id="confirmpassword" name="confirmpassword" placeholder="••••••••"
-                required
-                type="password">
-            </div>
-            <div>
-              <label class="block mb-2 text-sm font-medium text-gray-200" for="dropdownRadioButton">Market address</label>
-              <button
-                (click)="toggleDropdown()"
-                class="text-white bg-gray-600 font-medium rounded-lg text-sm w-full py-2.5 justify-center inline-flex items-center"
-                id="dropdownRadioButton"
-                type="button">
-                {{ selectedOption || 'Please choose an option' }}
-                <svg aria-hidden="true" class="w-2.5 h-2.5 ml-2.5" fill="none" viewBox="0 0 10 6"
-                     xmlns="http://www.w3.org/2000/svg">
-                  <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-width="2"/>
-                </svg>
-              </button>
-
-              <!-- Dropdown menu -->
-              <div
-                *ngIf="isDropdownVisible"
-                @fadeInOut
-                class="w-full bg-gray-800 divide-gray-100 rounded-lg shadow mt-2"
-                id="dropdownDefaultRadio">
-                <ul aria-labelledby="dropdownRadioButton"
-                    class="p-3 space-y-3 text-sm text-gray-100">
-                  <li *ngFor="let radio of radioButtons">
-                    <div class="flex items-center">
-                      <input
-                        (change)="updateSelection(radio.label)"
-                        [(ngModel)]="selectedOption"
-                        [id]="radio.id"
-                        [value]="radio.label"
-                        class="w-4 h-4 text-fuchsia-600 bg-gray-100 border-gray-300 focus:ring-fuchsia-700 focus:ring-2"
-                        name="default-radio"
-                        type="radio">
-                      <label [for]="radio.id"
-                             class="cursor-pointer ml-2 text-sm font-medium">{{radio.label}}</label>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="flex justify-between">
-              <div class="flex items-start">
-                <div class="absolute">
-                  <input class="w-4 h-4 text-violet-700 bg-gray-100 border-0 rounded focus:ring-2 focus:ring-violet-400"
-                         id="remember" required
-                         type="checkbox"
-                         value="">
-                </div>
-                <label class="ml-6 mt-0.5 text-sm font-medium text-gray-200" for="remember">I accept the <a
-                  class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and
-                  Conditions</a></label>
-              </div>
-            </div>
-            <button (click)="signIn()" *ngIf="!isSignedIn" [routerLink]="['/chart']"
-                    class="w-full bg-gradient-to-l from-indigo-600 to-purple-600 text-white text-base-medium rounded-lg py-2"
-                    type="submit">
-              Register
-            </button>
-            <div class="text-base-medium text-gray-300">
-              Already have an account?
-              <a (click)="closeModalAndNavigate()" [routerLink]="['/sign-in']"
-                 class="text-base-medium hover:text-violet-300">Sign in</a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <img alt="men_blue_suit" class="absolute w-60 bottom-[17%] right-[22%]" src="/assets/people/men_blue_suit.png">
-    <img alt="woman_with_book" class="absolute w-32 bottom-[16%] right-[14%]" src="/assets/people/woman_with_book.png">
-    <img alt="waving_man" class="absolute w-36 bottom-[17%] left-[15%]" src="/assets/people/waving_man.png">
-    <img alt="thumbs-up_man" class="absolute w-[12em] bottom-[17%] left-[24%]" src="/assets/people/thumbsup_person.png">
-  </div>
-
-
-  <div *ngIf="showToast"
-       class="flex items-center w-full max-w-xs p-3 mb-4 rounded-lg shadow text-gray-400 bg-gray-800 fixed bottom-4 right-4"
-       id="toast-success"
-       role="alert">
-    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg bg-green-800 text-green-200">
-      <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-           xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-      </svg>
-      <span class="sr-only">Check icon</span>
-    </div>
-    <div class="ml-3 text-sm font-normal">You been logged in.</div>
-    <button aria-label="Close"
-            class="ml-auto -mx-1.5 -my-1.5 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 inline-flex items-center justify-center h-8 w-8 text-gray-500 hover:text-white bg-gray-800 hover:bg-gray-700"
-            data-dismiss-target="#toast-success" type="button">
-      <span class="sr-only">Close</span>
-      <svg aria-hidden="true" class="w-3 h-3" fill="none" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-        <path d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-              stroke-width="2"/>
-      </svg>
-    </button>
-  </div>
-</div>

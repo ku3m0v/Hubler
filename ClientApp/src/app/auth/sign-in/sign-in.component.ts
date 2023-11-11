@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import {AuthenticationService} from "../../authentication.service";
+import configurl from "../../../assets/config/config.json";
+import {Router} from "@angular/router";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {JwtHelperService} from "@auth0/angular-jwt";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-sign-in',
@@ -7,29 +11,34 @@ import {AuthenticationService} from "../../authentication.service";
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent {
-  showToast: boolean = false;
-  showModal: boolean = false
-
-  constructor(private authService: AuthenticationService) {
+  invalidLogin?: boolean;
+  url = configurl.apiServer.url + 'api/authentication/';
+  constructor(private router: Router, private http: HttpClient,private jwtHelper : JwtHelperService) { }
+  public login = (form: NgForm) => {
+    const credentials = JSON.stringify(form.value);
+    this.http.post(this.url +"login", credentials, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      })
+    }).subscribe(response => {
+      const token = (<any>response).token;
+      localStorage.setItem("jwt", token);
+      this.invalidLogin = false;
+      this.router.navigate(["/chart"]);
+    }, err => {
+      this.invalidLogin = true;
+      setTimeout(() => {
+        this.invalidLogin = false;
+      }, 3000);
+    });
   }
-
-  get isSignedIn(): boolean {
-    return this.authService.isUserSignedIn();
-  }
-
-  toggleModal() {
-    this.showModal = !this.showModal;
-  }
-
-  signOut(): void {
-    this.authService.signOut();
-  }
-
-  signIn(): void {
-    this.authService.signIn();
-    this.showToast = true;
-    setTimeout(() => {
-      this.showToast = false;
-    }, 2000);
+  isUserAuthenticated() {
+    const token = localStorage.getItem("jwt");
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

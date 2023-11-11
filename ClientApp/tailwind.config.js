@@ -174,8 +174,8 @@ module.exports = {
       },
       colors: {
         "pink-main" : "#fda5d9",
-        "primary-500": "#542966",
-        "secondary-500": "#FFB620",
+        "purple-main": "#6d29ff",
+        "secondary": "#FFB620",
         blue: "#0095F6",
         "logout-btn": "#FF5A5A",
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
