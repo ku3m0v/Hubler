@@ -35,7 +35,7 @@ namespace Hubler.DAL.Implementations
             }
         }
 
-        public void Insert(Address address)
+        public int Insert(Address address)
         {
             using (var connection = DBConnection.GetConnection())
             {
@@ -47,6 +47,8 @@ namespace Hubler.DAL.Implementations
                 parameters.Add("p_country", address.Country, OracleMappingType.Varchar2);
 
                 connection.Execute("INSERT_ADDRESS", parameters, commandType: CommandType.StoredProcedure);
+                
+                return parameters.Get<int>("p_id");
             }
         }
 

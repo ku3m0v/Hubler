@@ -58,12 +58,12 @@ public class SupermarketDAL : ISupermarketDAL
             }
         }
 
-        public void Delete(int id)
+        public void Delete(string title)
         {
             using (var connection = DBConnection.GetConnection())
             {
                 var parameters = new OracleDynamicParameters();
-                parameters.Add("p_id", id, OracleMappingType.Int32);
+                parameters.Add("p_title", title, OracleMappingType.Int32);
 
                 connection.Execute("DELETE_SUPERMARKET", parameters, commandType: CommandType.StoredProcedure);
             }
