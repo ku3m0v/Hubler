@@ -9,4 +9,5 @@ public interface ISupermarketDAL
     void Update(Supermarket supermarket);
     void Delete(int id);
     IEnumerable<Supermarket> GetAll();
+    Supermarket GetSupermarketByTitle(string title);
 }

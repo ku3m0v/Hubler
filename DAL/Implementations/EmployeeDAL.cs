@@ -3,6 +3,7 @@ using Dapper;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
 using Dapper.Oracle;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -40,23 +41,37 @@ public class EmployeeDAL : IEmployeeDAL
             }
         }
 
-        public void Insert(Employee employee)
+        public String Insert(Employee employee)
         {
-            using (var connection = DBConnection.GetConnection())
+            try
             {
-                var parameters = new OracleDynamicParameters();
-                parameters.Add("p_id", employee.Id, OracleMappingType.Int32);
-                parameters.Add("p_email", employee.Email, OracleMappingType.Varchar2);
-                parameters.Add("p_passhash", employee.PassHash, OracleMappingType.Varchar2);
-                parameters.Add("p_firstname", employee.FirstName, OracleMappingType.Varchar2);
-                parameters.Add("p_lastname", employee.LastName, OracleMappingType.Varchar2);
-                parameters.Add("p_createddate", employee.CreatedDate, OracleMappingType.Date);
-                parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
-                parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32);
-                parameters.Add("p_content_id", employee.ContentId, OracleMappingType.Int32);
+                using (var connection = DBConnection.GetConnection())
+                {
+                    var parameters = new OracleDynamicParameters();
+                    parameters.Add("p_id", employee.Id, OracleMappingType.Int32);
+                    parameters.Add("p_email", employee.Email, OracleMappingType.Varchar2);
+                    parameters.Add("p_passhash", employee.PassHash, OracleMappingType.Varchar2);
+                    parameters.Add("p_firstname", employee.FirstName, OracleMappingType.Varchar2);
+                    parameters.Add("p_lastname", employee.LastName, OracleMappingType.Varchar2);
+                    parameters.Add("p_createddate", employee.CreatedDate, OracleMappingType.Date);
+                    parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
+                    parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32);
+                    parameters.Add("p_content_id", employee.ContentId, OracleMappingType.Int32);
 
-                connection.Execute("INSERT_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
+                    connection.Execute("INSERT_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
+                }
+                
+                return "Employee was successfully created";
             }
+            catch (OracleException e)
+            {
+                if (e.Number == 20050)
+                {
+                    return "Email already exists";
+                }
+            }
+
+            return null;
         }
 
         public void Update(Employee employee)

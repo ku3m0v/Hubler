@@ -79,4 +79,28 @@ public class SupermarketDAL : ISupermarketDAL
                 }
             }
         }
+        
+        public Supermarket GetSupermarketByTitle(string title)
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_title", title, OracleMappingType.Varchar2);
+                parameters.Add("p_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("p_phone", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_addressid", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+
+                connection.Execute("GET_SUPERMARKET_BY_TITLE", parameters, commandType: CommandType.StoredProcedure);
+
+                var supermarket = new Supermarket
+                {
+                    Id = parameters.Get<int>("p_id"),
+                    Title = title,
+                    Phone = parameters.Get<string>("p_phone"),
+                    AddressId = parameters.Get<int>("p_addressid")
+                };
+
+                return supermarket;
+            }
+        }
     }
