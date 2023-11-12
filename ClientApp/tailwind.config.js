@@ -173,8 +173,9 @@ module.exports = {
         'sans': ['Roboto', 'ui-sans-serif', 'system-ui']
       },
       colors: {
-        "primary-500": "#542966",
-        "secondary-500": "#FFB620",
+        "pink-main" : "#fda5d9",
+        "purple-main": "#6d29ff",
+        "secondary": "#FFB620",
         blue: "#0095F6",
         "logout-btn": "#FF5A5A",
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
@@ -213,6 +214,9 @@ module.exports = {
     },
   },
   plugins: [
-    require('flowbite/plugin')
+    require('flowbite/plugin')({
+      charts: true,
+    }),
+    require("daisyui"),
   ],
 }

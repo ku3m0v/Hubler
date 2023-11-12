@@ -1,15 +1,25 @@
 import {Injectable} from '@angular/core';
+import {JwtHelperService} from "@auth0/angular-jwt";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  constructor(private jwtHelper: JwtHelperService, private router: Router) {
+  }
+  isUserSignedIn() {
+    const token = localStorage.getItem("jwt");
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   // This is just a mock example, replace with your actual authentication logic
   private isAuthenticated: boolean = false;
 
-  constructor() {
-  }
 
   // Call this method when user signs in
   signIn(): void {
@@ -18,12 +28,9 @@ export class AuthenticationService {
 
   // Call this method when user signs out
   signOut(): void {
-    this.isAuthenticated = false;
+    localStorage.removeItem("jwt");
+    this.router.navigate(["/landing"]);
   }
 
-  // Method to check authentication status
-  isUserSignedIn(): boolean {
-    return this.isAuthenticated;
-  }
 
 }

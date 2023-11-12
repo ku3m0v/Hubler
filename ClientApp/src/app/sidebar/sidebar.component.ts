@@ -8,9 +8,11 @@ import {AuthenticationService} from "../authentication.service";
 })
 export class SidebarComponent {
   public sidebarLinks = [
-    {route: '/home', label: 'Home', imgURL: '/assets/assets/home.svg'},
-    {route: '/sign-in', label: 'User', imgURL: '/assets/assets/user.svg'},
-    {route: '/card', label: 'Card', imgURL: '/assets/assets/store.svg'},
+    {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
+    {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
+    {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
+    {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
+
   ];
 
   constructor(private authService: AuthenticationService) {
@@ -22,10 +24,6 @@ export class SidebarComponent {
 
   signOut(): void {
     this.authService.signOut();
-  }
-
-  signIn(): void {
-    this.authService.signIn();
   }
 
   public isActive(linkRoute: string, currentPath: string): boolean {

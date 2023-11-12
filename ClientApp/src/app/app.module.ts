@@ -1,37 +1,49 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
-import {FooterComponent} from "./footer/footer.component";
 import {SidebarComponent} from "./sidebar/sidebar.component";
 import {HomeComponent} from "./home/home.component";
-import {CardComponent} from "./card/card.component";
 import {SignInComponent} from "./auth/sign-in/sign-in.component";
-import {SignUpComponent} from "./auth/sign-up/sign-up.component";
 import {NavComponent} from "./nav/nav.component";
 import {LandingComponent} from "./landing/landing.component";
+import {SignUpComponent} from "./auth/sign-up/sign-up.component";
+import {UserComponent} from "./user/user.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ChartComponent} from "./chart/chart.component";
+import {NgApexchartsModule} from "ng-apexcharts";
+import {EmployeeComponent} from "./employee/employee.component";
+import {StoreComponent} from "./store/store.component";
 
+export function tokenGetter() {
+  return localStorage.getItem("jwt");
+}
 
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    NgApexchartsModule,
   ],
   declarations: [
     AppComponent,
     SidebarComponent,
+    UserComponent,
     HomeComponent,
-    CardComponent,
     SignInComponent,
     SignUpComponent,
-    FooterComponent,
     NavComponent,
-    LandingComponent
+    LandingComponent,
+    ChartComponent,
+    EmployeeComponent,
+    StoreComponent
   ],
   bootstrap: [AppComponent]
 })
