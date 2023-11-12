@@ -47,6 +47,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddSingleton<IEmployeeDAL, EmployeeDAL>();
+builder.Services.AddSingleton<ISupermarketDAL, SupermarketDAL>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 builder.Services.AddAuthentication(opt =>
