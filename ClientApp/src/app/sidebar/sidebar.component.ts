@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from "../authentication.service";
+import {ToastService} from "../toast.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,6 +8,16 @@ import {AuthenticationService} from "../authentication.service";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
+    isModalVisible = false;
+
+    showModal() {
+        this.isModalVisible = true;
+    }
+
+    hideModal() {
+        this.isModalVisible = false;
+    }
+
   public sidebarLinks = [
     {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
     {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
