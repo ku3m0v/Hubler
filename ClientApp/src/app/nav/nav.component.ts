@@ -61,7 +61,6 @@ export class NavComponent {
     this.authService.signOut();
   }
   signIn(): void {
-    this.authService.signIn();
     this.showModal = false;
     this.showToast = true;
     setTimeout(() => {

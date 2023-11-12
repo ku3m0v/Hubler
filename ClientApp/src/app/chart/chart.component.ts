@@ -177,7 +177,8 @@ export class ChartComponent implements AfterViewInit {
     }
   }
 
-  get isSignedIn(): boolean {
+
+  public isUserAuthenticated(): boolean {
     return this.authService.isUserSignedIn();
   }
 }

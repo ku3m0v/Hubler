@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
+import {Router} from "@angular/router";
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-user',
@@ -11,7 +13,10 @@ export class UserComponent {
   public isEditing = false;
 
   @ViewChild('imageInput', { static: false }) imageInput!: ElementRef;
-  constructor(private fb: FormBuilder) {
+  constructor(
+              private fb: FormBuilder,
+              private authService: AuthenticationService,
+              private router: Router) {
     this.profileForm = this.fb.group({
       name: ['John Doe'],
       jobTitle: ['Software Engineer'],
@@ -19,6 +24,9 @@ export class UserComponent {
     });
   }
 
+  public isUserAuthenticated(): boolean {
+    return this.authService.isUserSignedIn();
+  }
   toggleEdit() {
     this.isEditing = !this.isEditing;
   }

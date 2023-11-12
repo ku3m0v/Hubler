@@ -1,4 +1,8 @@
-<div class="mx-auto px-6">
+<div *ngIf="!isUserAuthenticated">
+  <app-sign-in></app-sign-in>
+</div>
+
+<div class="mx-auto px-6" *ngIf="isUserAuthenticated">
   <!-- User Information Card -->
   <div class="flex flex-row justify-end">
     <button (click)="cancelEdit()"

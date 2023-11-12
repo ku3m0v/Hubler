@@ -1,4 +1,8 @@
-<div class="flex flex-row gap-3 items-center justify-content-center">
+<div *ngIf="!isUserAuthenticated">
+  <app-sign-in></app-sign-in>
+</div>
+
+<div *ngIf="isUserAuthenticated" class="flex flex-row gap-3 items-center justify-content-center">
   <div class="h-screen">
     <div class="h-full w-[22rem] bg-gray-900 rounded-lg shadow p-4">
       <div class="flex justify-between">

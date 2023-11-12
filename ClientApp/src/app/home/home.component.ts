@@ -25,7 +25,4 @@ export class HomeComponent {
   signOut(): void {
     this.authService.signOut();
   }
-  signIn(): void {
-    this.authService.signIn();
-  }
 }

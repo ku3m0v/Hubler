@@ -26,10 +26,6 @@ export class SidebarComponent {
     this.authService.signOut();
   }
 
-  signIn(): void {
-    this.authService.signIn();
-  }
-
   public isActive(linkRoute: string, currentPath: string): boolean {
     return (currentPath.includes(linkRoute) && linkRoute.length > 1) || currentPath === linkRoute;
   }
