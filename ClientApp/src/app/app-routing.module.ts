@@ -9,6 +9,8 @@ import {ChartComponent} from "./chart/chart.component";
 import {AuthGuard} from "./guards/auth-guard.service";
 import {JwtModule} from "@auth0/angular-jwt";
 import {tokenGetter} from "./app.module";
+import {StoreComponent} from "./store/store.component";
+import {EmployeeComponent} from "./employee/employee.component";
 
 
 const routes: Routes = [
@@ -20,6 +22,8 @@ const routes: Routes = [
   {path: 'sign-up', component: SignUpComponent},
   {path: 'contact', component: LandingComponent},
   {path: 'chart', component: ChartComponent, canActivate: [AuthGuard]},
+  {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
+  {path: 'employees', component: EmployeeComponent, canActivate: [AuthGuard]},
 
 ];
 

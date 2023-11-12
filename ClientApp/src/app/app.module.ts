@@ -15,6 +15,8 @@ import {UserComponent} from "./user/user.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ChartComponent} from "./chart/chart.component";
 import {NgApexchartsModule} from "ng-apexcharts";
+import {EmployeeComponent} from "./employee/employee.component";
+import {StoreComponent} from "./store/store.component";
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -40,6 +42,8 @@ export function tokenGetter() {
     NavComponent,
     LandingComponent,
     ChartComponent,
+    EmployeeComponent,
+    StoreComponent
   ],
   bootstrap: [AppComponent]
 })

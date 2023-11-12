@@ -10,7 +10,7 @@ export class SidebarComponent {
   public sidebarLinks = [
     {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
     {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
-    {route: '/card', label: 'Card', imgURL: '/assets/assets/store.svg'},
+    {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
     {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
 
   ];
