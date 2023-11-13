@@ -39,6 +39,7 @@ namespace Hubler.DAL.Implementations
         {
             using (var connection = DBConnection.GetConnection())
             {
+                
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_street", address.Street, OracleMappingType.Varchar2);
                 parameters.Add("p_house", address.House, OracleMappingType.Int32);
@@ -56,6 +57,7 @@ namespace Hubler.DAL.Implementations
         {
             using (var connection = DBConnection.GetConnection())
             {
+                
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_id", address.Id, OracleMappingType.Int32);
                 parameters.Add("p_street", address.Street, OracleMappingType.Varchar2);
@@ -72,6 +74,7 @@ namespace Hubler.DAL.Implementations
         {
             using (var connection = DBConnection.GetConnection())
             {
+                
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_id", id, OracleMappingType.Int32);
 
