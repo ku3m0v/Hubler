@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../service/auth-service/authentication.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-user',
@@ -24,7 +25,7 @@ export class UserComponent {
     });
   }
 
-  public isUserAuthenticated(): boolean {
+  public isUserAuthenticated(): Observable<boolean> {
     return this.authService.isUserSignedIn();
   }
   toggleEdit() {

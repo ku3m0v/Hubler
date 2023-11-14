@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from "../service/auth-service/authentication.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +19,7 @@ export class SidebarComponent {
   constructor(private authService: AuthenticationService) {
   }
 
-  get isSignedIn(): boolean {
+  get isSignedIn(): Observable<boolean> {
     return this.authService.isUserSignedIn();
   }
 

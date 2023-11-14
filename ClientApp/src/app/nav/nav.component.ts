@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AuthenticationService} from "../service/auth-service/authentication.service";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-nav',
@@ -51,7 +52,7 @@ export class NavComponent {
 
   constructor(private authService: AuthenticationService) {}
 
-  get isSignedIn(): boolean {
+  get isSignedIn(): Observable<boolean> {
     return this.authService.isUserSignedIn();
   }
   toggleModal() {

@@ -18,6 +18,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
 import {EmployeeComponent} from "./employee/employee.component";
 import {StoreComponent} from "./store/store.component";
 import {SpinnerComponent} from "./spinner/spinner.component";
+import {AddStoreComponent} from "./store/add-store/add-store.component";
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -45,7 +46,8 @@ export function tokenGetter() {
     ChartComponent,
     EmployeeComponent,
     StoreComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    AddStoreComponent
   ],
   bootstrap: [AppComponent]
 })
