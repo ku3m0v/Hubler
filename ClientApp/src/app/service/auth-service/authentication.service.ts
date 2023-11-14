@@ -11,8 +11,7 @@ const JWT_TOKEN = 'jwt';
 export class AuthenticationService {
   private isAuthenticated = new BehaviorSubject<boolean>(this.hasToken());
 
-  constructor(private jwtHelper: JwtHelperService, private router: Router) {
-  }
+  constructor(private jwtHelper: JwtHelperService, private router: Router) {}
 
   isUserSignedIn(): Observable<boolean> {
     return this.isAuthenticated.asObservable();
@@ -30,11 +29,8 @@ export class AuthenticationService {
   }
 
   // This method should be called when user signs in successfully
-  getCurrentUserClaims(): any {
-    const token = localStorage.getItem(JWT_TOKEN);
-    if (token) {
-      return this.jwtHelper.decodeToken(token);
-    }
-    return null;
+  onSignIn(token: string): void {
+    localStorage.setItem(JWT_TOKEN, token);
+    this.isAuthenticated.next(true);
   }
 }
