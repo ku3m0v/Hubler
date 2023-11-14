@@ -1,19 +1,18 @@
 <section class='custom-scrollbar leftsidebar'>
-  <div class="flex w-full flex-1 flex-col gap-6 px-3">
+  <div class="flex flex-1 flex-col gap-6 px-3">
     <ng-container *ngFor="let link of sidebarLinks">
       <a [routerLink]="link.route"
          class="leftsidebar_link"
-         routerLinkActive="bg-gradient-to-l from-purple-main to-purple-950">
-        <img [alt]="link.label" [src]="link.imgURL" height="24" width="24"/>
-        <p class="text-light-1 max-lg:hidden">{{ link.label }}</p>
+         routerLinkActive="bg-slate-800/60 border-2 border-slate-300/40 shadow-inner shadow-slate-300/20"
+         [title]="link.label">
+        <img [src]="link.imgURL" height="32" width="32" [alt]="link.label"/>
       </a>
     </ng-container>
   </div>
   <div class="px-4 pb-3">
     <a (click)="signOut()" *ngIf="isSignedIn" class="leftsidebar_link"
        routerLink="/">
-      <img alt="Logout" height="24" src="/assets/assets/logout.svg" width="24"/>
-      <p class="text-light-1 max-lg:hidden">Logout</p>
+      <img alt="Logout" height="28" width="28" src="/assets/assets/logout.svg"/>
     </a>
   </div>
 </section>
