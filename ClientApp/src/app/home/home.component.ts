@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {AuthenticationService} from "../service/auth-service/authentication.service";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -20,7 +19,7 @@ export class HomeComponent {
 
   constructor(private authService: AuthenticationService) {}
 
-  get isSignedIn(): Observable<boolean> {
+  get isSignedIn(): boolean {
     return this.authService.isUserSignedIn();
   }
   signOut(): void {

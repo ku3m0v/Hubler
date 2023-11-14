@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthenticationService) {
   }
 
-  get isSignedIn(): Observable<boolean> {
+  get isSignedIn(): boolean {
     return this.authService.isUserSignedIn();
   }
 

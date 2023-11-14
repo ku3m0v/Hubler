@@ -19,7 +19,7 @@ export class SidebarComponent {
   constructor(private authService: AuthenticationService) {
   }
 
-  get isSignedIn(): Observable<boolean> {
+  get isSignedIn(): boolean {
     return this.authService.isUserSignedIn();
   }
 

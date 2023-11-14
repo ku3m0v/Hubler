@@ -32,4 +32,13 @@ export class SignInComponent {
       }, 3000);
     });
   }
+  isUserAuthenticated() {
+    const token = localStorage.getItem("jwt");
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 }

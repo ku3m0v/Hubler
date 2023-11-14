@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from '../../service/auth-service/authentication.service';
+import {AuthenticationService} from "../../service/auth-service/authentication.service";
 import {animate, style, transition, trigger} from "@angular/animations";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-sign-up',
@@ -52,7 +51,7 @@ export class SignUpComponent {
     this.isDropdownVisible = false; // Optional: Close dropdown after selection.
   }
 
-  get isSignedIn(): Observable<boolean> {
+  get isSignedIn(): boolean {
     return this.authService.isUserSignedIn();
   }
   toggleModal() {
@@ -62,6 +61,7 @@ export class SignUpComponent {
     this.authService.signOut();
   }
   signIn(): void {
+    this.authService.signIn();
     this.showModal = false;
     this.showToast = true;
     setTimeout(() => {
