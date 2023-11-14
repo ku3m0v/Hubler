@@ -69,6 +69,7 @@
       <div class="w-full md:w-1/2 px-3 mb-6">
         <label class="text-gray-400">Last Name</label>
         <input
+          [disabled]="!isEditing"
           class="form_input text-sm"
           placeholder="Enter your last name..."
           type="text"
