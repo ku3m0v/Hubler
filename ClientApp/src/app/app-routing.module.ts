@@ -22,6 +22,7 @@ const routes: Routes = [
   {path: 'sign-in', component: SignInComponent},
   {path: 'sign-up', component: SignUpComponent},
   {path: 'contact', component: LandingComponent},
+  {path: 'about', component: LandingComponent},
   {path: 'spinner', component: SpinnerComponent},
   {path: 'chart', component: ChartComponent, canActivate: [AuthGuard]},
   {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
