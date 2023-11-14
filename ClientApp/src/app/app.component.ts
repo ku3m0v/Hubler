@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {initFlowbite} from 'flowbite';
-import {AuthenticationService} from "./authentication.service";
+import {AuthenticationService} from "./service/auth-service/authentication.service";
 
 @Component({
   selector: 'app-root',

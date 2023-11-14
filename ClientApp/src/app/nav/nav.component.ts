@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AuthenticationService} from "../authentication.service";
+import {AuthenticationService} from "../service/auth-service/authentication.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({

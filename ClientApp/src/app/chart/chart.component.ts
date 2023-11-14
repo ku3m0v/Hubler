@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
-import {AuthenticationService} from "../authentication.service";
+import {AuthenticationService} from "../service/auth-service/authentication.service";
 
 declare var ApexCharts: any;
 interface Product {
