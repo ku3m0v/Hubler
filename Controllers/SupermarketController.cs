@@ -1,6 +1,8 @@
-﻿using Hubler.DAL.Interfaces;
+﻿using System.Security.Claims;
+using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
 using Hubler.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hubler.Controllers;
@@ -21,6 +23,8 @@ namespace Hubler.Controllers;
         [HttpGet("list")]
         public ActionResult<List<SupermarketWithAddressModel>> GetAll()
         {
+            Console.WriteLine(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            
             var supermarkets = _supermarketDAL.GetAll();
             var supermarketWithAddressModels = new List<SupermarketWithAddressModel>();
 

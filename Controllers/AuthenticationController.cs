@@ -7,11 +7,13 @@ using Hubler.DAL.Implementations;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
 using Hubler.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hubler.Controllers
 {
     [Route("api/authentication")]
     [ApiController]
+    [Authorize]
     public class AuthenticationController : ControllerBase
     {
         private readonly ILogger<AuthenticationController> _logger;
@@ -32,6 +34,7 @@ namespace Hubler.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public IActionResult Login([FromBody] LoginModel model)
         {
             if (model is null || string.IsNullOrWhiteSpace(model.Username) ||
@@ -48,8 +51,8 @@ namespace Hubler.Controllers
                 // DBConnection.SetContext(employee.Email);
                 var tokenClaims = new[]
                 {
-                    new Claim("id", employee.Id.ToString()),
-                    new Claim("email", employee.Email),
+                    new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
+                    new Claim(ClaimTypes.Email, employee.Email)
                 };
 
                 var jwtSettings = _configuration.GetSection("JWTSettings");
