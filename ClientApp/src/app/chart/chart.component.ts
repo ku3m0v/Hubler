@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
 import {AuthenticationService} from "../service/auth-service/authentication.service";
+import {Observable} from "rxjs";
 
 declare var ApexCharts: any;
 interface Product {
@@ -178,7 +179,7 @@ export class ChartComponent implements AfterViewInit {
   }
 
 
-  public isUserAuthenticated(): boolean {
+  public isUserAuthenticated(): Observable<boolean> {
     return this.authService.isUserSignedIn();
   }
 }
