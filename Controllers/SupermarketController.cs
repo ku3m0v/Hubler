@@ -49,8 +49,8 @@ namespace Hubler.Controllers;
             }
             return Ok(supermarketWithAddressModels);
         }
-
-        [HttpPost("update")]
+        
+        [HttpPost("insert")]
         public void Post([FromBody] SupermarketWithAddressModel model)
         {
             var newAddress = new Address
@@ -73,6 +73,33 @@ namespace Hubler.Controllers;
             _supermarketDAL.Insert(newSupermarket);
         }
         
+        [HttpPost("update")]
+        public void Update([FromBody] SupermarketWithAddressModel model)
+        {
+            var supermarket = _supermarketDAL.GetSupermarketByTitle(model.Title);
+            
+            
+            var newAddress = new Address
+            {
+                Id = supermarket.AddressId,
+                Street = model.Street,
+                House = model.House,
+                City = model.City,
+                PostalCode = model.PostalCode,
+                Country = model.Country
+            };
+            
+            _addressDAL.Update(newAddress);
+            
+            var newSupermarket = new Supermarket
+            {
+                Id = supermarket.Id,
+                Title = model.Title,
+                Phone = model.Phone,
+                AddressId = supermarket.AddressId
+            };
+            _supermarketDAL.Update(newSupermarket);
+        }
         
         [HttpDelete("delete")]
         public void Delete(string title)

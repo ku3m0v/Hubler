@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Hubler.DAL.Implementations;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
 using Hubler.Models;
@@ -44,6 +45,7 @@ namespace Hubler.Controllers
             if (employee != null && model.Username.Equals(employee.Email) &&
                 BCrypt.Net.BCrypt.Verify(model.Password, employee.PassHash))
             {
+                // DBConnection.SetContext(employee.Email);
                 var tokenClaims = new[]
                 {
                     new Claim("id", employee.Id.ToString()),

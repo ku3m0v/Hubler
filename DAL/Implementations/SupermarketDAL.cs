@@ -3,6 +3,7 @@ using Dapper;
 using Dapper.Oracle;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -73,10 +74,10 @@ public class SupermarketDAL : ISupermarketDAL
         {
             using (var connection = DBConnection.GetConnection())
             {
-                using (var multi = connection.QueryMultiple("GET_ALL_SUPERMARKETS", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<Supermarket>();
-                }
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+
+                return connection.Query<Supermarket>("GET_ALL_SUPERMARKETS", parameters, commandType: CommandType.StoredProcedure);
             }
         }
         
