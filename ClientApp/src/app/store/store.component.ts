@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {SupermarketService, SupermarketWithAddress} from "../service/store-service/store.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-store',
@@ -6,24 +8,37 @@ import { Component } from '@angular/core';
   styleUrls: ['./store.component.css']
 })
 export class StoreComponent {
-  showDrawer = false;
+  public storeList: SupermarketWithAddress[] = [];
 
-  // Define your product model
-  product = {
-    name: '',
-    brand: '',
-    price: null,
-    category: '',
-    description: ''
-  };
-
-  ngOnInit() {
-    this.showDrawer = true;
+  constructor(private router: Router, private supermarketService: SupermarketService) {
+    this.getStores();
   }
 
-  onSubmit() {
-    // Handle the form submission
-    console.log('Product Data:', this.product);
-    // You would typically send this data to a server
+  getStores() {
+    this.supermarketService.getAllSupermarkets().subscribe(
+      data => this.storeList = data,
+      error => console.error(error)
+    );
   }
+
+  deleteStore(title: string) {
+    const ans = confirm("Do you want to delete the store with title: " + title);
+    if (ans) {
+      this.supermarketService.deleteSupermarket(title).subscribe(
+        () => this.getStores(),
+        error => console.error(error)
+      );
+    }
+  }
+}
+
+// Update this interface to match the structure of your store data
+interface StoreData {
+  title: string;
+  phone: string;
+  street: string;
+  house: string;
+  city: string;
+  postalCode: string;
+  country: string;
 }
