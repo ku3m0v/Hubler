@@ -9,6 +9,7 @@ namespace Hubler.Controllers;
 
 [Route("api/employee")]
 [ApiController]
+[Authorize]
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeDAL _employeeDAL;
@@ -18,15 +19,20 @@ public class EmployeeController : ControllerBase
         _employeeDAL = employeeDAL;
     }
 
-    [HttpGet("get")]
-    public ActionResult<Employee> GetById()
+    [HttpGet("{id}")]
+    public ActionResult<Employee> GetById(int id)
     {
-        var employeeIdClaim = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        // Retrieve the employee's ID from the claims
+        var employeeIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (!int.TryParse(employeeIdClaim, out var employeeIdFromToken) || id != employeeIdFromToken)
+        {
+            return Unauthorized("Access denied - Invalid employee ID");
+        }
 
-        var employee = _employeeDAL.GetById(employeeIdClaim);
+        var employee = _employeeDAL.GetById(id);
         if (employee == null)
         {
-            return NotFound($"No employee found with ID {employeeIdClaim}");
+            return NotFound($"No employee found with ID {id}");
         }
 
         return Ok(employee);
@@ -35,6 +41,7 @@ public class EmployeeController : ControllerBase
     [HttpPost("{id}")]
     public IActionResult Update(int id, [FromBody] Employee updatedEmployee)
     {
+        // Retrieve the employee's ID from the claims
         var employeeIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!int.TryParse(employeeIdClaim, out var employeeIdFromToken) || id != employeeIdFromToken)
         {
@@ -45,7 +52,9 @@ public class EmployeeController : ControllerBase
         {
             return BadRequest("Mismatched employee ID");
         }
-        
+
+        // The controller action assumes that the employee is updating their own record
+        // This needs to be secured appropriately in a real application
         _employeeDAL.Update(updatedEmployee);
         return Ok("Employee updated successfully");
     }
