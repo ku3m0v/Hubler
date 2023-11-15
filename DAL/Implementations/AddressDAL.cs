@@ -28,19 +28,20 @@ namespace Hubler.DAL.Implementations
         {
             using (var connection = DBConnection.GetConnection())
             {
-                
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_street", address.Street, OracleMappingType.Varchar2);
                 parameters.Add("p_house", address.House, OracleMappingType.Int32);
                 parameters.Add("p_city", address.City, OracleMappingType.Varchar2);
                 parameters.Add("p_postalcode", address.PostalCode, OracleMappingType.Varchar2);
                 parameters.Add("p_country", address.Country, OracleMappingType.Varchar2);
+                parameters.Add("p_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
 
                 connection.Execute("INSERT_ADDRESS", parameters, commandType: CommandType.StoredProcedure);
-                
+        
                 return parameters.Get<int>("p_id");
             }
         }
+
 
         public void Update(Address address)
         {

@@ -23,8 +23,6 @@ namespace Hubler.Controllers;
         [HttpGet("list")]
         public ActionResult<List<SupermarketWithAddressModel>> GetAll()
         {
-            Console.WriteLine(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            
             var supermarkets = _supermarketDAL.GetAll();
             var supermarketWithAddressModels = new List<SupermarketWithAddressModel>();
 
@@ -66,7 +64,7 @@ namespace Hubler.Controllers;
                 Country = model.Country
             };
             
-            int addressId = _addressDAL.Insert(newAddress);
+            var addressId = _addressDAL.Insert(newAddress);
             
             var newSupermarket = new Supermarket
             {
