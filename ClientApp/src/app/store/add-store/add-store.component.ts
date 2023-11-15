@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import { SupermarketService, SupermarketWithAddress } from '../../service/store-service/store.service';
+import {SupermarketService, SupermarketWithAddress} from '../../service/store-service/store.service';
 
 @Component({
-  templateUrl: './add-store.component.html'
+    templateUrl: './add-store.component.html'
 })
 export class AddStoreComponent implements OnInit {
     storeForm: FormGroup;

@@ -16,37 +16,37 @@ import {AddStoreComponent} from "./store/add-store/add-store.component";
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/landing', pathMatch: 'full'},
-  {path: 'landing', component: LandingComponent},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
-  {path: 'sign-in', component: SignInComponent},
-  {path: 'sign-up', component: SignUpComponent},
-  {path: 'contact', component: LandingComponent},
-  {path: 'about', component: LandingComponent},
-  {path: 'spinner', component: SpinnerComponent},
-  {path: 'chart', component: ChartComponent, canActivate: [AuthGuard]},
-  {path: 'employees', component: EmployeeComponent, canActivate: [AuthGuard]},
-  {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
-  { path: 'add-store', component: AddStoreComponent },
-  { path: 'edit-store/:title', component: AddStoreComponent }
+    {path: '', redirectTo: '/landing', pathMatch: 'full'},
+    {path: 'landing', component: LandingComponent},
+    {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+    {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
+    {path: 'sign-in', component: SignInComponent},
+    {path: 'sign-up', component: SignUpComponent},
+    {path: 'contact', component: LandingComponent},
+    {path: 'about', component: LandingComponent},
+    {path: 'spinner', component: SpinnerComponent},
+    {path: 'chart', component: ChartComponent, canActivate: [AuthGuard]},
+    {path: 'employees', component: EmployeeComponent, canActivate: [AuthGuard]},
+    {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
+    {path: 'add-store', component: AddStoreComponent},
+    {path: 'edit-store/:title', component: AddStoreComponent}
 
 
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:7234"],
-        disallowedRoutes: []
-      }
-    }),
-  ],
-  providers: [AuthGuard],
-  exports: [RouterModule]
+    imports: [
+        RouterModule.forRoot(routes),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: ["localhost:7234"],
+                disallowedRoutes: []
+            }
+        }),
+    ],
+    providers: [AuthGuard],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

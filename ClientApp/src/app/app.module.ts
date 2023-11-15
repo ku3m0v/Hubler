@@ -21,35 +21,35 @@ import {SpinnerComponent} from "./spinner/spinner.component";
 import {AddStoreComponent} from "./store/add-store/add-store.component";
 
 export function tokenGetter() {
-  return localStorage.getItem("jwt");
+    return localStorage.getItem("jwt");
 }
 
 @NgModule({
-  imports: [
-    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    NgApexchartsModule,
-  ],
-  declarations: [
-    AppComponent,
-    SidebarComponent,
-    UserComponent,
-    HomeComponent,
-    SignInComponent,
-    SignUpComponent,
-    NavComponent,
-    LandingComponent,
-    ChartComponent,
-    EmployeeComponent,
-    StoreComponent,
-    SpinnerComponent,
-    AddStoreComponent
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        NgApexchartsModule,
+    ],
+    declarations: [
+        AppComponent,
+        SidebarComponent,
+        UserComponent,
+        HomeComponent,
+        SignInComponent,
+        SignUpComponent,
+        NavComponent,
+        LandingComponent,
+        ChartComponent,
+        EmployeeComponent,
+        StoreComponent,
+        SpinnerComponent,
+        AddStoreComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
