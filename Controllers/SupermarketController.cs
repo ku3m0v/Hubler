@@ -77,33 +77,61 @@ namespace Hubler.Controllers;
             _supermarketDAL.Insert(newSupermarket);
         }
         
-        [HttpPost("update")]
-        public void Update([FromBody] SupermarketWithAddressModel model)
+    [HttpGet("get/{title}")]
+    public ActionResult<SupermarketWithAddressModel> GetByTitle(string title)
+    {
+        var supermarket = _supermarketDAL.GetSupermarketByTitle(title);
+        if (supermarket == null)
         {
-            var supermarket = _supermarketDAL.GetSupermarketByTitle(model.Title);
-            
-            
-            var newAddress = new Address
-            {
-                Id = supermarket.AddressId,
-                Street = model.Street,
-                House = model.House,
-                City = model.City,
-                PostalCode = model.PostalCode,
-                Country = model.Country
-            };
-            
-            _addressDAL.Update(newAddress);
-            
-            var newSupermarket = new Supermarket
-            {
-                Id = supermarket.Id,
-                Title = model.Title,
-                Phone = model.Phone,
-                AddressId = supermarket.AddressId
-            };
-            _supermarketDAL.Update(newSupermarket);
+            return NotFound();
         }
+
+        var address = _addressDAL.GetById(supermarket.AddressId);
+        if (address == null)
+        {
+            return NotFound("Address not found.");
+        }
+
+        var model = new SupermarketWithAddressModel
+        {
+            Title = supermarket.Title,
+            Phone = supermarket.Phone,
+            Street = address.Street,
+            House = address.House,
+            City = address.City,
+            PostalCode = address.PostalCode,
+            Country = address.Country
+        };
+
+        return Ok(model);
+    }
+
+    [HttpPost("update")]
+    public IActionResult Update([FromBody] SupermarketWithAddressModel model)
+    {
+        var supermarket = _supermarketDAL.GetSupermarketByTitle(model.Title);
+        if (supermarket == null)
+        {
+            return NotFound();
+        }
+
+        var updatedAddress = new Address
+        {
+            Id = supermarket.AddressId,
+            Street = model.Street,
+            House = model.House,
+            City = model.City,
+            PostalCode = model.PostalCode,
+            Country = model.Country
+        };
+
+        _addressDAL.Update(updatedAddress);
+
+        supermarket.Phone = model.Phone;
+        _supermarketDAL.Update(supermarket);
+
+        return NoContent();
+    }
         
         [HttpDelete("delete")]
         public void Delete(string title)
