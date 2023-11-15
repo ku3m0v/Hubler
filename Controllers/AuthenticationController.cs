@@ -62,7 +62,7 @@ namespace Hubler.Controllers
                     issuer: jwtSettings["Issuer"],
                     audience: jwtSettings["Audience"],
                     claims: tokenClaims,
-                    expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["expiryInMinutes"])),
+                    expires: DateTime.Now.AddMinutes(60),
                     signingCredentials: signinCredentials
                 );
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
