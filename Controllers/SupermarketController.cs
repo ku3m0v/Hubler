@@ -33,6 +33,7 @@ namespace Hubler.Controllers;
                 {
                     supermarketWithAddressModels.Add(new SupermarketWithAddressModel
                     {
+                        SupermarketId = supermarket.Id,
                         Title = supermarket.Title,
                         Phone = supermarket.Phone,
                         // Address fields
@@ -79,6 +80,7 @@ namespace Hubler.Controllers;
     public ActionResult<SupermarketWithAddressModel> GetByTitle(string title)
     {
         var supermarket = _supermarketDAL.GetSupermarketByTitle(title);
+        
         if (supermarket == null)
         {
             return NotFound();
@@ -92,6 +94,7 @@ namespace Hubler.Controllers;
 
         var model = new SupermarketWithAddressModel
         {
+            SupermarketId = supermarket.Id,
             Title = supermarket.Title,
             Phone = supermarket.Phone,
             Street = address.Street,
@@ -107,7 +110,7 @@ namespace Hubler.Controllers;
     [HttpPost("update")]
     public IActionResult Update([FromBody] SupermarketWithAddressModel model)
     {
-        var supermarket = _supermarketDAL.GetSupermarketByTitle(model.Title);
+        var supermarket = _supermarketDAL.GetById(model.SupermarketId);
         if (supermarket == null)
         {
             return NotFound();
@@ -125,6 +128,7 @@ namespace Hubler.Controllers;
 
         _addressDAL.Update(updatedAddress);
 
+        supermarket.Title = model.Title;
         supermarket.Phone = model.Phone;
         _supermarketDAL.Update(supermarket);
 

@@ -5,6 +5,7 @@ import {catchError} from 'rxjs/operators';
 import configurl from "../../../assets/config/config.json";
 
 export interface SupermarketWithAddress {
+    id: number;
     title: string;
     phone: string;
     street: string;
