@@ -12,6 +12,7 @@ import {tokenGetter} from "./app.module";
 import {StoreComponent} from "./store/store.component";
 import {EmployeeComponent} from "./employee/employee.component";
 import {SpinnerComponent} from "./spinner/spinner.component";
+import {AddStoreComponent} from "./store/add-store/add-store.component";
 
 
 const routes: Routes = [
@@ -25,8 +26,10 @@ const routes: Routes = [
   {path: 'about', component: LandingComponent},
   {path: 'spinner', component: SpinnerComponent},
   {path: 'chart', component: ChartComponent, canActivate: [AuthGuard]},
-  {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
   {path: 'employees', component: EmployeeComponent, canActivate: [AuthGuard]},
+  {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
+  { path: 'add-store', component: AddStoreComponent },
+  { path: 'edit-store/:title', component: AddStoreComponent }
 
 
 ];
