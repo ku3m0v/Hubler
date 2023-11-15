@@ -79,11 +79,11 @@
   }
 
   .leftsidebar {
-    @apply sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto bg-slate-950 pb-5 pt-24 max-md:hidden;
+    @apply sticky text-dark-1 left-0 top-0 z-20 flex h-screen w-fit flex-col items-center justify-between overflow-auto bg-slate-950 pb-5 px-0.5 pt-24 shadow-md max-md:hidden;
   }
 
   .leftsidebar_link {
-    @apply relative flex justify-start gap-4 rounded-lg px-5 py-2.5;
+    @apply relative flex justify-center rounded-xl p-2.5;
   }
 
   .pagination {
