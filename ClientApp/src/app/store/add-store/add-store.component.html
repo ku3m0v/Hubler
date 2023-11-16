@@ -132,12 +132,12 @@
             <button type="submit"
                     [disabled]="!storeForm.valid"
                     [class]="!storeForm.valid ?
-                    'btn disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-4 text-center cursor-pointer' :
-                    'btn text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-4 text-center cursor-pointer'">
+                    'disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer' :
+                    'text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer'">
               {{ title }}
             </button>
             <button type="button"
-                    class="text-gray-50 bg-red-600 transition-colors hover:bg-red-700 active:bg-red-800  font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-4 text-center cursor-pointer"
+                    class="text-gray-50 bg-red-600 transition-colors hover:bg-red-700 active:bg-red-800  font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer"
                     (click)="cancel()">
               Cancel
             </button>
