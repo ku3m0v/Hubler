@@ -1,54 +1,36 @@
-import {Component} from '@angular/core';
-import {AuthenticationService} from "../../service/auth-service/authentication.service";
-import {animate, style, transition, trigger} from "@angular/animations";
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthenticationService, RegistrationData } from '../../service/auth-service/authentication.service';
+import { SupermarketService, SupermarketWithAddress } from '../../service/store-service/store.service';
 
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
-    styleUrls: ['./sign-up.component.css'],
-    animations: [
-        trigger('fadeInOut', [
-            transition(':enter', [   // :enter is alias to 'void => *'
-                style({opacity: 0}),
-                animate(300, style({opacity: 1}))
-            ]),
-            transition(':leave', [   // :leave is alias to '* => void'
-                animate(300, style({opacity: 0}))
-            ])
-        ])
-    ]
+    styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent {
-    showModal: boolean = false
-    showToast: boolean = false;
+export class SignUpComponent implements OnInit {
+    supermarkets: SupermarketWithAddress[] = [];
+    errorMessage: string = '';
     isDropdownVisible = false;
-
-    radioButtons = [
-        {
-            id: 'default-radio-1',
-            label: 'Berlin, Alexanderplatz 7, 10178'
-        },
-        {
-            id: 'default-radio-2',
-            label: 'Berlin, Steglitz Str. 243, 61500'
-        },
-        {
-            id: 'default-radio-3',
-            label: 'Berlin, Bernauer Str. 111, 45300'
-        }
-    ];
-
     selectedOption: string | null = null;
 
-    constructor(private authService: AuthenticationService) {
-    }
+    constructor(
+        private authService: AuthenticationService,
+        private storeService: SupermarketService,
+        private router: Router
+    ) {}
 
-    get isSignedIn(): boolean {
-        return this.authService.isUserSignedIn();
-    }
-
-    toggleDropdown() {
-        this.isDropdownVisible = !this.isDropdownVisible;
+    ngOnInit(): void {
+        this.storeService.getAllSupermarkets().subscribe(
+            data => {
+                this.supermarkets = data;
+            },
+            error => {
+                this.errorMessage = 'Failed to load supermarkets';
+                console.error(error);
+            }
+        );
     }
 
     updateSelection(option: string) {
@@ -56,25 +38,30 @@ export class SignUpComponent {
         this.isDropdownVisible = false; // Optional: Close dropdown after selection.
     }
 
-    toggleModal() {
-        this.showModal = !this.showModal;
+    toggleDropdown() {
+        this.isDropdownVisible = !this.isDropdownVisible;
     }
 
-    signOut(): void {
-        this.authService.signOut();
-    }
+    register(form: NgForm) {
+        if (form.valid) {
+            const registrationData: RegistrationData = {
+                email: form.value.email,
+                password: form.value.password,
+                firstName: form.value.firstName,
+                lastName: form.value.lastName,
+                supermarketTitle: form.value.supermarketTitle
+            };
 
-    signIn(): void {
-        this.authService.signIn();
-        this.showModal = false;
-        this.showToast = true;
-        setTimeout(() => {
-            this.showToast = false;
-        }, 2000);
+            this.authService.register(registrationData).subscribe(
+                response => {
+                    console.log('Registration successful', response);
+                    this.router.navigate(['/sign-in']);
+                },
+                error => {
+                    this.errorMessage = 'Registration failed';
+                    console.error(error);
+                }
+            );
+        }
     }
-
-    closeModalAndNavigate() {
-        this.showModal = false;
-    }
-
 }

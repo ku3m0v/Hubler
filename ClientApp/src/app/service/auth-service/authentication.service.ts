@@ -53,4 +53,5 @@ export interface RegistrationData {
     firstName: string;
     lastName: string;
     supermarketTitle: string;
+    // @FIXME: add RoleId and CreatedDate
 }

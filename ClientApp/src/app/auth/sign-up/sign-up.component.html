@@ -1,4 +1,4 @@
-<div *ngIf="!isSignedIn">
+<div>
     <img alt="waving_man" class="z-10 fixed w-[15em] bottom-[20%] left-[3.5%] -rotate-45"
          src="/assets/people/glad_to_see.png">
     <img alt="waving_man" class="z-10 fixed w-[10em] bottom-[20%] right-[3%] rotate-[25deg]"
@@ -37,7 +37,9 @@
                     <h2 class="text-heading2-semibold text-slate-100">
                         Sign up to Norman.io
                     </h2>
-                    <form action="#" class="space-y-6" autocomplete="off" novalidate>
+                    <form  #registrationForm="ngForm"
+                           (ngSubmit)="register(registrationForm)"
+                           class="space-y-6" autocomplete="off" novalidate>
                         <div class="flex flex-wrap -mx-4">
 
                             <div class="w-full md:w-1/2 px-3 mb-3">
@@ -73,24 +75,23 @@
                                 </button>
                                 <div
                                         *ngIf="isDropdownVisible"
-                                        @fadeInOut
                                         class="w-full bg-slate-800 divide-gray-100 rounded-xl shadow-lg mt-2"
                                         id="dropdownDefaultRadio">
                                     <ul aria-labelledby="dropdownRadioButton"
                                         class="p-3 space-y-3 text-sm text-slate-200">
-                                        <li *ngFor="let radio of radioButtons">
+                                        <li *ngFor="let store of supermarkets">
                                             <div class="flex items-center">
                                                 <input
-                                                        (change)="updateSelection(radio.label)"
+                                                        (change)="updateSelection(store.title)"
                                                         [(ngModel)]="selectedOption"
-                                                        [id]="radio.id"
-                                                        [value]="radio.label"
+                                                        [id]="store.id"
+                                                        [value]="store.title"
                                                         id="role"
                                                         class="w-4 h-4 text-purple-main bg-slate-100 border-slate-600 focus:ring-purple-main focus:ring-2"
                                                         name="default-radio"
                                                         type="radio">
-                                                <label [for]="radio.id"
-                                                       class="cursor-pointer ml-2 text-sm font-medium">{{radio.label}}</label>
+                                                <label [for]="store.id"
+                                                       class="cursor-pointer ml-2 text-sm font-medium">{{store.title}}</label>
                                             </div>
                                         </li>
                                     </ul>
@@ -125,7 +126,7 @@
                                         type="password">
                             </div>
                         </div>
-                        <button (click)="signIn()" [routerLink]="['/user']"
+                        <button [disabled]="!registrationForm.valid"
                                 class="w-full bg-purple-main text-white transition-colors duration-200 hover:bg-purple-700 text-base-medium rounded-lg shadow-md py-2 active:bg-purple-800"
                                 type="submit">
                             Sign up
@@ -142,3 +143,40 @@
         </div>
     </div>
 </div>
+
+
+<!--<div class="sign-up-container">-->
+<!--    <h2>Sign Up</h2>-->
+<!--    <form #registrationForm="ngForm" (ngSubmit)="register(registrationForm)">-->
+<!--        <div class="form-group">-->
+<!--            <label for="email">Email:</label>-->
+<!--            <input type="email" id="email" name="email" ngModel required class="form-control">-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="password">Password:</label>-->
+<!--            <input type="password" id="password" name="password" ngModel required class="form-control">-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="firstName">First Name:</label>-->
+<!--            <input type="text" id="firstName" name="firstName" ngModel required class="form-control">-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="lastName">Last Name:</label>-->
+<!--            <input type="text" id="lastName" name="lastName" ngModel required class="form-control">-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="supermarket">Supermarket:</label>-->
+<!--            <select id="supermarket" name="supermarket" ngModel required class="form-control">-->
+<!--                <option *ngFor="let supermarket of supermarkets" [value]="supermarket.title">{{ supermarket.title }}</option>-->
+<!--            </select>-->
+<!--        </div>-->
+
+<!--        <button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid">Register</button>-->
+<!--    </form>-->
+
+<!--    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>-->
+<!--</div>-->
