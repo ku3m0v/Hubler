@@ -1,140 +1,144 @@
 <div *ngIf="!isSignedIn">
-  <img alt="waving_man" class="z-10 fixed w-[15em] bottom-[20%] left-[3.5%] -rotate-45"
-       src="/assets/people/glad_to_see.png">
-  <img alt="waving_man" class="z-10 fixed w-[10em] bottom-[20%] right-[3%] rotate-[25deg]"
-       src="/assets/people/waving_man.png">
-  <div class="relative bg-gray-100 rounded-lg overflow-hidden z-20 shadow-md">
+    <img alt="waving_man" class="z-10 fixed w-[15em] bottom-[20%] left-[3.5%] -rotate-45"
+         src="/assets/people/glad_to_see.png">
+    <img alt="waving_man" class="z-10 fixed w-[10em] bottom-[20%] right-[3%] rotate-[25deg]"
+         src="/assets/people/waving_man.png">
+    <div class="relative bg-gray-100 rounded-lg overflow-hidden z-20 shadow-md">
 
-    <div class="absolute inset-0 bg-cover bg-center"
-         style="background-image: url('/assets/bg_signup.jpg'); filter: blur(1px);"></div>
+        <div class="absolute inset-0 bg-cover bg-center"
+             style="background-image: url('/assets/bg_signup.jpg'); filter: blur(1px);"></div>
 
-    <div class="absolute inset-0 bg-slate-900 opacity-50"></div>
+        <div class="absolute inset-0 bg-slate-900 opacity-50"></div>
 
-    <div class="py-4 px-12 mx-auto max-w-screen-xl grid grid-cols-2 gap-2 relative">
-      <div class="flex flex-col justify-center">
-        <h1
-          class="mb-4 text-heading2-semibold font-extrabold tracking-tight leading-none text-gray-50 z-2 md:text-5xl lg:text-6xl dark:text-white">
-          We invest in the world’s potential</h1>
-        <p class="mb-6 text-heading4-medium font-light text-gray-100 z-2 lg:text-xl dark:text-gray-400">Here at Flowbite
-          we
-          focus on
-          markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
-        <a class="text-gray-50 hover:underline hover:text-gray-50 font-medium text-lg inline-flex items-center"
-           href="/landing">Read
-          more about our app
-          <svg aria-hidden="true" class="w-3.5 h-3.5 ml-2" fill="none" viewBox="0 0 14 10"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                  stroke-width="2"/>
-          </svg>
-        </a>
-      </div>
-      <div>
-        <div class="lg:max-w-xl p-6 space-y-6 sm:p-8 rounded-lg shadow-xl bg-slate-900">
-          <h2 class="text-heading2-semibold text-slate-100">
-            Sign up to Norman.io
-          </h2>
-          <form action="#" class="space-y-6" autocomplete="off" novalidate>
-            <div class="flex flex-wrap -mx-4">
+        <div class="py-4 px-12 mx-auto max-w-screen-xl grid grid-cols-2 gap-2 relative">
+            <div class="flex flex-col justify-center">
+                <h1
+                        class="mb-4 text-heading2-semibold font-extrabold tracking-tight leading-none text-gray-50 z-2 md:text-5xl lg:text-6xl dark:text-white">
+                    We invest in the world’s potential</h1>
+                <p class="mb-6 text-heading4-medium font-light text-gray-100 z-2 lg:text-xl dark:text-gray-400">Here at
+                    Flowbite
+                    we
+                    focus on
+                    markets where technology, innovation, and capital can unlock long-term value and drive economic
+                    growth.</p>
+                <a class="text-gray-50 hover:underline hover:text-gray-50 font-medium text-lg inline-flex items-center"
+                   href="/landing">Read
+                    more about our app
+                    <svg aria-hidden="true" class="w-3.5 h-3.5 ml-2" fill="none" viewBox="0 0 14 10"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"/>
+                    </svg>
+                </a>
+            </div>
+            <div>
+                <div class="lg:max-w-xl p-6 space-y-6 sm:p-8 rounded-lg shadow-xl bg-slate-900">
+                    <h2 class="text-heading2-semibold text-slate-100">
+                        Sign up to Norman.io
+                    </h2>
+                    <form action="#" class="space-y-6" autocomplete="off" novalidate>
+                        <div class="flex flex-wrap -mx-4">
 
-              <div class="w-full md:w-1/2 px-3 mb-3">
-                <label class="text-slate-300">First Name</label>
-                <input
-                  class="form_input text-sm"
-                  placeholder="Enter your first name"
-                  required
-                  type="text">
-              </div>
-              <div class="w-full md:w-1/2 px-3 mb-3">
-                <label class="text-slate-300">Last name</label>
-                <input
-                  class="form_input text-sm"
-                  placeholder="Enter your last name"
-                  required
-                  type="text">
-              </div>
-              <div class="w-full md:w-1/2 px-3 mb-3">
-                <label class="text-slate-300" for="dropdownRadioButton">Market</label>
-                <button
-                  (click)="toggleDropdown()"
-                  class="bg-slate-800 border-0 text-white placeholder-gray-400 font-medium rounded-lg p-2.5 mt-1.5 text-sm w-full py-2.5 justify-center inline-flex items-center"
-                  id="dropdownRadioButton"
-                  type="button">
-                  {{ selectedOption || 'Please choose an option' }}
-                  <svg aria-hidden="true" class="w-2.5 h-2.5 ml-2.5" fill="none" viewBox="0 0 10 6"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                          stroke-width="2"/>
-                  </svg>
-                </button>
-                <div
-                  *ngIf="isDropdownVisible"
-                  @fadeInOut
-                  class="w-full bg-slate-800 divide-gray-100 rounded-xl shadow-lg mt-2"
-                  id="dropdownDefaultRadio">
-                  <ul aria-labelledby="dropdownRadioButton"
-                      class="p-3 space-y-3 text-sm text-slate-200">
-                    <li *ngFor="let radio of radioButtons">
-                      <div class="flex items-center">
-                        <input
-                          (change)="updateSelection(radio.label)"
-                          [(ngModel)]="selectedOption"
-                          [id]="radio.id"
-                          [value]="radio.label"
-                          id="role"
-                          class="w-4 h-4 text-purple-main bg-slate-100 border-slate-600 focus:ring-purple-main focus:ring-2"
-                          name="default-radio"
-                          type="radio">
-                        <label [for]="radio.id"
-                               class="cursor-pointer ml-2 text-sm font-medium">{{radio.label}}</label>
-                      </div>
-                    </li>
-                  </ul>
+                            <div class="w-full md:w-1/2 px-3 mb-3">
+                                <label class="text-slate-300">First Name</label>
+                                <input
+                                        class="form_input text-sm"
+                                        placeholder="Enter your first name"
+                                        required
+                                        type="text">
+                            </div>
+                            <div class="w-full md:w-1/2 px-3 mb-3">
+                                <label class="text-slate-300">Last name</label>
+                                <input
+                                        class="form_input text-sm"
+                                        placeholder="Enter your last name"
+                                        required
+                                        type="text">
+                            </div>
+                            <div class="w-full md:w-1/2 px-3 mb-3">
+                                <label class="text-slate-300" for="dropdownRadioButton">Market</label>
+                                <button
+                                        (click)="toggleDropdown()"
+                                        class="bg-slate-800 border-0 text-white placeholder-gray-400 font-medium rounded-lg p-2.5 mt-1.5 text-sm w-full py-2.5 justify-center inline-flex items-center"
+                                        id="dropdownRadioButton"
+                                        type="button">
+                                    {{ selectedOption || 'Please choose an option' }}
+                                    <svg aria-hidden="true" class="w-2.5 h-2.5 ml-2.5" fill="none" viewBox="0 0 10 6"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              stroke-width="2"/>
+                                    </svg>
+                                </button>
+                                <div
+                                        *ngIf="isDropdownVisible"
+                                        @fadeInOut
+                                        class="w-full bg-slate-800 divide-gray-100 rounded-xl shadow-lg mt-2"
+                                        id="dropdownDefaultRadio">
+                                    <ul aria-labelledby="dropdownRadioButton"
+                                        class="p-3 space-y-3 text-sm text-slate-200">
+                                        <li *ngFor="let radio of radioButtons">
+                                            <div class="flex items-center">
+                                                <input
+                                                        (change)="updateSelection(radio.label)"
+                                                        [(ngModel)]="selectedOption"
+                                                        [id]="radio.id"
+                                                        [value]="radio.label"
+                                                        id="role"
+                                                        class="w-4 h-4 text-purple-main bg-slate-100 border-slate-600 focus:ring-purple-main focus:ring-2"
+                                                        name="default-radio"
+                                                        type="radio">
+                                                <label [for]="radio.id"
+                                                       class="cursor-pointer ml-2 text-sm font-medium">{{radio.label}}</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="w-full md:w-1/2 px-3 mb-3">
+                                <label class="text-slate-300">Email</label>
+                                <input
+                                        class="form_input text-sm"
+                                        id="email" name="email"
+                                        placeholder="name@company.com"
+                                        required
+                                        type="email">
+                            </div>
+                            <div class="w-full md:w-1/2 px-3 mb-3">
+                                <label class="text-slate-300">Password</label>
+                                <input
+                                        class="form_input text-sm"
+                                        id="password" name="password"
+                                        placeholder="••••••••"
+                                        required
+                                        type="password">
+                            </div>
+                            <div class="w-full md:w-1/2 px-3 mb-3">
+                                <label class="text-slate-300">Confirm Password</label>
+                                <input
+                                        class="form_input text-sm"
+                                        id="confirmpassword" name="confirmpassword"
+                                        placeholder="••••••••"
+                                        required
+                                        type="password">
+                            </div>
+                        </div>
+                        <button (click)="signIn()" [routerLink]="['/user']"
+                                class="w-full bg-purple-main text-white transition-colors duration-200 hover:bg-purple-700 text-base-medium rounded-lg shadow-md py-2 active:bg-purple-800"
+                                type="submit">
+                            Sign up
+                        </button>
+                        <div class="text-sm font-medium text-slate-400">
+                            Already have an account?
+                            <a [routerLink]="['/sign-in']"
+                               class="text-base-medium text-slate-200 hover:text-purple-400 hover:underline">
+                                Sign in</a>
+                        </div>
+                    </form>
                 </div>
-
-              </div>
-              <div class="w-full md:w-1/2 px-3 mb-3">
-                <label class="text-slate-300">Email</label>
-                <input
-                  class="form_input text-sm"
-                  id="email" name="email"
-                  placeholder="name@company.com"
-                  required
-                  type="email">
-              </div>
-              <div class="w-full md:w-1/2 px-3 mb-3">
-                <label class="text-slate-300">Password</label>
-                <input
-                  class="form_input text-sm"
-                  id="password" name="password"
-                  placeholder="••••••••"
-                  required
-                  type="password">
-              </div>
-              <div class="w-full md:w-1/2 px-3 mb-3">
-                <label class="text-slate-300">Confirm Password</label>
-                <input
-                  class="form_input text-sm"
-                  id="confirmpassword" name="confirmpassword"
-                  placeholder="••••••••"
-                  required
-                  type="password">
-              </div>
             </div>
-            <button (click)="signIn()" [routerLink]="['/user']"
-                    class="w-full bg-purple-main text-white text-base-medium rounded-lg shadow-md py-2 active:bg-purple-700"
-                    type="submit">
-              Sign up
-            </button>
-            <div class="text-sm font-medium text-slate-400">
-              Already have an account?
-              <a [routerLink]="['/sign-in']"
-                 class="text-base-medium text-slate-200 hover:text-pink-main hover:underline">
-                Sign in</a>
-            </div>
-          </form>
         </div>
-      </div>
     </div>
-  </div>
 </div>

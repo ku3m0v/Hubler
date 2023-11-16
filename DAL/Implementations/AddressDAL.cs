@@ -9,33 +9,22 @@ namespace Hubler.DAL.Implementations
 {
     public class AddressDAL : IAddressDAL
     {
-        public Address GetById(int id)
+        public Address? GetById(int id)
         {
             using (var connection = DBConnection.GetConnection())
             {
-                var parameters = new OracleDynamicParameters();
-                parameters.Add("p_id", id, OracleMappingType.Int32);
-                parameters.Add("p_street", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
-                parameters.Add("p_house", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
-                parameters.Add("p_city", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
-                parameters.Add("p_postalcode", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
-                parameters.Add("p_country", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                var addressParams = new OracleDynamicParameters();
+                addressParams.Add("p_id", id, OracleMappingType.Int32);
+                addressParams.Add("o_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
 
-                connection.Execute("GET_ADDRESS_BY_ID", parameters, commandType: CommandType.StoredProcedure);
-
-                return new Address
-                {
-                    Id = id,
-                    Street = parameters.Get<string>("p_street"),
-                    House = parameters.Get<int>("p_house"),
-                    City = parameters.Get<string>("p_city"),
-                    PostalCode = parameters.Get<string>("p_postalcode"),
-                    Country = parameters.Get<string>("p_country")
-                };
+                return connection.Query<Address>(
+                    "GET_ADDRESS_BY_ID",
+                    addressParams,
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 
-        public void Insert(Address address)
+        public int Insert(Address address)
         {
             using (var connection = DBConnection.GetConnection())
             {
@@ -45,15 +34,20 @@ namespace Hubler.DAL.Implementations
                 parameters.Add("p_city", address.City, OracleMappingType.Varchar2);
                 parameters.Add("p_postalcode", address.PostalCode, OracleMappingType.Varchar2);
                 parameters.Add("p_country", address.Country, OracleMappingType.Varchar2);
+                parameters.Add("p_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
 
                 connection.Execute("INSERT_ADDRESS", parameters, commandType: CommandType.StoredProcedure);
+        
+                return parameters.Get<int>("p_id");
             }
         }
+
 
         public void Update(Address address)
         {
             using (var connection = DBConnection.GetConnection())
             {
+                
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_id", address.Id, OracleMappingType.Int32);
                 parameters.Add("p_street", address.Street, OracleMappingType.Varchar2);
@@ -70,6 +64,7 @@ namespace Hubler.DAL.Implementations
         {
             using (var connection = DBConnection.GetConnection())
             {
+                
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_id", id, OracleMappingType.Int32);
 
@@ -81,7 +76,10 @@ namespace Hubler.DAL.Implementations
         {
             using (var connection = DBConnection.GetConnection())
             {
-                return connection.Query<Address>("GET_ALL_ADDRESSES", commandType: CommandType.StoredProcedure).ToList();
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("o_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+
+                return connection.Query<Address>("GET_ALL_ADDRESSES", parameters, commandType: CommandType.StoredProcedure).ToList();
             }
         }
     }

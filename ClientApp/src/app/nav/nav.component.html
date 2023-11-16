@@ -1,45 +1,48 @@
 <nav class='topbar'>
-  <a [routerLink]="['/chart']" class='flex items-center gap-3'>
-    <img alt='logo' height='40' src='/assets/donut.png' width='40'/>
-    <p class='text-heading2-bold text-light-1 max-xs:hidden'>hubler.io</p>
-  </a>
+    <a [routerLink]="['/chart']" class='flex items-center gap-3'>
+        <img alt='logo' height='40' src='/assets/donut.png' width='40'/>
+        <p class='text-heading2-bold text-light-1 max-xs:hidden'>hubler.io</p>
+    </a>
 
-  <div *ngIf="!isSignedIn" class="flex flex-row gap-5 mt-2">
-    <a [routerLink]="['/']" class="cursor-pointer">
-      <p class='nav_link'>Features</p>
-    </a>
-    <a [routerLink]="['/']" class="cursor-pointer">
-      <p class='nav_link'>How it
-        works</p>
-    </a>
-    <a [routerLink]="['/']" class="cursor-pointer">
-      <p class='nav_link'>About Us</p>
-    </a>
-    <a [routerLink]="['/contact']" fragment="sectionID" class="cursor-pointer">
-      <p class='nav_link'>Contact Us</p>
-    </a>
-  </div>
-
-  <div class='flex items-center gap-3 mt-2'>
-    <button (click)="toggleModal()" *ngIf="!isSignedIn"
-            [routerLink]="['/sign-in']"
-            class="flex flex-row ease-in-out text-white text-regular font-medium bg-purple-main border-2 border-purple-700/30 rounded-lg px-4 py-2 max-md:hidden shadow-md shadow-black">Sign in
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-      </svg>
-    </button>
-
-    <div class="flex flex-row gap-2 md:hidden">
-      <div class="flex cursor-pointer">
-        <button (click)="signIn()" *ngIf="!isSignedIn" [routerLink]="['/chart']">
-          <img alt="logout" height={24} src="/assets/assets/user.svg" width={24}>
-        </button>
-      </div>
-      <a (click)="signOut()" *ngIf="isSignedIn" [routerLink]="['/landing']">
-        <div class="flex cursor-pointer">
-          <img alt="logout" height={24} src="/assets/assets/logout.svg" width={24}>
-        </div>
-      </a>
+    <div *ngIf="!isSignedIn" class="flex flex-row gap-5 mt-2">
+        <a [routerLink]="['/']" class="cursor-pointer">
+            <p class='nav_link'>Features</p>
+        </a>
+        <a [routerLink]="['/']" class="cursor-pointer">
+            <p class='nav_link'>How it
+                works</p>
+        </a>
+        <a [routerLink]="['/about']" fragment="about" class="cursor-pointer">
+            <p class='nav_link'>About Us</p>
+        </a>
+        <a [routerLink]="['/contact']" fragment="contact" class="cursor-pointer">
+            <p class='nav_link'>Contact Us</p>
+        </a>
     </div>
-  </div>
+
+    <div class='flex items-center gap-3 mt-2'>
+        <button (click)="toggleModal()" *ngIf="!isSignedIn"
+                [routerLink]="['/sign-in']"
+                class="flex flex-row ease-in-out text-white text-regular font-medium bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 border-2 border-purple-700/30 rounded-lg px-4 py-2 max-md:hidden shadow-md shadow-black">
+            Sign in
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                 class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+            </svg>
+        </button>
+
+        <div class="flex flex-row gap-2 md:hidden">
+            <div class="flex cursor-pointer">
+                <button (click)="signIn()" *ngIf="!isSignedIn" [routerLink]="['/chart']">
+                    <img alt="logout" height={24} src="/assets/assets/user.svg" width={24}>
+                </button>
+            </div>
+            <a (click)="signOut()" *ngIf="isSignedIn" [routerLink]="['/landing']">
+                <div class="flex cursor-pointer">
+                    <img alt="logout" height={24} src="/assets/assets/logout.svg" width={24}>
+                </div>
+            </a>
+        </div>
+    </div>
 </nav>

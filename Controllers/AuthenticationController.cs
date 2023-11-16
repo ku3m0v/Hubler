@@ -1,36 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Hubler.BAL.Interfaces;
+using Hubler.DAL.Implementations;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
 using Hubler.Models;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hubler.Controllers
 {
     [Route("api/authentication")]
     [ApiController]
+    [Authorize]
     public class AuthenticationController : ControllerBase
     {
         private readonly ILogger<AuthenticationController> _logger;
         private readonly IEmployeeDAL _employeeDAL;
+        private readonly ISupermarketDAL _supermarketDAL;
         private readonly IConfiguration _configuration;
 
         public AuthenticationController(
             ILogger<AuthenticationController> logger,
             IEmployeeDAL employeeDAL,
+            ISupermarketDAL supermarketDAL,
             IConfiguration configuration)
         {
             _logger = logger;
             _employeeDAL = employeeDAL ?? throw new ArgumentNullException(nameof(employeeDAL));
+            _supermarketDAL = supermarketDAL ?? throw new ArgumentNullException(nameof(supermarketDAL));
             _configuration = configuration;
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public IActionResult Login([FromBody] LoginModel model)
         {
             if (model is null || string.IsNullOrWhiteSpace(model.Username) ||
@@ -40,17 +44,15 @@ namespace Hubler.Controllers
             }
 
             Employee employee = _employeeDAL.GetByEmail(model.Username);
-
-            // Assuming the password in your Employee model is hashed.
-            // If it's not hashed, you'll want to hash it using a library like BCrypt before comparing.
-            if (employee != null && model.Username.Equals(employee.Email) && model.Password.Equals(employee.PassHash))
-                //BCrypt.Net.BCrypt.Verify(model.Password, employee.PassHash))
+            
+            if (employee != null && model.Username.Equals(employee.Email) &&
+                BCrypt.Net.BCrypt.Verify(model.Password, employee.PassHash))
             {
+                // DBConnection.SetContext(employee.Email);
                 var tokenClaims = new[]
                 {
-                    new Claim("id", employee.Id.ToString()),
-                    new Claim("email", employee.Email),
-                    // Assuming role or other claims you might want to include.
+                    new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
+                    new Claim(ClaimTypes.Email, employee.Email)
                 };
 
                 var jwtSettings = _configuration.GetSection("JWTSettings");
@@ -60,7 +62,7 @@ namespace Hubler.Controllers
                     issuer: jwtSettings["Issuer"],
                     audience: jwtSettings["Audience"],
                     claims: tokenClaims,
-                    expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["expiryInMinutes"])),
+                    expires: DateTime.Now.AddMinutes(60),
                     signingCredentials: signinCredentials
                 );
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
@@ -70,6 +72,47 @@ namespace Hubler.Controllers
             return Unauthorized("Invalid email or password.");
         }
 
-        // If you have other methods for registration, profile retrieval, etc., add them here similar to the example.
+        
+        
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] RegistrationModel model)
+        {
+            if (model == null || string.IsNullOrWhiteSpace(model.Email) ||
+                string.IsNullOrWhiteSpace(model.Password))
+            {
+                return BadRequest("Invalid registration request.");
+            }
+            
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
+            Supermarket supermarket = _supermarketDAL.GetSupermarketByTitle(model.SupermarketTitle);
+            
+            var newEmployee = new Employee
+            {
+                Email = model.Email,
+                PassHash = hashedPassword,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                CreatedDate = DateTime.Now,
+                SupermarketId = supermarket.Id,
+                RoleId = 2
+            };
+
+            try
+            {
+                // Save the new employee record to the database
+                var result = _employeeDAL.Insert(newEmployee);
+                if (result == "Email already exists")
+                {
+                    return BadRequest(result);
+                }
+                return Ok("Registration successful.");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details for debugging purposes
+                _logger.LogError(ex, "Error during registration.");
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
     }
 }

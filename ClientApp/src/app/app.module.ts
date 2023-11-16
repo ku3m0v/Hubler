@@ -17,37 +17,39 @@ import {ChartComponent} from "./chart/chart.component";
 import {NgApexchartsModule} from "ng-apexcharts";
 import {EmployeeComponent} from "./employee/employee.component";
 import {StoreComponent} from "./store/store.component";
-import {ToastComponent} from "./toast/toast.component";
+import {SpinnerComponent} from "./spinner/spinner.component";
+import {AddStoreComponent} from "./store/add-store/add-store.component";
 
 export function tokenGetter() {
-  return localStorage.getItem("jwt");
+    return localStorage.getItem("jwt");
 }
 
 @NgModule({
-  imports: [
-    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    NgApexchartsModule,
-  ],
-  declarations: [
-    AppComponent,
-    SidebarComponent,
-    UserComponent,
-    HomeComponent,
-    SignInComponent,
-    SignUpComponent,
-    NavComponent,
-    LandingComponent,
-    ChartComponent,
-    EmployeeComponent,
-    StoreComponent,
-    ToastComponent,
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        NgApexchartsModule,
+    ],
+    declarations: [
+        AppComponent,
+        SidebarComponent,
+        UserComponent,
+        HomeComponent,
+        SignInComponent,
+        SignUpComponent,
+        NavComponent,
+        LandingComponent,
+        ChartComponent,
+        EmployeeComponent,
+        StoreComponent,
+        SpinnerComponent,
+        AddStoreComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

@@ -1,4 +1,5 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using Dapper.Oracle;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -14,5 +15,14 @@ public class DBConnection
         return new OracleConnection(ConnectionString);
     }
     
-    
+    // public static void SetContext(String email)
+    // {
+    //     using (var connection = GetConnection())
+    //     {
+    //         var setContextCommand = new OracleCommand("BEGIN DBMS_SESSION.SET_CONTEXT('myapp_context', 'user_id', :username); END;", connection);
+    //         setContextCommand.Parameters.Add(new OracleParameter("username", email));
+    //         setContextCommand.ExecuteNonQuery();
+    //     }
+    // }
+
 }

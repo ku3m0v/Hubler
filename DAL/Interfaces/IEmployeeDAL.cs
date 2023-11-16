@@ -5,7 +5,7 @@ namespace Hubler.DAL.Interfaces;
 public interface IEmployeeDAL
 {
     Employee GetById(int id);
-    void Insert(Employee employee);
+    String Insert(Employee employee);
     void Update(Employee employee);
     void Delete(int id);
     IEnumerable<Employee> GetAll();

@@ -47,6 +47,9 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddSingleton<IEmployeeDAL, EmployeeDAL>();
+builder.Services.AddSingleton<ISupermarketDAL, SupermarketDAL>();
+builder.Services.AddSingleton<IAddressDAL, AddressDAL>();
+builder.Services.AddSingleton<ICashRegisterDAL, CashRegisterDAL>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 builder.Services.AddAuthentication(opt =>
@@ -91,9 +94,12 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseCors("MyAllowSpecificOrigins");
 app.UseAuthentication();
+app.UseAuthorization();
 
 
 app.MapControllerRoute(

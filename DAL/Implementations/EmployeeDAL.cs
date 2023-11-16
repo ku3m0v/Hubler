@@ -3,6 +3,7 @@ using Dapper;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
 using Dapper.Oracle;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -22,6 +23,7 @@ public class EmployeeDAL : IEmployeeDAL
                 parameters.Add("p_supermarketid", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
                 parameters.Add("p_roleid", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
                 parameters.Add("p_content_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("p_admin_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
 
                 connection.Execute("GET_EMPLOYEE_BY_ID", parameters, commandType: CommandType.StoredProcedure);
 
@@ -35,28 +37,44 @@ public class EmployeeDAL : IEmployeeDAL
                     CreatedDate = parameters.Get<DateTime>("p_createddate"),
                     SupermarketId = parameters.Get<int>("p_supermarketid"),
                     RoleId = parameters.Get<int>("p_roleid"),
-                    ContentId = parameters.Get<int>("p_content_id")
+                    ContentId = parameters.Get<int>("p_content_id"),
+                    AdminId = parameters.Get<int>("p_admin_id")
                 };
             }
         }
 
-        public void Insert(Employee employee)
+        public String Insert(Employee employee)
         {
-            using (var connection = DBConnection.GetConnection())
+            try
             {
-                var parameters = new OracleDynamicParameters();
-                parameters.Add("p_id", employee.Id, OracleMappingType.Int32);
-                parameters.Add("p_email", employee.Email, OracleMappingType.Varchar2);
-                parameters.Add("p_passhash", employee.PassHash, OracleMappingType.Varchar2);
-                parameters.Add("p_firstname", employee.FirstName, OracleMappingType.Varchar2);
-                parameters.Add("p_lastname", employee.LastName, OracleMappingType.Varchar2);
-                parameters.Add("p_createddate", employee.CreatedDate, OracleMappingType.Date);
-                parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
-                parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32);
-                parameters.Add("p_content_id", employee.ContentId, OracleMappingType.Int32);
+                using (var connection = DBConnection.GetConnection())
+                {
+                    var parameters = new OracleDynamicParameters();
+                    parameters.Add("p_id", employee.Id, OracleMappingType.Int32);
+                    parameters.Add("p_email", employee.Email, OracleMappingType.Varchar2);
+                    parameters.Add("p_passhash", employee.PassHash, OracleMappingType.Varchar2);
+                    parameters.Add("p_firstname", employee.FirstName, OracleMappingType.Varchar2);
+                    parameters.Add("p_lastname", employee.LastName, OracleMappingType.Varchar2);
+                    parameters.Add("p_createddate", employee.CreatedDate, OracleMappingType.Date);
+                    parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
+                    parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32);
+                    parameters.Add("p_content_id", employee.ContentId, OracleMappingType.Int32);
+                    parameters.Add("p_admin_id", employee.AdminId, OracleMappingType.Int32);
 
-                connection.Execute("INSERT_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
+                    connection.Execute("INSERT_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
+                }
+                
+                return "Employee was successfully created";
             }
+            catch (OracleException e)
+            {
+                if (e.Number == 20050)
+                {
+                    return "Email already exists";
+                }
+            }
+
+            return null;
         }
 
         public void Update(Employee employee)
@@ -73,6 +91,7 @@ public class EmployeeDAL : IEmployeeDAL
                 parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
                 parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32);
                 parameters.Add("p_content_id", employee.ContentId, OracleMappingType.Int32);
+                parameters.Add("p_admin_id", employee.AdminId, OracleMappingType.Int32);
 
                 connection.Execute("UPDATE_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
             }
@@ -114,6 +133,7 @@ public class EmployeeDAL : IEmployeeDAL
                 parameters.Add("p_supermarketid", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
                 parameters.Add("p_roleid", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
                 parameters.Add("p_content_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("p_admin_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
 
                 connection.Execute("GET_EMPLOYEE_BY_EMAIL", parameters, commandType: CommandType.StoredProcedure);
 
@@ -127,7 +147,8 @@ public class EmployeeDAL : IEmployeeDAL
                     CreatedDate = parameters.Get<DateTime>("p_createddate"),
                     SupermarketId = parameters.Get<int>("p_supermarketid"),
                     RoleId = parameters.Get<int>("p_roleid"),
-                    ContentId = parameters.Get<int>("p_content_id")
+                    ContentId = parameters.Get<int>("p_content_id"),
+                    AdminId = parameters.Get<int>("p_admin_id")
                 };
             }
         }
