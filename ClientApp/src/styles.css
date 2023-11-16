@@ -157,7 +157,11 @@
 }
 
 .form_input {
-  @apply bg-slate-800 border-0 text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-main focus:border-none rounded-lg block w-full p-2.5 mt-1.5;
+  @apply bg-slate-800 border-0 text-gray-50 placeholder-gray-400 focus:ring-2 focus:ring-purple-main focus:border-none rounded-lg block w-full p-2.5 mt-1.5;
+}
+
+.form-input-store {
+  @apply bg-slate-800 text-gray-50 placeholder-gray-400 focus:ring-2 focus:ring-purple-main focus:border-none rounded-lg block w-full p-2.5 mt-1.5;
 }
 
 /* Comment Form */

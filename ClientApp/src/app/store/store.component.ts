@@ -9,9 +9,14 @@ import {Router} from "@angular/router";
 })
 export class StoreComponent {
     public storeList: SupermarketWithAddress[] = [];
-
+  showSpinner = true;
+  showButton = false;
     constructor(private router: Router, private supermarketService: SupermarketService) {
         this.getStores();
+      setTimeout(() => {
+        this.showSpinner = false;
+        this.showButton = true;
+      }, 1500);
     }
 
     getStores() {

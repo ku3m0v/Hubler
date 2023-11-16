@@ -1,67 +1,145 @@
-<div class="container mt-4">
-    <h2>{{ title }} Supermarket</h2>
-    <form [formGroup]="storeForm" (ngSubmit)="saveStore()" novalidate>
-        <div class="form-group">
-            <label for="title">Title:</label>
-            <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter title">
-            <div *ngIf="storeForm.get('title')?.invalid && storeForm.get('title')?.touched" class="alert alert-danger">
-                Title is required.
-            </div>
-        </div>
+<div class="relative bg-slate-900 rounded-lg overflow-hidden">
 
-        <div class="form-group">
-            <label for="phone">Phone:</label>
-            <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="Enter phone number">
-            <div *ngIf="storeForm.get('phone')?.invalid && storeForm.get('phone')?.touched" class="alert alert-danger">
-                Phone number is required.
-            </div>
-        </div>
+  <div class="absolute inset-0 bg-cover bg-center"
+       style="background-image: url('/assets/market.png'); filter: blur(3px);"></div>
 
-        <div class="form-group">
-            <label for="street">Street:</label>
-            <input type="text" class="form-control" id="street" formControlName="street" placeholder="Enter street">
-            <div *ngIf="storeForm.get('street')?.invalid && storeForm.get('street')?.touched"
-                 class="alert alert-danger">
+  <div class="absolute inset-0 bg-slate-900 opacity-50"></div>
+
+  <div class="py-3 px-3 mx-auto max-w-screen-xl grid lg:grid-cols-2 gap-4 lg:gap-16 relative">
+    <div class="flex justify-center items-stretch mt-6">
+      <h2 class="text-[4rem] font-bold text-gray-50 mb-6"></h2>
+    </div>
+    <div>
+      <div class="lg:max-w-xl px-6 py-3 sm:p-8 rounded-lg shadow-xl bg-slate-900">
+        <form class="space-y-3" [formGroup]="storeForm" (ngSubmit)="saveStore()" novalidate>
+          <div class="">
+            <label *ngIf="storeForm.get('title')?.invalid && storeForm.get('title')?.touched" for="title"
+                   class="block mb-2 text-sm font-medium text-red-600">Title</label>
+            <label *ngIf="!storeForm.get('title')?.invalid || !storeForm.get('title')?.touched" for="title"
+                   class="block mb-2 text-sm font-medium text-gray-300">Title</label>
+            <input type="text"
+                   id="title"
+                   formControlName="title"
+                   placeholder="Enter supermarket name"
+                   [class]="storeForm.get('title')?.invalid && storeForm.get('title')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                   required>
+            <div *ngIf="storeForm.get('title')?.invalid && storeForm.get('title')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Title is required.
+            </div>
+          </div>
+          <div class="">
+            <label *ngIf="storeForm.get('phone')?.invalid && storeForm.get('phone')?.touched" for="phone"
+                   class="block mb-2 text-sm font-medium text-red-600">Phone number</label>
+            <label *ngIf="!storeForm.get('phone')?.invalid || !storeForm.get('phone')?.touched" for="phone"
+                   class="block mb-2 text-sm font-medium text-gray-300">Phone number</label>
+            <input type="tel"
+                   id="phone"
+                   formControlName="phone"
+                   placeholder="Enter phone number"
+                   [class]="storeForm.get('phone')?.invalid && storeForm.get('phone')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                   required>
+            <div *ngIf="storeForm.get('phone')?.invalid && storeForm.get('phone')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Phone number is required, e.g. 888-888-8888.
+            </div>
+          </div>
+          <div class="grid gap-4 lg:grid-cols-2">
+            <div>
+              <label *ngIf="storeForm.get('street')?.invalid && storeForm.get('street')?.touched" for="street"
+                     class="block mb-2 text-sm font-medium text-red-600">Street</label>
+              <label *ngIf="!storeForm.get('street')?.invalid || !storeForm.get('street')?.touched" for="street"
+                     class="block mb-2 text-sm font-medium text-gray-300">Street</label>
+              <input type="text"
+                     id="street"
+                     formControlName="street"
+                     placeholder="Enter street"
+                     [class]="storeForm.get('street')?.invalid && storeForm.get('street')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="storeForm.get('street')?.invalid && storeForm.get('street')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
                 Street is required.
+              </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="house">House:</label>
-            <input type="text" class="form-control" id="house" formControlName="house" placeholder="Enter house number">
-            <div *ngIf="storeForm.get('house')?.invalid && storeForm.get('house')?.touched" class="alert alert-danger">
+            <div>
+              <label *ngIf="storeForm.get('house')?.invalid && storeForm.get('house')?.touched" for="house"
+                     class="block mb-2 text-sm font-medium text-red-600">House</label>
+              <label *ngIf="!storeForm.get('house')?.invalid || !storeForm.get('house')?.touched" for="house"
+                     class="block mb-2 text-sm font-medium text-gray-300">House</label>
+              <input type="number"
+                     id="house"
+                     formControlName="house"
+                     placeholder="Enter house number"
+                     [class]="storeForm.get('house')?.invalid && storeForm.get('house')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="storeForm.get('house')?.invalid && storeForm.get('house')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
                 House number is required.
+              </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="city">City:</label>
-            <input type="text" class="form-control" id="city" formControlName="city" placeholder="Enter city">
-            <div *ngIf="storeForm.get('city')?.invalid && storeForm.get('city')?.touched" class="alert alert-danger">
+            <div>
+              <label *ngIf="storeForm.get('city')?.invalid && storeForm.get('city')?.touched" for="city"
+                     class="block mb-2 text-sm font-medium text-red-600">City</label>
+              <label *ngIf="!storeForm.get('city')?.invalid || !storeForm.get('city')?.touched" for="city"
+                     class="block mb-2 text-sm font-medium text-gray-300">City</label>
+              <input type="text"
+                     id="city"
+                     formControlName="city"
+                     placeholder="Enter city"
+                     [class]="storeForm.get('city')?.invalid && storeForm.get('city')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="storeForm.get('city')?.invalid && storeForm.get('city')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
                 City is required.
+              </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="postalCode">Postal Code:</label>
-            <input type="text" class="form-control" id="postalCode" formControlName="postalCode"
-                   placeholder="Enter postal code">
-            <div *ngIf="storeForm.get('postalCode')?.invalid && storeForm.get('postalCode')?.touched"
-                 class="alert alert-danger">
-                Postal code is required.
+            <div>
+              <label *ngIf="storeForm.get('postalCode')?.invalid && storeForm.get('postalCode')?.touched" for="postalCode"
+                     class="block mb-2 text-sm font-medium text-red-600">Postal code</label>
+              <label *ngIf="!storeForm.get('postalCode')?.invalid || !storeForm.get('postalCode')?.touched" for="postalCode"
+                     class="block mb-2 text-sm font-medium text-gray-300">Postal code</label>
+              <input type="text"
+                     id="postalCode"
+                     formControlName="postalCode"
+                     placeholder="Enter postal code"
+                     [class]="storeForm.get('postalCode')?.invalid && storeForm.get('postalCode')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="storeForm.get('postalCode')?.invalid && storeForm.get('postalCode')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                Postal code is required, e.g. 88-888.
+              </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="country">Country:</label>
-            <input type="text" class="form-control" id="country" formControlName="country" placeholder="Enter country">
+          </div>
+          <div class="">
+            <label *ngIf="storeForm.get('country')?.invalid && storeForm.get('country')?.touched" for="country"
+                   class="block mb-2 text-sm font-medium text-red-600">Country</label>
+            <label *ngIf="!storeForm.get('country')?.invalid || !storeForm.get('country')?.touched" for="country"
+                   class="block mb-2 text-sm font-medium text-gray-300">Country</label>
+            <input type="text"
+                   id="country"
+                   formControlName="country"
+                   placeholder="Enter country name"
+                   [class]="storeForm.get('country')?.invalid && storeForm.get('country')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                   required>
             <div *ngIf="storeForm.get('country')?.invalid && storeForm.get('country')?.touched"
-                 class="alert alert-danger">
-                Country is required.
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Country name is required.
             </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary" [disabled]="!storeForm.valid">{{ title }}</button>
-        <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
-    </form>
+          </div>
+          <div class="flex flex-row gap-3 pt-3" >
+            <button type="submit"
+                    [disabled]="!storeForm.valid"
+                    class="text-gray-50 bg-purple-main font-medium rounded-lg border-2 border-purple-600/30 text-sm w-full sm:w-auto px-5 py-1.5 text-center cursor-pointer bg-purple-800/70">
+              {{ title }}
+            </button>
+            <button type="button"
+                    class="text-gray-50 bg-red-600 font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-5 py-1.5 text-center cursor-pointer active:bg-red-700"
+                    (click)="cancel()">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

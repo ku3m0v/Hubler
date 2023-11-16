@@ -18,13 +18,13 @@ export class AddStoreComponent implements OnInit {
         private supermarketService: SupermarketService
     ) {
         this.storeForm = this.fb.group({
-            title: ['', Validators.required],
-            phone: ['', Validators.required],
-            street: ['', Validators.required],
-            house: ['', Validators.required],
-            city: ['', Validators.required],
-            postalCode: ['', Validators.required],
-            country: ['', Validators.required]
+            title: ['', Validators.required, Validators.pattern(/^[a-zA-Z]+$/), Validators.maxLength(25)],
+            phone: ['', [Validators.required, Validators.pattern(/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/)]],
+            street: ['', Validators.required, Validators.pattern(/^[a-zA-Z]+$/), Validators.maxLength(25)],
+            house: ['', Validators.required, Validators.maxLength(5), Validators.pattern(/^[0-9]+$/)],
+            city: ['', Validators.required, Validators.pattern(/^[a-zA-Z]+$/), Validators.maxLength(25)],
+            postalCode: ['', Validators.required, Validators.pattern(/^[0-9]{2}-[0-9]{3}$/)],
+            country: ['', Validators.required, Validators.pattern(/^[a-zA-Z]+$/), Validators.maxLength(25)]
         });
     }
 

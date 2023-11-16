@@ -6,9 +6,9 @@ import configurl from "../../../assets/config/config.json";
 
 export interface SupermarketWithAddress {
     title: string;
-    phone: string;
+    phone: number;
     street: string;
-    house: string;
+    house: number;
     city: string;
     postalCode: string;
     country: string;
