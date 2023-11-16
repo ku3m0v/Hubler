@@ -10,10 +10,8 @@
     </ng-container>
   </div>
   <div class="px-4 pb-3">
-    <a (click)="signOut()" *ngIf="isSignedIn" class="leftsidebar_link"
-       routerLink="/">
+    <a (click)="showModal()" *ngIf="isSignedIn" class="leftsidebar_link cursor-pointer">
       <img alt="Logout" height="28" width="28" src="/assets/assets/logout.svg"/>
     </a>
   </div>
-  <app-toast *ngIf="isModalVisible" (confirm)="signOut()" (cancel)="hideModal()"></app-toast>
 </section>

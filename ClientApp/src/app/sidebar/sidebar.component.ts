@@ -2,31 +2,44 @@ import {Component} from '@angular/core';
 import {AuthenticationService} from "../service/auth-service/authentication.service";
 
 @Component({
-    selector: 'app-sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.css']
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-    public sidebarLinks = [
-        {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
-        {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
-        {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
-        {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
+  isModalVisible = false;
 
-    ];
-
-    constructor(private authService: AuthenticationService) {
+  showModal() {
+    const ans = confirm("Do you want to sign out?");
+    if (ans) {
+      this.signOut();
     }
+  }
 
-    get isSignedIn(): boolean {
-        return this.authService.isUserSignedIn();
-    }
+  hideModal() {
+    this.isModalVisible = false;
+  }
 
-    signOut(): void {
-        this.authService.signOut();
-    }
+  public sidebarLinks = [
+    {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
+    {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
+    {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
+    {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
 
-    public isActive(linkRoute: string, currentPath: string): boolean {
-        return (currentPath.includes(linkRoute) && linkRoute.length > 1) || currentPath === linkRoute;
-    }
+  ];
+
+  constructor(private authService: AuthenticationService) {
+  }
+
+  get isSignedIn(): boolean {
+    return this.authService.isUserSignedIn();
+  }
+
+  signOut(): void {
+    this.authService.signOut();
+  }
+
+  public isActive(linkRoute: string, currentPath: string): boolean {
+    return (currentPath.includes(linkRoute) && linkRoute.length > 1) || currentPath === linkRoute;
+  }
 }
