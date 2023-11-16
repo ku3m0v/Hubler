@@ -39,6 +39,7 @@ export class StoreComponent {
 
 // Update this interface to match the structure of your store data
 interface StoreData {
+    id: number;
     title: string;
     phone: string;
     street: string;

@@ -14,9 +14,9 @@ public class SupermarketDAL : ISupermarketDAL
             using (var connection = DBConnection.GetConnection())
             {
                 var parameters = new OracleDynamicParameters();
-                parameters.Add("p_id", id, OracleMappingType.Int32);
-                parameters.Add("p_title", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
-                parameters.Add("p_phone", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_id", id, OracleMappingType.Int32, ParameterDirection.Input);
+                parameters.Add("p_title", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output, size: 100);
+                parameters.Add("p_phone", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output, size: 20);
                 parameters.Add("p_addressid", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
 
                 connection.Execute("GET_SUPERMARKET_BY_ID", parameters, commandType: CommandType.StoredProcedure);

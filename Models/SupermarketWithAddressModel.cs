@@ -3,6 +3,7 @@
 public class SupermarketWithAddressModel
 {
     // Supermarket fields
+    public int SupermarketId { get; set; }
     public string Title { get; set; }
     public string Phone { get; set; }
 
