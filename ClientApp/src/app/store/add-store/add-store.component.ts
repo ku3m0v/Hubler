@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SupermarketService, SupermarketWithAddress } from '../../service/store-service/store.service';
+import {AuthenticationService} from "../../service/auth-service/authentication.service";
 
 @Component({
   templateUrl: './add-store.component.html'
@@ -15,17 +16,19 @@ export class AddStoreComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private supermarketService: SupermarketService
+    private supermarketService: SupermarketService,
+    private authService: AuthenticationService
   ) {
     this.storeForm = this.fb.group({
-      supermarketId: [0, Validators.required], // added SupermarketId
-      title: ['', Validators.required, Validators.pattern(/^[a-zA-Z]+$/), Validators.maxLength(25)],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/)]],
-      street: ['', Validators.required, Validators.pattern(/^[a-zA-Z]+$/), Validators.maxLength(25)],
-      house: ['', Validators.required, Validators.maxLength(5), Validators.pattern(/^[0-9]+$/)],
-      city: ['', Validators.required, Validators.pattern(/^[a-zA-Z]+$/), Validators.maxLength(25)],
-      postalCode: ['', Validators.required, Validators.pattern(/^[0-9]{2}-[0-9]{3}$/)],
-      country: ['', Validators.required, Validators.pattern(/^[a-zA-Z]+$/), Validators.maxLength(25)]
+      //FIXME: add validation
+      supermarketId: [0, Validators.required],
+      title: ['', Validators.required],
+      phone: ['', Validators.required],
+      street: ['', Validators.required],
+      house: ['', Validators.required],
+      city: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      country: ['', Validators.required]
     });
   }
 
@@ -64,5 +67,9 @@ export class AddStoreComponent implements OnInit {
 
   cancel(): void {
     this.router.navigate(['/stores']);
+  }
+
+  public isUserAuthenticated(): boolean {
+    return this.authService.isUserSignedIn();
   }
 }

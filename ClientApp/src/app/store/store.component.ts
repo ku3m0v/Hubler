@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {SupermarketService, SupermarketWithAddress} from "../service/store-service/store.service";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "../service/auth-service/authentication.service";
 
 @Component({
     selector: 'app-store',
@@ -11,7 +12,10 @@ export class StoreComponent {
     public storeList: SupermarketWithAddress[] = [];
   showSpinner = true;
   showButton = false;
-    constructor(private router: Router, private supermarketService: SupermarketService) {
+    constructor(private router: Router,
+                private supermarketService: SupermarketService,
+                private authService: AuthenticationService,
+    ) {
         this.getStores();
       setTimeout(() => {
         this.showSpinner = false;
@@ -35,6 +39,10 @@ export class StoreComponent {
             );
         }
     }
+
+  public isUserAuthenticated(): boolean {
+    return this.authService.isUserSignedIn();
+  }
 }
 
 // Update this interface to match the structure of your store data
