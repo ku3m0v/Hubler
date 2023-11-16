@@ -22,7 +22,7 @@
             <input type="text"
                    id="title"
                    formControlName="title"
-                   placeholder="Enter supermarket name"
+                   placeholder="e.g. Healthy Food Store"
                    [class]="storeForm.get('title')?.invalid && storeForm.get('title')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                    required>
             <div *ngIf="storeForm.get('title')?.invalid && storeForm.get('title')?.touched"
@@ -38,12 +38,12 @@
             <input type="tel"
                    id="phone"
                    formControlName="phone"
-                   placeholder="Enter phone number"
+                   placeholder="e.g. +49 (0)00 0000 0000"
                    [class]="storeForm.get('phone')?.invalid && storeForm.get('phone')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                    required>
             <div *ngIf="storeForm.get('phone')?.invalid && storeForm.get('phone')?.touched"
                  class="mt-2 text-sm text-red-600 dark:text-red-500">
-              Phone number is required, e.g. 888-888-8888.
+              Phone number is required.
             </div>
           </div>
           <div class="grid gap-4 lg:grid-cols-2">
@@ -55,7 +55,7 @@
               <input type="text"
                      id="street"
                      formControlName="street"
-                     placeholder="Enter street"
+                     placeholder="e.g Herrengasse"
                      [class]="storeForm.get('street')?.invalid && storeForm.get('street')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                      required>
               <div *ngIf="storeForm.get('street')?.invalid && storeForm.get('street')?.touched"
@@ -71,7 +71,7 @@
               <input type="number"
                      id="house"
                      formControlName="house"
-                     placeholder="Enter house number"
+                     placeholder="e.g. 1"
                      [class]="storeForm.get('house')?.invalid && storeForm.get('house')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                      required>
               <div *ngIf="storeForm.get('house')?.invalid && storeForm.get('house')?.touched"
@@ -87,7 +87,7 @@
               <input type="text"
                      id="city"
                      formControlName="city"
-                     placeholder="Enter city"
+                     placeholder="e.g. Stuttgart"
                      [class]="storeForm.get('city')?.invalid && storeForm.get('city')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                      required>
               <div *ngIf="storeForm.get('city')?.invalid && storeForm.get('city')?.touched"
@@ -103,12 +103,12 @@
               <input type="text"
                      id="postalCode"
                      formControlName="postalCode"
-                     placeholder="Enter postal code"
+                     placeholder="e.g. 88888"
                      [class]="storeForm.get('postalCode')?.invalid && storeForm.get('postalCode')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                      required>
               <div *ngIf="storeForm.get('postalCode')?.invalid && storeForm.get('postalCode')?.touched"
                    class="mt-2 text-sm text-red-600 dark:text-red-500">
-                Postal code is required, e.g. 88-888.
+                Postal code is required.
               </div>
             </div>
           </div>
@@ -120,7 +120,7 @@
             <input type="text"
                    id="country"
                    formControlName="country"
-                   placeholder="Enter country name"
+                   placeholder="e.g. Germany"
                    [class]="storeForm.get('country')?.invalid && storeForm.get('country')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                    required>
             <div *ngIf="storeForm.get('country')?.invalid && storeForm.get('country')?.touched"
@@ -132,12 +132,12 @@
             <button type="submit"
                     [disabled]="!storeForm.valid"
                     [class]="!storeForm.valid ?
-                    'btn disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-5 py-1.5 text-center cursor-pointer' :
-                    'btn text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-5 py-1.5 text-center cursor-pointer'">
+                    'btn disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-4 text-center cursor-pointer' :
+                    'btn text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-4 text-center cursor-pointer'">
               {{ title }}
             </button>
             <button type="button"
-                    class="text-gray-50 bg-red-600 transition-colors hover:bg-red-700 active:bg-red-800  font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-5 py-1.5 text-center cursor-pointer"
+                    class="text-gray-50 bg-red-600 transition-colors hover:bg-red-700 active:bg-red-800  font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-4 text-center cursor-pointer"
                     (click)="cancel()">
               Cancel
             </button>
