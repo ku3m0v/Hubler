@@ -1,5 +1,6 @@
 import {Component, ElementRef} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {AuthenticationService} from "../service/auth-service/authentication.service";
 
 @Component({
     selector: 'app-landing',

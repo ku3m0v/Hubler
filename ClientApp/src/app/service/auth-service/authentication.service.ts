@@ -31,6 +31,4 @@ export class AuthenticationService {
         localStorage.removeItem("jwt");
         this.router.navigate(["/landing"]);
     }
-
-
 }
