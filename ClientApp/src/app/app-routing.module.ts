@@ -27,9 +27,9 @@ const routes: Routes = [
     {path: 'spinner', component: SpinnerComponent},
     {path: 'chart', component: ChartComponent, canActivate: [AuthGuard]},
     {path: 'employees', component: EmployeeComponent, canActivate: [AuthGuard]},
-    {path: 'stores', component: StoreComponent},
-    {path: 'add-store', component: AddStoreComponent},
-    {path: 'edit-store/:title', component: AddStoreComponent}
+    {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
+    {path: 'add-store', component: AddStoreComponent, canActivate: [AuthGuard]},
+    {path: 'edit-store/:title', component: AddStoreComponent, canActivate: [AuthGuard]}
 
 
 ];
