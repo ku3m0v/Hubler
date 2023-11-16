@@ -47,7 +47,7 @@
                             <td class="px-4 py-4 text-sm whitespace-nowrap">
                                 <div class="flex items-center gap-x-6">
                                     <button
-                                            class="text-gray-400 transition-colors duration-200 hover:text-red-600 focus:outline-none"
+                                            class="text-gray-400 transition-colors duration-200 hover:text-red-600 active:text-red-800 focus:outline-none"
                                             (click)="deleteStore(store.title)">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              stroke-width="1.5"
@@ -57,7 +57,7 @@
                                         </svg>
                                     </button>
                                     <button
-                                            class="text-gray-400 transition-colors duration-200 hover:text-amber-400 focus:outline-none"
+                                            class="text-gray-400 transition-colors duration-200 hover:text-amber-400 active:text-orange-500 focus:outline-none"
                                             [routerLink]="['/edit-store', store.title]">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              stroke-width="1.5"

@@ -39,7 +39,7 @@ export class AddStoreComponent implements OnInit {
       this.supermarketService.getSupermarketByTitle(this.storeTitle).subscribe(
         (data: SupermarketWithAddress) => {
           this.storeForm.patchValue(data);
-          this.storeForm.get('id')?.setValue(data.id); // set SupermarketId
+          this.storeForm.get('id')?.setValue(data.id);
         },
         (error: any) => console.error(error)
       );

@@ -126,14 +126,14 @@
                             </div>
                         </div>
                         <button (click)="signIn()" [routerLink]="['/user']"
-                                class="w-full bg-purple-main text-white text-base-medium rounded-lg shadow-md py-2 active:bg-purple-700"
+                                class="w-full bg-purple-main text-white transition-colors duration-200 hover:bg-purple-700 text-base-medium rounded-lg shadow-md py-2 active:bg-purple-800"
                                 type="submit">
                             Sign up
                         </button>
                         <div class="text-sm font-medium text-slate-400">
                             Already have an account?
                             <a [routerLink]="['/sign-in']"
-                               class="text-base-medium text-slate-200 hover:text-pink-main hover:underline">
+                               class="text-base-medium text-slate-200 hover:text-purple-400 hover:underline">
                                 Sign in</a>
                         </div>
                     </form>

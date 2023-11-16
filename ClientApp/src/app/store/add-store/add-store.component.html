@@ -6,7 +6,9 @@
   <div class="absolute inset-0 bg-slate-900 opacity-50"></div>
 
   <div class="py-3 px-3 mx-auto max-w-screen-xl grid lg:grid-cols-2 gap-4 lg:gap-16 relative">
-    <div class="flex justify-center items-stretch mt-6">
+    <div class="flex justify-center mt-6">
+      <img alt="waving_man" class="absolute w-[27em] top-1/4 z-1"
+           src="/assets/people/3-removebg-preview.png">
       <h2 class="text-[4rem] font-bold text-gray-50 mb-6"></h2>
     </div>
     <div>
@@ -129,11 +131,13 @@
           <div class="flex flex-row gap-3 pt-3" >
             <button type="submit"
                     [disabled]="!storeForm.valid"
-                    class="text-gray-50 bg-purple-main font-medium rounded-lg border-2 border-purple-600/30 text-sm w-full sm:w-auto px-5 py-1.5 text-center cursor-pointer bg-purple-800/70">
+                    [class]="!storeForm.valid ?
+                    'btn disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-5 py-1.5 text-center cursor-pointer' :
+                    'btn text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-5 py-1.5 text-center cursor-pointer'">
               {{ title }}
             </button>
             <button type="button"
-                    class="text-gray-50 bg-red-600 font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-5 py-1.5 text-center cursor-pointer active:bg-red-700"
+                    class="text-gray-50 bg-red-600 transition-colors hover:bg-red-700 active:bg-red-800  font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-5 py-1.5 text-center cursor-pointer"
                     (click)="cancel()">
               Cancel
             </button>

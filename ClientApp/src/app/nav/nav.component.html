@@ -23,7 +23,7 @@
     <div class='flex items-center gap-3 mt-2'>
         <button (click)="toggleModal()" *ngIf="!isSignedIn"
                 [routerLink]="['/sign-in']"
-                class="flex flex-row ease-in-out text-white text-regular font-medium bg-purple-main border-2 border-purple-700/30 rounded-lg px-4 py-2 max-md:hidden shadow-md shadow-black">
+                class="flex flex-row ease-in-out text-white text-regular font-medium bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 border-2 border-purple-700/30 rounded-lg px-4 py-2 max-md:hidden shadow-md shadow-black">
             Sign in
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                  class="bi bi-arrow-right-short" viewBox="0 0 16 16">
