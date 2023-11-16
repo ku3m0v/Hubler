@@ -1,118 +1,118 @@
-<div *ngIf="!isUserAuthenticated">
-    <app-sign-in></app-sign-in>
-</div>
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div *ngIf="!isLoading">
+    <div class="flex flex-row gap-3 items-center justify-content-center">
+        <div class="h-full">
+            <div class="h-[35em] w-[24rem] bg-gray-900 rounded-lg shadow p-4">
+                <div class="flex justify-between">
+                    <div>
+                        <h5 class="leading-none text-heading4-medium font-bold text-white pb-2">${{ salesValue }}</h5>
+                        <p class="text-base font-normal text-gray-400">Sales {{ selectedValue.toLowerCase() }}</p>
+                    </div>
+                    <div class="flex items-center px-2.5 py-0.5 text-4xl font-semibold text-green-500">
+                        {{ percentageChange }}%
+                        <svg aria-hidden="true" class="w-3 h-3 ml-1" fill="none" viewBox="0 0 10 14"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 13V1m0 0L1 5m4-4 4 4" stroke="currentColor" stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+                <div id="data-series-chart"></div>
+            </div>
+        </div>
 
-<div *ngIf="isUserAuthenticated" class="flex flex-row gap-3 items-center justify-content-center">
-    <div class="h-full">
-        <div class="h-[35em] w-[24rem] bg-gray-900 rounded-lg shadow p-4">
-            <div class="flex justify-between">
+        <div class="h-full">
+            <div class="h-[35em] carousel carousel-vertical w-[26rem] space-y-3 p-4 bg-gray-900 shadow rounded-lg">
                 <div>
-                    <h5 class="leading-none text-heading4-medium font-bold text-white pb-2">${{ salesValue }}</h5>
-                    <p class="text-base font-normal text-gray-400">Sales {{ selectedValue.toLowerCase() }}</p>
+                    <h5 class="leading-none text-heading4-medium font-bold text-gray-100 dark:text-white pb-2">Top
+                        Products</h5>
+                    <p class="text-base font-normal text-gray-400">Sales</p>
                 </div>
-                <div class="flex items-center px-2.5 py-0.5 text-4xl font-semibold text-green-500">
-                    {{ percentageChange }}%
-                    <svg aria-hidden="true" class="w-3 h-3 ml-1" fill="none" viewBox="0 0 10 14"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 13V1m0 0L1 5m4-4 4 4" stroke="currentColor" stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"/>
-                    </svg>
+                <div *ngFor="let product of topProducts" class="relative">
+
+                    <img [src]="product.imageUrl" alt="" class="rounded-lg"/>
+
+                    <div class="absolute top-2 left-2 text-gray-950 font-semibold">
+                        {{ product.title }}
+                    </div>
+
+                    <div class="absolute bottom-2 left-2 text-gray-950">
+                        {{ product.soldQuantity }} sold
+                    </div>
+
+                    <a [routerLink]="['/product-details', product.id]"
+                       class="absolute top-2 right-2 text-gray-950 rounded hover:underline hover:text-gray-950">
+                        View Details
+                    </a>
+
                 </div>
-            </div>
-            <div id="data-series-chart"></div>
-        </div>
-    </div>
-
-    <div class="h-full">
-        <div class="h-[35em] carousel carousel-vertical w-[26rem] space-y-3 p-4 bg-gray-900 shadow rounded-lg">
-            <div>
-                <h5 class="leading-none text-heading4-medium font-bold text-gray-100 dark:text-white pb-2">Top
-                    Products</h5>
-                <p class="text-base font-normal text-gray-400">Sales</p>
-            </div>
-            <div *ngFor="let product of topProducts" class="relative">
-
-                <img [src]="product.imageUrl" alt="" class="rounded-lg"/>
-
-                <div class="absolute top-2 left-2 text-gray-950 font-semibold">
-                    {{ product.title }}
-                </div>
-
-                <div class="absolute bottom-2 left-2 text-gray-950">
-                    {{ product.soldQuantity }} sold
-                </div>
-
-                <a [routerLink]="['/product-details', product.id]"
-                   class="absolute top-2 right-2 text-gray-950 rounded hover:underline hover:text-gray-950">
-                    View Details
-                </a>
-
             </div>
         </div>
-    </div>
 
-    <div class="h-full">
-        <div class="h-[35em] w-[28rem] relative overflow-x-auto shadow-md md:rounded-lg">
-            <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
-                <h5 class="leading-none text-heading4-medium font-bold text-gray-100 pb-2">Expired products</h5>
-            </div>
-            <table class="w-full text-sm text-left bg-gray-900 text-gray-400">
-                <thead class="text-xs text-gray-300 uppercase text-center">
-                <tr>
-                    <th class="px-6 py-3" scope="col">
-                        Product
-                    </th>
-                    <th class="px-10 py-3" scope="col">
-                        Date
-                    </th>
-                    <th class="px-6 py-3" scope="col">
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let product of expiredProducts" class="bg-gray-800 border-b border-gray-800 text-center">
-                    <td class="px-4 py-4">
-                        <div class="flex items-center">
-                            <img [alt]="product.title" [src]="product.imageUrl" class="w-16 mr-4 rounded-lg">
-                            <span class="text-start font-semibold text-gray-400">
+        <div class="h-full">
+            <div class="h-[35em] w-[28rem] relative overflow-x-auto shadow-md md:rounded-lg">
+                <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
+                    <h5 class="leading-none text-heading4-medium font-bold text-gray-100 pb-2">Expired products</h5>
+                </div>
+                <table class="w-full text-sm text-left bg-gray-900 text-gray-400">
+                    <thead class="text-xs text-gray-300 uppercase text-center">
+                    <tr>
+                        <th class="px-6 py-3" scope="col">
+                            Product
+                        </th>
+                        <th class="px-10 py-3" scope="col">
+                            Date
+                        </th>
+                        <th class="px-6 py-3" scope="col">
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let product of expiredProducts"
+                        class="bg-gray-800 border-b border-gray-800 text-center">
+                        <td class="px-4 py-4">
+                            <div class="flex items-center">
+                                <img [alt]="product.title" [src]="product.imageUrl" class="w-16 mr-4 rounded-lg">
+                                <span class="text-start font-semibold text-gray-400">
                 {{ product.title }}
               </span>
-                        </div>
-                    </td>
-                    <td class="px-4 py-4 font-semibold text-gray-400">
-                        {{ product.date }}
-                    </td>
-                    <td class="pr-8 py-4">
-                        <button
-                                class="cursor-pointer"
-                                data-dropdown-placement="left"
-                                data-dropdown-toggle="actionsDropdown"
-                                id="actions"
-                                type="button">
-                            <img alt="actions" src="/assets/assets/more.svg" width="34"/>
-                        </button>
-                        <div class="z-10 text-center hidden divide-y divide-gray-100 rounded-lg shadow w-40 bg-gray-900"
-                             id="actionsDropdown">
-                            <ul aria-labelledby="dropdownDefaultButton" class="py-2 text-sm text-gray-200">
-                                <li>
-                                    <a
-                                            class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">
-                                        Ignore
-                                    </a>
-                                </li>
-                                <li>
-                                    <a [routerLink]="['/product-details', product.id]"
-                                       class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">
-                                        View details
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                            </div>
+                        </td>
+                        <td class="px-4 py-4 font-semibold text-gray-400">
+                            {{ product.date }}
+                        </td>
+                        <td class="pr-8 py-4">
+                            <button
+                                    class="cursor-pointer"
+                                    data-dropdown-placement="left"
+                                    data-dropdown-toggle="actionsDropdown"
+                                    id="actions"
+                                    type="button">
+                                <img alt="actions" src="/assets/assets/more.svg" width="34"/>
+                            </button>
+                            <div class="z-10 text-center hidden divide-y divide-gray-100 rounded-lg shadow w-40 bg-gray-900"
+                                 id="actionsDropdown">
+                                <ul aria-labelledby="dropdownDefaultButton" class="py-2 text-sm text-gray-200">
+                                    <li>
+                                        <a
+                                                class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">
+                                            Ignore
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/product-details', product.id]"
+                                           class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">
+                                            View details
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef} from '@angular/core';
 import {AuthenticationService} from "../service/auth-service/authentication.service";
+import {SpinnerService} from "../service/spinner-service/spinner.service";
 
 declare var ApexCharts: any;
 
@@ -17,6 +18,7 @@ interface Product {
     styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements AfterViewInit {
+    isLoading = true;
     selectedValue: string = 'Last 7 days';
     isDropdownVisible: boolean = false;
     salesValue: string = '12,423';
@@ -75,20 +77,15 @@ export class ChartComponent implements AfterViewInit {
     ];
     private options: any;
 
-    constructor(private elRef: ElementRef, private authService: AuthenticationService) {
+    loadData() {
+        setTimeout(() => {
+            this.isLoading = false;
+            this.spinnerService.setLoading(false);
+        }, 1000);
+    }
+
+    constructor(private elRef: ElementRef, private authService: AuthenticationService, private spinnerService: SpinnerService) {
         this.options = {
-            series: [
-                {
-                    name: "Developer Edition",
-                    data: [1500, 1418, 1456, 1526, 1356, 1256],
-                    color: "#f2cd3b",
-                },
-                {
-                    name: "Designer Edition",
-                    data: [643, 413, 765, 412, 1423, 1731],
-                    color: "#db1aae",
-                },
-            ],
             chart: {
                 height: "100%",
                 maxWidth: "100%",
@@ -107,16 +104,13 @@ export class ChartComponent implements AfterViewInit {
                     show: false,
                 },
             },
-            legend: {
-                show: false
-            },
             fill: {
                 type: "gradient",
                 gradient: {
-                    opacityFrom: 0.55,
+                    opacityFrom: 0.65,
                     opacityTo: 0,
-                    shade: "#f2cd3b",
-                    gradientToColors: ["#db1aae"],
+                    shade: "#ffd400",
+                    gradientToColors: ["#ff9200"],
                 },
             },
             dataLabels: {
@@ -134,8 +128,15 @@ export class ChartComponent implements AfterViewInit {
                     top: 0
                 },
             },
+            series: [
+                {
+                    name: "New users",
+                    data: [6800, 6500, 8000, 7300, 7000, 8500, 11000, 8500, 10000, 7900, 7000, 9000],
+                    color: "#b211c5",
+                },
+            ],
             xaxis: {
-                categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+                categories: ['1.1.23', '1.2.23', '1.3.23','1.4.23','1.5.23','1.5.23','1.6.23','1.7.23','1.10.23','1.11.23','1.12.23','1.13.23'],
                 labels: {
                     show: false,
                 },
@@ -148,11 +149,9 @@ export class ChartComponent implements AfterViewInit {
             },
             yaxis: {
                 show: false,
-                labels: {
-                    formatter: (value: number) => '$' + value
-                }
             },
         };
+        this.loadData()
     }
 
     toggleDropdown(): void {
