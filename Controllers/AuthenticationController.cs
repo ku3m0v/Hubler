@@ -108,7 +108,10 @@ public class AuthenticationController : ControllerBase
             {
                 return BadRequest(result);
             }
-            return Ok("Registration successful.");
+            //FIXME: Add email confirmation to registration @returnT0
+            return Ok(new { message = "Registration successful." });
+            
+            
         }
         catch (Exception ex)
         {
