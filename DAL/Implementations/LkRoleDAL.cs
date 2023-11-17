@@ -25,6 +25,33 @@ public class LkRoleDAL : ILkRoleDAL
                 };
             }
         }
+        
+        public LkRole GetByRoleName(string roleName)
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_rolename", roleName, OracleMappingType.Varchar2, direction: ParameterDirection.Input);
+                parameters.Add("p_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("p_rolename_out", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output, size: 50);
+
+                connection.Execute("GET_ROLE_BY_NAME", parameters, commandType: CommandType.StoredProcedure);
+
+                var roleId = parameters.Get<int?>("p_id");
+                var roleNameOut = parameters.Get<string>("p_rolename_out");
+
+                if (roleId.HasValue)
+                {
+                    return new LkRole
+                    {
+                        Id = roleId.Value,
+                        RoleName = roleNameOut
+                    };
+                }
+
+                return null;
+            }
+        }
 
         public void Insert(LkRole role)
         {

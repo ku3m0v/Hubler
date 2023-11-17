@@ -112,10 +112,10 @@ public class EmployeeDAL : IEmployeeDAL
         {
             using (var connection = DBConnection.GetConnection())
             {
-                using (var multi = connection.QueryMultiple("GET_ALL_EMPLOYEES", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<Employee>();
-                }
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+                
+                return connection.Query<Employee>("GET_ALL_EMPLOYEES", parameters, commandType: CommandType.StoredProcedure);
             }
         }
         
