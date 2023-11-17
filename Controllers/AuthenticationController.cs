@@ -6,6 +6,7 @@ using System.Text;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
 using Hubler.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hubler.Controllers;
 
@@ -116,4 +117,5 @@ public class AuthenticationController : ControllerBase
             return StatusCode(500, "An error occurred while processing your request.");
         }
     }
+    
 }

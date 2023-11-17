@@ -8,7 +8,7 @@ namespace Hubler.DAL.Implementations;
 
 public class BinaryContentDAL : IBinaryContentDAL
     {
-        public BinaryContent GetById(int id)
+        public BinaryContent GetById(int? id)
         {
             using (var connection = DBConnection.GetConnection())
             {
@@ -65,7 +65,7 @@ public class BinaryContentDAL : IBinaryContentDAL
             }
         }
 
-        public void Delete(int id)
+        public void Delete(int? id)
         {
             using (var connection = DBConnection.GetConnection())
             {
