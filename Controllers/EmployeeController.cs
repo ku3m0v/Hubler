@@ -9,7 +9,6 @@ namespace Hubler.Controllers;
 
 [Route("api/employee")]
 [ApiController]
-[Authorize]
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeDAL _employeeDAL;

@@ -3,6 +3,7 @@ using Hubler.BAL.Implementations;
 using Hubler.BAL.Interfaces;
 using Hubler.DAL.Implementations;
 using Hubler.DAL.Interfaces;
+using Hubler.DAL.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -50,6 +51,18 @@ builder.Services.AddSingleton<IEmployeeDAL, EmployeeDAL>();
 builder.Services.AddSingleton<ISupermarketDAL, SupermarketDAL>();
 builder.Services.AddSingleton<IAddressDAL, AddressDAL>();
 builder.Services.AddSingleton<ICashRegisterDAL, CashRegisterDAL>();
+builder.Services.AddSingleton<ILkRoleDAL, LkRoleDAL>();
+builder.Services.AddSingleton<IBinaryContentDAL, BinaryContentDAL>();
+builder.Services.AddSingleton<ICashRegisterDAL, CashRegisterDAL>();
+builder.Services.AddSingleton<IInventoryDAL, InventoryDAL>();
+builder.Services.AddSingleton<ILkStatusDAL, LkStatusDAL>();
+builder.Services.AddSingleton<INonPerishableDAL, NonPerishableDAL>();
+builder.Services.AddSingleton<IPerishableDAL, PerishableDAL>();
+builder.Services.AddSingleton<IProductDAL, ProductDAL>();
+builder.Services.AddSingleton<IProductOrderDAL, ProductOrderDAL>();
+builder.Services.AddSingleton<ISaleDAL, SaleDAL>();
+builder.Services.AddSingleton<ISaleDetailDAL, SaleDetailDAL>();
+builder.Services.AddSingleton<IWarehouseDAL, WarehouseDAL>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 builder.Services.AddAuthentication(opt =>

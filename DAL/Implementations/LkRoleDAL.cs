@@ -13,8 +13,8 @@ public class LkRoleDAL : ILkRoleDAL
             using (var connection = DBConnection.GetConnection())
             {
                 var parameters = new OracleDynamicParameters();
-                parameters.Add("p_id", id, OracleMappingType.Int32);
-                parameters.Add("p_rolename", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_id", id, OracleMappingType.Int32, direction: ParameterDirection.Input);
+                parameters.Add("p_rolename", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output, size: 50);
 
                 connection.Execute("GET_ROLE_BY_ID", parameters, commandType: CommandType.StoredProcedure);
 
