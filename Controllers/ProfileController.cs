@@ -44,7 +44,6 @@ public class ProfileController : ControllerBase
             LastName = employee.LastName,
             CreatedDate = employee.CreatedDate,
             SupermarketName = supermarket?.Title,
-            PhotoBase64 = content != null ? Convert.ToBase64String(content.Content) : null
         };
 
         return Ok(profile);
@@ -63,32 +62,62 @@ public class ProfileController : ControllerBase
         employee.FirstName = model.FirstName;
         employee.LastName = model.LastName;
 
-        if (!string.IsNullOrEmpty(model.PhotoBase64))
-        {
-            // Delete the old content
-            if (employee.ContentId.HasValue)
-            {
-                _binaryContentDAL.Delete(employee.ContentId);
-            }
-
-            // Create new content
-            var newContent = new BinaryContent
-            {
-                FileName = "profile_picture", // or derive from other sources
-                FileType = "image", // or derive from other sources
-                FileExtension = ".jpg", // or derive from the base64 string
-                Content = Convert.FromBase64String(model.PhotoBase64),
-                UploadDate = DateTime.UtcNow
-            };
-
-            _binaryContentDAL.Insert(newContent);
-
-            // Update the employee's content reference
-            employee.ContentId = newContent.Id;
-        }
-
         _employeeDAL.Update(employee);
 
         return Ok("Profile updated successfully.");
+    }
+    
+    [HttpPost("upload-photo")]
+    public async Task<IActionResult> UploadPhoto()
+    {
+        try
+        {
+            var file = Request.Form.Files[0];
+            if (file.Length > 0)
+            {
+                var userId = this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+                int id = int.Parse(userId);
+
+                var employee = _employeeDAL.GetById(id);
+                if (employee == null) return NotFound("Employee not found.");
+
+                // Delete the old content if it exists
+                if (employee.ContentId != 0) // Assuming 0 is default/non-existing value
+                {
+                    _binaryContentDAL.Delete(employee.ContentId);
+                }
+
+                // Save the new content
+                using (var ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    var fileBytes = ms.ToArray();
+
+                    var binaryContent = new BinaryContent
+                    {
+                        FileName = file.FileName,
+                        FileType = "profile-photo",
+                        FileExtension = Path.GetExtension(file.FileName),
+                        Content = fileBytes,
+                        UploadDate = DateTime.UtcNow
+                    };
+
+                    _binaryContentDAL.Insert(binaryContent);
+                    employee.ContentId = binaryContent.Id;
+                }
+
+                _employeeDAL.Update(employee);
+
+                return Ok("Photo uploaded successfully.");
+            }
+            else
+            {
+                return BadRequest("No file received.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
     }
 }
