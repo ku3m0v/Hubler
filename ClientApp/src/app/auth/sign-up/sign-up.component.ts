@@ -11,7 +11,7 @@ import {SupermarketService, SupermarketWithAddress} from '../../service/store-se
 })
 export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
-  supermarkets: SupermarketWithAddress[] = [];
+  supermarketTitles: string[] = [];
   errorMessage: string = '';
   isDropdownVisible = false;
   selectedOption: string | null = null;
@@ -27,18 +27,17 @@ export class SignUpComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-      supermarketTitle: ['', Validators.required]
+      // supermarketTitle: ['', Validators.required]required
     });
   }
 
   ngOnInit(): void {
-    this.storeService.getAllSupermarkets().subscribe(
-      data => {
-        this.supermarkets = data;
+    this.authService.getSupermarketTitles().subscribe(
+      titles => {
+        this.supermarketTitles = titles;
       },
       error => {
-        this.errorMessage = 'Failed to load supermarkets';
+        this.errorMessage = 'Failed to load supermarket titles';
         console.error(error);
       }
     );

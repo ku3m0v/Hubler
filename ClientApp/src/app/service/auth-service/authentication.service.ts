@@ -54,6 +54,9 @@ export class AuthenticationService {
     return localStorage.getItem("jwt");
   }
 
+  getSupermarketTitles(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.url}api/authentication/titles`);
+  }
 
 
 }

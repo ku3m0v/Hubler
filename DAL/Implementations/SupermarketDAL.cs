@@ -104,4 +104,16 @@ public class SupermarketDAL : ISupermarketDAL
                 return supermarket;
             }
         }
+        
+        public IEnumerable<string> GetAllTitles()
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+
+                return connection.Query<string>("GET_ALL_SUPERMARKET_TITLES", parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
+
     }

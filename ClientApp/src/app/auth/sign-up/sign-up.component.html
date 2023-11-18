@@ -73,45 +73,10 @@
                               </div>
                             </div>
                             <div class="w-full md:w-1/2 px-3 mb-3">
-                                <label class="block mb-2 text-sm font-medium text-gray-300" for="dropdownRadioButton">Market</label>
-                                <button
-                                        (click)="toggleDropdown()"
-                                        class="bg-slate-800 border-0 text-white placeholder-gray-400 font-medium rounded-lg p-2.5 mt-1.5 text-sm w-full py-2.5 justify-center inline-flex items-center"
-                                        id="dropdownRadioButton"
-                                        type="button">
-                                    {{ selectedOption || 'Please choose an option' }}
-                                    <svg aria-hidden="true" class="w-2.5 h-2.5 ml-2.5" fill="none" viewBox="0 0 10 6"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              stroke-width="2"/>
-                                    </svg>
-                                </button>
-                                <div
-                                        *ngIf="isDropdownVisible"
-                                        class="w-full bg-slate-800 divide-gray-100 rounded-xl shadow-lg mt-2"
-                                        id="dropdownDefaultRadio">
-                                    <ul aria-labelledby="dropdownRadioButton"
-                                        class="p-3 space-y-3 text-sm text-slate-200">
-                                        <li *ngFor="let store of supermarkets">
-                                            <div class="flex items-center">
-                                                <input
-                                                        (change)="updateSelection(store.title)"
-                                                        [(ngModel)]="selectedOption"
-                                                        [id]="store.id"
-                                                        [value]="store.title"
-                                                        id="role"
-                                                        ngModel
-                                                        class="w-4 h-4 text-purple-main bg-slate-100 border-slate-600 focus:ring-purple-main focus:ring-2"
-                                                        name="default-radio"
-                                                        type="radio">
-                                                <label [for]="store.id"
-                                                       class="cursor-pointer ml-2 text-sm font-medium">{{store.title}}</label>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-
+                                <label class="block mb-2 text-sm font-medium text-gray-300">Market</label>
+                              <select [(ngModel)]="selectedOption" name="supermarketTitle">
+                                <option *ngFor="let title of supermarketTitles" [value]="title">{{ title }}</option>
+                              </select>
                             </div>
                             <div class="w-full md:w-1/2 px-3 mb-3">
                               <label *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched" for="email"
@@ -145,22 +110,22 @@
                                 Password is required.
                               </div>
                             </div>
-                            <div class="w-full md:w-1/2 px-3 mb-3">
-                              <label *ngIf="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched" for="confirmPassword"
-                                     class="block mb-2 text-sm font-medium text-red-600">Confirm password</label>
-                              <label *ngIf="!signUpForm.get('confirmPassword')?.invalid || !signUpForm.get('confirmPassword')?.touched" for="confirmPassword"
-                                     class="block mb-2 text-sm font-medium text-gray-300">Confirm assword</label>
-                              <input type="password"
-                                     id="confirmPassword"
-                                     formControlName="confirmPassword"
-                                     placeholder="••••••••"
-                                     [class]="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
-                                     required>
-                              <div *ngIf="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched"
-                                   class="mt-2 text-sm text-red-600 dark:text-red-500">
-                                Confirm password.
-                              </div>
-                            </div>
+<!--                            <div class="w-full md:w-1/2 px-3 mb-3">-->
+<!--                              <label *ngIf="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched" for="confirmPassword"-->
+<!--                                     class="block mb-2 text-sm font-medium text-red-600">Confirm password</label>-->
+<!--                              <label *ngIf="!signUpForm.get('confirmPassword')?.invalid || !signUpForm.get('confirmPassword')?.touched" for="confirmPassword"-->
+<!--                                     class="block mb-2 text-sm font-medium text-gray-300">Confirm assword</label>-->
+<!--                              <input type="password"-->
+<!--                                     id="confirmPassword"-->
+<!--                                     formControlName="confirmPassword"-->
+<!--                                     placeholder="••••••••"-->
+<!--                                     [class]="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"-->
+<!--                                     required>-->
+<!--                              <div *ngIf="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched"-->
+<!--                                   class="mt-2 text-sm text-red-600 dark:text-red-500">-->
+<!--                                Confirm password.-->
+<!--                              </div>-->
+<!--                            </div>-->
                         </div>
                         <button [disabled]="!signUpForm.valid"
                                 class="w-full bg-purple-main text-white transition-colors duration-200 hover:bg-purple-700 text-base-medium rounded-lg shadow-md py-2 active:bg-purple-800"

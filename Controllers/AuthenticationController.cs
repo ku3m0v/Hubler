@@ -86,6 +86,12 @@ public class AuthenticationController : ControllerBase
             return BadRequest("Invalid registration request.");
         }
         
+        var existingEmployee = _employeeDAL.GetByEmail(model.Email);
+        if (existingEmployee != null)
+        {
+            return BadRequest("Email already exists.");
+        }
+        
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
         Supermarket supermarket = _supermarketDAL.GetSupermarketByTitle(model.SupermarketTitle);
         
@@ -116,6 +122,22 @@ public class AuthenticationController : ControllerBase
         {
             // Log the exception details for debugging purposes
             _logger.LogError(ex, "Error during registration.");
+            return StatusCode(500, "An error occurred while processing your request.");
+        }
+    }
+    
+    
+    [HttpGet("titles")]
+    public IActionResult GetSupermarketTitles()
+    {
+        try
+        {
+            var result = _supermarketDAL.GetAllTitles();
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during getting supermarket titles.");
             return StatusCode(500, "An error occurred while processing your request.");
         }
     }

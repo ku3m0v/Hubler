@@ -10,4 +10,5 @@ public interface ISupermarketDAL
     void Delete(string title);
     IEnumerable<Supermarket> GetAll();
     Supermarket GetSupermarketByTitle(string title);
+    IEnumerable<string> GetAllTitles();
 }
