@@ -40,6 +40,7 @@
     <ItemGroup>
       <Folder Include="ClientApp\src\app\auth\" />
       <Folder Include="ClientApp\src\app\service\employee-service\" />
+      <Folder Include="ClientApp\src\app\service\profile-service\" />
       <Folder Include="ClientApp\src\app\service\store-service\" />
     </ItemGroup>
 

@@ -1,62 +1,46 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../service/auth-service/authentication.service";
+import {ProfileData, ProfileService} from "../service/profile-service/profile.service";
 
 @Component({
-    selector: 'app-user',
-    templateUrl: './user.component.html',
-    styleUrls: ['./user.component.css']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class UserComponent {
-    public profileForm: FormGroup;
-    public isEditing = false;
+export class UserComponent implements OnInit {
+  profile: ProfileData | null = null;
+  public isEditing = false;
+  error: string | null = null;
 
-    @ViewChild('imageInput', {static: false}) imageInput!: ElementRef;
 
-    constructor(
-        private fb: FormBuilder,
-        private authService: AuthenticationService,
-        private router: Router) {
-        this.profileForm = this.fb.group({
-            name: ['John Doe'],
-            jobTitle: ['Software Engineer'],
-            bio: ['John is a software engineer with over 10 years of experience...']
-        });
-    }
+  @ViewChild('imageInput', {static: false}) imageInput!: ElementRef;
 
-    public isUserAuthenticated(): boolean {
-        return this.authService.isUserSignedIn();
-    }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthenticationService,
+    private router: Router,
+    private profileService: ProfileService) {
+  }
 
-    toggleEdit() {
-        this.isEditing = !this.isEditing;
-    }
+  public isUserAuthenticated(): boolean {
+    return this.authService.isUserSignedIn();
+  }
 
-    saveProfile() {
-        if (this.profileForm.valid) {
-            this.toggleEdit();
-        }
-    }
+  ngOnInit(): void {
+    this.loadProfile();
+  }
 
-    cancelEdit() {
-        this.profileForm.reset(this.profileForm.value);
-        this.toggleEdit();
-    }
+  loadProfile(): void {
+    this.profileService.getProfile().subscribe({
+      next: (data) => {
+        this.profile = data;
+      },
+      error: (err) => {
+        this.error = err.message;
+      }
+    });
+  }
 
-    changeImage() {
-        this.imageInput.nativeElement.click();
-    }
-
-    onImageChange(event: Event) {
-        const file = (event.target as HTMLInputElement).files![0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e: any) => {
-                const imageElement: HTMLImageElement = document.querySelector('img[alt="Profile picture"]') as HTMLImageElement;
-                imageElement.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    }
 }
