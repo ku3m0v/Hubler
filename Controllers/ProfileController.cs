@@ -35,7 +35,6 @@ public class ProfileController : ControllerBase
         if (employee == null) return NotFound("Profile not found.");
 
         var supermarket = _supermarketDAL.GetById(employee.SupermarketId);
-        var content = _binaryContentDAL.GetById(employee.ContentId);
 
         var profile = new ProfileModel
         {
