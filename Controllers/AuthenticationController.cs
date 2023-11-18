@@ -95,7 +95,6 @@ public class AuthenticationController : ControllerBase
             PassHash = hashedPassword,
             FirstName = model.FirstName,
             LastName = model.LastName,
-            CreatedDate = DateTime.Now,
             SupermarketId = supermarket.Id,
             RoleId = 2
         };

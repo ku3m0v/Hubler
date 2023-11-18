@@ -9,7 +9,7 @@ namespace Hubler.DAL.Implementations;
 
 public class EmployeeDAL : IEmployeeDAL
     {
-        public Employee GetById(int id)
+        public Employee GetById(int? id)
         {
             using (var connection = DBConnection.GetConnection())
             {
@@ -50,31 +50,24 @@ public class EmployeeDAL : IEmployeeDAL
                 using (var connection = DBConnection.GetConnection())
                 {
                     var parameters = new OracleDynamicParameters();
-                    parameters.Add("p_id", employee.Id, OracleMappingType.Int32);
                     parameters.Add("p_email", employee.Email, OracleMappingType.Varchar2);
                     parameters.Add("p_passhash", employee.PassHash, OracleMappingType.Varchar2);
                     parameters.Add("p_firstname", employee.FirstName, OracleMappingType.Varchar2);
                     parameters.Add("p_lastname", employee.LastName, OracleMappingType.Varchar2);
-                    parameters.Add("p_createddate", employee.CreatedDate, OracleMappingType.Date);
                     parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
                     parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32);
-                    parameters.Add("p_content_id", employee.ContentId, OracleMappingType.Int32);
-                    parameters.Add("p_admin_id", employee.AdminId, OracleMappingType.Int32);
+                    parameters.Add("p_content_id", employee.ContentId.HasValue ? (object)employee.ContentId : DBNull.Value, OracleMappingType.Int32);
+                    parameters.Add("p_admin_id", employee.AdminId.HasValue ? (object)employee.AdminId : DBNull.Value, OracleMappingType.Int32);
 
                     connection.Execute("INSERT_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
                 }
-                
+        
                 return "Employee was successfully created";
             }
             catch (OracleException e)
             {
-                if (e.Number == 20050)
-                {
-                    return "Email already exists";
-                }
+                return $"Error: {e.Message}";
             }
-
-            return null;
         }
 
         public void Update(Employee employee)
@@ -97,7 +90,7 @@ public class EmployeeDAL : IEmployeeDAL
             }
         }
 
-        public void Delete(int id)
+        public void Delete(int? id)
         {
             using (var connection = DBConnection.GetConnection())
             {

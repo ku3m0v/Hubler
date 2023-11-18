@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
 using Hubler.Models;
