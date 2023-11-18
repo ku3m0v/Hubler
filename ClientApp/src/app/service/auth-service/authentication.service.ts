@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import configurl from '../../../assets/config/config.json';
 
 interface LoginCredentials {
@@ -18,13 +18,19 @@ export class AuthenticationService {
 
     constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService ) {}
 
-    signIn(credentials: LoginCredentials): Observable<any> {
-        return this.http.post(this.url + 'api/authentication/login', credentials, {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-        });
-    }
+  signIn(credentials: LoginCredentials): Observable<any> {
+    return this.http.post<any>(this.url + 'api/authentication/login', credentials, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }).pipe(
+      tap(res => {
+        if (res && res.token) {
+          localStorage.setItem('jwt', res.token);
+        }
+      })
+    );
+  }
 
-    register(registrationData: RegistrationData): Observable<any> {
+  register(registrationData: RegistrationData): Observable<any> {
         return this.http.post(this.url + 'api/authentication/register', registrationData, {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' })
         });
@@ -43,6 +49,11 @@ export class AuthenticationService {
         localStorage.removeItem("jwt");
         this.router.navigate(["/landing"]);
     }
+
+  getToken(): string | null {
+    return localStorage.getItem("jwt");
+  }
+
 
 
 }

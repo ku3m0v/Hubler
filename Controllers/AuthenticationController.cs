@@ -62,8 +62,8 @@ public class AuthenticationController : ControllerBase
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["securityKey"]));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var tokenOptions = new JwtSecurityToken(
-                issuer: jwtSettings["Issuer"],
-                audience: jwtSettings["Audience"],
+                issuer: jwtSettings["validIssuer"],
+                audience: jwtSettings["validAudience"],
                 claims: tokenClaims,
                 expires: DateTime.Now.AddMinutes(60),
                 signingCredentials: signinCredentials

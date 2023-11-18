@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import configurl from "../../../assets/config/config.json";
+import {AuthenticationService} from "../auth-service/authentication.service";
 
 export interface SupermarketWithAddress {
     id: number;
@@ -21,18 +22,21 @@ export interface SupermarketWithAddress {
 export class SupermarketService {
     private myAppUrl: string = "";
 
-    constructor(private http: HttpClient) {
-        this.myAppUrl = configurl.apiServer.url;
-    }
+  constructor(private http: HttpClient, private authService: AuthenticationService) {
+    this.myAppUrl = configurl.apiServer.url;
+  }
 
-    getAllSupermarkets(): Observable<SupermarketWithAddress[]> {
-        return this.http.get<SupermarketWithAddress[]>(`${this.myAppUrl}api/supermarket/list`)
-            .pipe(
-                catchError(this.errorHandler)
-            );
-    }
+  getAllSupermarkets(): Observable<SupermarketWithAddress[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+    return this.http.get<SupermarketWithAddress[]>(`${this.myAppUrl}api/supermarket/list`, { headers: headers })
+      .pipe(catchError(this.errorHandler));
+  }
 
-    insertSupermarket(supermarket: SupermarketWithAddress): Observable<any> {
+
+
+  insertSupermarket(supermarket: SupermarketWithAddress): Observable<any> {
         return this.http.post(`${this.myAppUrl}api/supermarket/insert`, supermarket)
             .pipe(
                 catchError(this.errorHandler)

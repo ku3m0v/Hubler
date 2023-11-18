@@ -20,11 +20,15 @@ namespace Hubler.Controllers;
             _addressDAL = addressDAL;
         }
         
-        [HttpGet("list")]
+        [HttpGet("list"), Authorize]
         public ActionResult<List<SupermarketWithAddressModel>> GetAll()
         {
             var supermarkets = _supermarketDAL.GetAll();
             var supermarketWithAddressModels = new List<SupermarketWithAddressModel>();
+            
+            Console.WriteLine(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            Console.WriteLine(User.FindFirst(ClaimTypes.Email)?.Value);
+            Console.WriteLine(User.FindFirst(ClaimTypes.Role)?.Value);
 
             foreach (var supermarket in supermarkets)
             {
