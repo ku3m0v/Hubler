@@ -13,11 +13,13 @@ namespace Hubler.Controllers;
     {
         private readonly ISupermarketDAL _supermarketDAL;
         private readonly IAddressDAL _addressDAL;
+        private readonly IEmployeeDAL _employeeDAL;
 
-        public SupermarketController(ISupermarketDAL supermarketDAL, IAddressDAL addressDAL)
+        public SupermarketController(ISupermarketDAL supermarketDAL, IAddressDAL addressDAL, IEmployeeDAL employeeDAL)
         {
             _supermarketDAL = supermarketDAL;
             _addressDAL = addressDAL;
+            _employeeDAL = employeeDAL;
         }
         
         [HttpGet("list"), Authorize]
@@ -26,29 +28,55 @@ namespace Hubler.Controllers;
             var supermarkets = _supermarketDAL.GetAll();
             var supermarketWithAddressModels = new List<SupermarketWithAddressModel>();
             
-            Console.WriteLine(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            Console.WriteLine(User.FindFirst(ClaimTypes.Email)?.Value);
-            Console.WriteLine(User.FindFirst(ClaimTypes.Role)?.Value);
+            int id = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
 
-            foreach (var supermarket in supermarkets)
+            if (role == "admin")
             {
-                var address = _addressDAL.GetById(supermarket.AddressId);
-                if (address != null)
+                foreach (var supermarket in supermarkets)
                 {
-                    supermarketWithAddressModels.Add(new SupermarketWithAddressModel
+                    var address = _addressDAL.GetById(supermarket.AddressId);
+                    if (address != null)
                     {
-                        SupermarketId = supermarket.Id,
-                        Title = supermarket.Title,
-                        Phone = supermarket.Phone,
-                        // Address fields
-                        Street = address.Street,
-                        House = address.House,
-                        City = address.City,
-                        PostalCode = address.PostalCode,
-                        Country = address.Country
-                    });
+                        supermarketWithAddressModels.Add(new SupermarketWithAddressModel
+                        {
+                            SupermarketId = supermarket.Id,
+                            Title = supermarket.Title,
+                            Phone = supermarket.Phone,
+                            // Address fields
+                            Street = address.Street,
+                            House = address.House,
+                            City = address.City,
+                            PostalCode = address.PostalCode,
+                            Country = address.Country
+                        });
+                    }
                 }
             }
+            else if(role == "manager")
+            {
+                var employee = _employeeDAL.GetById(id);
+                var managerSupermarket = _supermarketDAL.GetById(employee.SupermarketId);
+                var address = _addressDAL.GetById(managerSupermarket.AddressId);
+                
+                supermarketWithAddressModels.Add(new SupermarketWithAddressModel
+                {
+                    SupermarketId = managerSupermarket.Id,
+                    Title = managerSupermarket.Title,
+                    Phone = managerSupermarket.Phone,
+                    // Address fields
+                    Street = address.Street,
+                    House = address.House,
+                    City = address.City,
+                    PostalCode = address.PostalCode,
+                    Country = address.Country
+                });
+            }
+            else
+            {
+                return NotFound("You don't have permission to view this page.");
+            }
+            
 
             if (!supermarketWithAddressModels.Any())
             {
