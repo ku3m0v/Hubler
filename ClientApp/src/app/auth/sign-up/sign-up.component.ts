@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService, RegistrationData} from '../../service/auth-service/authentication.service';
 import {SupermarketService, SupermarketWithAddress} from '../../service/store-service/store.service';
@@ -10,6 +10,7 @@ import {SupermarketService, SupermarketWithAddress} from '../../service/store-se
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+  signUpForm: FormGroup;
   supermarkets: SupermarketWithAddress[] = [];
   errorMessage: string = '';
   isDropdownVisible = false;
@@ -18,8 +19,17 @@ export class SignUpComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private storeService: SupermarketService,
+    private fb: FormBuilder,
     private router: Router
   ) {
+    this.signUpForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      supermarketTitle: ['', Validators.required]
+    });
   }
 
   ngOnInit(): void {
@@ -36,21 +46,21 @@ export class SignUpComponent implements OnInit {
 
   updateSelection(option: string) {
     this.selectedOption = option;
-    this.isDropdownVisible = false; // Optional: Close dropdown after selection.
+    this.isDropdownVisible = false;
   }
 
   toggleDropdown() {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
 
-  register(form: NgForm) {
-    if (form.valid) {
+  register() {
+    if (this.signUpForm.valid) {
       const registrationData: RegistrationData = {
-        email: form.value.email,
-        password: form.value.password,
-        firstName: form.value.firstName,
-        lastName: form.value.lastName,
-        supermarketTitle: form.value.supermarketTitle  // Matches the 'name' in HTML
+        email: this.signUpForm.value.email,
+        password: this.signUpForm.value.password,
+        firstName: this.signUpForm.value.firstName,
+        lastName: this.signUpForm.value.lastName,
+        supermarketTitle: this.signUpForm.value.supermarketTitle
       };
 
       this.authService.register(registrationData).subscribe(
@@ -59,10 +69,15 @@ export class SignUpComponent implements OnInit {
           this.router.navigate(['/sign-in']);
         },
         error => {
-          this.errorMessage = 'Registration failed';
+          this.errorMessage = 'Registration failed: ' + error.message;
           console.error(error);
         }
       );
+    } else {
+      Object.keys(this.signUpForm.controls).forEach(field => {
+        const control = this.signUpForm.get(field);
+        control?.markAsTouched({ onlySelf: true });
+      });
     }
   }
 }
