@@ -14,7 +14,7 @@ export class SignUpComponent implements OnInit {
   supermarketTitles: string[] = [];
   errorMessage: string = '';
   isDropdownVisible = false;
-  selectedOption: string | null = null;
+  selectedMarketTitle: string | null = null;
 
   constructor(
     private authService: AuthenticationService,
@@ -33,23 +33,26 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getSupermarketTitles().subscribe(
-      titles => {
-        this.supermarketTitles = titles;
-      },
-      error => {
-        this.errorMessage = 'Failed to load supermarket titles';
-        console.error(error);
-      }
+        titles => {
+          this.supermarketTitles = titles;
+          console.log('Supermarket Titles:', this.supermarketTitles);  // Debugging line
+        },
+        error => {
+          this.errorMessage = 'Failed to load supermarket titles';
+          console.error(error);
+        }
     );
   }
 
-  updateSelection(option: string) {
-    this.selectedOption = option;
-    this.isDropdownVisible = false;
-  }
 
   toggleDropdown() {
     this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+  updateSelection(title: string) {
+    this.selectedMarketTitle = title;
+    this.signUpForm.get('supermarketTitle')?.setValue(title);
+    this.toggleDropdown();
   }
 
   register() {

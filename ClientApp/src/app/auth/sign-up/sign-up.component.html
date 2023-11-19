@@ -76,14 +76,39 @@
                 </div>
               </div>
               <div class="w-full md:w-1/2 px-3 mb-3">
-                <label class="block mb-2 text-sm font-medium text-gray-300">Market</label>
-                <select formControlName="supermarketTitle"
-                        [class]="signUpForm.get('supermarketTitle')?.invalid && signUpForm.get('supermarketTitle')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'">
-                  <option value="" disabled></option>
-                  <option *ngFor="let title of supermarketTitles" [value]="title">{{ title }}</option>
-                </select>
+                <label class="text-slate-300" for="dropdownRadioButton">Market</label>
+                <button (click)="toggleDropdown()"
+                        class="bg-slate-800 border-0 text-white placeholder-gray-400 font-medium rounded-lg p-2.5 mt-1.5 text-sm w-full py-2.5 justify-center inline-flex items-center"
+                        id="dropdownRadioButton"
+                        type="button">
+                  {{ selectedMarketTitle || 'Please choose an option' }}
+                  <svg aria-hidden="true" class="w-2.5 h-2.5 ml-2.5" fill="none" viewBox="0 0 10 6"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"/>
+                  </svg>
+                </button>
+                <div *ngIf="isDropdownVisible"
+                     class="w-full bg-slate-800 divide-gray-100 rounded-xl shadow-lg mt-2">
+                  <ul aria-labelledby="dropdownRadioButton"
+                      class="p-3 space-y-3 text-sm text-slate-200">
+                    <li *ngFor="let title of supermarketTitles; let i = index">
+                      <div class="flex items-center">
+                        <input type="radio"
+                               [id]="'title' + i"
+                               [value]="title"
+                               (change)="updateSelection(title)"
+                               [checked]="title === selectedMarketTitle"
+                               class="w-4 h-4 text-purple-main bg-slate-100 border-slate-600 focus:ring-purple-main focus:ring-2"
+                               name="supermarketTitle">
+                        <label [for]="'title' + i"
+                               class="cursor-pointer ml-2 text-sm font-medium">{{ title }}</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
-
               <div class="w-full md:w-1/2 px-3 mb-3">
                 <label *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched" for="email"
                        class="block mb-2 text-sm font-medium text-red-600">Email</label>
@@ -136,40 +161,3 @@
   </div>
   <p *ngIf="errorMessage" class="error-message text-red-600 font-bold">{{ errorMessage }}</p>
 </div>
-
-
-<!--<div class="sign-up-container">-->
-<!--    <h2>Sign Up</h2>-->
-<!--    <form #registrationForm="ngForm" (ngSubmit)="register(registrationForm)">-->
-<!--        <div class="form-group">-->
-<!--            <label for="email">Email:</label>-->
-<!--            <input type="email" id="email" name="email" ngModel required class="form-control">-->
-<!--        </div>-->
-
-<!--        <div class="form-group">-->
-<!--            <label for="password">Password:</label>-->
-<!--            <input type="password" id="password" name="password" ngModel required class="form-control">-->
-<!--        </div>-->
-
-<!--        <div class="form-group">-->
-<!--            <label for="firstName">First Name:</label>-->
-<!--            <input type="text" id="firstName" name="firstName" ngModel required class="form-control">-->
-<!--        </div>-->
-
-<!--        <div class="form-group">-->
-<!--            <label for="lastName">Last Name:</label>-->
-<!--            <input type="text" id="lastName" name="lastName" ngModel required class="form-control">-->
-<!--        </div>-->
-
-<!--      <div class="form-group">-->
-<!--        <label for="supermarket">Supermarket:</label>-->
-<!--        <select id="supermarket" name="supermarketTitle" ngModel required class="form-control">-->
-<!--          <option *ngFor="let supermarket of supermarkets" [value]="supermarket.title">{{ supermarket.title }}</option>-->
-<!--        </select>-->
-<!--      </div>-->
-
-<!--        <button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid">Register</button>-->
-<!--    </form>-->
-
-<!--    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>-->
-<!--</div>-->

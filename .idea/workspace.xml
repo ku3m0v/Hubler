@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5d3fc0a3-47e7-41ac-89de-75be44dece4f" name="Changes" comment="sign-up: fix style">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/user/user.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/user/user.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/user/user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/user/user.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/auth/sign-up/sign-up.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/auth/sign-up/sign-up.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/auth/sign-up/sign-up.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/auth/sign-up/sign-up.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +46,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "user",
+    "git-widget-placeholder": "back",
     "last_opened_file_path": "E:/",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
