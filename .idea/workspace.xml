@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d3fc0a3-47e7-41ac-89de-75be44dece4f" name="Changes" comment="">
+    <list default="true" id="5d3fc0a3-47e7-41ac-89de-75be44dece4f" name="Changes" comment="sign-up: fix style">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/auth/sign-up/sign-up.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/auth/sign-up/sign-up.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/auth/sign-up/sign-up.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/auth/sign-up/sign-up.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/store/add-store/add-store.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/store/add-store/add-store.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/app/user/user.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/user/user.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientApp/src/app/user/user.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/user/user.component.ts" afterDir="false" />
     </list>
@@ -49,7 +46,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "back",
+    "git-widget-placeholder": "user",
     "last_opened_file_path": "E:/",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -74,6 +71,15 @@
       <workItem from="1700229871302" duration="7000" />
       <workItem from="1700229891208" duration="87000" />
     </task>
+    <task id="LOCAL-00001" summary="sign-up: fix style">
+      <option name="closed" value="true" />
+      <created>1700348934124</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1700348934124</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,5 +122,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="sign-up: fix style" />
+    <option name="LAST_COMMIT_MESSAGE" value="sign-up: fix style" />
   </component>
 </project>
