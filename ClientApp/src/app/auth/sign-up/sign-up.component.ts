@@ -25,8 +25,8 @@ export class SignUpComponent implements OnInit {
     this.signUpForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', Validators.required, Validators.minLength(2)],
+      lastName: ['', Validators.required, Validators.minLength(2)],
       supermarketTitle: ['', Validators.required]
     });
   }
@@ -35,7 +35,7 @@ export class SignUpComponent implements OnInit {
     this.authService.getSupermarketTitles().subscribe(
         titles => {
           this.supermarketTitles = titles;
-          console.log('Supermarket Titles:', this.supermarketTitles);  // Debugging line
+          console.log('Supermarket Titles:', this.supermarketTitles);
         },
         error => {
           this.errorMessage = 'Failed to load supermarket titles';

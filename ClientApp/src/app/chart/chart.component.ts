@@ -18,7 +18,6 @@ interface Product {
     styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements AfterViewInit {
-    isLoading = true;
     selectedValue: string = 'Last 7 days';
     isDropdownVisible: boolean = false;
     salesValue: string = '12,423';
@@ -76,13 +75,6 @@ export class ChartComponent implements AfterViewInit {
         },
     ];
     private options: any;
-
-    loadData() {
-        setTimeout(() => {
-            this.isLoading = false;
-            this.spinnerService.setLoading(false);
-        }, 1000);
-    }
 
     constructor(private elRef: ElementRef, private authService: AuthenticationService, private spinnerService: SpinnerService) {
         this.options = {
@@ -151,7 +143,6 @@ export class ChartComponent implements AfterViewInit {
                 show: false,
             },
         };
-        this.loadData()
     }
 
     toggleDropdown(): void {

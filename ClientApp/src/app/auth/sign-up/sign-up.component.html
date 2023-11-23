@@ -76,9 +76,13 @@
                 </div>
               </div>
               <div class="w-full md:w-1/2 px-3 mb-3">
-                <label class="text-slate-300" for="dropdownRadioButton">Market</label>
+                <label *ngIf="signUpForm.get('supermarketTitle')?.invalid && signUpForm.get('supermarketTitle')?.touched" for="supermarketTitle"
+                       class="block mb-2 text-sm font-medium text-red-600">Store</label>
+                <label *ngIf="!signUpForm.get('supermarketTitle')?.invalid || !signUpForm.get('supermarketTitle')?.touched"
+                       for="supermarketTitle"
+                       class="block mb-2 text-sm font-medium text-gray-300">Store</label>
                 <button (click)="toggleDropdown()"
-                        class="bg-slate-800 border-0 text-white placeholder-gray-400 font-medium rounded-lg p-2.5 mt-1.5 text-sm w-full py-2.5 justify-center inline-flex items-center"
+                        class="bg-slate-800 text-sm border-2 border-violet-950 text-white placeholder-gray-400 font-medium rounded-lg p-2.5 w-full py-2.5 justify-center inline-flex items-center"
                         id="dropdownRadioButton"
                         type="button">
                   {{ selectedMarketTitle || 'Please choose an option' }}
@@ -92,6 +96,7 @@
                 <div *ngIf="isDropdownVisible"
                      class="w-full bg-slate-800 divide-gray-100 rounded-xl shadow-lg mt-2">
                   <ul aria-labelledby="dropdownRadioButton"
+                      id="supermarketTitle"
                       class="p-3 space-y-3 text-sm text-slate-200">
                     <li *ngFor="let title of supermarketTitles; let i = index">
                       <div class="flex items-center">
@@ -144,7 +149,7 @@
               </div>
             </div>
             <button [disabled]="!signUpForm.valid"
-                    class="w-full bg-purple-main text-white transition-colors duration-200 hover:bg-purple-700 text-base-medium rounded-lg shadow-md py-2 active:bg-purple-800"
+                    class="disabled:bg-purple-600/30 disabled:cursor-not-allowed disabled:text-purple-800 w-full bg-purple-main text-white transition-colors duration-200 hover:bg-purple-700 text-base-medium rounded-lg shadow-md py-2 active:bg-purple-800 cursor-pointer"
                     type="submit">
               Sign up
             </button>
@@ -159,5 +164,4 @@
       </div>
     </div>
   </div>
-  <p *ngIf="errorMessage" class="error-message text-red-600 font-bold">{{ errorMessage }}</p>
 </div>
