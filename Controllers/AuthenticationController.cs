@@ -86,12 +86,13 @@ public class AuthenticationController : ControllerBase
             return BadRequest("Invalid registration request.");
         }
         
-        var existingEmployee = _employeeDAL.GetByEmail(model.Email);
-        if (existingEmployee != null)
-        {
-            return BadRequest("Email already exists.");
-        }
-        
+        //FIXME: Add email confirmation to registration @Ku3m0v
+        // var existingEmployee = _employeeDAL.GetByEmail(model.Email);
+        // if (existingEmployee != null)
+        // {
+        //     return BadRequest("Email already exists.");
+        // }
+        //
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
         Supermarket supermarket = _supermarketDAL.GetSupermarketByTitle(model.SupermarketTitle);
         
