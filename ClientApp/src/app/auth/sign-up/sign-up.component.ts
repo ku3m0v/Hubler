@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, NgForm, Validators,} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService, RegistrationData} from '../../service/auth-service/authentication.service';
 import {SupermarketService, SupermarketWithAddress} from '../../service/store-service/store.service';
@@ -23,10 +23,10 @@ export class SignUpComponent implements OnInit {
     private router: Router
   ) {
     this.signUpForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      firstName: ['', Validators.required, Validators.minLength(2)],
-      lastName: ['', Validators.required, Validators.minLength(2)],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
       supermarketTitle: ['', Validators.required]
     });
   }
