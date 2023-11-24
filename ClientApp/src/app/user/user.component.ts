@@ -11,7 +11,7 @@ import {ProfileData, ProfileService} from "../service/profile-service/profile.se
 })
 export class UserComponent implements OnInit {
   profile: ProfileData | null = null;
-  public isEditing = false;
+  // public isEditing = false;
   error: string | null = null;
   public profileForm!: FormGroup;
 
@@ -35,15 +35,15 @@ export class UserComponent implements OnInit {
             firstName: [''],
             lastName: [''],
             createdDate: [{value: '', disabled: true}], // Assuming date is not editable
-            supermarketName: ['']
+            supermarketName: [{value: '', disabled: true}]
         });
         this.loadProfile();
     }
 
 
-  toggleEdit() {
-    this.isEditing = !this.isEditing;
-  }
+  // toggleEdit() {
+  //   this.isEditing = !this.isEditing;
+  // }
 
   saveProfile() {
     if (this.profileForm.valid) {
@@ -51,7 +51,7 @@ export class UserComponent implements OnInit {
       this.profileService.updateProfile(updatedProfile).subscribe({
         next: () => {
           this.loadProfile();
-          this.toggleEdit();
+          // this.toggleEdit();
         },
         error: (err) => this.error = err.message
       });
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
 
   cancelEdit() {
     this.loadProfile();
-    this.toggleEdit();
+    // this.toggleEdit();
   }
 
   changeImage() {
