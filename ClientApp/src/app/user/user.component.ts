@@ -47,12 +47,19 @@ export class UserComponent implements OnInit {
 
   saveProfile() {
     if (this.profileForm.valid) {
-      this.toggleEdit();
+      const updatedProfile = this.profileForm.getRawValue();
+      this.profileService.updateProfile(updatedProfile).subscribe({
+        next: () => {
+          this.loadProfile();
+          this.toggleEdit();
+        },
+        error: (err) => this.error = err.message
+      });
     }
   }
 
   cancelEdit() {
-    this.profileForm.reset(this.profileForm.value);
+    this.loadProfile();
     this.toggleEdit();
   }
 
@@ -61,16 +68,24 @@ export class UserComponent implements OnInit {
   }
 
   onImageChange(event: Event) {
-    const file = (event.target as HTMLInputElement).files![0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const imageElement: HTMLImageElement = document.querySelector('img[alt="Profile picture"]') as HTMLImageElement;
-        imageElement.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files[0]) {
+      const file = fileInput.files[0];
+
+      this.profileService.uploadPhoto(file).subscribe({
+        next: (response) => {
+          if (response.imageUrl) {
+            const imageElement: HTMLImageElement = document.querySelector('img[alt="Profile picture"]') as HTMLImageElement;
+            imageElement.src = response.imageUrl;
+          }
+        },
+        error: (err) => {
+          this.error = err.message;
+        }
+      });
     }
   }
+
 
     loadProfile(): void {
         this.profileService.getProfile().subscribe({

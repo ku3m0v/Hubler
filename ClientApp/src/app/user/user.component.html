@@ -31,10 +31,7 @@
                                 class="absolute px-2 py-2 bg-slate-900 text-white rounded-lg">
                             <img alt="Upload icon" class="w-6 h-6" src="/assets/assets/edit.svg">
                         </button>
-                        <input #imageInput
-                               (change)="onImageChange($event)"
-                               class="hidden"
-                               type="file">
+                        <input type="file" #imageInput (change)="onImageChange($event)" hidden>
                     </div>
                     <img alt="Profile picture"
                          class="rounded-full w-32 h-32 object-cover border-3 border-slate-300"
