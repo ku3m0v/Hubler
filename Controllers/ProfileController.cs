@@ -10,7 +10,7 @@ namespace Hubler.Controllers;
 
 [Route("api/profile")]
 [ApiController]
-[Authorize] // Ensure the controller is accessible only by authenticated users
+[Authorize]
 public class ProfileController : ControllerBase
 {
     private readonly IEmployeeDAL _employeeDAL;

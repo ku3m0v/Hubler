@@ -2,6 +2,7 @@ namespace Hubler.Models;
 
 public class EmployeeModel
 {
+    public int Id { get; set; }
     public String Email { get; set; }
     public String Password { get; set; }
     public String FirstName { get; set; }
