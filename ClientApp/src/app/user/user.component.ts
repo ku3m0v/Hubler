@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {Router} from "@angular/router";
 import {AuthenticationService} from "../service/auth-service/authentication.service";
 import {ProfileData, ProfileService} from "../service/profile-service/profile.service";
 
@@ -11,7 +10,6 @@ import {ProfileData, ProfileService} from "../service/profile-service/profile.se
 })
 export class UserComponent implements OnInit {
   profile: ProfileData | null = null;
-  // public isEditing = false;
   error: string | null = null;
   public profileForm!: FormGroup;
 
@@ -21,7 +19,6 @@ export class UserComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router,
     private profileService: ProfileService) {
   }
 
@@ -29,21 +26,16 @@ export class UserComponent implements OnInit {
     return this.authService.isUserSignedIn();
   }
 
-    ngOnInit(): void {
-        this.profileForm = this.fb.group({
-            email: [{value: '', disabled: true}],  // Assuming email is not editable
-            firstName: [''],
-            lastName: [''],
-            createdDate: [{value: '', disabled: true}], // Assuming date is not editable
-            supermarketName: [{value: '', disabled: true}]
-        });
-        this.loadProfile();
-    }
-
-
-  // toggleEdit() {
-  //   this.isEditing = !this.isEditing;
-  // }
+  ngOnInit(): void {
+    this.profileForm = this.fb.group({
+      email: [{value: '', disabled: true}],
+      firstName: [''],
+      lastName: [''],
+      createdDate: [{value: '', disabled: true}],
+      supermarketName: [{value: '', disabled: true}]
+    });
+    this.loadProfile();
+  }
 
   saveProfile() {
     if (this.profileForm.valid) {
@@ -51,16 +43,10 @@ export class UserComponent implements OnInit {
       this.profileService.updateProfile(updatedProfile).subscribe({
         next: () => {
           this.loadProfile();
-          // this.toggleEdit();
         },
         error: (err) => this.error = err.message
       });
     }
-  }
-
-  cancelEdit() {
-    this.loadProfile();
-    // this.toggleEdit();
   }
 
   changeImage() {
@@ -86,28 +72,27 @@ export class UserComponent implements OnInit {
     }
   }
 
-
-    loadProfile(): void {
-        this.profileService.getProfile().subscribe({
-            next: (data) => {
-                this.profile = data;
-                this.profileForm.setValue({
-                    email: data.email,
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    createdDate: this.formatDate(data.createdDate),
-                    supermarketName: data.supermarketName
-                });
-            },
-            error: (err) => {
-                this.error = err.message;
-            }
+  loadProfile(): void {
+    this.profileService.getProfile().subscribe({
+      next: (data) => {
+        this.profile = data;
+        this.profileForm.setValue({
+          email: data.email,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          createdDate: this.formatDate(data.createdDate),
+          supermarketName: data.supermarketName
         });
-    }
+      },
+      error: (err) => {
+        this.error = err.message;
+      }
+    });
+  }
 
-    private formatDate(dateString: Date): string {
-        const date = new Date(dateString);
-        return date.toISOString().split('T')[0];
-    }
+  private formatDate(dateString: Date): string {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  }
 
 }
