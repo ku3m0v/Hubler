@@ -79,14 +79,15 @@ public class ProfileController : ControllerBase
 
                 var employee = _employeeDAL.GetById(id);
                 if (employee == null) return NotFound("Employee not found.");
-
-                // Delete the old content if it exists
-                if (employee.ContentId != 0) // Assuming 0 is default/non-existing value
+                
+                if (employee.ContentId != 0)
                 {
-                    _binaryContentDAL.Delete(employee.ContentId);
+                    int? contentId = employee.ContentId;
+                    employee.ContentId = null;
+                    _employeeDAL.Update(employee);
+                    _binaryContentDAL.Delete(contentId);
                 }
-
-                // Save the new content
+                
                 using (var ms = new MemoryStream())
                 {
                     await file.CopyToAsync(ms);
@@ -101,8 +102,8 @@ public class ProfileController : ControllerBase
                         UploadDate = DateTime.UtcNow
                     };
 
-                    _binaryContentDAL.Insert(binaryContent);
-                    employee.ContentId = binaryContent.Id;
+                    int contentID = _binaryContentDAL.Insert(binaryContent);
+                    employee.ContentId = contentID;
                 }
 
                 _employeeDAL.Update(employee);
@@ -119,4 +120,39 @@ public class ProfileController : ControllerBase
             return StatusCode(500, $"Internal server error: {ex}");
         }
     }
+    
+    [HttpGet("profile-picture")]
+    public IActionResult GetProfilePicture()
+    {
+        try
+        {
+            var userIdClaim = this.User.Claims.FirstOrDefault(c => c.Type.Equals(ClaimTypes.NameIdentifier));
+            if (userIdClaim == null)
+            {
+                return Unauthorized("User not found.");
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+            
+            var employee = _employeeDAL.GetById(userId);
+            if (employee == null || employee.ContentId == 0)
+            {
+                return NotFound("Profile or profile picture not found.");
+            }
+            
+            
+            var binaryContent = _binaryContentDAL.GetById(employee.ContentId);
+            if (binaryContent == null || binaryContent.Content == null || binaryContent.Content.Length == 0)
+            {
+                return NotFound("Image not found.");
+            }
+            
+            return File(binaryContent.Content, "image/jpeg");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex}");
+        }
+    }
+
 }

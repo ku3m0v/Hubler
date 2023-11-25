@@ -6,4 +6,5 @@ public class CashRegister
     public int SupermarketId { get; set; }
     public int RegisterNumber { get; set; }
     public int StatusId { get; set; }
+    public int? EmployeeId { get; set; }
 }

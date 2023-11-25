@@ -12,20 +12,16 @@
         <div class="flex flex-row items-center justify-center gap-4 py-8">
 
           <div class="flex justify-center">
-            <div class="mt-1">
-              <button (click)="changeImage()"
-                      class="absolute px-2 py-2 bg-slate-900 text-white rounded-lg">
+            <div class="mt-1 relative"> <!-- Use relative positioning for the overlay button -->
+              <input #imageInput type="file" (change)="onImageChange($event)" class="hidden">
+              <button (click)="imageInput.click()" class="absolute px-2 py-2 bg-slate-900 text-white rounded-lg">
                 <img alt="Upload icon" class="w-6 h-6" src="/assets/assets/edit.svg">
               </button>
-              <input #imageInput
-                     (change)="onImageChange($event)"
-                     class="hidden"
-                     type="file">
+              <img alt="Profile picture" class="rounded-full w-32 h-32 object-cover border-3 border-slate-300"
+                   [src]="profileImageUrl || 'https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg'">
             </div>
-            <img alt="Profile picture"
-                 class="rounded-full w-32 h-32 object-cover border-3 border-slate-300"
-                 src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg">
           </div>
+
           <div class="mt-6 text-center flex flex-col gap-2 w-1/4">
             <div class="bg-slate-50 bg-opacity-60 text-center rounded-xl">
               <span
@@ -33,7 +29,8 @@
             </div>
             <span
               aria-describedby="emailHelp"
-              class="text-[18px] py-0.5 font-medium bg-slate-100 bg-opacity-40 border-0 text-slate-900 text-center rounded-xl cursor-not-allowed" disabled
+              class="text-[18px] py-0.5 font-medium bg-slate-100 bg-opacity-40 border-0 text-slate-900 text-center rounded-xl cursor-not-allowed"
+              disabled
             > {{profile?.email}}
                     </span>
           </div>

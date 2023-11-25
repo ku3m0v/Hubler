@@ -12,6 +12,7 @@ export class UserComponent implements OnInit {
   profile: ProfileData | null = null;
   error: string | null = null;
   public profileForm!: FormGroup;
+  profileImageUrl: string | null = null;
 
 
   @ViewChild('imageInput', {static: false}) imageInput!: ElementRef;
@@ -35,6 +36,7 @@ export class UserComponent implements OnInit {
       supermarketName: [{value: '', disabled: true}]
     });
     this.loadProfile();
+    this.loadProfilePicture();
   }
 
   saveProfile() {
@@ -43,14 +45,11 @@ export class UserComponent implements OnInit {
       this.profileService.updateProfile(updatedProfile).subscribe({
         next: () => {
           this.loadProfile();
+          this.loadProfilePicture();
         },
         error: (err) => this.error = err.message
       });
     }
-  }
-
-  changeImage() {
-    this.imageInput.nativeElement.click();
   }
 
   onImageChange(event: Event) {
@@ -60,13 +59,11 @@ export class UserComponent implements OnInit {
 
       this.profileService.uploadPhoto(file).subscribe({
         next: (response) => {
-          if (response.imageUrl) {
-            const imageElement: HTMLImageElement = document.querySelector('img[alt="Profile picture"]') as HTMLImageElement;
-            imageElement.src = response.imageUrl;
-          }
+          console.log(response); // The response from the backend
+          this.loadProfilePicture(); // Reload the profile picture
         },
         error: (err) => {
-          this.error = err.message;
+          this.error = err.message; // Handle the error
         }
       });
     }
@@ -83,6 +80,23 @@ export class UserComponent implements OnInit {
           createdDate: this.formatDate(data.createdDate),
           supermarketName: data.supermarketName
         });
+      },
+      error: (err) => {
+        this.error = err.message;
+      }
+    });
+  }
+
+  loadProfilePicture(): void {
+    this.profileService.getProfilePicture().subscribe({
+      next: (data) => {
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+          this.profileImageUrl = reader.result as string;
+        }, false);
+        if (data) {
+          reader.readAsDataURL(data);
+        }
       },
       error: (err) => {
         this.error = err.message;

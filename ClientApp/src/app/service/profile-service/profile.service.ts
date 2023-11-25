@@ -35,7 +35,7 @@ export class ProfileService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authService.getToken()}`
     });
-    return this.http.put(`${this.myAppUrl}api/profile`, profile, { headers: headers })
+    return this.http.put(`${this.myAppUrl}api/profile`, profile, { headers: headers, responseType: 'text' })
       .pipe(catchError(this.errorHandler));
   }
 
@@ -47,9 +47,18 @@ export class ProfileService {
       'Authorization': `Bearer ${this.authService.getToken()}`
     });
 
-    return this.http.post(`${this.myAppUrl}api/profile/upload-photo`, formData, { headers: headers })
+    return this.http.post(`${this.myAppUrl}api/profile/upload-photo`, formData, { headers: headers, responseType: 'text' })
       .pipe(catchError(this.errorHandler));
   }
+
+  getProfilePicture(): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+    return this.http.get(`${this.myAppUrl}api/profile/profile-picture`, { headers: headers, responseType: 'blob' })
+      .pipe(catchError(this.errorHandler));
+  }
+
 
   private errorHandler(error: HttpErrorResponse) {
     console.error('An error occurred:', error.message);

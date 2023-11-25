@@ -7,5 +7,5 @@ public class BinaryContent
     public string FileType { get; set; }
     public string FileExtension { get; set; }
     public byte[] Content { get; set; }
-    public DateTime UploadDate { get; set; }
+    public DateTime? UploadDate { get; set; }
 }
