@@ -87,12 +87,12 @@ public class AuthenticationController : ControllerBase
         }
         
         //FIXME: Add email confirmation to registration @Ku3m0v
-        // var existingEmployee = _employeeDAL.GetByEmail(model.Email);
-        // if (existingEmployee != null)
-        // {
-        //     return BadRequest("Email already exists.");
-        // }
-        //
+        var existingEmployee = _employeeDAL.GetByEmail(model.Email);
+        if (existingEmployee.Id != 0)
+        {
+            return BadRequest("Email already exists.");
+        }
+        
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
         Supermarket supermarket = _supermarketDAL.GetSupermarketByTitle(model.SupermarketTitle);
         
@@ -103,7 +103,7 @@ public class AuthenticationController : ControllerBase
             FirstName = model.FirstName,
             LastName = model.LastName,
             SupermarketId = supermarket.Id,
-            RoleId = 2
+            RoleId = 1
         };
 
         try
