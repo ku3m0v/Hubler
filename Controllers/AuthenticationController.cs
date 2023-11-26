@@ -50,7 +50,6 @@ public class AuthenticationController : ControllerBase
         if (employee != null && model.Username.Equals(employee.Email) &&
             BCrypt.Net.BCrypt.Verify(model.Password, employee.PassHash))
         {
-            // DBConnection.SetContext(employee.Email);
             var tokenClaims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, employee.Id.ToString()),
@@ -86,12 +85,11 @@ public class AuthenticationController : ControllerBase
             return BadRequest("Invalid registration request.");
         }
         
-        //FIXME: Add email confirmation to registration @Ku3m0v
-        var existingEmployee = _employeeDAL.GetByEmail(model.Email);
-        if (existingEmployee.Id != 0)
-        {
-            return BadRequest("Email already exists.");
-        }
+        // var existingEmployee = _employeeDAL.GetByEmail(model.Email);
+        // if (existingEmployee.Id != 0)
+        // {
+        //     return BadRequest("Email already exists.");
+        // }
         
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
         Supermarket supermarket = _supermarketDAL.GetSupermarketByTitle(model.SupermarketTitle);
