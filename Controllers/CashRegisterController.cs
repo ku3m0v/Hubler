@@ -6,7 +6,7 @@ using Hubler.DAL.Models;
 
 namespace Hubler.Controllers;
 
-[Route("api/cashregisters")]
+[Route("api/cashregister")]
 [ApiController]
 public class CashRegisterController : ControllerBase
 {
@@ -19,7 +19,7 @@ public class CashRegisterController : ControllerBase
         _employeeDAL = employeeDAL;
     }
 
-    [HttpGet, Authorize]
+    [HttpGet("list"), Authorize]
     public IActionResult GetAll()
     {
         var role = User.FindFirst(ClaimTypes.Role)?.Value;
@@ -49,7 +49,7 @@ public class CashRegisterController : ControllerBase
                     return Ok(cashRegisters);
                 }
                 default:
-                    return Unauthorized("You do not have permission to view this resource.");
+                    return BadRequest("You do not have permission to view this resource.");
             }
         }
         catch (Exception ex)
@@ -59,7 +59,7 @@ public class CashRegisterController : ControllerBase
     }
     
     
-    [HttpPut, Authorize(Roles = "manager, admin")]
+    [HttpPut]
     public IActionResult Update(CashRegister cashRegister)
     {
         try
@@ -69,13 +69,12 @@ public class CashRegisterController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception
             return StatusCode(500, "An error occurred while updating the cash register.");
         }
     }
 
     
-    [HttpDelete("{id}"), Authorize(Roles = "manager, admin")]
+    [HttpDelete]
     public IActionResult Delete(int id)
     {
         try
@@ -85,13 +84,12 @@ public class CashRegisterController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception
             return StatusCode(500, "An error occurred while deleting the cash register.");
         }
     }
 
     
-    [HttpPost, Authorize(Roles = "manager, admin")]
+    [HttpPost("insert")]
     public IActionResult Insert(CashRegister cashRegister)
     {
         try
@@ -101,7 +99,6 @@ public class CashRegisterController : ControllerBase
         }
         catch (Exception ex)
         {
-            // Log the exception
             return StatusCode(500, "An error occurred while inserting the cash register.");
         }
     }
