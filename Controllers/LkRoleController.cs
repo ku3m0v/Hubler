@@ -15,6 +15,17 @@ public class RolesController : ControllerBase
         _lkRoleDal = lkRoleDal;
     }
 
+    [HttpGet("detail/{roleName}")]
+    public ActionResult<LkRole> Details(string roleName)
+    {
+        var role = _lkRoleDal.GetByRoleName(roleName);
+        if (role == null)
+        {
+            return NotFound();
+        }
+        return Ok(role);
+    }
+
     [HttpPost("insert")]
     public IActionResult CreateRole([FromBody] LkRole role)
     {
@@ -22,7 +33,7 @@ public class RolesController : ControllerBase
         return Ok();
     }
 
-    [HttpPut("edit")]
+    [HttpPost("edit")]
     public IActionResult UpdateRole([FromBody] LkRole role)
     {
         _lkRoleDal.Update(role);
@@ -41,7 +52,7 @@ public class RolesController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet("list")]
+    [HttpGet]
     public ActionResult<IEnumerable<LkRole>> GetAllRoles()
     {
         var roles = _lkRoleDal.GetAll();

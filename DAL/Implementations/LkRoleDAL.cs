@@ -3,6 +3,7 @@ using Dapper;
 using Dapper.Oracle;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -91,10 +92,10 @@ public class LkRoleDAL : ILkRoleDAL
         {
             using (var connection = DBConnection.GetConnection())
             {
-                using (var multi = connection.QueryMultiple("GET_ALL_ROLES", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<LkRole>();
-                }
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+                
+                return connection.Query<LkRole>("GET_ALL_ROLES", parameters, commandType: CommandType.StoredProcedure);
             }
         }
     }
