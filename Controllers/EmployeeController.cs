@@ -39,6 +39,7 @@ public class EmployeeController : ControllerBase
             {
                 employeeModels.Add(new EmployeeModel
                 {
+                    Id = employee.Id,
                     Email = employee.Email,
                     FirstName = employee.FirstName,
                     LastName = employee.LastName,
@@ -46,7 +47,8 @@ public class EmployeeController : ControllerBase
                     // Supermarket fields
                     SupermarketName = supermarket.Title,
                     // Role fields
-                    Role = role.RoleName
+                    RoleName = role.RoleName,
+                    AdminId = employee.AdminId
                 });
             }
         }
@@ -63,8 +65,7 @@ public class EmployeeController : ControllerBase
     public IActionResult Insert([FromBody] EmployeeModel employeeModel)
     {
         var supermarket = _supermarketDAL.GetSupermarketByTitle(employeeModel.SupermarketName);
-        var role = _lkRoleDAL.GetByRoleName(employeeModel.Role);
-        var manager = _employeeDAL.GetByEmail(employeeModel.AdminEmail);
+        var role = _lkRoleDAL.GetByRoleName(employeeModel.RoleName);
 
         if (supermarket == null || role == null)
         {
@@ -80,7 +81,7 @@ public class EmployeeController : ControllerBase
             CreatedDate = DateTime.UtcNow,
             SupermarketId = supermarket.Id,
             RoleId = role.Id,
-            AdminId = manager.Id
+            AdminId = employeeModel.AdminId
         };
 
         var result = _employeeDAL.Insert(employee);
@@ -94,7 +95,7 @@ public class EmployeeController : ControllerBase
         var employee = _employeeDAL.GetByEmail(email);
         var supermarket = _supermarketDAL.GetById(employee.SupermarketId);
         var role = _lkRoleDAL.GetById(employee.RoleId);
-        var manager = _employeeDAL.GetById(employee.AdminId);
+        
         if (employee == null)
         {
             return NotFound("Employee not found.");
@@ -109,22 +110,22 @@ public class EmployeeController : ControllerBase
             // Supermarket fields
             SupermarketName = supermarket.Title,
             // Role fields
-            Role = role.RoleName,
+            RoleName = role.RoleName,
             // Admin fields
-            AdminEmail = manager.Email
+            AdminId = employee.AdminId
         };
 
         return Ok(employeeModel);
     }
 
     // PUT: api/employee/edit
-    [HttpPut("edit")]
+    [HttpPost("edit")]
     public IActionResult Edit([FromBody] EmployeeModel employeeModel)
     {
         var employee = _employeeDAL.GetByEmail(employeeModel.Email);
         var supermarket = _supermarketDAL.GetSupermarketByTitle(employeeModel.SupermarketName);
-        var role = _lkRoleDAL.GetByRoleName(employeeModel.Role);
-        var manager = _employeeDAL.GetByEmail(employeeModel.AdminEmail);
+        var role = _lkRoleDAL.GetByRoleName(employeeModel.RoleName);
+        
         if (employee == null)
         {
             return NotFound("Employee not found.");
@@ -134,14 +135,14 @@ public class EmployeeController : ControllerBase
         employee.LastName = employeeModel.LastName;
         employee.SupermarketId = supermarket.Id;
         employee.RoleId = role.Id;
-        employee.AdminId = manager.Id;
+        employee.AdminId = employeeModel.AdminId;
         
         _employeeDAL.Update(employee);
         return Ok("Employee updated successfully.");
     }
 
-    // DELETE: api/employee/delete/{email}
-    [HttpDelete("delete/{email}")]
+    // DELETE: api/employee
+    [HttpDelete]
     public IActionResult Delete(string email)
     {
         var employee = _employeeDAL.GetByEmail(email);
