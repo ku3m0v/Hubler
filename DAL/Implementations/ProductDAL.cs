@@ -30,19 +30,22 @@ public class ProductDAL : IProductDAL
             }
         }
 
-        public void Insert(Product item)
+        public int Insert(Product item)
         {
             using (var connection = DBConnection.GetConnection())
             {
                 var parameters = new OracleDynamicParameters();
-                parameters.Add("p_id", item.Id, OracleMappingType.Int32);
                 parameters.Add("p_title", item.Title, OracleMappingType.Varchar2);
                 parameters.Add("p_currentprice", item.CurrentPrice, OracleMappingType.Int32);
                 parameters.Add("p_producttype", item.ProductType, OracleMappingType.Varchar2);
+                parameters.Add("p_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
 
                 connection.Execute("INSERT_PRODUCT", parameters, commandType: CommandType.StoredProcedure);
+
+                return parameters.Get<int>("p_id");
             }
         }
+
 
         public void Update(Product item)
         {
