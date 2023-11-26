@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d3fc0a3-47e7-41ac-89de-75be44dece4f" name="Changes" comment="sign-up: 400 error / dropdown menu stores" />
+    <list default="true" id="5d3fc0a3-47e7-41ac-89de-75be44dece4f" name="Changes" comment="sign-up: 400 error / dropdown menu stores">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/employee/employee.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/employee/employee.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/employee/employee.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/employee/employee.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/service/profile-service/profile.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/service/profile-service/profile.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/store/store.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/store/store.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/store/store.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/store/store.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/app/user/user.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/ClientApp/src/app/user/user.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/assets/donut.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/assets/icons/1-modified.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/assets/icons/2-modified.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/assets/icons/3-modified.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/assets/logo/1-modified.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/assets/logo/2-modified.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/assets/logo/3-modified.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/assets/logo/hubler.png" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,6 +86,9 @@
       <workItem from="1700579316141" duration="117000" />
       <workItem from="1700582358980" duration="9944000" />
       <workItem from="1700837263408" duration="155000" />
+      <workItem from="1700945234156" duration="1047000" />
+      <workItem from="1700949430160" duration="937000" />
+      <workItem from="1700957608393" duration="2951000" />
     </task>
     <task id="LOCAL-00001" summary="sign-up: fix style">
       <option name="closed" value="true" />

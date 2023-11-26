@@ -40,7 +40,7 @@ export class ProfileService {
   }
 
   uploadPhoto(file: File): Observable<any> {
-    const formData: FormData = new FormData();
+    const formData = new FormData();
     formData.append('file', file, file.name);
 
     const headers = new HttpHeaders({
