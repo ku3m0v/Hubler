@@ -80,10 +80,10 @@ public class ProfileController : ControllerBase
                 var employee = _employeeDAL.GetById(id);
                 if (employee == null) return NotFound("Employee not found.");
                 
-                if (employee.ContentId != 0)
+                if (employee.Content_Id != 0)
                 {
-                    int? contentId = employee.ContentId;
-                    employee.ContentId = null;
+                    int? contentId = employee.Content_Id;
+                    employee.Content_Id = null;
                     _employeeDAL.Update(employee);
                     _binaryContentDAL.Delete(contentId);
                 }
@@ -103,7 +103,7 @@ public class ProfileController : ControllerBase
                     };
 
                     int contentID = _binaryContentDAL.Insert(binaryContent);
-                    employee.ContentId = contentID;
+                    employee.Content_Id = contentID;
                 }
 
                 _employeeDAL.Update(employee);
@@ -135,13 +135,13 @@ public class ProfileController : ControllerBase
             int userId = int.Parse(userIdClaim.Value);
             
             var employee = _employeeDAL.GetById(userId);
-            if (employee == null || employee.ContentId == 0)
+            if (employee == null || employee.Content_Id == 0)
             {
                 return NotFound("Profile or profile picture not found.");
             }
             
             
-            var binaryContent = _binaryContentDAL.GetById(employee.ContentId);
+            var binaryContent = _binaryContentDAL.GetById(employee.Content_Id);
             if (binaryContent == null || binaryContent.Content == null || binaryContent.Content.Length == 0)
             {
                 return NotFound("Image not found.");

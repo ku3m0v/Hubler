@@ -37,8 +37,8 @@ public class EmployeeDAL : IEmployeeDAL
                     CreatedDate = parameters.Get<DateTime>("p_createddate"),
                     SupermarketId = parameters.Get<int>("p_supermarketid"),
                     RoleId = parameters.Get<int>("p_roleid"),
-                    ContentId = parameters.Get<int?>("p_content_id"),
-                    AdminId = parameters.Get<int>("p_admin_id")
+                    Content_Id = parameters.Get<int?>("p_content_id"),
+                    Admin_Id = parameters.Get<int>("p_admin_id")
                 };
             }
         }
@@ -56,8 +56,8 @@ public class EmployeeDAL : IEmployeeDAL
                     parameters.Add("p_lastname", employee.LastName, OracleMappingType.Varchar2);
                     parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
                     parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32);
-                    parameters.Add("p_content_id", employee.ContentId.HasValue ? (object)employee.ContentId : DBNull.Value, OracleMappingType.Int32);
-                    parameters.Add("p_admin_id", employee.AdminId, OracleMappingType.Int32);
+                    parameters.Add("p_content_id", employee.Content_Id.HasValue ? (object)employee.Content_Id : DBNull.Value, OracleMappingType.Int32);
+                    parameters.Add("p_admin_id", employee.Admin_Id, OracleMappingType.Int32);
 
                     connection.Execute("INSERT_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
                 }
@@ -83,8 +83,8 @@ public class EmployeeDAL : IEmployeeDAL
                 parameters.Add("p_createddate", employee.CreatedDate, OracleMappingType.Date, ParameterDirection.Input);
                 parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32, ParameterDirection.Input);
                 parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32, ParameterDirection.Input);
-                parameters.Add("p_content_id", employee.ContentId.HasValue ? (object)employee.ContentId : DBNull.Value, OracleMappingType.Int32);
-                parameters.Add("p_admin_id", employee.AdminId, OracleMappingType.Int32, ParameterDirection.Input);
+                parameters.Add("p_content_id", employee.Content_Id.HasValue ? (object)employee.Content_Id : DBNull.Value, OracleMappingType.Int32);
+                parameters.Add("p_admin_id", employee.Admin_Id, OracleMappingType.Int32, ParameterDirection.Input);
 
                 connection.Execute("UPDATE_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
             }
@@ -140,8 +140,8 @@ public class EmployeeDAL : IEmployeeDAL
                     CreatedDate = parameters.Get<DateTime>("p_createddate"),
                     SupermarketId = parameters.Get<int>("p_supermarketid"),
                     RoleId = parameters.Get<int>("p_roleid"),
-                    ContentId = parameters.Get<int>("p_content_id"),
-                    AdminId = parameters.Get<int>("p_admin_id")
+                    Content_Id = parameters.Get<int>("p_content_id"),
+                    Admin_Id = parameters.Get<int>("p_admin_id")
                 };
             }
         }

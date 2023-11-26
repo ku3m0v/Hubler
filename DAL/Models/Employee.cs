@@ -10,6 +10,6 @@ public class Employee
     public DateTime CreatedDate { get; set; }
     public int SupermarketId { get; set; }
     public int RoleId { get; set; }
-    public int? ContentId { get; set; }
-    public int AdminId { get; set; }
+    public int? Content_Id { get; set; }
+    public int? Admin_Id { get; set; }
 }

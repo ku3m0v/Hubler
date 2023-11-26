@@ -68,7 +68,7 @@ public class EmployeeController : ControllerBase
                     SupermarketName = supermarket.Title,
                     // Role fields
                     RoleName = role.RoleName,
-                    AdminId = employee.AdminId
+                    AdminId = employee.Admin_Id
                 });
             }
         }
@@ -101,7 +101,7 @@ public class EmployeeController : ControllerBase
             CreatedDate = DateTime.UtcNow,
             SupermarketId = supermarket.Id,
             RoleId = role.Id,
-            AdminId = employeeModel.AdminId
+            Admin_Id = employeeModel.AdminId
         };
 
         var result = _employeeDAL.Insert(employee);
@@ -132,7 +132,7 @@ public class EmployeeController : ControllerBase
             // Role fields
             RoleName = role.RoleName,
             // Admin fields
-            AdminId = employee.AdminId
+            AdminId = employee.Admin_Id
         };
 
         return Ok(employeeModel);
@@ -162,7 +162,7 @@ public class EmployeeController : ControllerBase
             // Role fields
             RoleName = role.RoleName,
             // Admin fields
-            AdminId = employee.AdminId
+            AdminId = employee.Admin_Id
         };
 
         return Ok(employeeModel);
@@ -185,7 +185,7 @@ public class EmployeeController : ControllerBase
         employee.LastName = employeeModel.LastName;
         employee.SupermarketId = supermarket.Id;
         employee.RoleId = role.Id;
-        employee.AdminId = employeeModel.AdminId;
+        employee.Admin_Id = employeeModel.AdminId;
         
         _employeeDAL.Update(employee);
         return Ok("Employee updated successfully.");
@@ -194,16 +194,9 @@ public class EmployeeController : ControllerBase
     // DELETE: api/employee
     [HttpDelete("{id}")]
 
-    public IActionResult Delete(int id)
+    public void Delete(int id)
     {
-        var employee = _employeeDAL.GetById(id);
-        if (employee == null)
-        {
-            return NotFound("Employee not found.");
-        }
-
-        _employeeDAL.Delete(employee.Id);
-        return Ok("Employee deleted successfully.");
+        _employeeDAL.Delete(id);
     }
     
     // GET: api/employee/managers
