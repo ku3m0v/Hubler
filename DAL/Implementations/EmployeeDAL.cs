@@ -38,7 +38,7 @@ public class EmployeeDAL : IEmployeeDAL
                     SupermarketId = parameters.Get<int>("p_supermarketid"),
                     RoleId = parameters.Get<int>("p_roleid"),
                     ContentId = parameters.Get<int?>("p_content_id"),
-                    AdminId = parameters.Get<int?>("p_admin_id")
+                    AdminId = parameters.Get<int>("p_admin_id")
                 };
             }
         }
@@ -57,7 +57,7 @@ public class EmployeeDAL : IEmployeeDAL
                     parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
                     parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32);
                     parameters.Add("p_content_id", employee.ContentId.HasValue ? (object)employee.ContentId : DBNull.Value, OracleMappingType.Int32);
-                    parameters.Add("p_admin_id", employee.AdminId.HasValue ? (object)employee.AdminId : DBNull.Value, OracleMappingType.Int32);
+                    parameters.Add("p_admin_id", employee.AdminId, OracleMappingType.Int32);
 
                     connection.Execute("INSERT_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
                 }
@@ -84,7 +84,7 @@ public class EmployeeDAL : IEmployeeDAL
                 parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32, ParameterDirection.Input);
                 parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32, ParameterDirection.Input);
                 parameters.Add("p_content_id", employee.ContentId.HasValue ? (object)employee.ContentId : DBNull.Value, OracleMappingType.Int32);
-                parameters.Add("p_admin_id", employee.AdminId.HasValue ? (object)employee.AdminId : DBNull.Value, OracleMappingType.Int32);
+                parameters.Add("p_admin_id", employee.AdminId, OracleMappingType.Int32, ParameterDirection.Input);
 
                 connection.Execute("UPDATE_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
             }

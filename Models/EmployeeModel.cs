@@ -10,5 +10,5 @@ public class EmployeeModel
     public DateTime CreatedDate { get; set; }
     public string? SupermarketName { get; set; }
     public String RoleName { get; set; }
-    public int? AdminId { get; set; }
+    public int AdminId { get; set; }
 }

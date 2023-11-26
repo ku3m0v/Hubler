@@ -192,10 +192,11 @@ public class EmployeeController : ControllerBase
     }
 
     // DELETE: api/employee
-    [HttpDelete]
-    public IActionResult Delete(string email)
+    [HttpDelete("{id}")]
+
+    public IActionResult Delete(int id)
     {
-        var employee = _employeeDAL.GetByEmail(email);
+        var employee = _employeeDAL.GetById(id);
         if (employee == null)
         {
             return NotFound("Employee not found.");
