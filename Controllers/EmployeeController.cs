@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
@@ -9,7 +10,6 @@ namespace Hubler.Controllers;
 
 [Route("api/employee")]
 [ApiController]
-[Authorize]
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeDAL _employeeDAL;
@@ -24,10 +24,30 @@ public class EmployeeController : ControllerBase
     }
 
     // GET: api/employee/list
-    [HttpGet("list")]
+    [HttpGet("list"), Authorize]
     public IActionResult GetAll()
     {
-        var employees = _employeeDAL.GetAll();
+        var userId = this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+        int idRegistered = int.Parse(userId);
+        var roleRegistered = this.User.Claims.First(i => i.Type.Equals(ClaimTypes.Role)).Value;
+        
+        IEnumerable<Employee> employees;
+
+        if (roleRegistered == "admin")
+        {
+            employees = _employeeDAL.GetAll();
+        }
+        else if (roleRegistered == "manager")
+        {
+            var manager = _employeeDAL.GetById(idRegistered);
+            employees = _employeeDAL.GetAll()
+                .Where(e => e.SupermarketId == manager.SupermarketId);
+        }
+        else
+        {
+            return BadRequest("You do not have permission to view this resource.");
+        }
+
         var employeeModels = new List<EmployeeModel>();
 
         foreach (var employee in employees)
