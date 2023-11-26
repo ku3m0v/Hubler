@@ -15,6 +15,9 @@ import {SpinnerComponent} from "./spinner/spinner.component";
 import {AddStoreComponent} from "./store/add-store/add-store.component";
 import {NoAuthGuard} from "./guards/no-auth-guard.service";
 import {AddEmployeeComponent} from "./employee/add-employee/add-employee.component";
+import {RoleComponent} from "./employee/role/role.component";
+import {CashregisterComponent} from "./cashregister/cashregister.component";
+import {AddRoleComponent} from "./employee/role/add-role/add-role.component";
 
 
 const routes: Routes = [
@@ -34,6 +37,12 @@ const routes: Routes = [
     {path: 'edit-store/:title', component: AddStoreComponent, canActivate: [AuthGuard]},
     {path: 'edit-employee/:id', component: AddEmployeeComponent, canActivate: [AuthGuard]},
     {path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard]},
+    {path: 'roles', component: RoleComponent, canActivate: [AuthGuard]},
+    {path: 'add-role', component: AddRoleComponent, canActivate: [AuthGuard]},
+    {path: 'edit-role/:roleName', component: AddRoleComponent, canActivate: [AuthGuard]},
+    {path: 'cashregister', component: CashregisterComponent, canActivate: [AuthGuard]},
+
+
 ];
 
 @NgModule({
