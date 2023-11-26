@@ -71,12 +71,34 @@ public class CashRegisterController : ControllerBase
 
         return Ok(cashRegisterModels);
     }
+    
+    [HttpGet("get")]
+    public ActionResult<CashRegisterModel> GetById(int id)
+    {
+        var cashRegister = _cashRegisterDAL.GetById(id);
+        if (cashRegister == null) return NotFound("Cash register not found.");
 
-    [HttpPut]
+        var supermarket = _supermarketDAL.GetById(cashRegister.SupermarketId);
+        var status = _lkStatusDAL.GetById(cashRegister.StatusId);
+
+        var cashRegisterModel = new CashRegisterModel
+        {
+            Id = cashRegister.Id,
+            SupermarketName = supermarket.Title,
+            RegisterNumber = cashRegister.RegisterNumber,
+            StatusName = status.StatusName,
+            EmployeeId = cashRegister.EmployeeId
+        };
+
+        return Ok(cashRegisterModel);
+    }
+    
+    [HttpPost("edit")]
     public IActionResult Update(CashRegisterModel model)
     {
         var cashRegister = _cashRegisterDAL.GetById(model.Id);
         var status = _lkStatusDAL.GetByName(model.StatusName);
+        
         if (cashRegister == null) return NotFound("Cash register not found.");
         
         cashRegister.RegisterNumber = model.RegisterNumber;
@@ -87,7 +109,6 @@ public class CashRegisterController : ControllerBase
         
         return Ok();
     }
-
 
     [HttpDelete]
     public IActionResult Delete(int id)
@@ -123,5 +144,32 @@ public class CashRegisterController : ControllerBase
         _cashRegisterDAL.Insert(cashRegister);
         
         return Ok();
+    }
+    
+    [HttpGet("statuses")]
+    public IActionResult GetStatuses()
+    {
+        var result = _lkStatusDAL.GetAll();
+        IEnumerable<string> statuses = result.Select(s => s.StatusName);
+        return Ok(statuses);
+    }
+    
+    [HttpGet("employees"), Authorize]
+    public ActionResult<IEnumerable<Employee>> GetEmployees()
+    {
+        int userId = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
+
+        var employee = _employeeDAL.GetById(userId);
+        var employees = _employeeDAL.GetAll()
+            .Where(e => e.SupermarketId == employee.SupermarketId);
+        
+        return Ok(employees);
+    }
+
+    [HttpGet("employee")]
+    public ActionResult<Employee> GetEmployees(int id)
+    {
+        var employee = _employeeDAL.GetById(id);
+        return Ok(employee);
     }
 }
