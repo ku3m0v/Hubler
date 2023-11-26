@@ -20,6 +20,7 @@ import {StoreComponent} from "./store/store.component";
 import {SpinnerComponent} from "./spinner/spinner.component";
 import {AddStoreComponent} from "./store/add-store/add-store.component";
 import {ToastComponent} from "./toast/toast.component";
+import {AddEmployeeComponent} from "./employee/add-employee/add-employee.component";
 
 export function tokenGetter() {
     return localStorage.getItem("jwt");
@@ -49,7 +50,8 @@ export function tokenGetter() {
         EmployeeComponent,
         StoreComponent,
         SpinnerComponent,
-        AddStoreComponent
+        AddStoreComponent,
+        AddEmployeeComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -14,6 +14,7 @@ import {EmployeeComponent} from "./employee/employee.component";
 import {SpinnerComponent} from "./spinner/spinner.component";
 import {AddStoreComponent} from "./store/add-store/add-store.component";
 import {NoAuthGuard} from "./guards/no-auth-guard.service";
+import {AddEmployeeComponent} from "./employee/add-employee/add-employee.component";
 
 
 const routes: Routes = [
@@ -30,7 +31,9 @@ const routes: Routes = [
     {path: 'employees', component: EmployeeComponent, canActivate: [AuthGuard]},
     {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
     {path: 'add-store', component: AddStoreComponent, canActivate: [AuthGuard]},
-    {path: 'edit-store/:title', component: AddStoreComponent, canActivate: [AuthGuard]}
+    {path: 'edit-store/:title', component: AddStoreComponent, canActivate: [AuthGuard]},
+    {path: 'edit-employee/:id', component: AddEmployeeComponent, canActivate: [AuthGuard]},
+    {path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

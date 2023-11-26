@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {SupermarketService, SupermarketWithAddress} from "../service/store-service/store.service";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../service/auth-service/authentication.service";
+import {Employee, EmployeeService} from "../service/employee-service/employee.service";
 
 @Component({
   selector: 'app-employee',
@@ -9,26 +10,36 @@ import {AuthenticationService} from "../service/auth-service/authentication.serv
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent {
-  public storeList: SupermarketWithAddress[] = [];
+  public employeeList: Employee[] = [];
   showSpinner = true;
   showButton = false;
 
-  constructor(private router: Router, private supermarketService: SupermarketService, private authService: AuthenticationService,) {
-    this.getStores();
+  constructor(
+    private router: Router,
+    private employeeService: EmployeeService,
+    private authService: AuthenticationService
+  ) {
+    this.getEmployees();
     setTimeout(() => {
       this.showSpinner = false;
       this.showButton = true;
     }, 1500);
   }
 
-  getStores() {
-    this.supermarketService.getAllSupermarkets().subscribe(data => this.storeList = data, error => console.error(error));
+  getEmployees() {
+    this.employeeService.getAllEmployees().subscribe(
+      data => this.employeeList = data,
+      error => console.error(error)
+    );
   }
 
-  deleteStore(title: string) {
-    const ans = confirm("Do you want to delete the store with title: " + title);
+  deleteEmployee(id: number) {
+    const ans = confirm("Do you want to delete the employee with ID: " + id);
     if (ans) {
-      this.supermarketService.deleteSupermarket(title).subscribe(() => this.getStores(), error => console.error(error));
+      this.employeeService.deleteEmployee(id).subscribe(
+        () => this.getEmployees(),
+        error => console.error(error)
+      );
     }
   }
 

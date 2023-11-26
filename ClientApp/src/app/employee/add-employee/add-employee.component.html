@@ -1,0 +1,48 @@
+<div class="relative bg-slate-900 rounded-lg overflow-hidden">
+
+  <div class="absolute inset-0 bg-cover bg-center"
+       style="background-image: url('/assets/store.png'); filter: blur(0px);"></div>
+
+  <div class="absolute inset-0 bg-slate-900 opacity-50"></div>
+
+  <div class="py-3 px-3 mx-auto max-w-screen-xl grid lg:grid-cols-2 gap-4 lg:gap-16 relative">
+    <div class="flex justify-center mt-6">
+      <h2 class="text-[4rem] font-bold text-gray-50 mb-6"></h2>
+    </div>
+    <div>
+      <div class="lg:max-w-xl px-6 py-3 sm:p-8 rounded-lg shadow-xl bg-slate-900">
+        <form class="space-y-3" [formGroup]="employeeForm" (ngSubmit)="saveEmployee()" novalidate>
+          <div class="">
+            <label *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched" for="firstName"
+                   class="block mb-2 text-sm font-medium text-red-600">Title</label>
+            <label *ngIf="!employeeForm.get('firstName')?.invalid || !employeeForm.get('firstName')?.touched" for="firstName"
+                   class="block mb-2 text-sm font-medium text-gray-300">Title</label>
+            <input type="text"
+                   id="firstName"
+                   formControlName="firstName"
+                   placeholder="e.g. Healthy Food Store"
+                   [class]="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                   required>
+            <div *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Title is required.
+            </div>
+          </div>
+            <button type="submit"
+                    [disabled]="!employeeForm.valid"
+                    [class]="!employeeForm.valid ?
+                    'disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer' :
+                    'text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer'">
+              {{ title }}
+            </button>
+            <button type="button"
+                    class="text-gray-50 bg-red-600 transition-colors hover:bg-red-700 active:bg-red-800  font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer"
+                    (click)="cancel()">
+              Cancel
+            </button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
