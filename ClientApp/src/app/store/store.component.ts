@@ -34,14 +34,3 @@ export class StoreComponent {
     return this.authService.isUserSignedIn();
   }
 }
-
-interface StoreData {
-  id: number;
-  title: string;
-  phone: string;
-  street: string;
-  house: string;
-  city: string;
-  postalCode: string;
-  country: string;
-}
