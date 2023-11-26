@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {SupermarketService, SupermarketWithAddress} from "../service/store-service/store.service";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../service/auth-service/authentication.service";
 import {Employee, EmployeeService} from "../service/employee-service/employee.service";
@@ -33,15 +32,16 @@ export class EmployeeComponent {
     );
   }
 
-  deleteEmployee(id: number) {
-    const ans = confirm("Do you want to delete the employee with ID: " + id);
+  deleteEmployee(employee: Employee) {
+    const ans = confirm(`Do you want to delete the employee: ${employee.firstName} ${employee.lastName}?`);
     if (ans) {
-      this.employeeService.deleteEmployee(id).subscribe(
+      this.employeeService.deleteEmployee(employee.id!).subscribe(
         () => this.getEmployees(),
         error => console.error(error)
       );
     }
   }
+
 
   public isUserAuthenticated(): boolean {
     return this.authService.isUserSignedIn();

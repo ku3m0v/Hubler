@@ -1,7 +1,7 @@
 <div class="relative bg-slate-900 rounded-lg overflow-hidden">
 
   <div class="absolute inset-0 bg-cover bg-center"
-       style="background-image: url('/assets/store.png'); filter: blur(0px);"></div>
+       style="background-image: url('/assets/copy-employee.png'); filter: blur(0px);"></div>
 
   <div class="absolute inset-0 bg-slate-900 opacity-50"></div>
 
@@ -12,22 +12,145 @@
     <div>
       <div class="lg:max-w-xl px-6 py-3 sm:p-8 rounded-lg shadow-xl bg-slate-900">
         <form class="space-y-3" [formGroup]="employeeForm" (ngSubmit)="saveEmployee()" novalidate>
-          <div class="">
-            <label *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched" for="firstName"
-                   class="block mb-2 text-sm font-medium text-red-600">Title</label>
-            <label *ngIf="!employeeForm.get('firstName')?.invalid || !employeeForm.get('firstName')?.touched" for="firstName"
-                   class="block mb-2 text-sm font-medium text-gray-300">Title</label>
-            <input type="text"
-                   id="firstName"
-                   formControlName="firstName"
-                   placeholder="e.g. Healthy Food Store"
-                   [class]="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
-                   required>
-            <div *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched"
-                 class="mt-2 text-sm text-red-600 dark:text-red-500">
-              Title is required.
+          <div class="grid gap-4 lg:grid-cols-2">
+            <div class="">
+              <label *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched" for="firstName"
+                     class="block mb-2 text-sm font-medium text-red-600">First Name</label>
+              <label *ngIf="!employeeForm.get('firstName')?.invalid || !employeeForm.get('firstName')?.touched" for="firstName"
+                     class="block mb-2 text-sm font-medium text-gray-300">First Name</label>
+              <input type="text"
+                     id="firstName"
+                     formControlName="firstName"
+                     placeholder="e.g. Henry"
+                     [class]="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                First Name is required.
+              </div>
+            </div>
+            <div class="">
+              <label *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched" for="lastName"
+                     class="block mb-2 text-sm font-medium text-red-600">Last Name</label>
+              <label *ngIf="!employeeForm.get('lastName')?.invalid || !employeeForm.get('lastName')?.touched" for="lastName"
+                     class="block mb-2 text-sm font-medium text-gray-300">Last Name</label>
+              <input type="text"
+                     id="lastName"
+                     formControlName="lastName"
+                     placeholder="e.g. Nussbaum"
+                     [class]="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                Last Name is required.
+              </div>
+            </div>
+            <div>
+              <label *ngIf="employeeForm.get('role')?.invalid && employeeForm.get('role')?.touched" for="role"
+                     class="block mb-2 text-sm font-medium text-red-600">Role</label>
+              <label *ngIf="!employeeForm.get('role')?.invalid || !employeeForm.get('role')?.touched" for="role"
+                     class="block mb-2 text-sm font-medium text-gray-300">Role</label>
+              <input type="number"
+                     id="role"
+                     formControlName="role"
+                     placeholder="e.g 1"
+                     [class]="employeeForm.get('role')?.invalid && employeeForm.get('role')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="employeeForm.get('role')?.invalid && employeeForm.get('role')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                Role is required.
+              </div>
+            </div>
+            <div>
+              <label *ngIf="employeeForm.get('adminId')?.invalid && employeeForm.get('adminId')?.touched" for="adminId"
+                     class="block mb-2 text-sm font-medium text-red-600">Superior</label>
+              <label *ngIf="!employeeForm.get('adminId')?.invalid || !employeeForm.get('adminId')?.touched" for="adminId"
+                     class="block mb-2 text-sm font-medium text-gray-300">Superior</label>
+              <input type="number"
+                     id="adminId"
+                     formControlName="adminId"
+                     placeholder="e.g. 1"
+                     [class]="employeeForm.get('adminId')?.invalid && employeeForm.get('adminId')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="employeeForm.get('adminId')?.invalid && employeeForm.get('adminId')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                Superior is required.
+              </div>
             </div>
           </div>
+          <div class="">
+            <label *ngIf="employeeForm.get('supermarketTitle')?.invalid && employeeForm.get('supermarketTitle')?.touched" for="supermarketTitle"
+                   class="block mb-2 text-sm font-medium text-red-600">Store</label>
+            <label *ngIf="!employeeForm.get('supermarketTitle')?.invalid || !employeeForm.get('supermarketTitle')?.touched"
+                   for="supermarketTitle"
+                   class="block mb-2 text-sm font-medium text-gray-300">Store</label>
+            <button (click)="toggleDropdown()"
+                    class="bg-slate-800 text-sm border-2 border-violet-950 text-white placeholder-gray-400 font-medium rounded-lg p-2.5 w-full py-2.5 justify-center inline-flex items-center"
+                    id="dropdownRadioButton"
+                    type="button">
+              {{ selectedMarketTitle || 'Please choose an option' }}
+              <svg aria-hidden="true" class="w-2.5 h-2.5 ml-2.5" fill="none" viewBox="0 0 10 6"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"/>
+              </svg>
+            </button>
+            <div *ngIf="isDropdownVisible"
+                 class="w-full bg-slate-800 divide-gray-100 rounded-xl shadow-lg mt-2">
+              <ul aria-labelledby="dropdownRadioButton"
+                  id="supermarketTitle"
+                  class="p-3 space-y-3 text-sm text-slate-200">
+                <li *ngFor="let title of supermarketTitles; let i = index">
+                  <div class="flex items-center">
+                    <input type="radio"
+                           [id]="'title' + i"
+                           [value]="title"
+                           (change)="updateSelection(title)"
+                           [checked]="title === selectedMarketTitle"
+                           class="w-4 h-4 text-purple-main bg-slate-100 border-slate-600 focus:ring-purple-main focus:ring-2"
+                           name="supermarketTitle">
+                    <label [for]="'title' + i"
+                           class="cursor-pointer ml-2 text-sm font-medium">{{ title }}</label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="">
+            <label *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" for="email"
+                   class="block mb-2 text-sm font-medium text-red-600">Email</label>
+            <label *ngIf="!employeeForm.get('email')?.invalid || !employeeForm.get('email')?.touched" for="email"
+                   class="block mb-2 text-sm font-medium text-gray-300">Email</label>
+            <input type="email"
+                   id="email"
+                   formControlName="email"
+                   placeholder="e.g. email@email.com"
+                   [class]="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                   required>
+            <div *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Email is required.
+            </div>
+          </div>
+          <div class="">
+            <label *ngIf="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched" for="password"
+                   class="block mb-2 text-sm font-medium text-red-600">Title</label>
+            <label *ngIf="!employeeForm.get('password')?.invalid || !employeeForm.get('password')?.touched" for="password"
+                   class="block mb-2 text-sm font-medium text-gray-300">Title</label>
+            <input type="password"
+                   id="password"
+                   formControlName="password"
+                   placeholder="e.g. Healthy Food Store"
+                   [class]="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                   required>
+            <div *ngIf="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Password is required.
+            </div>
+          </div>
+          <div class="flex flex-row gap-3 pt-3" >
             <button type="submit"
                     [disabled]="!employeeForm.valid"
                     [class]="!employeeForm.valid ?
@@ -40,7 +163,7 @@
                     (click)="cancel()">
               Cancel
             </button>
-
+          </div>
         </form>
       </div>
     </div>
