@@ -105,26 +105,15 @@ public class AuthenticationController : ControllerBase
             SupermarketId = supermarket.Id,
             RoleId = 1
         };
+        
+        var result = _employeeDAL.Insert(newEmployee);
+        
+        if(result != "Employee was successfully created")
+        {
+            return BadRequest(result);
+        }
 
-        try
-        {
-            // Save the new employee record to the database
-            var result = _employeeDAL.Insert(newEmployee);
-            if (result == "Email already exists")
-            {
-                return BadRequest(result);
-            }
-            //FIXME: Add email confirmation to registration @returnT0
-            return Ok(new { message = "Registration successful." });
-            
-            
-        }
-        catch (Exception ex)
-        {
-            // Log the exception details for debugging purposes
-            _logger.LogError(ex, "Error during registration.");
-            return StatusCode(500, "An error occurred while processing your request.");
-        }
+        return Ok(new { message = "Registration successful." });
     }
     
     
