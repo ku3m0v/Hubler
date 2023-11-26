@@ -21,6 +21,9 @@ import {SpinnerComponent} from "./spinner/spinner.component";
 import {AddStoreComponent} from "./store/add-store/add-store.component";
 import {ToastComponent} from "./toast/toast.component";
 import {AddEmployeeComponent} from "./employee/add-employee/add-employee.component";
+import {RoleComponent} from "./employee/role/role.component";
+import {CashregisterComponent} from "./cashregister/cashregister.component";
+import {AddRoleComponent} from "./employee/role/add-role/add-role.component";
 
 export function tokenGetter() {
     return localStorage.getItem("jwt");
@@ -51,7 +54,10 @@ export function tokenGetter() {
         StoreComponent,
         SpinnerComponent,
         AddStoreComponent,
-        AddEmployeeComponent
+        AddEmployeeComponent,
+        RoleComponent,
+        CashregisterComponent,
+        AddRoleComponent,
     ],
     bootstrap: [AppComponent]
 })
