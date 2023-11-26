@@ -137,6 +137,36 @@ public class EmployeeController : ControllerBase
 
         return Ok(employeeModel);
     }
+    
+    [HttpGet]
+    public IActionResult GetById(int Id)
+    {
+        var employee = _employeeDAL.GetById(Id);
+        var supermarket = _supermarketDAL.GetById(employee.SupermarketId);
+        var role = _lkRoleDAL.GetById(employee.RoleId);
+        
+        if (employee == null)
+        {
+            return NotFound("Employee not found.");
+        }
+
+        var employeeModel = new EmployeeModel
+        {
+            Id = employee.Id,
+            Email = employee.Email,
+            FirstName = employee.FirstName,
+            LastName = employee.LastName,
+            CreatedDate = employee.CreatedDate,
+            // Supermarket fields
+            SupermarketName = supermarket.Title,
+            // Role fields
+            RoleName = role.RoleName,
+            // Admin fields
+            AdminId = employee.AdminId
+        };
+
+        return Ok(employeeModel);
+    }
 
     // PUT: api/employee/edit
     [HttpPost("edit")]
