@@ -42,8 +42,10 @@ export class EmployeeService {
   }
 
   deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(`${this.myAppUrl}api/employee/${id}`, { headers: this.createHeaders() })
-      .pipe(catchError(this.errorHandler));
+    return this.http.delete(`${this.myAppUrl}api/employee/${id}`)
+      .pipe(
+        catchError(this.errorHandler)
+      );
   }
 
   private errorHandler(error: HttpErrorResponse) {
@@ -54,6 +56,7 @@ export class EmployeeService {
 
 export interface Employee {
   id?: number;
+  password?: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -61,5 +64,4 @@ export interface Employee {
   supermarketName: string;
   roleName: string;
   adminId?: number;
-  // Include additional fields as needed
 }
