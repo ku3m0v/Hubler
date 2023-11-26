@@ -193,7 +193,6 @@ public class EmployeeController : ControllerBase
 
     // DELETE: api/employee
     [HttpDelete("{id}")]
-
     public void Delete(int id)
     {
         _employeeDAL.Delete(id);
@@ -225,5 +224,20 @@ public class EmployeeController : ControllerBase
             return NotFound("No managers found.");
         }
         return Ok(employeeModels);
+    }
+    
+    [HttpGet("titles")]
+    public IActionResult GetSupermarketTitles()
+    {
+            var result = _supermarketDAL.GetAllTitles();
+            return Ok(result);
+    }
+    
+    [HttpGet("roles")]
+    public IActionResult GetRoles()
+    {
+            var result = _lkRoleDAL.GetAll();
+            IEnumerable<string> roles = result.Select(r => r.RoleName);
+            return Ok(roles);
     }
 }
