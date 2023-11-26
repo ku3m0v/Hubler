@@ -183,6 +183,8 @@ public class EmployeeController : ControllerBase
 
         employee.FirstName = employeeModel.FirstName;
         employee.LastName = employeeModel.LastName;
+        employee.Email = employeeModel.Email;
+        employee.PassHash = BCrypt.Net.BCrypt.HashPassword(employeeModel.Password);
         employee.SupermarketId = supermarket.Id;
         employee.RoleId = role.Id;
         employee.Admin_Id = employeeModel.AdminId;
@@ -214,7 +216,18 @@ public class EmployeeController : ControllerBase
             {
                 employeeModels.Add(new EmployeeModel
                 {
-                    Email = employee.Email
+                    
+                    Id = employee.Id,
+                    Email = employee.Email,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    CreatedDate = employee.CreatedDate,
+                    // Supermarket fields
+                    SupermarketName = supermarket.Title,
+                    // Role fields
+                    RoleName = role.RoleName,
+                    // Admin fields
+                    AdminId = employee.Admin_Id
                 });
             }
         }
