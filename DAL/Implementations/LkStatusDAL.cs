@@ -25,6 +25,31 @@ public class LkStatusDAL : ILkStatusDAL
                 };
             }
         }
+        
+        public LkStatus GetByName(string statusName)
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_statusname", statusName, OracleMappingType.Varchar2, ParameterDirection.Input);
+                parameters.Add("p_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+
+                connection.Execute("GET_STATUS_BY_NAME", parameters, commandType: CommandType.StoredProcedure);
+
+                var id = parameters.Get<int?>("p_id");
+
+                if (id.HasValue)
+                {
+                    return new LkStatus
+                    {
+                        Id = id.Value,
+                        StatusName = statusName
+                    };
+                }
+
+                return null;
+            }
+        }
 
         public void Insert(LkStatus status)
         {

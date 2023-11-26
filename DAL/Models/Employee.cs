@@ -2,7 +2,7 @@
 
 public class Employee
 {
-    public int? Id { get; set; }
+    public int Id { get; set; }
     public String Email { get; set; }
     public String PassHash { get; set; }
     public String FirstName { get; set; }

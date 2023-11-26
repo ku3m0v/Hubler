@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Hubler.DAL.Implementations;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Hubler.Models;
 
 namespace Hubler.Controllers;
 
@@ -12,11 +14,16 @@ public class CashRegisterController : ControllerBase
 {
     private readonly ICashRegisterDAL _cashRegisterDAL;
     private readonly IEmployeeDAL _employeeDAL;
+    private readonly ISupermarketDAL _supermarketDAL;
+    private readonly ILkStatusDAL _lkStatusDAL;
 
-    public CashRegisterController(ICashRegisterDAL cashRegisterDAL, IEmployeeDAL employeeDAL)
+    public CashRegisterController(ICashRegisterDAL cashRegisterDAL, IEmployeeDAL employeeDAL,
+        ISupermarketDAL supermarketDAL, LkStatusDAL lkStatusDAL)
     {
         _cashRegisterDAL = cashRegisterDAL;
         _employeeDAL = employeeDAL;
+        _supermarketDAL = supermarketDAL;
+        _lkStatusDAL = lkStatusDAL;
     }
 
     [HttpGet("list"), Authorize]
@@ -25,55 +32,63 @@ public class CashRegisterController : ControllerBase
         var role = User.FindFirst(ClaimTypes.Role)?.Value;
         int userId = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
 
-        try
+        IEnumerable<CashRegister> cashRegisters;
+
+        if (role == "admin")
         {
-            switch (role)
+            cashRegisters = _cashRegisterDAL.GetAll();
+        }
+        else if (role == "manager")
+        {
+            var manager = _employeeDAL.GetById(userId);
+            cashRegisters = _cashRegisterDAL.GetAll()
+                .Where(e => e.SupermarketId == manager.SupermarketId);
+        }
+        else
+        {
+            return BadRequest("You do not have permission to view this resource.");
+        }
+
+        var cashRegisterModels = new List<CashRegisterModel>();
+
+        foreach (var cashRegister in cashRegisters)
+        {
+            var supermarket = _supermarketDAL.GetById(cashRegister.SupermarketId);
+            var status = _lkStatusDAL.GetById(cashRegister.StatusId);
+
+            if (supermarket != null && status != null)
             {
-                case "admin":
+                cashRegisterModels.Add(new CashRegisterModel
                 {
-                    var cashRegisters = _cashRegisterDAL.GetAll();
-                    return Ok(cashRegisters);
-                }
-                case "manager":
-                {
-                    var manager = _employeeDAL.GetById(userId);
-                    var cashRegisters = _cashRegisterDAL.GetAll()
-                        .Where(cr => cr.SupermarketId == manager.SupermarketId);
-                    return Ok(cashRegisters);
-                }
-                case "cashier":
-                {
-                    var cashier = _employeeDAL.GetById(userId);
-                    var cashRegisters = _cashRegisterDAL.GetAll()
-                        .Where(cr => cr.EmployeeId == cashier.Id);
-                    return Ok(cashRegisters);
-                }
-                default:
-                    return BadRequest("You do not have permission to view this resource.");
+                    Id = cashRegister.Id,
+                    SupermarketName = supermarket.Title,
+                    RegisterNumber = cashRegister.RegisterNumber,
+                    StatusName = status.StatusName,
+                    EmployeeId = cashRegister.EmployeeId
+                });
             }
         }
-        catch (Exception ex)
-        {
-            return StatusCode(500, "An error occurred while processing your request.");
-        }
-    }
-    
-    
-    [HttpPut]
-    public IActionResult Update(CashRegister cashRegister)
-    {
-        try
-        {
-            _cashRegisterDAL.Update(cashRegister);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, "An error occurred while updating the cash register.");
-        }
+
+        return Ok(cashRegisterModels);
     }
 
-    
+    [HttpPut]
+    public IActionResult Update(CashRegisterModel model)
+    {
+        var cashRegister = _cashRegisterDAL.GetById(model.Id);
+        var status = _lkStatusDAL.GetByName(model.StatusName);
+        if (cashRegister == null) return NotFound("Cash register not found.");
+        
+        cashRegister.RegisterNumber = model.RegisterNumber;
+        cashRegister.StatusId = status.Id;
+        cashRegister.EmployeeId = model.EmployeeId;
+        
+        _cashRegisterDAL.Update(cashRegister);
+        
+        return Ok();
+    }
+
+
     [HttpDelete]
     public IActionResult Delete(int id)
     {
@@ -88,19 +103,25 @@ public class CashRegisterController : ControllerBase
         }
     }
 
-    
-    [HttpPost("insert")]
-    public IActionResult Insert(CashRegister cashRegister)
-    {
-        try
-        {
-            _cashRegisterDAL.Insert(cashRegister);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, "An error occurred while inserting the cash register.");
-        }
-    }
 
+    [HttpPost("insert")]
+    public IActionResult Insert(CashRegisterModel model)
+    {
+        var supermarket = _supermarketDAL.GetSupermarketByTitle(model.SupermarketName);
+        var status = _lkStatusDAL.GetByName(model.StatusName);
+        
+        
+        var cashRegister = new CashRegister
+        {
+            SupermarketId = supermarket.Id,
+            RegisterNumber = model.RegisterNumber,
+            StatusId = status.Id,
+            EmployeeId = model.EmployeeId
+        };
+        
+        
+        _cashRegisterDAL.Insert(cashRegister);
+        
+        return Ok();
+    }
 }

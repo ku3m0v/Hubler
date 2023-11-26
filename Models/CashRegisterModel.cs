@@ -3,8 +3,8 @@
 public class CashRegisterModel
 {
     public int Id { get; set; }
-    public int SupermarketId { get; set; }
+    public string SupermarketName { get; set; }
     public int RegisterNumber { get; set; }
     public string StatusName { get; set; }
-    public string? EmployeeEmail { get; set; }
+    public int? EmployeeId { get; set; }
 }

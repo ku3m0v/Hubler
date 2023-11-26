@@ -9,7 +9,7 @@ namespace Hubler.DAL.Implementations;
 
 public class EmployeeDAL : IEmployeeDAL
     {
-        public Employee GetById(int? id)
+        public Employee GetById(int id)
         {
             using (var connection = DBConnection.GetConnection())
             {
