@@ -16,7 +16,7 @@ public class LkStatusController : ControllerBase
     }
     
     [HttpGet("detail/{statusName}")]
-    public ActionResult<LkRole> Details(string statusName)
+    public ActionResult<LkStatus> Details(string statusName)
     {
         var status = _lkStatusDal.GetByName(statusName);
         if (status == null)
@@ -37,7 +37,7 @@ public class LkStatusController : ControllerBase
         return Ok(statuses);
     }
 
-    [HttpPost]
+    [HttpPost("insert")]
     public IActionResult Insert([FromBody] LkStatus status)
     {
         if (status == null)
@@ -48,7 +48,7 @@ public class LkStatusController : ControllerBase
         return Ok("Status inserted successfully.");
     }
 
-    [HttpPut]
+    [HttpPost("edit")]
     public IActionResult Update([FromBody] LkStatus status)
     {
         if (status == null)

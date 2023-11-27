@@ -42,8 +42,3 @@ export class RoleComponent implements OnInit {
     }
   }
 }
-
-export interface Role {
-  id: number;
-  roleName: string;
-}
