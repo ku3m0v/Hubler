@@ -14,6 +14,17 @@ public class LkStatusController : ControllerBase
     {
         _lkStatusDal = lkStatusDal;
     }
+    
+    [HttpGet("detail/{statusName}")]
+    public ActionResult<LkRole> Details(string statusName)
+    {
+        var status = _lkStatusDal.GetByName(statusName);
+        if (status == null)
+        {
+            return NotFound();
+        }
+        return Ok(status);
+    }
 
     [HttpGet]
     public ActionResult<IEnumerable<LkStatus>> GetAll()
