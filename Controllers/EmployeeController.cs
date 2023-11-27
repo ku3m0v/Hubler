@@ -184,10 +184,14 @@ public class EmployeeController : ControllerBase
         employee.FirstName = employeeModel.FirstName;
         employee.LastName = employeeModel.LastName;
         employee.Email = employeeModel.Email;
-        employee.PassHash = BCrypt.Net.BCrypt.HashPassword(employeeModel.Password);
         employee.SupermarketId = supermarket.Id;
         employee.RoleId = role.Id;
         employee.Admin_Id = employeeModel.AdminId;
+
+        if (employeeModel.Password != null)
+        {
+            employee.PassHash = BCrypt.Net.BCrypt.HashPassword(employeeModel.Password);
+        }
         
         _employeeDAL.Update(employee);
         return Ok("Employee updated successfully.");
