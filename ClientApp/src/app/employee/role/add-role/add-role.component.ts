@@ -20,6 +20,7 @@ export class AddRoleComponent implements OnInit {
     private authService: AuthenticationService
   ) {
     this.roleForm = this.fb.group({
+      id: 0,
       roleName: ['', Validators.required],
     });
   }
