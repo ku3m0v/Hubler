@@ -29,7 +29,10 @@ export class StatusService {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}api/status/?id=${id}`, { params: { id } });
+    return this.http.delete(`${this.apiUrl}api/status/?id=${id}`, {
+      params: { id },
+      responseType: 'text'
+    });
   }
 
   GetAll(): Observable<StatusModel[]> {
