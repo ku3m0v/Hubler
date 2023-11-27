@@ -28,16 +28,18 @@ public class SaleDAL : ISaleDAL
             }
         }
 
-        public void Insert(Sale sale)
+        public int Insert(Sale sale)
         {
             using (var connection = DBConnection.GetConnection())
             {
                 var parameters = new OracleDynamicParameters();
-                parameters.Add("p_id", sale.Id, OracleMappingType.Int32);
                 parameters.Add("p_supermarketid", sale.SupermarketId, OracleMappingType.Int32);
                 parameters.Add("p_dateandtime", sale.DateAndTime, OracleMappingType.Date);
+                parameters.Add("p_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
 
                 connection.Execute("INSERT_SALE", parameters, commandType: CommandType.StoredProcedure);
+
+                return parameters.Get<int>("p_id");
             }
         }
 

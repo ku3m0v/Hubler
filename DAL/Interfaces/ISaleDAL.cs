@@ -5,7 +5,7 @@ namespace Hubler.DAL.Interfaces;
 public interface ISaleDAL
 {
     Sale GetById(int id);
-    void Insert(Sale sale);
+    int Insert(Sale sale);
     void Update(Sale sale);
     void Delete(int id);
     IEnumerable<Sale> GetAll();

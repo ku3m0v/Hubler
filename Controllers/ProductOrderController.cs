@@ -108,7 +108,7 @@ public class ProductOrderController : ControllerBase
                         SupermarketId = managerSupermarket.Id,
                         ProductId = productId,
                         OrderedQuantity = model.Quantity,
-                        OrderDate = model.OrderDate
+                        OrderDate = DateTime.UtcNow
                     };
                     _productOrderDAL.Insert(productOrder);
                 }
@@ -134,7 +134,7 @@ public class ProductOrderController : ControllerBase
                         SupermarketId = managerSupermarket.Id,
                         ProductId = productId,
                         OrderedQuantity = model.Quantity,
-                        OrderDate = model.OrderDate
+                        OrderDate = DateTime.UtcNow
                     };
                     _productOrderDAL.Insert(productOrder);
                 }
