@@ -3,6 +3,7 @@ using Dapper;
 using Dapper.Oracle;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -80,6 +81,19 @@ public class ProductDAL : IProductDAL
                 {
                     return multi.Read<Product>();
                 }
+            }
+        }
+        
+        public IEnumerable<Product> GetProductsBySupermarket(int supermarketId)
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_supermarket_id", supermarketId, OracleMappingType.Int32);
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+
+                var result = connection.Query<Product>("GET_PRODUCTS_BY_SUPERMARKET", parameters, commandType: CommandType.StoredProcedure);
+                return result;
             }
         }
     }

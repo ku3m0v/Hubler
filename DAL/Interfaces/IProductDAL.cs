@@ -9,4 +9,5 @@ public interface IProductDAL
     void Update(Product item);
     void Delete(int id);
     IEnumerable<Product> GetAll();
+    IEnumerable<Product> GetProductsBySupermarket(int supermarketId);
 }
