@@ -83,7 +83,10 @@ export class AddEmployeeComponent implements OnInit {
     );
   } else {
     this.employeeService.edit(employeeData).subscribe(
-      () => this.router.navigate(['/employees']),
+      (response) => {
+        console.log(response);
+        this.router.navigate(['/employees']);
+      },
       (error: any) => console.error(error)
     );
   }

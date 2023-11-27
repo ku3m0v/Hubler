@@ -195,7 +195,7 @@ public class EmployeeController : ControllerBase
         }
         
         _employeeDAL.Update(employee);
-        return Ok("Employee updated successfully.");
+        return Ok(new { message = "Employee updated successfully." });
     }
 
     // DELETE: api/employee
