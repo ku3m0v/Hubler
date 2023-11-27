@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators,} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService, RegistrationData} from '../../service/auth-service/authentication.service';
-import {SupermarketService, SupermarketWithAddress} from '../../service/store-service/store.service';
+import {SupermarketService} from '../../service/store-service/store.service';
 
 @Component({
   selector: 'app-sign-up',
