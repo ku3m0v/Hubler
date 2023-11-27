@@ -123,6 +123,7 @@ public class EmployeeController : ControllerBase
 
         var employeeModel = new EmployeeModel
         {
+            Id = employee.Id,
             Email = employee.Email,
             FirstName = employee.FirstName,
             LastName = employee.LastName,
@@ -172,7 +173,7 @@ public class EmployeeController : ControllerBase
     [HttpPost("edit")]
     public IActionResult Edit([FromBody] EmployeeModel employeeModel)
     {
-        var employee = _employeeDAL.GetByEmail(employeeModel.Email);
+        var employee = _employeeDAL.GetById(employeeModel.Id);
         var supermarket = _supermarketDAL.GetSupermarketByTitle(employeeModel.SupermarketName);
         var role = _lkRoleDAL.GetByRoleName(employeeModel.RoleName);
         

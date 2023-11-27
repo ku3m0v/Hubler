@@ -35,7 +35,7 @@ export class EmployeeService {
   }
 
   edit(employee: EmployeeModel): Observable<any> {
-    return this.http.put(`${this.myAppUrl}api/employee/edit`, employee, { headers: this.createHeaders() })
+    return this.http.post(`${this.myAppUrl}api/employee/edit`, employee, { headers: this.createHeaders() })
       .pipe(catchError(this.errorHandler));
   }
 

@@ -12,7 +12,6 @@ import {AuthenticationService} from "../../service/auth-service/authentication.s
 export class AddEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
   title: string = 'Add';
-  employeeId: number | null = null;
   managers: EmployeeModel[] = [];
   supermarketTitles: string[] = [];
   roles: string[] = [];
@@ -25,6 +24,7 @@ export class AddEmployeeComponent implements OnInit {
     private authService: AuthenticationService
 ) {
     this.employeeForm = this.fb.group({
+      id: 0, // Include validation as necessary
       email: ['', [Validators.required, Validators.email]],
       password: [''], // Include validation as necessary
       firstName: ['', Validators.required],
