@@ -1,11 +1,11 @@
 <section  *ngIf="roles.length" class="container mx-auto px-4">
   <div class="sm:flex sm:items-center sm:justify-between">
-    <h2 class="text-heading1-semibold font-medium text-gray-50">roles CRUD</h2>
+    <h2 class="text-heading1-semibold font-medium text-gray-50">Roles</h2>
 
     <div class="flex items-center mt-4 gap-x-3">
       <button
         [routerLink]="['/add-role']"
-        class="w-1/2 px-5 py-1.5 text-sm text-white bg-fuchsia-700 transition-colors duration-200 border-2 border-fuchsia-800/70 rounded-lg sm:w-auto hover:bg-fuchsia-900 active:bg-fuchsia-900/70">
+        class="w-1/2 px-3 py-1.5 text-sm text-white bg-fuchsia-700 transition-colors duration-200 border-2 border-fuchsia-800/70 rounded-lg sm:w-auto hover:bg-fuchsia-900 active:bg-fuchsia-900/70">
         Add role
       </button>
     </div>
@@ -22,16 +22,20 @@
                   scope="col">
                 No.
               </th>
-              <th class="px-4 py-3.5 text-sm font-normal"
+              <th class="px-6 py-3.5 text-sm font-normal"
                   scope="col">
                 Role Name
+              </th>
+              <th class="px-4 py-3.5 text-sm font-normal"
+                  scope="col">
+                Actions
               </th>
             </tr>
             </thead>
             <tbody class="bg-slate-800 divide-y divide-gray-700">
             <tr *ngFor="let role of roles; let i = index">
               <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ i + 1 }}.</td>
-              <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ role.roleName }}</td>
+              <td class="px-6 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ role.roleName }}</td>
               <td class="px-4 py-4 text-sm whitespace-nowrap">
                 <div class="flex items-center gap-x-6">
                   <button
