@@ -139,9 +139,9 @@ public class EmployeeController : ControllerBase
     }
     
     [HttpGet]
-    public IActionResult GetById(int Id)
+    public IActionResult GetById(int id) 
     {
-        var employee = _employeeDAL.GetById(Id);
+        var employee = _employeeDAL.GetById(id);
         var supermarket = _supermarketDAL.GetById(employee.SupermarketId);
         var role = _lkRoleDAL.GetById(employee.RoleId);
         

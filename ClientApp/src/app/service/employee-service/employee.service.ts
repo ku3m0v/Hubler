@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {AuthenticationService} from "../auth-service/authentication.service";
 import {Observable, throwError} from "rxjs";
@@ -15,37 +15,55 @@ export class EmployeeService {
     this.myAppUrl = configurl.apiServer.url;
   }
 
-  private createHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'Authorization': `Bearer ${this.authService.getToken()}`
-    });
-  }
-
-  getAllEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.myAppUrl}api/employee/list`, { headers: this.createHeaders() })
+  getAll(): Observable<EmployeeModel[]> {
+    return this.http.get<EmployeeModel[]>(`${this.myAppUrl}api/employee/list`, {headers: this.createHeaders()})
       .pipe(catchError(this.errorHandler));
   }
 
-  getEmployeeDetails(id: number): Observable<Employee> {
-    return this.http.get<Employee>(`${this.myAppUrl}api/employee/${id}`, { headers: this.createHeaders() })
+  getDetails(email: string): Observable<EmployeeModel> {
+    return this.http.get<EmployeeModel>(`${this.myAppUrl}api/employee/details/${email}`, {headers: this.createHeaders()})
       .pipe(catchError(this.errorHandler));
   }
 
-  addEmployee(employee: Employee): Observable<any> {
-    return this.http.post(`${this.myAppUrl}api/employee/insert`, employee, { headers: this.createHeaders() })
+  getById(id: number): Observable<EmployeeModel> {
+    return this.http.get<EmployeeModel>(`${this.myAppUrl}api/employee/${id}`, {headers: this.createHeaders()});
+  }
+
+  insert(employee: EmployeeModel): Observable<any> {
+    return this.http.post(`${this.myAppUrl}api/employee/insert`, employee, {headers: this.createHeaders()})
       .pipe(catchError(this.errorHandler));
   }
 
-  updateEmployee(employee: Employee): Observable<any> {
+  edit(employee: EmployeeModel): Observable<any> {
     return this.http.put(`${this.myAppUrl}api/employee/edit`, employee, { headers: this.createHeaders() })
       .pipe(catchError(this.errorHandler));
   }
 
-  deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(`${this.myAppUrl}api/employee/${id}`)
-      .pipe(
-        catchError(this.errorHandler)
-      );
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.myAppUrl}api/employee/${id}`, {headers: this.createHeaders()})
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getManagers(): Observable<EmployeeModel[]> {
+    return this.http.get<EmployeeModel[]>(`${this.myAppUrl}api/employee/managers`, { headers: this.createHeaders() })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getSupermarketTitles(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.myAppUrl}api/employee/titles`, {headers: this.createHeaders()})
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getRoles(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.myAppUrl}api/employee/roles`, {headers: this.createHeaders()})
+      .pipe(catchError(this.errorHandler));
+
+  }
+
+  private createHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
   }
 
   private errorHandler(error: HttpErrorResponse) {
@@ -54,14 +72,17 @@ export class EmployeeService {
   }
 }
 
-export interface Employee {
+export interface EmployeeModel {
   id?: number;
-  password?: string;
   email: string;
+  password?: string;
   firstName: string;
   lastName: string;
   createdDate: Date;
-  supermarketName: string;
+  supermarketName?: string;
   roleName: string;
   adminId?: number;
 }
+
+
+

@@ -35,7 +35,7 @@ const routes: Routes = [
     {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
     {path: 'add-store', component: AddStoreComponent, canActivate: [AuthGuard]},
     {path: 'edit-store/:title', component: AddStoreComponent, canActivate: [AuthGuard]},
-    {path: 'edit-employee/:id', component: AddEmployeeComponent, canActivate: [AuthGuard]},
+    {path: 'edit-employee/:email', component: AddEmployeeComponent, canActivate: [AuthGuard]},
     {path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard]},
     {path: 'roles', component: RoleComponent, canActivate: [AuthGuard]},
     {path: 'add-role', component: AddRoleComponent, canActivate: [AuthGuard]},
