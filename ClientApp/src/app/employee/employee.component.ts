@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../service/auth-service/authentication.service";
-import {Employee, EmployeeService} from "../service/employee-service/employee.service";
+import {EmployeeModel, EmployeeService} from "../service/employee-service/employee.service";
 
 @Component({
   selector: 'app-employee',
@@ -9,7 +9,7 @@ import {Employee, EmployeeService} from "../service/employee-service/employee.se
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent {
-  public employeeList: Employee[] = [];
+  public employeeList: EmployeeModel[] = [];
   showSpinner = true;
   showButton = false;
 
@@ -26,16 +26,16 @@ export class EmployeeComponent {
   }
 
   getEmployees() {
-    this.employeeService.getAllEmployees().subscribe(
+    this.employeeService.getAll().subscribe(
       data => this.employeeList = data,
       error => console.error(error)
     );
   }
 
-  deleteEmployee(employee: Employee) {
+  deleteEmployee(employee: EmployeeModel) {
     const ans = confirm(`Do you want to delete the employee: ${employee.firstName} ${employee.lastName}?`);
     if (ans) {
-      this.employeeService.deleteEmployee(employee.id!).subscribe(
+      this.employeeService.delete(employee.id!).subscribe(
         () => this.getEmployees(),
         error => console.error(error)
       );

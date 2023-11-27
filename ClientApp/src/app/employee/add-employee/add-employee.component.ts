@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Employee, EmployeeService} from "../../service/employee-service/employee.service";
+import {EmployeeModel, EmployeeService} from "../../service/employee-service/employee.service";
 import {AuthenticationService} from "../../service/auth-service/authentication.service";
 
 @Component({
@@ -9,14 +9,13 @@ import {AuthenticationService} from "../../service/auth-service/authentication.s
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.css']
 })
-export class AddEmployeeComponent implements OnInit{
+export class AddEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
-  supermarketTitles: string[] = [];
-  errorMessage: string = '';
   title: string = 'Add';
   employeeId: number | null = null;
-  isDropdownVisible = false;
-  selectedMarketTitle: string | null = null;
+  managers: EmployeeModel[] = [];
+  supermarketTitles: string[] = [];
+  roles: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -24,76 +23,77 @@ export class AddEmployeeComponent implements OnInit{
     private router: Router,
     private employeeService: EmployeeService,
     private authService: AuthenticationService
-  ) {
+) {
     this.employeeForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: [''], // Include validation as necessary
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      supermarketTitle: ['', Validators.required],
-      role: ['', Validators.required],
-      adminId: ['', Validators.required]
+      createdDate: [new Date()], // Default to current date, adjust as necessary
+      supermarketName: [''], // Include validation as necessary
+      roleName: ['', Validators.required],
+      adminId: [0] // Include validation as necessary
     });
   }
 
   ngOnInit(): void {
-    this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.employeeId) {
+    const employeeEmail = this.route.snapshot.paramMap.get('email');
+    if (employeeEmail) {
       this.title = 'Edit';
-      this.employeeService.getEmployeeDetails(this.employeeId).subscribe(
-        (data: Employee) => {
+      this.employeeService.getDetails(employeeEmail).subscribe(
+        (data: EmployeeModel) => {
           this.employeeForm.patchValue(data);
         },
         (error: any) => console.error(error)
       );
     }
-    this.authService.getSupermarketTitles().subscribe(
-      titles => {
-        this.supermarketTitles = titles;
-        console.log('Supermarket Titles:', this.supermarketTitles);
-      },
-      error => {
-        this.errorMessage = 'Failed to load supermarket titles';
-        console.error(error);
-      }
-    );
+    this.loadManagers();
+    this.loadSupermarketTitles();
+    this.loadRoles();
   }
 
-  toggleDropdown() {
-    this.isDropdownVisible = !this.isDropdownVisible;
+  loadManagers() {
+    this.employeeService.getManagers().subscribe(data => {
+      this.managers = data;
+    }, error => console.error(error));
   }
 
-  updateSelection(title: string) {
-    this.selectedMarketTitle = title;
-    this.employeeForm.get('supermarketTitle')?.setValue(title);
-    this.toggleDropdown();
+  loadSupermarketTitles() {
+    this.employeeService.getSupermarketTitles().subscribe(data => {
+      this.supermarketTitles = data;
+    }, error => console.error(error));
   }
 
+  loadRoles() {
+    this.employeeService.getRoles().subscribe(data => {
+      this.roles = data;
+    }, error => console.error(error));
+  }
 
   saveEmployee(): void {
     if (this.employeeForm.invalid) {
-      return;
-    }
-
-    const employeeData: Employee = this.employeeForm.value;
-    if (this.title === 'Add') {
-      this.employeeService.addEmployee(employeeData).subscribe(
-        () => this.router.navigate(['/employees']),
-        (error: any) => console.error(error)
-      );
-    } else {
-      this.employeeService.updateEmployee(employeeData).subscribe(
-        () => this.router.navigate(['/employees']),
-        (error: any) => console.error(error)
-      );
-    }
+    return;
   }
+
+  const employeeData: EmployeeModel = this.employeeForm.value;
+  if (this.title === 'Add') {
+    this.employeeService.insert(employeeData).subscribe(
+      () => this.router.navigate(['/employees']),
+      (error: any) => console.error(error)
+    );
+  } else {
+    this.employeeService.edit(employeeData).subscribe(
+      () => this.router.navigate(['/employees']),
+      (error: any) => console.error(error)
+    );
+  }
+}
 
   cancel(): void {
     this.router.navigate(['/employees']);
   }
 
-  public isUserAuthenticated(): boolean {
+public isUserAuthenticated(): boolean {
     return this.authService.isUserSignedIn();
   }
 }
