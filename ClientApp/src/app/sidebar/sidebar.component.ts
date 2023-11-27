@@ -25,8 +25,8 @@ export class SidebarComponent {
     {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
     {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
     {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
-    {route: '/roles', label: 'Roles', imgURL: '/assets/assets/tag.svg'},
-    {route: '/cashregisters', label: 'Cashregisters', imgURL: '/assets/assets/more.svg'},
+    {route: '/roles', label: 'Roles', imgURL: '/assets/assets/role.svg'},
+    {route: '/cashregisters', label: 'Cashregisters', imgURL: '/assets/assets/check.svg'},
   ];
 
   constructor(private authService: AuthenticationService) {
