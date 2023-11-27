@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {AuthenticationService} from "../auth-service/authentication.service";
 import configurl from "../../../assets/config/config.json";
+import {RoleData} from "../role-service/role.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class StatusService {
   }
 
   create(status: StatusModel): Observable<any> {
-    return this.http.post(`${this.apiUrl}api/status/insert`, status);
+    return this.http.post(`${this.apiUrl}api/status/insert`, status, { responseType: 'text' });
   }
 
   update(status: StatusModel): Observable<any> {

@@ -45,7 +45,7 @@ public class LkStatusController : ControllerBase
             return BadRequest("Status is null.");
         }
         _lkStatusDal.Insert(status);
-        return Ok("Status inserted successfully.");
+        return Ok(new { message = "Status inserted successfully." });
     }
 
     [HttpPost("edit")]
