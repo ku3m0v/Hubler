@@ -77,10 +77,10 @@ public class ProductDAL : IProductDAL
         {
             using (var connection = DBConnection.GetConnection())
             {
-                using (var multi = connection.QueryMultiple("GET_ALL_PRODUCTS", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<Product>();
-                }
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+            
+                return connection.Query<Product>("GET_ALL_PRODUCTS", parameters, commandType: CommandType.StoredProcedure);
             }
         }
         

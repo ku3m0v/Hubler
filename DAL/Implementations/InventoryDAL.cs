@@ -3,6 +3,7 @@ using Dapper;
 using Dapper.Oracle;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -73,10 +74,9 @@ public class InventoryDAL : IInventoryDAL
             using (var connection = DBConnection.GetConnection())
             {
                 var parameters = new OracleDynamicParameters();
-                using (var multi = connection.QueryMultiple("GET_ALL_INVENTORIES", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<Inventory>();
-                }
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+
+                return connection.Query<Inventory>("GET_ALL_INVENTORIES", parameters, commandType: CommandType.StoredProcedure).ToList();
             }
         }
     }

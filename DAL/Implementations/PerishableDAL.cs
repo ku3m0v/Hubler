@@ -3,6 +3,7 @@ using Dapper;
 using Dapper.Oracle;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -69,10 +70,10 @@ public class PerishableDAL : IPerishableDAL
         {
             using (var connection = DBConnection.GetConnection())
             {
-                using (var multi = connection.QueryMultiple("GET_ALL_PERISHABLES", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<Perishable>();
-                }
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+            
+                return connection.Query<Perishable>("GET_ALL_PERISHABLES", parameters, commandType: CommandType.StoredProcedure);
             }
         }
     }

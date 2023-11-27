@@ -3,6 +3,7 @@ using Dapper;
 using Dapper.Oracle;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -73,10 +74,10 @@ public class WarehouseDAL : IWarehouseDAL
         {
             using (var connection = DBConnection.GetConnection())
             {
-                using (var multi = connection.QueryMultiple("GET_ALL_WAREHOUSES", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<Warehouse>();
-                }
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+            
+                return connection.Query<Warehouse>("GET_ALL_WAREHOUSES", parameters, commandType: CommandType.StoredProcedure);
             }
         }
     }
