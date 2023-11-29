@@ -50,7 +50,7 @@ export class AddStatusComponent implements OnInit {
         (error: any) => console.error(error)
       );
     } else {
-      this.statusService.update(statusData).subscribe(
+      this.statusService.updateStatus(statusData).subscribe(
         () => this.router.navigate(['/statuses']),
         (error: any) => console.error(error)
       );

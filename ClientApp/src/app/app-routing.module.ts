@@ -49,7 +49,7 @@ const routes: Routes = [
     {path: 'edit-warehouse/:title', component: CashRegisterComponent, canActivate: [AuthGuard]},
     {path: 'add-warehouse', component: CashRegisterComponent, canActivate: [AuthGuard]},
     {path: 'statuses', component: StatusComponent, canActivate: [AuthGuard]},
-    {path: 'edit-status/:title', component: AddStatusComponent, canActivate: [AuthGuard]},
+    {path: 'edit-status/:statusName', component: AddStatusComponent, canActivate: [AuthGuard]},
     {path: 'add-status', component: AddStatusComponent, canActivate: [AuthGuard]},
 
 ];

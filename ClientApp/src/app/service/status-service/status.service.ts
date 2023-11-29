@@ -24,7 +24,7 @@ export class StatusService {
     return this.http.post(`${this.apiUrl}api/status/insert`, status, { responseType: 'text' });
   }
 
-  update(status: StatusModel): Observable<any> {
+  updateStatus(status: StatusModel): Observable<any> {
     return this.http.post(`${this.apiUrl}api/status/edit`, status);
   }
 
