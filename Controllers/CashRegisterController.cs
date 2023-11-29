@@ -18,7 +18,7 @@ public class CashRegisterController : ControllerBase
     private readonly ILkStatusDAL _lkStatusDAL;
 
     public CashRegisterController(ICashRegisterDAL cashRegisterDAL, IEmployeeDAL employeeDAL,
-        ISupermarketDAL supermarketDAL, LkStatusDAL lkStatusDAL)
+        ISupermarketDAL supermarketDAL, ILkStatusDAL lkStatusDAL)
     {
         _cashRegisterDAL = cashRegisterDAL;
         _employeeDAL = employeeDAL;
@@ -55,6 +55,7 @@ public class CashRegisterController : ControllerBase
         {
             var supermarket = _supermarketDAL.GetById(cashRegister.SupermarketId);
             var status = _lkStatusDAL.GetById(cashRegister.StatusId);
+            var employee = _employeeDAL.GetById(cashRegister.Employee_Id);
 
             if (supermarket != null && status != null)
             {
@@ -64,7 +65,8 @@ public class CashRegisterController : ControllerBase
                     SupermarketName = supermarket.Title,
                     RegisterNumber = cashRegister.RegisterNumber,
                     StatusName = status.StatusName,
-                    EmployeeId = cashRegister.EmployeeId
+                    EmployeeId = cashRegister.Employee_Id,
+                    EmployeeName = employee.FirstName + " " + employee.LastName
                 });
             }
         }
@@ -87,7 +89,7 @@ public class CashRegisterController : ControllerBase
             SupermarketName = supermarket.Title,
             RegisterNumber = cashRegister.RegisterNumber,
             StatusName = status.StatusName,
-            EmployeeId = cashRegister.EmployeeId
+            EmployeeId = cashRegister.Employee_Id
         };
 
         return Ok(cashRegisterModel);
@@ -103,7 +105,7 @@ public class CashRegisterController : ControllerBase
         
         cashRegister.RegisterNumber = model.RegisterNumber;
         cashRegister.StatusId = status.Id;
-        cashRegister.EmployeeId = model.EmployeeId;
+        cashRegister.Employee_Id = model.EmployeeId;
         
         _cashRegisterDAL.Update(cashRegister);
         
@@ -137,7 +139,7 @@ public class CashRegisterController : ControllerBase
             SupermarketId = supermarket.Id,
             RegisterNumber = model.RegisterNumber,
             StatusId = status.Id,
-            EmployeeId = model.EmployeeId
+            Employee_Id = model.EmployeeId
         };
         
         
@@ -167,7 +169,7 @@ public class CashRegisterController : ControllerBase
     }
 
     [HttpGet("employee")]
-    public ActionResult<Employee> GetEmployees(int id)
+    public ActionResult<Employee> GetEmployee(int id)
     {
         var employee = _employeeDAL.GetById(id);
         return Ok(employee);

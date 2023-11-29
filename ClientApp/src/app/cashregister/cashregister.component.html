@@ -24,7 +24,8 @@
                             </th>
                             <th class="px-4 py-3.5 text-sm font-normal"
                                 scope="col">
-                                employeeId
+                                supermarketName
+
                             </th>
                             <th class="px-4 py-3.5 text-sm font-normal"
                                 scope="col">
@@ -36,7 +37,7 @@
                             </th>
                             <th class="px-4 py-3.5 text-sm font-normal"
                                 scope="col">
-                                supermarketName
+                                employeeId
                             </th>
                             <th class="py-3.5 px-4 text-sm font-normal"
                                 scope="col">
@@ -47,10 +48,10 @@
                         <tbody class="bg-slate-800 divide-y divide-gray-700">
                         <tr *ngFor="let cashregister of cashRegisterList; let i = index">
                             <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ i + 1 }}.</td>
-                            <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ cashregister.employeeId }}</td>
+                            <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ cashregister.supermarketName }}</td>
                             <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ cashregister.registerNumber }}</td>
                             <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ cashregister.statusName }}</td>
-                            <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ cashregister.supermarketName }}</td>
+                            <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ cashregister.employeeName }}</td>
                             <td class="px-4 py-4 text-sm whitespace-nowrap">
                                 <div class="flex items-center gap-x-6">
                                     <button

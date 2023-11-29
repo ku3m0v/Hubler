@@ -2,7 +2,7 @@ namespace Hubler.Models;
 
 public class EmployeeModel
 {
-    public int Id { get; set; }
+    public int? Id { get; set; }
     public String Email { get; set; }
     public String? Password { get; set; }
     public String FirstName { get; set; }
@@ -11,4 +11,5 @@ public class EmployeeModel
     public string? SupermarketName { get; set; }
     public String RoleName { get; set; }
     public int? AdminId { get; set; }
+    public string? AdminName { get; set; }
 }

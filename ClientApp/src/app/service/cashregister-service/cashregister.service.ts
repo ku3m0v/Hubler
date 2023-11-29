@@ -76,6 +76,7 @@ export interface CashRegisterData {
     registerNumber: number;
     statusName: string;
     employeeId?: number; // Optional as denoted by the '?' symbol
+    employeeName?: string; // Optional
 }
 
 

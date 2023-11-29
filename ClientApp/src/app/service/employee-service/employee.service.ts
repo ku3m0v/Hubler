@@ -84,6 +84,7 @@ export interface EmployeeModel {
   supermarketName?: string;
   roleName: string;
   adminId?: number;
+  adminName?: string;
 }
 
 

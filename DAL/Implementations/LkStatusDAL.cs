@@ -15,7 +15,7 @@ public class LkStatusDAL : ILkStatusDAL
             {
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_id", id, OracleMappingType.Int32);
-                parameters.Add("p_statusname", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_statusname", dbType: OracleMappingType.Varchar2, size: 50, direction: ParameterDirection.Output);
 
                 connection.Execute("GET_STATUS_BY_ID", parameters, commandType: CommandType.StoredProcedure);
 

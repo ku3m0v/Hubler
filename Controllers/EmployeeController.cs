@@ -54,7 +54,8 @@ public class EmployeeController : ControllerBase
         {
             var supermarket = _supermarketDAL.GetById(employee.SupermarketId);
             var role = _lkRoleDAL.GetById(employee.RoleId);
-
+            var admin = _employeeDAL.GetById(employee.Admin_Id);
+            
             if (supermarket != null && role != null)
             {
                 employeeModels.Add(new EmployeeModel
@@ -68,7 +69,8 @@ public class EmployeeController : ControllerBase
                     SupermarketName = supermarket.Title,
                     // Role fields
                     RoleName = role.RoleName,
-                    AdminId = employee.Admin_Id
+                    AdminId = employee.Admin_Id,
+                    AdminName = admin.FirstName + " " + admin.LastName
                 });
             }
         }

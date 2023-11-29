@@ -7,4 +7,5 @@ public class CashRegisterModel
     public int RegisterNumber { get; set; }
     public string StatusName { get; set; }
     public int? EmployeeId { get; set; }
+    public string? EmployeeName { get; set; }
 }
