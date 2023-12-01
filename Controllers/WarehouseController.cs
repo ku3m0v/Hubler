@@ -33,6 +33,7 @@ public class WarehouseController : ControllerBase
         _employeeDal = employeeDal;
     }
 
+    // GET: api/warehouse/list
     [HttpGet("list"), Authorize]
     public ActionResult<List<WarehouseModel>> GetAll()
     {
@@ -123,6 +124,7 @@ public class WarehouseController : ControllerBase
         }
     }
 
+    // POST: api/warehouse/insert
     [HttpPost("insert")]
     public void Insert(WarehouseModel warehouseModel)
     {
@@ -175,6 +177,8 @@ public class WarehouseController : ControllerBase
         }
     }
 
+    
+    // GET: api/warehouse/get
     [HttpGet("get")]
     public ActionResult<WarehouseModel> GetById(int id)
     {
@@ -214,6 +218,7 @@ public class WarehouseController : ControllerBase
         return Ok(warehouseModel);
     }
     
+    // POST: api/warehouse/update
     [HttpPost("update")]
     public IActionResult Update([FromBody] WarehouseModel model)
     {
@@ -279,9 +284,32 @@ public class WarehouseController : ControllerBase
         return Ok();
     }
     
+    // DELETE: api/warehouse/delete
     [HttpDelete("delete")]
     public void Delete(int id)
     {
         _warehouseDal.Delete(id);
+    }
+    
+    // POST: api/warehouse/transfer_product
+    [HttpPost("transfer_product")]
+    public IActionResult MoveProduct([FromBody] WarehouseModel model)
+    {
+        var supermarket = _supermarketDal.GetSupermarketByTitle(model.SupermarketTitle);
+        if (supermarket == null)
+        {
+            return NotFound("Supermarket not found.");
+        }
+
+        try
+        {
+            _warehouseDal.TransferFromWarehouseToInventory(model.ProductId, model.Quantity, supermarket.Id);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+        
+        return Ok(new { message = "Transfer successful." });
     }
 }

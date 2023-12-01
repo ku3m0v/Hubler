@@ -80,4 +80,17 @@ public class WarehouseDAL : IWarehouseDAL
                 return connection.Query<Warehouse>("GET_ALL_WAREHOUSES", parameters, commandType: CommandType.StoredProcedure);
             }
         }
+        
+        public void TransferFromWarehouseToInventory(int productId, int quantity, int supermarketId)
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_product_id", productId, OracleMappingType.Int32);
+                parameters.Add("p_quantity", quantity, OracleMappingType.Int32);
+                parameters.Add("p_supermarket_id", supermarketId, OracleMappingType.Int32);
+
+                connection.Execute("TRANSFER_FROM_WAREHOUSE_TO_INVENTORY", parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
