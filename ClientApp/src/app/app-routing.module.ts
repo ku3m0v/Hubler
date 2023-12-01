@@ -20,6 +20,7 @@ import {CashRegisterComponent} from "./cashregister/cashregister.component";
 import {AddRoleComponent} from "./employee/role/add-role/add-role.component";
 import {StatusComponent} from "./cashregister/status/status.component";
 import {AddStatusComponent} from "./cashregister/status/add-status/add-status.component";
+import {AddCashregisterComponent} from "./cashregister/add-cashregister/add-cashregister.component";
 
 
 const routes: Routes = [
@@ -43,8 +44,8 @@ const routes: Routes = [
     {path: 'add-role', component: AddRoleComponent, canActivate: [AuthGuard]},
     {path: 'edit-role/:roleName', component: AddRoleComponent, canActivate: [AuthGuard]},
     {path: 'cashregisters', component: CashRegisterComponent, canActivate: [AuthGuard]},
-    {path: 'edit-cashregister/:title', component: CashRegisterComponent, canActivate: [AuthGuard]},
-    {path: 'add-cashregister', component: CashRegisterComponent, canActivate: [AuthGuard]},
+    {path: 'edit-cashregister/:registerNumber', component: AddCashregisterComponent, canActivate: [AuthGuard]},
+    {path: 'add-cashregister', component: AddCashregisterComponent, canActivate: [AuthGuard]},
     {path: 'warehouses', component: CashRegisterComponent, canActivate: [AuthGuard]},
     {path: 'edit-warehouse/:title', component: CashRegisterComponent, canActivate: [AuthGuard]},
     {path: 'add-warehouse', component: CashRegisterComponent, canActivate: [AuthGuard]},

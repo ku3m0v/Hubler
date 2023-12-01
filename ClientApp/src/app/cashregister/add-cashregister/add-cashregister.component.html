@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>{{ title }} Cash Register</h2>
+
+  <form [formGroup]="cashRegisterForm" (ngSubmit)="saveCashRegister()">
+
+    <!-- Supermarket Name -->
+    <div class="form-group">
+      <label for="supermarketName">Supermarket Name</label>
+      <input type="text" class="form-control" id="supermarketName" formControlName="supermarketName" placeholder="Enter supermarket name">
+    </div>
+
+    <!-- Register Number -->
+    <div class="form-group">
+      <label for="registerNumber">Register Number</label>
+      <input type="number" class="form-control" id="registerNumber" formControlName="registerNumber" placeholder="Enter register number">
+    </div>
+
+    <!-- Status Name -->
+    <div class="form-group">
+      <label for="statusName">Status</label>
+      <select class="form-control" id="statusName" formControlName="statusName">
+        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+      </select>
+    </div>
+
+    <!-- Employee ID -->
+    <div class="form-group">
+      <label for="employeeId">Employee</label>
+      <select class="form-control" id="employeeId" formControlName="employeeId">
+        <option [value]="null">None</option>
+        <option *ngFor="let employee of employees" [value]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</option>
+      </select>
+    </div>
+
+    <!-- Buttons -->
+    <button type="submit" class="btn btn-primary" [disabled]="cashRegisterForm.invalid">Save</button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+
+  </form>
+</div>

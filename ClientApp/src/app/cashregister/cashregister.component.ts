@@ -26,7 +26,7 @@ export class CashRegisterComponent {
   }
 
   loadCashRegisters() {
-    this.cashRegisterService.getAllCashRegisters().subscribe(
+    this.cashRegisterService.getAll().subscribe(
         data => this.cashRegisterList = data,
         error => console.error(error)
     );
@@ -35,7 +35,7 @@ export class CashRegisterComponent {
   deleteCashRegister(cashRegister: CashRegisterData) {
     const confirmation = confirm(`Do you want to delete the cash register: ${cashRegister.registerNumber} at ${cashRegister.supermarketName}?`);
     if (confirmation) {
-      this.cashRegisterService.deleteCashRegister(cashRegister.id).subscribe(
+      this.cashRegisterService.delete(cashRegister.id).subscribe(
           () => this.loadCashRegisters(),
           error => console.error(error)
       );

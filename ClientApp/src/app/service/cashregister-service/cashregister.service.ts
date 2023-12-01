@@ -15,29 +15,29 @@ export class CashRegisterService {
     this.apiUrl = configurl.apiServer.url;
   }
 
-  getAllCashRegisters(): Observable<CashRegisterData[]> {
+  getAll(): Observable<CashRegisterData[]> {
     const headers = this.getAuthorizationHeaders();
     return this.http.get<CashRegisterData[]>(`${this.apiUrl}api/cashregister/list`, { headers })
       .pipe(catchError(this.errorHandler));
   }
 
-  getCashRegisterById(id: number): Observable<CashRegisterData> {
+  getById(id: number): Observable<CashRegisterData> {
     const headers = this.getAuthorizationHeaders();
     return this.http.get<CashRegisterData>(`${this.apiUrl}api/cashregister/get?id=${id}`, { headers })
       .pipe(catchError(this.errorHandler));
   }
 
-  updateCashRegister(cashRegister: CashRegisterData): Observable<any> {
+  update(cashRegister: CashRegisterData): Observable<any> {
     return this.http.post(`${this.apiUrl}api/cashregister/edit`, cashRegister)
       .pipe(catchError(this.errorHandler));
   }
 
-  insertCashRegister(cashRegister: CashRegisterData): Observable<any> {
+  insert(cashRegister: CashRegisterData): Observable<any> {
     return this.http.post(`${this.apiUrl}api/cashregister/insert`, cashRegister)
       .pipe(catchError(this.errorHandler));
   }
 
-  deleteCashRegister(id: number): Observable<any> {
+  delete(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}api/cashregister?id=${id}`)
       .pipe(catchError(this.errorHandler));
   }

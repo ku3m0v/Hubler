@@ -27,6 +27,7 @@ import {CashRegisterComponent} from "./cashregister/cashregister.component";
 import {WarehouseComponent} from "./warehouse/warehouse.component";
 import {StatusComponent} from "./cashregister/status/status.component";
 import {AddStatusComponent} from "./cashregister/status/add-status/add-status.component";
+import {AddCashregisterComponent} from "./cashregister/add-cashregister/add-cashregister.component";
 
 export function tokenGetter() {
     return localStorage.getItem("jwt");
@@ -63,7 +64,8 @@ export function tokenGetter() {
         AddRoleComponent,
         WarehouseComponent,
         StatusComponent,
-        AddStatusComponent
+        AddStatusComponent,
+        AddCashregisterComponent
     ],
     bootstrap: [AppComponent]
 })

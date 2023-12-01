@@ -1,12 +1,12 @@
 <section class="container mx-auto px-4">
     <div class="sm:flex sm:items-center sm:justify-between">
-        <h2 class="text-heading1-semibold font-medium text-gray-50">cashregisters CRUD</h2>
+        <h2 class="text-heading1-semibold font-medium text-gray-50">Cash Registers CRUD</h2>
 
         <div class="flex items-center mt-4 gap-x-3">
             <button
                     [routerLink]="['/add-cashregister']"
                     class="w-1/2 px-5 py-1.5 text-sm text-white bg-fuchsia-700 transition-colors duration-200 border-2 border-fuchsia-800/70 rounded-lg sm:w-auto hover:bg-fuchsia-900 active:bg-fuchsia-900/70">
-                Add cashregister
+                Add Cash Register
             </button>
         </div>
     </div>
@@ -22,22 +22,21 @@
                                 scope="col">
                                 No.
                             </th>
-                            <th class="px-4 py-3.5 text-sm font-normal"
+                            <th class="px-12 py-3.5 text-sm font-normal"
                                 scope="col">
-                                supermarketName
-
+                                Store
                             </th>
                             <th class="px-4 py-3.5 text-sm font-normal"
                                 scope="col">
-                                registerNumber
+                                Register No.
                             </th>
                             <th class="px-4 py-3.5 text-sm font-normal"
                                 scope="col">
-                                statusName
+                                Status
                             </th>
-                            <th class="px-4 py-3.5 text-sm font-normal"
+                            <th class="px-12 py-3.5 text-sm font-normal"
                                 scope="col">
-                                employeeId
+                                Cashier
                             </th>
                             <th class="py-3.5 px-4 text-sm font-normal"
                                 scope="col">
@@ -48,10 +47,10 @@
                         <tbody class="bg-slate-800 divide-y divide-gray-700">
                         <tr *ngFor="let cashregister of cashRegisterList; let i = index">
                             <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ i + 1 }}.</td>
-                            <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ cashregister.supermarketName }}</td>
-                            <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ cashregister.registerNumber }}</td>
+                            <td class="px-12 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ cashregister.supermarketName }}</td>
+                            <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">No. {{ cashregister.registerNumber }}</td>
                             <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ cashregister.statusName }}</td>
-                            <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ cashregister.employeeName }}</td>
+                            <td class="px-12 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ cashregister.employeeName }}</td>
                             <td class="px-4 py-4 text-sm whitespace-nowrap">
                                 <div class="flex items-center gap-x-6">
                                     <button
