@@ -1,40 +1,21 @@
 <div class="container mt-4">
-  <h2>{{ title }} Employee</h2>
   <form [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
-    </div>
-
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter password">
-    </div>
-
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Enter first name">
-    </div>
-
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Enter last name">
-    </div>
 
     <div class="form-group">
       <label for="supermarketName">Supermarket Name</label>
       <select class="form-control" id="supermarketName" formControlName="supermarketName">
-        <option *ngFor="let title of supermarketTitles" [value]="title">{{title}}</option>
+        <option *ngFor="let store of supermarketTitles" [value]="store">{{store}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label for="roleName">Role Name</label>
-      <select class="form-control" id="roleName" formControlName="roleName">
+      <select class="form-control" id="roleSelector" formControlName="roleName">
         <option *ngFor="let role of roles" [value]="role">{{role}}</option>
       </select>
     </div>
+
 
     <!-- Optional: Manager Select Field -->
     <div class="form-group">
@@ -47,4 +28,173 @@
     <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Save</button>
     <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
   </form>
+</div>
+<div class="relative bg-slate-900 rounded-lg overflow-hidden">
+
+  <div class="absolute inset-0 bg-cover bg-center"
+       style="background-image: url('/assets/store.png'); filter: blur(0px);"></div>
+
+  <div class="absolute inset-0 bg-slate-900 opacity-50"></div>
+
+  <div class="py-3 px-3 mx-auto max-w-screen-xl grid lg:grid-cols-2 gap-4 lg:gap-16 relative">
+    <div class="flex justify-center mt-6">
+      <h2 class="text-[4rem] font-bold text-gray-50 mb-6"></h2>
+    </div>
+    <div>
+      <div class="lg:max-w-xl px-6 py-3 sm:p-8 rounded-lg shadow-xl bg-slate-900">
+        <form class="space-y-3" [formGroup]="employeeForm" (ngSubmit)="saveEmployee()" novalidate>
+          <div class="">
+            <label *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" for="email"
+                   class="block mb-2 text-sm font-medium text-red-600">email</label>
+            <label *ngIf="!employeeForm.get('email')?.invalid || !employeeForm.get('email')?.touched" for="email"
+                   class="block mb-2 text-sm font-medium text-gray-300">email</label>
+            <input type="email"
+                   id="email"
+                   formControlName="email"
+                   placeholder="e.g. MaxMustermann@web.de"
+                   [class]="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                   required>
+            <div *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Email is required.
+            </div>
+          </div>
+          <div class="">
+            <label *ngIf="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched" for="password"
+                   class="block mb-2 text-sm font-medium text-red-600">password number</label>
+            <label *ngIf="!employeeForm.get('password')?.invalid || !employeeForm.get('password')?.touched" for="password"
+                   class="block mb-2 text-sm font-medium text-gray-300">password number</label>
+            <input type="password"
+                   id="password"
+                   formControlName="password"
+                   placeholder="••••••••"
+                   [class]="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                   required>
+            <div *ngIf="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Password is required.
+            </div>
+          </div>
+          <div class="grid gap-4 lg:grid-cols-2">
+            <div>
+              <label *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched" for="firstName"
+                     class="block mb-2 text-sm font-medium text-red-600">firstName</label>
+              <label *ngIf="!employeeForm.get('firstName')?.invalid || !employeeForm.get('firstName')?.touched" for="firstName"
+                     class="block mb-2 text-sm font-medium text-gray-300">firstName</label>
+              <input type="text"
+                     id="firstName"
+                     formControlName="firstName"
+                     placeholder="e.g Max"
+                     [class]="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                First Name is required.
+              </div>
+            </div>
+            <div>
+              <label *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched" for="lastName"
+                     class="block mb-2 text-sm font-medium text-red-600">lastName</label>
+              <label *ngIf="!employeeForm.get('lastName')?.invalid || !employeeForm.get('lastName')?.touched" for="lastName"
+                     class="block mb-2 text-sm font-medium text-gray-300">lastName</label>
+              <input type="text"
+                     id="lastName"
+                     formControlName="lastName"
+                     placeholder="e.g. Mustermann"
+                     [class]="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                Last Name is required.
+              </div>
+            </div>
+            <div>
+              <label *ngIf="employeeForm.get('roleName')?.invalid && employeeForm.get('roleName')?.touched" for="roleName"
+                     class="block mb-2 text-sm font-medium text-red-600">Role</label>
+              <label *ngIf="!employeeForm.get('roleName')?.invalid || !employeeForm.get('roleName')?.touched" for="roleName"
+                     class="block mb-2 text-sm font-medium text-gray-300">Role</label>
+              <select #roleName
+                      [class]="employeeForm.get('roleName')?.invalid && employeeForm.get('roleName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                      id="roleName"
+                      name="roleName"
+                      formControlName="roleName"
+                      required>
+                <option value="" disabled selected>Select role</option>
+                <option class="font-medium p-2.5 rounded-3xl border-indigo-400"
+                        *ngFor="let role of roles" [value]="role">
+                  {{ role }}
+                </option>
+              </select>
+              <div *ngIf="employeeForm.get('roleName')?.invalid && employeeForm.get('roleName')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                Role is required.
+              </div>
+            </div>
+            <div>
+              <label *ngIf="employeeForm.get('city')?.invalid && employeeForm.get('city')?.touched" for="city"
+                     class="block mb-2 text-sm font-medium text-red-600">City</label>
+              <label *ngIf="!employeeForm.get('city')?.invalid || !employeeForm.get('city')?.touched" for="city"
+                     class="block mb-2 text-sm font-medium text-gray-300">City</label>
+              <input type="text"
+                     id="city"
+                     formControlName="city"
+                     placeholder="e.g. Stuttgart"
+                     [class]="employeeForm.get('city')?.invalid && employeeForm.get('city')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="employeeForm.get('city')?.invalid && employeeForm.get('city')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                City is required.
+              </div>
+            </div>
+            <div>
+              <label *ngIf="employeeForm.get('postalCode')?.invalid && employeeForm.get('postalCode')?.touched" for="postalCode"
+                     class="block mb-2 text-sm font-medium text-red-600">Postal code</label>
+              <label *ngIf="!employeeForm.get('postalCode')?.invalid || !employeeForm.get('postalCode')?.touched" for="postalCode"
+                     class="block mb-2 text-sm font-medium text-gray-300">Postal code</label>
+              <input type="text"
+                     id="postalCode"
+                     formControlName="postalCode"
+                     placeholder="e.g. 88888"
+                     [class]="employeeForm.get('postalCode')?.invalid && employeeForm.get('postalCode')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="employeeForm.get('postalCode')?.invalid && employeeForm.get('postalCode')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                Postal code is required.
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <label *ngIf="employeeForm.get('country')?.invalid && employeeForm.get('country')?.touched" for="country"
+                   class="block mb-2 text-sm font-medium text-red-600">Country</label>
+            <label *ngIf="!employeeForm.get('country')?.invalid || !employeeForm.get('country')?.touched" for="country"
+                   class="block mb-2 text-sm font-medium text-gray-300">Country</label>
+            <input type="text"
+                   id="country"
+                   formControlName="country"
+                   placeholder="e.g. Germany"
+                   [class]="employeeForm.get('country')?.invalid && employeeForm.get('country')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                   required>
+            <div *ngIf="employeeForm.get('country')?.invalid && employeeForm.get('country')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Country name is required.
+            </div>
+          </div>
+          <div class="flex flex-row gap-3 pt-3" >
+            <button type="submit"
+                    [disabled]="!employeeForm.valid"
+                    [class]="!employeeForm.valid ?
+                    'disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer' :
+                    'text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer'">
+              {{ title }}
+            </button>
+            <button type="button"
+                    class="text-gray-50 bg-red-600 transition-colors hover:bg-red-700 active:bg-red-800  font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer"
+                    (click)="cancel()">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

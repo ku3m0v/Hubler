@@ -39,7 +39,7 @@ export class EmployeeService {
   edit(employee: EmployeeModel): Observable<any> {
     return this.http.post(`${this.myAppUrl}api/employee/edit`, employee, {
       headers: this.createHeaders(),
-      responseType: 'text'  // Add this line
+      responseType: 'text'
     }).pipe(catchError(this.errorHandler));
   }
 
