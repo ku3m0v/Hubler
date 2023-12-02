@@ -15,9 +15,9 @@ public class ProductDAL : IProductDAL
             {
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_id", id, OracleMappingType.Int32);
-                parameters.Add("p_title", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_title", dbType: OracleMappingType.Varchar2, size: 255, direction: ParameterDirection.Output);
                 parameters.Add("p_currentprice", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
-                parameters.Add("p_producttype", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_producttype", dbType: OracleMappingType.Varchar2, size: 15, direction: ParameterDirection.Output);
 
                 connection.Execute("GET_PRODUCT_BY_ID", parameters, commandType: CommandType.StoredProcedure);
 

@@ -16,7 +16,7 @@ public class PerishableDAL : IPerishableDAL
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_productid", productId, OracleMappingType.Int32);
                 parameters.Add("p_expirydate", dbType: OracleMappingType.Date, direction: ParameterDirection.Output);
-                parameters.Add("p_storagetype", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_storagetype", dbType: OracleMappingType.Varchar2, size: 255, direction: ParameterDirection.Output);
 
                 connection.Execute("GET_PERISHABLE_BY_PRODUCTID", parameters, commandType: CommandType.StoredProcedure);
 

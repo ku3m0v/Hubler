@@ -46,7 +46,8 @@ public class CashRegisterController : ControllerBase
         }
         else
         {
-            return BadRequest("You do not have permission to view this resource.");
+            cashRegisters = _cashRegisterDAL.GetAll()
+                .Where(e => e.Employee_Id == userId);
         }
 
         var cashRegisterModels = new List<CashRegisterModel>();
