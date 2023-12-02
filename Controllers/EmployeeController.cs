@@ -102,9 +102,14 @@ public class EmployeeController : ControllerBase
             LastName = employeeModel.LastName,
             CreatedDate = DateTime.UtcNow,
             SupermarketId = supermarket.Id,
-            RoleId = role.Id,
-            Admin_Id = employeeModel.AdminId
+            RoleId = role.Id
+            
         };
+        
+        if(employeeModel.AdminId != 0)
+        {
+            employee.Admin_Id = employeeModel.AdminId;
+        }
 
         var result = _employeeDAL.Insert(employee);
         return Ok(new { message = "Employee inserted successfully." });
