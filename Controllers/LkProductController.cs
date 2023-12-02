@@ -51,7 +51,7 @@ public class LkProductController : ControllerBase
     [HttpPost("update")]
     public ActionResult Update([FromBody] LkProduct lkProduct)
     {
-        var existingProduct = _lkProductDal.GetById(lkProduct.LkProductId);
+        var existingProduct = _lkProductDal.GetById(lkProduct.Lk_Product_Id);
         if (existingProduct == null)
         {
             return NotFound();

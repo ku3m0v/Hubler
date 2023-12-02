@@ -9,7 +9,7 @@ public class WarehouseModel
     public string Title { get; set; }
     public decimal CurrentPrice { get; set; }
     public string ProductType { get; set; }
-    public DateTime ExpiryDate { get; set; }
-    public string StorageType { get; set; }
-    public int ShelfLife { get; set; }
+    public DateTime? ExpiryDate { get; set; }
+    public string? StorageType { get; set; }
+    public int? ShelfLife { get; set; }
 }
