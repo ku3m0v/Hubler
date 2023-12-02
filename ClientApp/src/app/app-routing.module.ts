@@ -21,6 +21,7 @@ import {AddRoleComponent} from "./employee/role/add-role/add-role.component";
 import {StatusComponent} from "./cashregister/status/status.component";
 import {AddStatusComponent} from "./cashregister/status/add-status/add-status.component";
 import {AddCashregisterComponent} from "./cashregister/add-cashregister/add-cashregister.component";
+import {LogsComponent} from "./logs/logs.component";
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
     {path: 'statuses', component: StatusComponent, canActivate: [AuthGuard]},
     {path: 'edit-status/:statusName', component: AddStatusComponent, canActivate: [AuthGuard]},
     {path: 'add-status', component: AddStatusComponent, canActivate: [AuthGuard]},
+    {path: 'logs', component: LogsComponent, canActivate: [AuthGuard]},
 
 ];
 
