@@ -31,7 +31,7 @@ public class LkProductDAL : ILkProductDAL
             parameters.Add("p_lk_product_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
 
             connection.Execute("INSERT_LK_PRODUCT", parameters, commandType: CommandType.StoredProcedure);
-            lkProduct.LkProductId = parameters.Get<int>("p_lk_product_id");
+            lkProduct.Lk_Product_Id = parameters.Get<int>("p_lk_product_id");
         }
     }
 
@@ -40,7 +40,7 @@ public class LkProductDAL : ILkProductDAL
         using (var connection = DBConnection.GetConnection())
         {
             var parameters = new OracleDynamicParameters();
-            parameters.Add("p_lk_product_id", lkProduct.LkProductId, OracleMappingType.Int32);
+            parameters.Add("p_lk_product_id", lkProduct.Lk_Product_Id, OracleMappingType.Int32);
             parameters.Add("p_title", lkProduct.Title, OracleMappingType.Varchar2);
             parameters.Add("p_currentprice", lkProduct.CurrentPrice, OracleMappingType.Decimal);
 

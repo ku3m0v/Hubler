@@ -8,10 +8,6 @@ export interface LkProduct {
   productId: number;
   title: string;
   currentPrice: number;
-  productType?: string;
-  expiryDate?: Date | string;
-  storageType?: string;
-  shelfLife?: number;
 }
 
 @Injectable({

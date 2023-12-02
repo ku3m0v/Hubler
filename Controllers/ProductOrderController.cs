@@ -110,7 +110,7 @@ public class ProductOrderController : ControllerBase
             var newProductOrder = new ProductOrder
             {
                 SupermarketId = managerSupermarket.Id,
-                ProductId = product.LkProductId,
+                ProductId = product.Lk_Product_Id,
                 OrderedQuantity = model.Quantity,
                 OrderDate = DateTime.UtcNow
             };
@@ -151,7 +151,7 @@ public class ProductOrderController : ControllerBase
             var newProductOrder = new ProductOrder
             {
                 SupermarketId = managerSupermarket.Id,
-                ProductId = product.LkProductId,
+                ProductId = product.Lk_Product_Id,
                 OrderedQuantity = model.Quantity,
                 OrderDate = DateTime.UtcNow
             };
