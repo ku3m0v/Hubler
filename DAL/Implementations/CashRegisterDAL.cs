@@ -84,4 +84,28 @@ public class CashRegisterDAL : ICashRegisterDAL
             return connection.Query<CashRegister>("GET_ALL_CASHREGISTERS", parameters, commandType: CommandType.StoredProcedure);
         }
     }
+    
+    public CashRegister GetBySupermarketIdAndRegisterNumber(int supermarketId, int registerNumber)
+    {
+        using (var connection = DBConnection.GetConnection())
+        {
+            var parameters = new OracleDynamicParameters();
+            parameters.Add("p_supermarketid", supermarketId, OracleMappingType.Int32);
+            parameters.Add("p_registernumber", registerNumber, OracleMappingType.Int32);
+            parameters.Add("o_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("o_statusid", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("o_employee_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+            
+            connection.Execute("GET_CASHREGISTER_BY_SUPERMARKET_AND_NUMBER", parameters, commandType: CommandType.StoredProcedure);
+
+            return new CashRegister
+            {
+                Id = parameters.Get<int>("o_id"),
+                SupermarketId = supermarketId,
+                RegisterNumber = registerNumber,
+                StatusId = parameters.Get<int>("o_statusid"),
+                Employee_Id = parameters.Get<int?>("o_employee_id")
+            };
+        }
+    }
 }

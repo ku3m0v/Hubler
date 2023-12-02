@@ -48,7 +48,7 @@ const routes: Routes = [
     {path: 'add-role', component: AddRoleComponent, canActivate: [AuthGuard]},
     {path: 'edit-role/:roleName', component: AddRoleComponent, canActivate: [AuthGuard]},
     {path: 'cashregisters', component: CashRegisterComponent, canActivate: [AuthGuard]},
-    {path: 'edit-cashregister/:registerNumber', component: AddCashregisterComponent, canActivate: [AuthGuard]},
+    {path: 'edit-cashregister/:supermarketName/:registerNumber', component: AddCashregisterComponent, canActivate: [AuthGuard]},
     {path: 'add-cashregister', component: AddCashregisterComponent, canActivate: [AuthGuard]},
     {path: 'warehouses', component: CashRegisterComponent, canActivate: [AuthGuard]},
     {path: 'edit-warehouse/:title', component: CashRegisterComponent, canActivate: [AuthGuard]},

@@ -27,20 +27,23 @@ export class AddCashregisterComponent implements OnInit {
       supermarketName: ['', Validators.required],
       registerNumber: [null, Validators.required],
       statusName: ['', Validators.required],
-      employeeId: [null]
+      employeeId: 0
     });
   }
 
   ngOnInit(): void {
+    const supermarketName = this.route.snapshot.paramMap.get('supermarketName');
     const registerNumber = this.route.snapshot.paramMap.get('registerNumber');
-    if (registerNumber) {
+
+    if (supermarketName && registerNumber) {
       this.title = 'Edit';
-      this.cashRegisterService.getById(+registerNumber).subscribe( // FIXME - this should be getDetails(registerNumber)
-        (data: CashRegisterData) => {
-          this.cashRegisterForm.patchValue(data);
-        },
-        (error: any) => console.error(error)
-      );
+      this.cashRegisterService.getBySupermarketNameAndRegisterNumber(supermarketName, +registerNumber)
+        .subscribe(
+          (data: CashRegisterData) => {
+            this.cashRegisterForm.patchValue(data);
+          },
+          (error: any) => console.error(error)
+        );
     }
     this.loadStatuses();
     this.loadEmployees();
