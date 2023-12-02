@@ -9,6 +9,8 @@ import {EmployeeModel} from "../../service/employee-service/employee.service";
 })
 export class PerishableComponent {
   perishableProducts: PerishableProduct[] = [];
+  showSpinner = true;
+  showMsg = false;
 
   constructor(private perishableProductService: PerishableService) {
     this.loadProducts();
@@ -16,6 +18,10 @@ export class PerishableComponent {
 
   ngOnInit(): void {
     this.loadProducts();
+    setTimeout(() => {
+      this.showSpinner = false;
+      this.showMsg = true;
+    }, 1500);
   }
 
   loadProducts() {
@@ -36,6 +42,4 @@ export class PerishableComponent {
       );
     }
   }
-
-
 }
