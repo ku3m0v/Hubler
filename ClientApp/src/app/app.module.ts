@@ -29,6 +29,9 @@ import {StatusComponent} from "./cashregister/status/status.component";
 import {AddStatusComponent} from "./cashregister/status/add-status/add-status.component";
 import {AddCashregisterComponent} from "./cashregister/add-cashregister/add-cashregister.component";
 import {LogsComponent} from "./logs/logs.component";
+import {ProductComponent} from "./product/product.component";
+import {PerishableComponent} from "./product/perishable/perishable.component";
+import {NonperishableComponent} from "./product/nonperishable/nonperishable.component";
 
 export function tokenGetter() {
     return localStorage.getItem("jwt");
@@ -67,7 +70,10 @@ export function tokenGetter() {
         StatusComponent,
         AddStatusComponent,
         AddCashregisterComponent,
-        LogsComponent
+        LogsComponent,
+        ProductComponent,
+        PerishableComponent,
+        NonperishableComponent
     ],
     bootstrap: [AppComponent]
 })

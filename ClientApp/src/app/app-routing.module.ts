@@ -22,6 +22,9 @@ import {StatusComponent} from "./cashregister/status/status.component";
 import {AddStatusComponent} from "./cashregister/status/add-status/add-status.component";
 import {AddCashregisterComponent} from "./cashregister/add-cashregister/add-cashregister.component";
 import {LogsComponent} from "./logs/logs.component";
+import {ProductComponent} from "./product/product.component";
+import {PerishableComponent} from "./product/perishable/perishable.component";
+import {NonperishableComponent} from "./product/nonperishable/nonperishable.component";
 
 
 const routes: Routes = [
@@ -54,7 +57,8 @@ const routes: Routes = [
     {path: 'edit-status/:statusName', component: AddStatusComponent, canActivate: [AuthGuard]},
     {path: 'add-status', component: AddStatusComponent, canActivate: [AuthGuard]},
     {path: 'logs', component: LogsComponent, canActivate: [AuthGuard]},
-
+    {path: 'perishable', component: PerishableComponent, canActivate: [AuthGuard]},
+    {path: 'nonperishable', component: NonperishableComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
