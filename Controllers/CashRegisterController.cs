@@ -175,9 +175,17 @@ public class CashRegisterController : ControllerBase
             SupermarketId = supermarket.Id,
             RegisterNumber = model.RegisterNumber,
             StatusId = status.Id,
-            Employee_Id = model.EmployeeId
+            
         };
         
+        if (model.EmployeeId == 0)
+        {
+            cashRegister.Employee_Id = null;
+        }
+        else
+        {
+            cashRegister.Employee_Id = model.EmployeeId;
+        }
         
         _cashRegisterDAL.Insert(cashRegister);
         

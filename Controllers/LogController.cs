@@ -34,12 +34,12 @@ public class LogController : ControllerBase
         var info = CultureInfo.InvariantCulture;
 
         // Writing the header
-        stringBuilder.AppendLine("Id,Timestamp,Level,Message");
+        stringBuilder.AppendLine("Table;Operation;Time;User");
 
         // Writing the data
         foreach (var log in logs)
         {
-            stringBuilder.AppendLine($"{log.tabulka},{log.operace},{log.cas},{log.uzivatel}");
+            stringBuilder.AppendLine($"{log.tabulka};{log.operace};{log.cas};{log.uzivatel}");
         }
 
         byte[] buffer = Encoding.UTF8.GetBytes(stringBuilder.ToString());

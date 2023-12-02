@@ -5,10 +5,10 @@ import {AuthenticationService} from "../auth-service/authentication.service";
 import configurl from "../../../assets/config/config.json";
 
 export interface Log {
-  id: number;
-  timestamp: Date;
-  level: string;
-  message: string;
+  tabulka: string;
+  operace: string;
+  cas: Date;
+  uzivatel: string;
 }
 
 @Injectable({
