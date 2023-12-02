@@ -59,6 +59,7 @@ const routes: Routes = [
     {path: 'logs', component: LogsComponent, canActivate: [AuthGuard]},
     {path: 'perishable', component: PerishableComponent, canActivate: [AuthGuard]},
     {path: 'nonperishable', component: NonperishableComponent, canActivate: [AuthGuard]},
+    {path: 'products', component: ProductComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

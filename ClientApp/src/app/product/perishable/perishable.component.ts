@@ -7,7 +7,7 @@ import {EmployeeModel} from "../../service/employee-service/employee.service";
   templateUrl: './perishable.component.html',
   styleUrls: ['./perishable.component.css']
 })
-export class PerishableComponent {
+export class PerishableComponent implements OnInit {
   perishableProducts: PerishableProduct[] = [];
   showSpinner = true;
   showMsg = false;
