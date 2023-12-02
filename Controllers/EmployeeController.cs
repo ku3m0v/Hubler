@@ -107,7 +107,7 @@ public class EmployeeController : ControllerBase
         };
 
         var result = _employeeDAL.Insert(employee);
-        return Ok(result);
+        return Ok(new { message = "Employee inserted successfully." });
     }
     
     // GET: api/employee/details/{email}
@@ -190,6 +190,7 @@ public class EmployeeController : ControllerBase
         employee.SupermarketId = supermarket.Id;
         employee.RoleId = role.Id;
         employee.Admin_Id = employeeModel.AdminId;
+       
 
         if (employeeModel.Password != null)
         {

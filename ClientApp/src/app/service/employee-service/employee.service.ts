@@ -30,7 +30,9 @@ export class EmployeeService {
   }
 
   insert(employee: EmployeeModel): Observable<any> {
-    return this.http.post(`${this.myAppUrl}api/employee/insert`, employee, {headers: this.createHeaders()})
+    return this.http.post(`${this.myAppUrl}api/employee/insert`, employee, {
+      headers: this.createHeaders(),
+      responseType: 'text'})
       .pipe(catchError(this.errorHandler));
   }
 
