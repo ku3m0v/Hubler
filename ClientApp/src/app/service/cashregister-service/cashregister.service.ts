@@ -58,6 +58,14 @@ export class CashRegisterService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getBySupermarketNameAndRegisterNumber(supermarketName: string, registerNumber: number): Observable<CashRegisterData> {
+    const headers = this.getAuthorizationHeaders();
+    return this.http.get<CashRegisterData>(
+      `${this.apiUrl}api/cashregister/getDetails/${supermarketName}/${registerNumber}`,
+      { headers }
+    ).pipe(catchError(this.errorHandler));
+  }
+
   private getAuthorizationHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Authorization': `Bearer ${this.authService.getToken()}`
@@ -68,6 +76,7 @@ export class CashRegisterService {
     console.error('An error occurred:', error.message);
     return throwError(error);
   }
+
 }
 
 export interface CashRegisterData {
