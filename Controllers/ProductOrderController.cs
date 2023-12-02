@@ -16,14 +16,28 @@ public class ProductOrderController : ControllerBase
     private readonly IProductOrderDAL _productOrderDAL;
     private readonly IProductDAL _productDAL;
     private readonly IEmployeeDAL _employeeDAL;
-    private readonly ProductManager.ProductManager _productManager = new();
+    private readonly ILkProductDAL _lkProductDAL;
+    private readonly IPerishableDAL _perishableDAL;
+    private readonly INonPerishableDAL _nonPerishableDAL;
+    private readonly IWarehouseDAL _warehouseDAL;
     
-    public ProductOrderController(ISupermarketDAL supermarketDAL, IProductOrderDAL productOrderDAL, IProductDAL productDAL, IEmployeeDAL employeeDAL)
+    public ProductOrderController(ISupermarketDAL supermarketDAL, 
+        IProductOrderDAL productOrderDAL, 
+        IProductDAL productDAL, 
+        IEmployeeDAL employeeDAL, 
+        ILkProductDAL lkProductDAL,
+        IPerishableDAL perishableDAL,
+        INonPerishableDAL nonPerishableDAL,
+        IWarehouseDAL warehouseDAL)
     {
         _supermarketDAL = supermarketDAL;
         _productOrderDAL = productOrderDAL;
         _productDAL = productDAL;
         _employeeDAL = employeeDAL;
+        _lkProductDAL = lkProductDAL;
+        _perishableDAL = perishableDAL;
+        _nonPerishableDAL = nonPerishableDAL;
+        _warehouseDAL = warehouseDAL;
     }
 
     [HttpGet("list"), Authorize]
@@ -39,7 +53,7 @@ public class ProductOrderController : ControllerBase
         {
             foreach (var productOrder in productOrders)
             {
-                var product = _productDAL.GetById(productOrder.ProductId);
+                var product = _lkProductDAL.GetById(productOrder.ProductId);
                 var supermarket = _supermarketDAL.GetById(productOrder.SupermarketId);
                 if (product != null && supermarket != null)
                 {
@@ -59,7 +73,7 @@ public class ProductOrderController : ControllerBase
             var managerSupermarket = _supermarketDAL.GetById(id);
             foreach (var productOrder in productOrders)
             {
-                var product = _productDAL.GetById(productOrder.ProductId);
+                var product = _lkProductDAL.GetById(productOrder.ProductId);
                 var supermarket = _supermarketDAL.GetById(productOrder.SupermarketId);
                 if (product != null && supermarket != null && supermarket.Id == managerSupermarket.Id)
                 {
@@ -90,55 +104,85 @@ public class ProductOrderController : ControllerBase
         var managerSupermarket = _supermarketDAL.GetById(employee.SupermarketId);
         if(type == "perishable")
         {
-            var products = _productManager.GetPerishableProducts();
-            foreach (var product in products)
+            
+            var product = _lkProductDAL.GetByTitle(model.ProductName);
+            
+            var newProductOrder = new ProductOrder
             {
-                if (product.Title == model.ProductName)
-                {
-                    var newProduct = new Product
-                    {
-                        Title = product.Title,
-                        CurrentPrice = product.Price,
-                        ProductType = "P"
-                    };
-                    var productId = _productDAL.Insert(newProduct);
-                    
-                    var productOrder = new ProductOrder
-                    {
-                        SupermarketId = managerSupermarket.Id,
-                        ProductId = productId,
-                        OrderedQuantity = model.Quantity,
-                        OrderDate = DateTime.UtcNow
-                    };
-                    _productOrderDAL.Insert(productOrder);
-                }
-            }
+                SupermarketId = managerSupermarket.Id,
+                ProductId = product.LkProductId,
+                OrderedQuantity = model.Quantity,
+                OrderDate = DateTime.UtcNow
+            };
+            
+            _productOrderDAL.Insert(newProductOrder);
+            
+            var newProduct = new Product
+            {
+                Title = product.Title,
+                CurrentPrice = product.CurrentPrice,
+                ProductType = "P"
+            };
+            
+            var productId = _productDAL.Insert(newProduct);
+            
+            var newPerishableProduct = new Perishable
+            {
+                ProductId = productId,
+                ExpiryDate = model.ExpireDate,
+                StorageType = model.StorageType
+            };
+            
+            _perishableDAL.Insert(newPerishableProduct);
+            
+            var newWarehouse = new Warehouse
+            {
+                SupermarketId = managerSupermarket.Id,
+                ProductId = productId,
+                Quantity = model.Quantity
+            };
+            
+            _warehouseDAL.Insert(newWarehouse);
         }
         else if(type == "nonperishable")
         {
-            var products = _productManager.GetNonPerishableProducts();
-            foreach (var product in products)
+            var product = _lkProductDAL.GetByTitle(model.ProductName);
+            
+            var newProductOrder = new ProductOrder
             {
-                if (product.Title == model.ProductName)
-                {
-                    var newProduct = new Product
-                    {
-                        Title = product.Title,
-                        CurrentPrice = product.Price,
-                        ProductType = "NP"
-                    };
-                    var productId = _productDAL.Insert(newProduct);
-                    
-                    var productOrder = new ProductOrder
-                    {
-                        SupermarketId = managerSupermarket.Id,
-                        ProductId = productId,
-                        OrderedQuantity = model.Quantity,
-                        OrderDate = DateTime.UtcNow
-                    };
-                    _productOrderDAL.Insert(productOrder);
-                }
-            }
+                SupermarketId = managerSupermarket.Id,
+                ProductId = product.LkProductId,
+                OrderedQuantity = model.Quantity,
+                OrderDate = DateTime.UtcNow
+            };
+            
+            _productOrderDAL.Insert(newProductOrder);
+            
+            var newProduct = new Product
+            {
+                Title = product.Title,
+                CurrentPrice = product.CurrentPrice,
+                ProductType = "N"
+            };
+            
+            var productId = _productDAL.Insert(newProduct);
+            
+            var newNonPerishableProduct = new NonPerishable
+            {
+                ProductId = productId,
+                ShelfLife = model.ShelfLife
+            };
+            
+            _nonPerishableDAL.Insert(newNonPerishableProduct);
+            
+            var newWarehouse = new Warehouse
+            {
+                SupermarketId = managerSupermarket.Id,
+                ProductId = productId,
+                Quantity = model.Quantity
+            };
+            
+            _warehouseDAL.Insert(newWarehouse);
         }
         else
         {
@@ -152,22 +196,14 @@ public class ProductOrderController : ControllerBase
         _productOrderDAL.Delete(id);
     }
     
-    [HttpGet("list/{type}")]
-    public ActionResult getProducts(string type)
+    [HttpGet("products")]
+    public ActionResult getProducts()
     {
-        if (type == "perishable")
+        var products = _lkProductDAL.GetAll();
+        if(products == null)
         {
-            var products = _productManager.GetPerishableProducts();
-            return Ok(products);
+            return NotFound();
         }
-        else if (type == "nonperishable")
-        {
-            var products = _productManager.GetNonPerishableProducts();
-            return Ok(products);
-        }
-        else
-        {
-            return BadRequest("Invalid product type");
-        }
+        return Ok(products);
     }
 }
