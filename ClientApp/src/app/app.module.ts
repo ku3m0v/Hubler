@@ -32,6 +32,7 @@ import {LogsComponent} from "./logs/logs.component";
 import {ProductComponent} from "./product/product.component";
 import {PerishableComponent} from "./product/perishable/perishable.component";
 import {NonperishableComponent} from "./product/nonperishable/nonperishable.component";
+import {SettingsComponent} from "./settings/settings.component";
 
 export function tokenGetter() {
     return localStorage.getItem("jwt");
@@ -73,7 +74,8 @@ export function tokenGetter() {
         LogsComponent,
         ProductComponent,
         PerishableComponent,
-        NonperishableComponent
+        NonperishableComponent,
+        SettingsComponent,
     ],
     bootstrap: [AppComponent]
 })

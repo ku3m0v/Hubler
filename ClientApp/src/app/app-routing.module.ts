@@ -25,11 +25,13 @@ import {LogsComponent} from "./logs/logs.component";
 import {ProductComponent} from "./product/product.component";
 import {PerishableComponent} from "./product/perishable/perishable.component";
 import {NonperishableComponent} from "./product/nonperishable/nonperishable.component";
+import {SettingsComponent} from "./settings/settings.component";
 
 
 const routes: Routes = [
     {path: '', redirectTo: '/landing', pathMatch: 'full'},
     {path: 'landing', component: LandingComponent, canActivate: [NoAuthGuard]},
+    {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
     {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
     {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
     {path: 'sign-in', component: SignInComponent},
