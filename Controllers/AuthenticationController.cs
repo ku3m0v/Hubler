@@ -85,24 +85,28 @@ public class AuthenticationController : ControllerBase
             return BadRequest("Invalid registration request.");
         }
         
-        // var existingEmployee = _employeeDAL.GetByEmail(model.Email);
-        // if (existingEmployee.Id != 0)
-        // {
-        //     return BadRequest("Email already exists.");
-        // }
         
-        var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
         Supermarket supermarket = _supermarketDAL.GetSupermarketByTitle(model.SupermarketTitle);
         
         var newEmployee = new Employee
         {
             Email = model.Email,
-            PassHash = hashedPassword,
+            PassHash = model.Password,
             FirstName = model.FirstName,
             LastName = model.LastName,
             SupermarketId = supermarket.Id,
             RoleId = 1
         };
+        
+        var validationMessage = _employeeDAL.ValidateRegistration(newEmployee);
+        
+        if (validationMessage != "Good")
+        {
+            return BadRequest(new { message = validationMessage });
+        }
+        
+        var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
+        newEmployee.PassHash = hashedPassword;
         
         var result = _employeeDAL.Insert(newEmployee);
         

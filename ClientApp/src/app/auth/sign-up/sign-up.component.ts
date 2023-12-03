@@ -65,21 +65,19 @@ export class SignUpComponent implements OnInit {
         supermarketTitle: this.signUpForm.value.supermarketTitle
       };
 
-      this.authService.register(registrationData).subscribe(
-        response => {
+      this.authService.register(registrationData).subscribe({
+        next: (response) => {
           console.log('Registration successful', response);
           this.router.navigate(['/sign-in']);
         },
-        error => {
-          this.errorMessage = 'Registration failed: ' + error.message;
-          console.error(error);
+        error: (error) => {
+          // Assume error response is in the format { message: "Error message here" }
+          this.errorMessage = error.error.message;
+          console.error('Registration failed:', error);
         }
-      );
-    } else {
-      Object.keys(this.signUpForm.controls).forEach(field => {
-        const control = this.signUpForm.get(field);
-        control?.markAsTouched({ onlySelf: true });
       });
+    } else {
+      this.signUpForm.markAllAsTouched();
     }
   }
 }
