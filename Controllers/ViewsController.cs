@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hubler.Controllers;
 
@@ -26,28 +27,28 @@ public class ViewsController : ControllerBase
     }
 
     // GET: api/view/ExpiredInventory
-    [HttpGet("ExpiredInventory")]
+    [HttpGet("ExpiredInventory"), Authorize]
     public ActionResult<IEnumerable<ExpiredInventory>> GetExpiredInventory()
     {
         return Ok(_expiredInventoryDal.GetAll());
     }
 
     // GET: api/view/ExpiredWarehouse
-    [HttpGet("ExpiredWarehouse")]
+    [HttpGet("ExpiredWarehouse"), Authorize]
     public ActionResult<IEnumerable<ExpiredWarehouse>> GetExpiredWarehouse()
     {
         return Ok(_expiredWarehouseDal.GetAll());
     }
 
     // GET: api/view/Top5ProductsBySupermarket
-    [HttpGet("Top5ProductsBySupermarket")]
+    [HttpGet("Top5ProductsBySupermarket"), Authorize]
     public ActionResult<IEnumerable<Top5ProductsBySupermarket>> GetTop5ProductsBySupermarket()
     {
         return Ok(_top5ProductsBySupermarketDal.GetAll());
     }
 
     // GET: api/view/SupermarketSalesSummary
-    [HttpGet("SupermarketSalesSummary")]
+    [HttpGet("SupermarketSalesSummary"), Authorize]
     public ActionResult<IEnumerable<SupermarketSalesSummary>> GetSupermarketSalesSummary()
     {
         return Ok(_supermarketSalesSummaryDal.GetAll());
