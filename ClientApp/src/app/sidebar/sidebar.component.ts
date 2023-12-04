@@ -28,6 +28,7 @@ export class SidebarComponent {
         {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
         {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
         {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
+        {route: '/products', label: 'Catalog', imgURL: '/assets/assets/catalog.svg'},
         {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
         {route: '/perishable', imgURL: '/assets/assets/members.svg', name: 'perishable'},
         {route: '/nonperishable', imgURL: '/assets/assets/members.svg', name: 'nonperishable'},
@@ -37,6 +38,7 @@ export class SidebarComponent {
       this.sidebarLinks = [
         {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
         {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
+        {route: '/products', label: 'Catalog', imgURL: '/assets/assets/catalog.svg'},
         {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
         {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
         {route: '/perishable', imgURL: '/assets/assets/members.svg', name: 'perishable'},

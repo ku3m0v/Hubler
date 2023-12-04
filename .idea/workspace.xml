@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5d3fc0a3-47e7-41ac-89de-75be44dece4f" name="Changes" comment="sign-up: 400 error / dropdown menu stores">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientApp/src/assets/assets/check.svg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +78,7 @@
       <workItem from="1701351229692" duration="19000" />
       <workItem from="1701358415608" duration="855000" />
       <workItem from="1701369990072" duration="1057000" />
+      <workItem from="1701609566977" duration="2322000" />
     </task>
     <task id="LOCAL-00001" summary="sign-up: fix style">
       <option name="closed" value="true" />

@@ -7,11 +7,13 @@ import { LkProduct, ProductService } from "../service/product-service/product.se
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  products: LkProduct[] = [];
+  lkProducts: LkProduct[] = [];
   showSpinner = true;
   showMsg = false;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService) {
+    this.loadProducts();
+  }
 
   ngOnInit(): void {
     this.loadProducts();
@@ -19,15 +21,8 @@ export class ProductComponent implements OnInit {
 
   loadProducts() {
     this.productService.getAll().subscribe(
-      data => {
-        this.products = data;
-        this.showSpinner = false;
-        },
-      error => {
-        console.error(error);
-        this.showSpinner = false;
-        this.showMsg = true;
-      }
+      data => this.lkProducts = data,
+      error => console.error(error)
     );
   }
 

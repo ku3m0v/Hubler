@@ -5,7 +5,7 @@ import { AuthenticationService } from "../auth-service/authentication.service";
 import configurl from "../../../assets/config/config.json";
 
 export interface LkProduct {
-  productId: number;
+  lk_Product_Id: number;
   title: string;
   currentPrice: number;
 }
