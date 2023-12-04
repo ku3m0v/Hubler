@@ -18,11 +18,21 @@ import {AddEmployeeComponent} from "./employee/add-employee/add-employee.compone
 import {RoleComponent} from "./employee/role/role.component";
 import {CashRegisterComponent} from "./cashregister/cashregister.component";
 import {AddRoleComponent} from "./employee/role/add-role/add-role.component";
+import {StatusComponent} from "./cashregister/status/status.component";
+import {AddStatusComponent} from "./cashregister/status/add-status/add-status.component";
+import {AddCashregisterComponent} from "./cashregister/add-cashregister/add-cashregister.component";
+import {LogsComponent} from "./logs/logs.component";
+import {ProductComponent} from "./product/product.component";
+import {PerishableComponent} from "./product/perishable/perishable.component";
+import {NonperishableComponent} from "./product/nonperishable/nonperishable.component";
+import {SettingsComponent} from "./settings/settings.component";
+import {AddProductComponent} from "./product/add-product/add-product.component";
 
 
 const routes: Routes = [
     {path: '', redirectTo: '/landing', pathMatch: 'full'},
     {path: 'landing', component: LandingComponent, canActivate: [NoAuthGuard]},
+    {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
     {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
     {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
     {path: 'sign-in', component: SignInComponent},
@@ -41,6 +51,20 @@ const routes: Routes = [
     {path: 'add-role', component: AddRoleComponent, canActivate: [AuthGuard]},
     {path: 'edit-role/:roleName', component: AddRoleComponent, canActivate: [AuthGuard]},
     {path: 'cashregisters', component: CashRegisterComponent, canActivate: [AuthGuard]},
+    {path: 'edit-cashregister/:supermarketName/:registerNumber', component: AddCashregisterComponent, canActivate: [AuthGuard]},
+    {path: 'add-cashregister', component: AddCashregisterComponent, canActivate: [AuthGuard]},
+    {path: 'warehouses', component: CashRegisterComponent, canActivate: [AuthGuard]},
+    {path: 'edit-warehouse/:title', component: CashRegisterComponent, canActivate: [AuthGuard]},
+    {path: 'add-warehouse', component: CashRegisterComponent, canActivate: [AuthGuard]},
+    {path: 'statuses', component: StatusComponent, canActivate: [AuthGuard]},
+    {path: 'edit-status/:statusName', component: AddStatusComponent, canActivate: [AuthGuard]},
+    {path: 'add-status', component: AddStatusComponent, canActivate: [AuthGuard]},
+    {path: 'logs', component: LogsComponent, canActivate: [AuthGuard]},
+    {path: 'perishable', component: PerishableComponent, canActivate: [AuthGuard]},
+    {path: 'nonperishable', component: NonperishableComponent, canActivate: [AuthGuard]},
+    {path: 'products', component: ProductComponent, canActivate: [AuthGuard]},
+    {path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard]},
+    {path: 'edit-product/:title', component: AddProductComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

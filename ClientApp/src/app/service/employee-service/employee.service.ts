@@ -30,14 +30,16 @@ export class EmployeeService {
   }
 
   insert(employee: EmployeeModel): Observable<any> {
-    return this.http.post(`${this.myAppUrl}api/employee/insert`, employee, {headers: this.createHeaders()})
+    return this.http.post(`${this.myAppUrl}api/employee/insert`, employee, {
+      headers: this.createHeaders(),
+      responseType: 'text'})
       .pipe(catchError(this.errorHandler));
   }
 
   edit(employee: EmployeeModel): Observable<any> {
     return this.http.post(`${this.myAppUrl}api/employee/edit`, employee, {
       headers: this.createHeaders(),
-      responseType: 'text'  // Add this line
+      responseType: 'text'
     }).pipe(catchError(this.errorHandler));
   }
 
@@ -84,6 +86,7 @@ export interface EmployeeModel {
   supermarketName?: string;
   roleName: string;
   adminId?: number;
+  adminName?: string;
 }
 
 

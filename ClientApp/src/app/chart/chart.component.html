@@ -15,31 +15,42 @@
     </div>
 
     <div class="h-full">
-      <div class="h-[35em] carousel carousel-vertical w-[26rem] space-y-3 p-4 bg-gray-900 shadow rounded-lg">
-        <div>
+      <div class="h-[35em] w-[28rem] relative overflow-x-auto shadow-md md:rounded-lg">
+        <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
           <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Top Products</h5>
         </div>
-        <div *ngFor="let product of topProducts" class="relative">
-
-          <img [src]="product.imageUrl" alt="" class="rounded-lg"/>
-
-          <div class="absolute top-2 left-2 text-gray-950 font-semibold">
-            {{ product.title }}
-          </div>
-
-          <div class="absolute bottom-2 left-2 text-gray-950">
-            {{ product.soldQuantity }} sold
-          </div>
-
-          <a [routerLink]="['/product-details', product.id]"
-             class="absolute top-2 right-2 text-gray-950 rounded hover:underline hover:text-gray-950">
-            View Details
-          </a>
-
-        </div>
+        <table class="w-full text-sm text-left bg-gray-900 text-gray-400">
+          <thead class="text-xs text-gray-300 uppercase text-center">
+          <tr>
+            <th class="px-6 py-3" scope="col">
+              Product
+            </th>
+            <th class="px-10 py-3" scope="col">
+              Date
+            </th>
+            <th class="px-6 py-3" scope="col">
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let product of expiredProducts"
+              class="bg-gray-800 border-b border-gray-800 text-center">
+            <td class="px-4 py-4">
+              <div class="flex items-center">
+                <img [alt]="product.title" [src]="product.imageUrl" class="w-16 mr-4 rounded-lg">
+                <span class="text-start font-semibold text-gray-400">
+                {{ product.title }}
+              </span>
+              </div>
+            </td>
+            <td class="px-4 py-4 font-semibold text-gray-400">
+              {{ product.date }}
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-
     <div class="h-full">
       <div class="h-[35em] w-[28rem] relative overflow-x-auto shadow-md md:rounded-lg">
         <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">

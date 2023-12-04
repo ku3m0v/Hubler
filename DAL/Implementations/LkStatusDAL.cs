@@ -3,6 +3,7 @@ using Dapper;
 using Dapper.Oracle;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -14,7 +15,7 @@ public class LkStatusDAL : ILkStatusDAL
             {
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_id", id, OracleMappingType.Int32);
-                parameters.Add("p_statusname", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_statusname", dbType: OracleMappingType.Varchar2, size: 50, direction: ParameterDirection.Output);
 
                 connection.Execute("GET_STATUS_BY_ID", parameters, commandType: CommandType.StoredProcedure);
 
@@ -89,10 +90,10 @@ public class LkStatusDAL : ILkStatusDAL
         {
             using (var connection = DBConnection.GetConnection())
             {
-                using (var multi = connection.QueryMultiple("GET_ALL_STATUSES", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<LkStatus>();
-                }
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+                
+                return connection.Query<LkStatus>("GET_ALL_STATUSES", parameters, commandType: CommandType.StoredProcedure);
             }
         }
     }

@@ -8,6 +8,8 @@ import {AuthenticationService} from "../service/auth-service/authentication.serv
 })
 export class SidebarComponent {
   isModalVisible = false;
+  public sidebarLinks : any[] = [];
+
 
   showModal() {
     const ans = confirm("Do you want to sign out?");
@@ -20,16 +22,36 @@ export class SidebarComponent {
     this.isModalVisible = false;
   }
 
-  public sidebarLinks = [
-    {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
-    {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
-    {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
-    {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
-    {route: '/roles', label: 'Roles', imgURL: '/assets/assets/role.svg'},
-    {route: '/cashregisters', label: 'Cashregisters', imgURL: '/assets/assets/check.svg'},
-  ];
-
   constructor(private authService: AuthenticationService) {
+    if (this.authService.isAdmin()) {
+      this.sidebarLinks = [
+        {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
+        {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
+        {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
+        {route: '/products', label: 'Catalog', imgURL: '/assets/assets/catalog.svg'},
+        {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
+        {route: '/perishable', imgURL: '/assets/assets/members.svg', name: 'perishable'},
+        {route: '/nonperishable', imgURL: '/assets/assets/members.svg', name: 'nonperishable'},
+        {route: '/settings', label: 'Warehouses', imgURL: '/assets/assets/settings.svg'},
+      ];
+    } else if (this.authService.isManager()) {
+      this.sidebarLinks = [
+        {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
+        {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
+        {route: '/products', label: 'Catalog', imgURL: '/assets/assets/catalog.svg'},
+        {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
+        {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
+        {route: '/perishable', imgURL: '/assets/assets/members.svg', name: 'perishable'},
+        {route: '/nonperishable', imgURL: '/assets/assets/members.svg', name: 'nonperishable'},
+        {route: '/settings', label: 'Warehouses', imgURL: '/assets/assets/settings.svg'},
+      ];
+    } else if (this.authService.isCashier()) {
+      this.sidebarLinks = [
+        {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
+        {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
+        {route: '/cashregisters', label: 'Cashregisters', imgURL: '/assets/assets/check.svg'},
+      ];
+    }
   }
 
   get isSignedIn(): boolean {

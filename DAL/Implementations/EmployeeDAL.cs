@@ -9,7 +9,7 @@ namespace Hubler.DAL.Implementations;
 
 public class EmployeeDAL : IEmployeeDAL
     {
-        public Employee GetById(int id)
+        public Employee GetById(int? id)
         {
             using (var connection = DBConnection.GetConnection())
             {
@@ -38,7 +38,7 @@ public class EmployeeDAL : IEmployeeDAL
                     SupermarketId = parameters.Get<int>("p_supermarketid"),
                     RoleId = parameters.Get<int>("p_roleid"),
                     Content_Id = parameters.Get<int?>("p_content_id"),
-                    Admin_Id = parameters.Get<int>("p_admin_id")
+                    Admin_Id = parameters.Get<int?>("p_admin_id")
                 };
             }
         }
@@ -57,7 +57,7 @@ public class EmployeeDAL : IEmployeeDAL
                     parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
                     parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32);
                     parameters.Add("p_content_id", employee.Content_Id.HasValue ? (object)employee.Content_Id : DBNull.Value, OracleMappingType.Int32);
-                    parameters.Add("p_admin_id", employee.Admin_Id, OracleMappingType.Int32);
+                    parameters.Add("p_admin_id", employee.Admin_Id.HasValue ? (object)employee.Admin_Id : DBNull.Value, OracleMappingType.Int32);
 
                     connection.Execute("INSERT_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
                 }
@@ -84,7 +84,7 @@ public class EmployeeDAL : IEmployeeDAL
                 parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32, ParameterDirection.Input);
                 parameters.Add("p_roleid", employee.RoleId, OracleMappingType.Int32, ParameterDirection.Input);
                 parameters.Add("p_content_id", employee.Content_Id.HasValue ? (object)employee.Content_Id : DBNull.Value, OracleMappingType.Int32);
-                parameters.Add("p_admin_id", employee.Admin_Id, OracleMappingType.Int32, ParameterDirection.Input);
+                parameters.Add("p_admin_id", employee.Admin_Id.HasValue ? (object)employee.Admin_Id : DBNull.Value, OracleMappingType.Int32);
 
                 connection.Execute("UPDATE_EMPLOYEE", parameters, commandType: CommandType.StoredProcedure);
             }
@@ -140,9 +140,27 @@ public class EmployeeDAL : IEmployeeDAL
                     CreatedDate = parameters.Get<DateTime>("p_createddate"),
                     SupermarketId = parameters.Get<int>("p_supermarketid"),
                     RoleId = parameters.Get<int>("p_roleid"),
-                    Content_Id = parameters.Get<int>("p_content_id"),
-                    Admin_Id = parameters.Get<int>("p_admin_id")
+                    Content_Id = parameters.Get<int?>("p_content_id"),
+                    Admin_Id = parameters.Get<int?>("p_admin_id")
                 };
+            }
+        }
+        
+        public string ValidateRegistration(Employee employee)
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_email", employee.Email, OracleMappingType.Varchar2);
+                parameters.Add("p_passhash", employee.PassHash, OracleMappingType.Varchar2);
+                parameters.Add("p_firstname", employee.FirstName, OracleMappingType.Varchar2);
+                parameters.Add("p_lastname", employee.LastName, OracleMappingType.Varchar2);
+                parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
+                parameters.Add("p_validation_result", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.ReturnValue, size: 100);
+
+                connection.Execute("BEGIN :p_validation_result := VALIDATE_REGISTRATION(:p_email, :p_passhash, :p_firstname, :p_lastname, :p_supermarketid); END;", parameters);
+
+                return parameters.Get<string>("p_validation_result");
             }
         }
 

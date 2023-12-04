@@ -18,54 +18,27 @@
           <table class="w-full text-sm text-left text-gray-300">
             <thead class="text-sm font-semibold text-gray-100 text-start bg-slate-900">
             <tr>
-              <th class="px-4 py-3.5 text-sm font-normal"
-                  scope="col">
-                No.
-              </th>
-              <th class="px-4 py-3.5 text-sm font-normal"
-                  scope="col">
-                Email
-              </th>
-              <th class="px-4 py-3.5 text-sm font-normal"
-                  scope="col">
-                First Name
-              </th>
-              <th class="px-4 py-3.5 text-sm font-normal"
-                  scope="col">
-                Last Name
-              </th>
-              <th class="py-3.5 px-4 text-sm font-normal"
-                  scope="col">
-                Hire Date
-              </th>
-              <th class="py-3.5 px-4 text-sm font-normal"
-                  scope="col">
-                Store Name
-              </th>
-              <th class="py-3.5 px-4 text-sm font-normal"
-                  scope="col">
-                Role
-              </th>
-              <th class="py-3.5 px-4 text-sm font-normal"
-                  scope="col">
-                Superior
-              </th>
-              <th class="py-3.5 px-4 text-sm font-normal"
-                  scope="col">
-                Actions
-              </th>
+              <th class="px-4 py-3.5 text-sm font-normal" scope="col">No.</th>
+              <th class="px-4 py-3.5 text-sm font-normal" scope="col">Email</th>
+              <th class="px-4 py-3.5 text-sm font-normal whitespace-nowrap" scope="col">First Name</th>
+              <th class="px-4 py-3.5 text-sm font-normal whitespace-nowrap" scope="col">Last Name</th>
+              <th class="px-4 py-3.5 text-sm font-normal" scope="col">Hire Date</th>
+              <th class="px-4 py-3.5 text-sm font-normal" scope="col">Store Name</th>
+              <th class="px-2 py-3.5 text-sm font-normal" scope="col">Role</th>
+              <th class="px-4 py-3.5 text-sm font-normal" scope="col">Superior</th>
+              <th class="px-4 py-3.5 text-sm font-normal" scope="col">Actions</th>
             </tr>
             </thead>
             <tbody class="bg-slate-800 divide-y divide-gray-700">
             <tr *ngFor="let employee of employeeList; let i = index">
-              <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ i + 1 }}.</td>
+              <td class="px-4 y-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ i + 1 }}.</td>
               <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ employee.email }}</td>
               <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ employee.firstName }}</td>
               <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ employee.lastName }}</td>
               <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ employee.createdDate | date: 'MM / dd / yyyy'}}</td>
               <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ employee.supermarketName }}</td>
-              <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ employee.roleName }}</td>
-              <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ employee.adminId }}</td>
+              <td class="px-2 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ employee.roleName }}</td>
+              <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ employee.adminName }}</td>
               <td class="px-4 py-4 text-sm whitespace-nowrap">
                 <div class="flex items-center gap-x-6">
                   <button

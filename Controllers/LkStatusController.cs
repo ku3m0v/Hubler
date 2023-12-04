@@ -14,6 +14,17 @@ public class LkStatusController : ControllerBase
     {
         _lkStatusDal = lkStatusDal;
     }
+    
+    [HttpGet("detail/{statusName}")]
+    public ActionResult<LkStatus> Details(string statusName)
+    {
+        var status = _lkStatusDal.GetByName(statusName);
+        if (status == null)
+        {
+            return NotFound();
+        }
+        return Ok(status);
+    }
 
     [HttpGet]
     public ActionResult<IEnumerable<LkStatus>> GetAll()
@@ -26,7 +37,7 @@ public class LkStatusController : ControllerBase
         return Ok(statuses);
     }
 
-    [HttpPost]
+    [HttpPost("insert")]
     public IActionResult Insert([FromBody] LkStatus status)
     {
         if (status == null)
@@ -34,29 +45,20 @@ public class LkStatusController : ControllerBase
             return BadRequest("Status is null.");
         }
         _lkStatusDal.Insert(status);
-        return Ok("Status inserted successfully.");
+        return Ok(new { message = "Status inserted successfully." });
     }
 
-    [HttpPut]
+    [HttpPost("edit")]
     public IActionResult Update([FromBody] LkStatus status)
     {
-        if (status == null)
-        {
-            return BadRequest("Status is null.");
-        }
         _lkStatusDal.Update(status);
-        return Ok("Status updated successfully.");
+        return NoContent();
     }
 
     [HttpDelete]
     public IActionResult Delete(int id)
     {
-        var existingStatus = _lkStatusDal.GetById(id);
-        if (existingStatus == null)
-        {
-            return NotFound($"Status with ID {id} not found.");
-        }
         _lkStatusDal.Delete(id);
-        return Ok("Status deleted successfully.");
+        return Ok(new { message = "Status inserted successfully." });
     }
 }

@@ -54,7 +54,8 @@ public class EmployeeController : ControllerBase
         {
             var supermarket = _supermarketDAL.GetById(employee.SupermarketId);
             var role = _lkRoleDAL.GetById(employee.RoleId);
-
+            var admin = _employeeDAL.GetById(employee.Admin_Id);
+            
             if (supermarket != null && role != null)
             {
                 employeeModels.Add(new EmployeeModel
@@ -68,7 +69,8 @@ public class EmployeeController : ControllerBase
                     SupermarketName = supermarket.Title,
                     // Role fields
                     RoleName = role.RoleName,
-                    AdminId = employee.Admin_Id
+                    AdminId = employee.Admin_Id,
+                    AdminName = admin.FirstName + " " + admin.LastName
                 });
             }
         }
@@ -100,12 +102,17 @@ public class EmployeeController : ControllerBase
             LastName = employeeModel.LastName,
             CreatedDate = DateTime.UtcNow,
             SupermarketId = supermarket.Id,
-            RoleId = role.Id,
-            Admin_Id = employeeModel.AdminId
+            RoleId = role.Id
+            
         };
+        
+        if(employeeModel.AdminId != 0)
+        {
+            employee.Admin_Id = employeeModel.AdminId;
+        }
 
         var result = _employeeDAL.Insert(employee);
-        return Ok(result);
+        return Ok(new { message = "Employee inserted successfully." });
     }
     
     // GET: api/employee/details/{email}
@@ -188,6 +195,7 @@ public class EmployeeController : ControllerBase
         employee.SupermarketId = supermarket.Id;
         employee.RoleId = role.Id;
         employee.Admin_Id = employeeModel.AdminId;
+       
 
         if (employeeModel.Password != null)
         {

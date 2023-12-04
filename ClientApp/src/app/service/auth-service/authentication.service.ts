@@ -58,7 +58,29 @@ export class AuthenticationService {
     return this.http.get<string[]>(`${this.url}api/authentication/titles`);
   }
 
+  public isAdmin(): boolean {
+    return this.getRole() === 'admin';
+  }
 
+  public isManager(): boolean {
+    return this.getRole() === 'manager';
+  }
+
+  public isCashier(): boolean {
+    return this.getRole() === 'cashier';
+  }
+
+  private getRole(): string {
+    let token = localStorage.getItem("jwt");
+    if (token !== null) {
+      let decodedToken = this.jwtHelper.decodeToken(token);
+      let roleKey = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
+      if (decodedToken[roleKey]) {
+        return decodedToken[roleKey];
+      }
+    }
+    return '';
+  }
 }
 
 export interface RegistrationData {

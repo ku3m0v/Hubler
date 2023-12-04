@@ -31,8 +31,11 @@
       <div>
         <div class="lg:max-w-xl p-6 space-y-6 sm:p-8 rounded-lg shadow-xl bg-slate-900">
           <h2 class="text-heading2-semibold text-slate-100">
-            Sign up to Norman.io
+            Sign up to Hubler.io
           </h2>
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
           <form class="space-y-3" [formGroup]="signUpForm" (ngSubmit)="register()" autocomplete="off" novalidate>
             <div class="flex flex-wrap -mx-4">
 
@@ -144,7 +147,7 @@
                 </div>
               </div>
             </div>
-            <button [disabled]="!signUpForm.valid"
+            <button [disabled]="signUpForm.invalid"
                     class="disabled:bg-purple-600/30 disabled:cursor-not-allowed disabled:text-purple-800 w-full bg-purple-main text-white transition-colors duration-200 hover:bg-purple-700 text-base-medium rounded-lg shadow-md py-2 active:bg-purple-800 cursor-pointer"
                     type="submit">
               Sign up

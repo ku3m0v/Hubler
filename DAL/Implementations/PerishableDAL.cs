@@ -3,6 +3,7 @@ using Dapper;
 using Dapper.Oracle;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -15,7 +16,7 @@ public class PerishableDAL : IPerishableDAL
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_productid", productId, OracleMappingType.Int32);
                 parameters.Add("p_expirydate", dbType: OracleMappingType.Date, direction: ParameterDirection.Output);
-                parameters.Add("p_storagetype", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_storagetype", dbType: OracleMappingType.Varchar2, size: 255, direction: ParameterDirection.Output);
 
                 connection.Execute("GET_PERISHABLE_BY_PRODUCTID", parameters, commandType: CommandType.StoredProcedure);
 
@@ -69,10 +70,10 @@ public class PerishableDAL : IPerishableDAL
         {
             using (var connection = DBConnection.GetConnection())
             {
-                using (var multi = connection.QueryMultiple("GET_ALL_PERISHABLES", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<Perishable>();
-                }
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+            
+                return connection.Query<Perishable>("GET_ALL_PERISHABLES", parameters, commandType: CommandType.StoredProcedure);
             }
         }
     }

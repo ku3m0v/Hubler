@@ -9,4 +9,6 @@ public interface IWarehouseDAL
     void Update(Warehouse warehouse);
     void Delete(int id);
     IEnumerable<Warehouse> GetAll();
+    void TransferFromWarehouseToInventory(int productId, int quantity, int supermarketId);
+    string OrderProduct(int supermarketId);
 }

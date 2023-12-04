@@ -25,6 +25,15 @@ import {RoleComponent} from "./employee/role/role.component";
 import {AddRoleComponent} from "./employee/role/add-role/add-role.component";
 import {CashRegisterComponent} from "./cashregister/cashregister.component";
 import {WarehouseComponent} from "./warehouse/warehouse.component";
+import {StatusComponent} from "./cashregister/status/status.component";
+import {AddStatusComponent} from "./cashregister/status/add-status/add-status.component";
+import {AddCashregisterComponent} from "./cashregister/add-cashregister/add-cashregister.component";
+import {LogsComponent} from "./logs/logs.component";
+import {ProductComponent} from "./product/product.component";
+import {PerishableComponent} from "./product/perishable/perishable.component";
+import {NonperishableComponent} from "./product/nonperishable/nonperishable.component";
+import {SettingsComponent} from "./settings/settings.component";
+import {AddProductComponent} from "./product/add-product/add-product.component";
 
 export function tokenGetter() {
     return localStorage.getItem("jwt");
@@ -59,7 +68,16 @@ export function tokenGetter() {
         RoleComponent,
         CashRegisterComponent,
         AddRoleComponent,
-        WarehouseComponent
+        WarehouseComponent,
+        StatusComponent,
+        AddStatusComponent,
+        AddCashregisterComponent,
+        LogsComponent,
+        ProductComponent,
+        PerishableComponent,
+        NonperishableComponent,
+        SettingsComponent,
+        AddProductComponent
     ],
     bootstrap: [AppComponent]
 })

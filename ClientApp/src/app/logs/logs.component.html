@@ -1,0 +1,50 @@
+<section *ngIf="logs.length" class="container mx-auto px-4">
+  <div class="sm:flex sm:items-center sm:justify-between gap-6">
+    <h2 class="text-heading1-semibold font-medium text-gray-50">Logs</h2>
+
+    <div class="flex items-center gap-x-3">
+      <button
+        (click)="downloadLogs()"
+        class="flex flex-row ease-in-out w-1/2 gap-2 px-3 py-1.5 text-sm text-white bg-fuchsia-700 transition-colors duration-200 border-2 border-fuchsia-800/70 rounded-lg sm:w-auto hover:bg-fuchsia-900 active:bg-fuchsia-900/70">
+        .CSV
+        <img src="assets/assets/download-csv.svg" alt="download csv" class="!w-6 !h-6">
+      </button>
+    </div>
+  </div>
+
+  <div class="flex flex-col mt-6">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="overflow-hidden md:rounded-lg shadow-black">
+          <table class="w-full text-sm text-left text-gray-300">
+            <thead class="text-sm font-semibold text-gray-100 text-start bg-slate-900">
+            <tr>
+              <th class="px-4 py-3.5 text-sm font-normal" scope="row">No.</th>
+              <th class="px-8 py-3.5 text-sm font-normal" scope="col">Table</th>
+              <th class="px-8 py-3.5 text-sm font-normal" scope="col">Operation</th>
+              <th class="px-8 py-3.5 text-sm font-normal" scope="col">Time</th>
+              <th class="px-8 py-3.5 text-sm font-normal" scope="col">User</th>
+            </tr>
+            </thead>
+            <tbody class="bg-slate-800 divide-y divide-gray-700">
+            <tr *ngFor="let log of logs; let i = index">
+              <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ i + 1 }}.</td>
+              <td class="px-8 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ log.tabulka }}</td>
+              <td class="px-8 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ log.operace }}</td>
+              <td class="px-8 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ log.cas | date }}</td>
+              <td class="px-8 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ log.uzivatel }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="!logs.length">
+  <app-spinner *ngIf="showSpinner"></app-spinner>
+  <div *ngIf="showMsg" class="flex justify-center items-center h-[calc(100vh-10rem)]">
+    <img src="assets/no-logs.png" alt="No logs available" class="w-2/4 rounded-xl" style="">
+  </div>
+</div>

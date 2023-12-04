@@ -9,4 +9,5 @@ public interface ICashRegisterDAL
     void Update(CashRegister cashRegister);
     void Delete(int id);
     IEnumerable<CashRegister> GetAll();
+    CashRegister GetBySupermarketIdAndRegisterNumber(int supermarketId, int registerNumber);
 }

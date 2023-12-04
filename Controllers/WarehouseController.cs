@@ -33,6 +33,7 @@ public class WarehouseController : ControllerBase
         _employeeDal = employeeDal;
     }
 
+    // GET: api/warehouse/list
     [HttpGet("list"), Authorize]
     public ActionResult<List<WarehouseModel>> GetAll()
     {
@@ -123,165 +124,201 @@ public class WarehouseController : ControllerBase
         }
     }
 
-    [HttpPost("insert")]
-    public void Insert(WarehouseModel warehouseModel)
-    {
-        if (warehouseModel.ProductType == "P")
-        {
-            var product = new Product
-            {
-                Title = warehouseModel.Title,
-                CurrentPrice = warehouseModel.CurrentPrice,
-                ProductType = warehouseModel.ProductType
-            };
-            var productId = _productDal.Insert(product);
-            var perishable = new Perishable
-            {
-                ExpiryDate = warehouseModel.ExpiryDate,
-                StorageType = warehouseModel.StorageType,
-                ProductId = productId
-            };
-            _perishableDal.Insert(perishable);
-            var warehouse = new Warehouse
-            {
-                SupermarketId = _supermarketDal.GetSupermarketByTitle(warehouseModel.SupermarketTitle).Id,
-                ProductId = productId,
-                Quantity = warehouseModel.Quantity
-            };
-            _warehouseDal.Insert(warehouse);
-        }
-        else
-        {
-            var product = new Product
-            {
-                Title = warehouseModel.Title,
-                CurrentPrice = warehouseModel.CurrentPrice,
-                ProductType = warehouseModel.ProductType
-            };
-            var productId = _productDal.Insert(product);
-            var nonPerishable = new NonPerishable
-            {
-                ShelfLife = warehouseModel.ShelfLife,
-                ProductId = productId
-            };
-            _nonPerishableDal.Insert(nonPerishable);
-            var warehouse = new Warehouse
-            {
-                SupermarketId = _supermarketDal.GetSupermarketByTitle(warehouseModel.SupermarketTitle).Id,
-                ProductId = productId,
-                Quantity = warehouseModel.Quantity
-            };
-            _warehouseDal.Insert(warehouse);
-        }
-    }
-
-    [HttpGet("get")]
-    public ActionResult<WarehouseModel> GetById(int id)
-    {
-        var warehouse = _warehouseDal.GetById(id);
-
-        if (warehouse == null)
-        {
-            return NotFound();
-        }
-
-        var supermarket = _supermarketDal.GetById(warehouse.SupermarketId);
-        var product = _productDal.GetById(warehouse.ProductId);
-
-        var warehouseModel = new WarehouseModel
-        {
-            Id = warehouse.Id,
-            SupermarketTitle = supermarket?.Title,
-            ProductId = product?.Id ?? 0,
-            Quantity = warehouse.Quantity,
-            Title = product?.Title,
-            CurrentPrice = product?.CurrentPrice ?? 0,
-            ProductType = product?.ProductType
-        };
-
-        if (product?.ProductType == "P")
-        {
-            var perishable = _perishableDal.GetByProductId(warehouse.ProductId);
-            warehouseModel.ExpiryDate = perishable.ExpiryDate;
-            warehouseModel.StorageType = perishable.StorageType;
-        }
-        else
-        {
-            var nonPerishable = _nonPerishableDal.GetByProductId(warehouse.ProductId);
-            warehouseModel.ShelfLife = nonPerishable.ShelfLife;
-        }
-
-        return Ok(warehouseModel);
-    }
+    // POST: api/warehouse/insert
+    // [HttpPost("insert")]
+    // public void Insert(WarehouseModel warehouseModel)
+    // {
+    //     if (warehouseModel.ProductType == "P")
+    //     {
+    //         var product = new Product
+    //         {
+    //             Title = warehouseModel.Title,
+    //             CurrentPrice = warehouseModel.CurrentPrice,
+    //             ProductType = warehouseModel.ProductType
+    //         };
+    //         var productId = _productDal.Insert(product);
+    //         var perishable = new Perishable
+    //         {
+    //             ExpiryDate = warehouseModel.ExpiryDate,
+    //             StorageType = warehouseModel.StorageType,
+    //             ProductId = productId
+    //         };
+    //         _perishableDal.Insert(perishable);
+    //         var warehouse = new Warehouse
+    //         {
+    //             SupermarketId = _supermarketDal.GetSupermarketByTitle(warehouseModel.SupermarketTitle).Id,
+    //             ProductId = productId,
+    //             Quantity = warehouseModel.Quantity
+    //         };
+    //         _warehouseDal.Insert(warehouse);
+    //     }
+    //     else
+    //     {
+    //         var product = new Product
+    //         {
+    //             Title = warehouseModel.Title,
+    //             CurrentPrice = warehouseModel.CurrentPrice,
+    //             ProductType = warehouseModel.ProductType
+    //         };
+    //         var productId = _productDal.Insert(product);
+    //         var nonPerishable = new NonPerishable
+    //         {
+    //             ShelfLife = warehouseModel.ShelfLife,
+    //             ProductId = productId
+    //         };
+    //         _nonPerishableDal.Insert(nonPerishable);
+    //         var warehouse = new Warehouse
+    //         {
+    //             SupermarketId = _supermarketDal.GetSupermarketByTitle(warehouseModel.SupermarketTitle).Id,
+    //             ProductId = productId,
+    //             Quantity = warehouseModel.Quantity
+    //         };
+    //         _warehouseDal.Insert(warehouse);
+    //     }
+    // }
+    //
+    //
+    // // GET: api/warehouse/get
+    // [HttpGet("get")]
+    // public ActionResult<WarehouseModel> GetById(int id)
+    // {
+    //     var warehouse = _warehouseDal.GetById(id);
+    //
+    //     if (warehouse == null)
+    //     {
+    //         return NotFound();
+    //     }
+    //
+    //     var supermarket = _supermarketDal.GetById(warehouse.SupermarketId);
+    //     var product = _productDal.GetById(warehouse.ProductId);
+    //
+    //     var warehouseModel = new WarehouseModel
+    //     {
+    //         Id = warehouse.Id,
+    //         SupermarketTitle = supermarket?.Title,
+    //         ProductId = product?.Id ?? 0,
+    //         Quantity = warehouse.Quantity,
+    //         Title = product?.Title,
+    //         CurrentPrice = product?.CurrentPrice ?? 0,
+    //         ProductType = product?.ProductType
+    //     };
+    //
+    //     if (product?.ProductType == "P")
+    //     {
+    //         var perishable = _perishableDal.GetByProductId(warehouse.ProductId);
+    //         warehouseModel.ExpiryDate = perishable.ExpiryDate;
+    //         warehouseModel.StorageType = perishable.StorageType;
+    //     }
+    //     else
+    //     {
+    //         var nonPerishable = _nonPerishableDal.GetByProductId(warehouse.ProductId);
+    //         warehouseModel.ShelfLife = nonPerishable.ShelfLife;
+    //     }
+    //
+    //     return Ok(warehouseModel);
+    // }
+    //
+    // // POST: api/warehouse/update
+    // [HttpPost("update")]
+    // public IActionResult Update([FromBody] WarehouseModel model)
+    // {
+    //     var warehouse = _warehouseDal.GetById(model.Id);
+    //     if (warehouse == null)
+    //     {
+    //         return NotFound();
+    //     }
+    //
+    //     var product = _productDal.GetById(warehouse.ProductId);
+    //     if (product == null)
+    //     {
+    //         return NotFound("Product not found.");
+    //     }
+    //
+    //     var updatedProduct = new Product
+    //     {
+    //         Id = product.Id,
+    //         Title = model.Title,
+    //         CurrentPrice = model.CurrentPrice,
+    //         ProductType = model.ProductType
+    //     };
+    //
+    //     _productDal.Update(updatedProduct);
+    //
+    //     if (model.ProductType == "P")
+    //     {
+    //         var perishable = _perishableDal.GetByProductId(warehouse.ProductId);
+    //         if (perishable == null)
+    //         {
+    //             return NotFound("Perishable not found.");
+    //         }
+    //
+    //         var updatedPerishable = new Perishable
+    //         {
+    //             ExpiryDate = model.ExpiryDate,
+    //             StorageType = model.StorageType,
+    //             ProductId = perishable.ProductId
+    //         };
+    //
+    //         _perishableDal.Update(updatedPerishable);
+    //     }
+    //     else
+    //     {
+    //         var nonPerishable = _nonPerishableDal.GetByProductId(warehouse.ProductId);
+    //         if (nonPerishable == null)
+    //         {
+    //             return NotFound("Non perishable not found.");
+    //         }
+    //
+    //         var updatedNonPerishable = new NonPerishable
+    //         {
+    //             ShelfLife = model.ShelfLife,
+    //             ProductId = nonPerishable.ProductId
+    //         };
+    //
+    //         _nonPerishableDal.Update(updatedNonPerishable);
+    //     }
+    //
+    //     warehouse.Quantity = model.Quantity;
+    //     _warehouseDal.Update(warehouse);
+    //
+    //     return Ok();
+    // }
     
-    [HttpPost("update")]
-    public IActionResult Update([FromBody] WarehouseModel model)
-    {
-        var warehouse = _warehouseDal.GetById(model.Id);
-        if (warehouse == null)
-        {
-            return NotFound();
-        }
-
-        var product = _productDal.GetById(warehouse.ProductId);
-        if (product == null)
-        {
-            return NotFound("Product not found.");
-        }
-
-        var updatedProduct = new Product
-        {
-            Id = product.Id,
-            Title = model.Title,
-            CurrentPrice = model.CurrentPrice,
-            ProductType = model.ProductType
-        };
-
-        _productDal.Update(updatedProduct);
-
-        if (model.ProductType == "P")
-        {
-            var perishable = _perishableDal.GetByProductId(warehouse.ProductId);
-            if (perishable == null)
-            {
-                return NotFound("Perishable not found.");
-            }
-
-            var updatedPerishable = new Perishable
-            {
-                ExpiryDate = model.ExpiryDate,
-                StorageType = model.StorageType,
-                ProductId = perishable.ProductId
-            };
-
-            _perishableDal.Update(updatedPerishable);
-        }
-        else
-        {
-            var nonPerishable = _nonPerishableDal.GetByProductId(warehouse.ProductId);
-            if (nonPerishable == null)
-            {
-                return NotFound("Non perishable not found.");
-            }
-
-            var updatedNonPerishable = new NonPerishable
-            {
-                ShelfLife = model.ShelfLife,
-                ProductId = nonPerishable.ProductId
-            };
-
-            _nonPerishableDal.Update(updatedNonPerishable);
-        }
-
-        warehouse.Quantity = model.Quantity;
-        _warehouseDal.Update(warehouse);
-
-        return Ok();
-    }
-    
+    // DELETE: api/warehouse/delete
     [HttpDelete("delete")]
     public void Delete(int id)
     {
         _warehouseDal.Delete(id);
+    }
+    
+    // POST: api/warehouse/transfer_product
+    [HttpPost("transfer_product")]
+    public IActionResult MoveProduct([FromBody] WarehouseModel model)
+    {
+        var supermarket = _supermarketDal.GetSupermarketByTitle(model.SupermarketTitle);
+        if (supermarket == null)
+        {
+            return NotFound("Supermarket not found.");
+        }
+
+        try
+        {
+            _warehouseDal.TransferFromWarehouseToInventory(model.ProductId, model.Quantity, supermarket.Id);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+        
+        return Ok(new { message = "Transfer successful." });
+    }
+    
+    [HttpPost("oreder_products"), Authorize]
+    public ActionResult OrderProducts()
+    {
+        var managerId = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
+        var manager = _employeeDal.GetById(managerId);
+        string msg = _warehouseDal.OrderProduct(manager.SupermarketId);
+        return Ok(new { message = msg });
     }
 }

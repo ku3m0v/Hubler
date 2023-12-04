@@ -1,10 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {AuthenticationService} from "../auth-service/authentication.service";
+import { AuthenticationService } from "../auth-service/authentication.service";
 import configurl from "../../../assets/config/config.json";
-import {catchError} from "rxjs/operators";
-import {SupermarketWithAddress} from "../store-service/store.service";
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,33 +15,61 @@ export class CashRegisterService {
     this.apiUrl = configurl.apiServer.url;
   }
 
-  getAllCashRegisters(): Observable<CashRegisterData[]> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.authService.getToken()}`
-    });
-    return this.http.get<CashRegisterData[]>(`${this.apiUrl}api/cashregister/list`, { headers: headers })
+  getAll(): Observable<CashRegisterData[]> {
+    const headers = this.getAuthorizationHeaders();
+    return this.http.get<CashRegisterData[]>(`${this.apiUrl}api/cashregister/list`, { headers })
       .pipe(catchError(this.errorHandler));
   }
 
-  updateCashRegister(cashRegister: CashRegisterData): Observable<any> {
-    return this.http.put(`${this.apiUrl}api/cashregister`, cashRegister)
-      .pipe(
-        catchError(this.errorHandler)
-      );
+  getById(id: number): Observable<CashRegisterData> {
+    const headers = this.getAuthorizationHeaders();
+    return this.http.get<CashRegisterData>(`${this.apiUrl}api/cashregister/get?id=${id}`, { headers })
+      .pipe(catchError(this.errorHandler));
   }
 
-  deleteCashRegister(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}api/cashregister/?id=${id}`)
-      .pipe(
-        catchError(this.errorHandler)
-      );
+  update(cashRegister: CashRegisterData): Observable<any> {
+    return this.http.post(`${this.apiUrl}api/cashregister/edit`, cashRegister)
+      .pipe(catchError(this.errorHandler));
   }
 
-  insertCashRegister(cashRegister: CashRegisterData): Observable<any> {
+  insert(cashRegister: CashRegisterData): Observable<any> {
     return this.http.post(`${this.apiUrl}api/cashregister/insert`, cashRegister)
-      .pipe(
-        catchError(this.errorHandler)
-      );
+      .pipe(catchError(this.errorHandler));
+  }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}api/cashregister?id=${id}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getStatuses(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}api/cashregister/statuses`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getEmployees(): Observable<Employee[]> {
+    const headers = this.getAuthorizationHeaders();
+    return this.http.get<Employee[]>(`${this.apiUrl}api/cashregister/employees`, { headers })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getEmployeeById(id: number): Observable<Employee> {
+    return this.http.get<Employee>(`${this.apiUrl}api/cashregister/employee?id=${id}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getBySupermarketNameAndRegisterNumber(supermarketName: string, registerNumber: number): Observable<CashRegisterData> {
+    const headers = this.getAuthorizationHeaders();
+    return this.http.get<CashRegisterData>(
+      `${this.apiUrl}api/cashregister/getDetails/${supermarketName}/${registerNumber}`,
+      { headers }
+    ).pipe(catchError(this.errorHandler));
+  }
+
+  private getAuthorizationHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
   }
 
   private errorHandler(error: HttpErrorResponse) {
@@ -53,9 +80,23 @@ export class CashRegisterService {
 }
 
 export interface CashRegisterData {
-  id?: number;
-  supermarketName: string;
-  registerNumber: number;
-  statusName: string;
-  employeeId: number;
+    id: number;
+    supermarketName: string;
+    registerNumber: number;
+    statusName: string;
+    employeeId?: number; // Optional as denoted by the '?' symbol
+    employeeName?: string; // Optional
+}
+
+
+export interface Employee {
+  id: number;
+  email: string;
+  password?: string; // Optional since it's marked with '?' in the backend model
+  firstName: string;
+  lastName: string;
+  createdDate: Date; // or string, depending on how dates are handled in your application
+  supermarketName?: string; // Optional
+  roleName: string;
+  adminId?: number; // Optional
 }

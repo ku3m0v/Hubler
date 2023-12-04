@@ -15,6 +15,7 @@ public class PerishableController : ControllerBase
     private readonly IProductDAL _productDAL;
     private readonly IPerishableDAL _perishableDAL;
     
+    
     public PerishableController(IProductDAL productDAL, IPerishableDAL perishableDAL)
     {
         _productDAL = productDAL;

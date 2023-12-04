@@ -15,9 +15,9 @@ public class ProductDAL : IProductDAL
             {
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_id", id, OracleMappingType.Int32);
-                parameters.Add("p_title", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_title", dbType: OracleMappingType.Varchar2, size: 255, direction: ParameterDirection.Output);
                 parameters.Add("p_currentprice", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
-                parameters.Add("p_producttype", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.Output);
+                parameters.Add("p_producttype", dbType: OracleMappingType.Varchar2, size: 15, direction: ParameterDirection.Output);
 
                 connection.Execute("GET_PRODUCT_BY_ID", parameters, commandType: CommandType.StoredProcedure);
 
@@ -77,10 +77,10 @@ public class ProductDAL : IProductDAL
         {
             using (var connection = DBConnection.GetConnection())
             {
-                using (var multi = connection.QueryMultiple("GET_ALL_PRODUCTS", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<Product>();
-                }
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+            
+                return connection.Query<Product>("GET_ALL_PRODUCTS", parameters, commandType: CommandType.StoredProcedure);
             }
         }
         

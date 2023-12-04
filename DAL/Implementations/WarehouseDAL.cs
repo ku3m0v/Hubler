@@ -3,6 +3,7 @@ using Dapper;
 using Dapper.Oracle;
 using Hubler.DAL.Interfaces;
 using Hubler.DAL.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Hubler.DAL.Implementations;
 
@@ -73,10 +74,38 @@ public class WarehouseDAL : IWarehouseDAL
         {
             using (var connection = DBConnection.GetConnection())
             {
-                using (var multi = connection.QueryMultiple("GET_ALL_WAREHOUSES", commandType: CommandType.StoredProcedure))
-                {
-                    return multi.Read<Warehouse>();
-                }
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+            
+                return connection.Query<Warehouse>("GET_ALL_WAREHOUSES", parameters, commandType: CommandType.StoredProcedure);
             }
         }
+        
+        public void TransferFromWarehouseToInventory(int productId, int quantity, int supermarketId)
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_product_id", productId, OracleMappingType.Int32);
+                parameters.Add("p_quantity", quantity, OracleMappingType.Int32);
+                parameters.Add("p_supermarket_id", supermarketId, OracleMappingType.Int32);
+
+                connection.Execute("TRANSFER_FROM_WAREHOUSE_TO_INVENTORY", parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
+        
+        public string OrderProduct(int supermarketId)
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_supermarketid", supermarketId, OracleMappingType.Int32);
+                parameters.Add("resultMsg", dbType: (OracleMappingType?)OracleDbType.Varchar2, direction: ParameterDirection.ReturnValue, size: 1000);
+
+                connection.Execute("BEGIN :resultMsg := AutoOrderProductsFromWarehouse(:p_supermarketid); END;", parameters);
+
+                return parameters.Get<string>("resultMsg");
+            }
+        }
+
     }

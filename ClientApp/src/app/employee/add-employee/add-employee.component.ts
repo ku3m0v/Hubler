@@ -32,7 +32,7 @@ export class AddEmployeeComponent implements OnInit {
       createdDate: [new Date()], // Default to current date, adjust as necessary
       supermarketName: [''], // Include validation as necessary
       roleName: ['', Validators.required],
-      adminId: [0] // Include validation as necessary
+      adminId: 0 // Include validation as necessary
     });
   }
 

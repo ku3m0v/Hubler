@@ -63,6 +63,12 @@ builder.Services.AddSingleton<IProductOrderDAL, ProductOrderDAL>();
 builder.Services.AddSingleton<ISaleDAL, SaleDAL>();
 builder.Services.AddSingleton<ISaleDetailDAL, SaleDetailDAL>();
 builder.Services.AddSingleton<IWarehouseDAL, WarehouseDAL>();
+builder.Services.AddSingleton<ILogDAL, LogDAL>();
+builder.Services.AddSingleton<IViewDAL<ExpiredInventory>, ExpiredInventoryDAL>();
+builder.Services.AddSingleton<IViewDAL<ExpiredWarehouse>, ExpiredWarehouseDAL>();
+builder.Services.AddSingleton<IViewDAL<Top5ProductsBySupermarket>, Top5ProductsBySupermarketDAL>();
+builder.Services.AddSingleton<IViewDAL<SupermarketSalesSummary>, SupermarketSalesSummaryDAL>();
+builder.Services.AddSingleton<ILkProductDAL, LkProductDAL>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 builder.Services.AddAuthentication(opt =>

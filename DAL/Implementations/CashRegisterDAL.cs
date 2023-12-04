@@ -28,7 +28,7 @@ public class CashRegisterDAL : ICashRegisterDAL
                 SupermarketId = parameters.Get<int>("p_supermarketid"),
                 RegisterNumber = parameters.Get<int>("p_registernumber"),
                 StatusId = parameters.Get<int>("p_statusid"),
-                EmployeeId = parameters.Get<int?>("p_employee_id")
+                Employee_Id = parameters.Get<int?>("p_employee_id")
             };
         }
     }
@@ -41,7 +41,7 @@ public class CashRegisterDAL : ICashRegisterDAL
             parameters.Add("p_supermarketid", cashRegister.SupermarketId, OracleMappingType.Int32);
             parameters.Add("p_registernumber", cashRegister.RegisterNumber, OracleMappingType.Int32);
             parameters.Add("p_statusid", cashRegister.StatusId, OracleMappingType.Int32);
-            parameters.Add("p_employee_id", cashRegister.EmployeeId, OracleMappingType.Int32);
+            parameters.Add("p_employee_id", cashRegister.Employee_Id, OracleMappingType.Int32);
 
             connection.Execute("INSERT_CASHREGISTER", parameters, commandType: CommandType.StoredProcedure);
         }
@@ -56,7 +56,7 @@ public class CashRegisterDAL : ICashRegisterDAL
             parameters.Add("p_supermarketid", cashRegister.SupermarketId, OracleMappingType.Int32);
             parameters.Add("p_registernumber", cashRegister.RegisterNumber, OracleMappingType.Int32);
             parameters.Add("p_statusid", cashRegister.StatusId, OracleMappingType.Int32);
-            parameters.Add("p_employee_id", cashRegister.EmployeeId, OracleMappingType.Int32);
+            parameters.Add("p_employee_id", cashRegister.Employee_Id, OracleMappingType.Int32);
 
             connection.Execute("UPDATE_CASHREGISTER", parameters, commandType: CommandType.StoredProcedure);
         }
@@ -82,6 +82,30 @@ public class CashRegisterDAL : ICashRegisterDAL
             parameters.Add("o_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
             
             return connection.Query<CashRegister>("GET_ALL_CASHREGISTERS", parameters, commandType: CommandType.StoredProcedure);
+        }
+    }
+    
+    public CashRegister GetBySupermarketIdAndRegisterNumber(int supermarketId, int registerNumber)
+    {
+        using (var connection = DBConnection.GetConnection())
+        {
+            var parameters = new OracleDynamicParameters();
+            parameters.Add("p_supermarketid", supermarketId, OracleMappingType.Int32);
+            parameters.Add("p_registernumber", registerNumber, OracleMappingType.Int32);
+            parameters.Add("o_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("o_statusid", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+            parameters.Add("o_employee_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
+            
+            connection.Execute("GET_CASHREGISTER_BY_SUPERMARKET_AND_NUMBER", parameters, commandType: CommandType.StoredProcedure);
+
+            return new CashRegister
+            {
+                Id = parameters.Get<int>("o_id"),
+                SupermarketId = supermarketId,
+                RegisterNumber = registerNumber,
+                StatusId = parameters.Get<int>("o_statusid"),
+                Employee_Id = parameters.Get<int?>("o_employee_id")
+            };
         }
     }
 }

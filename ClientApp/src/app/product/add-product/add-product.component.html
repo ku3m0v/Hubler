@@ -1,0 +1,69 @@
+<div class="relative bg-slate-900 rounded-lg overflow-hidden">
+
+  <div class="absolute inset-0 bg-cover bg-center"
+       style="background-image: url('/assets/copy-employee.png'); filter: blur(0px);"></div>
+
+  <div class="absolute inset-0 bg-slate-900 opacity-50"></div>
+
+  <div class="py-3 px-3 mx-auto max-w-screen-xl grid lg:grid-cols-2 gap-4 lg:gap-16 relative">
+    <div class="flex justify-center mt-6">
+      <h2 class="text-[4rem] font-bold text-gray-50 mb-6"></h2>
+    </div>
+    <div>
+      <div class="lg:max-w-xl px-6 py-3 sm:p-8 rounded-lg shadow-xl bg-slate-900">
+        <form class="space-y-3" [formGroup]="productForm" (ngSubmit)="saveProduct()" novalidate>
+          <div class="grid gap-4 lg:grid-cols-1">
+            <div class="">
+              <label *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched" for="title"
+                     class="block mb-2 text-sm font-medium text-red-600">Product Name</label>
+              <label *ngIf="!productForm.get('title')?.invalid || !productForm.get('title')?.touched" for="title"
+                     class="block mb-2 text-sm font-medium text-gray-300">Product Name</label>
+              <input type="text"
+                     id="title"
+                     formControlName="title"
+                     placeholder="e.g. Oranges"
+                     [class]="productForm.get('title')?.invalid && productForm.get('title')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                Product name is required.
+              </div>
+            </div>
+          </div>
+          <div class="grid gap-4 lg:grid-cols-1">
+            <div class="">
+              <label *ngIf="productForm.get('currentPrice')?.invalid && productForm.get('currentPrice')?.touched" for="currentPrice"
+                     class="block mb-2 text-sm font-medium text-red-600">Price</label>
+              <label *ngIf="!productForm.get('currentPrice')?.invalid || !productForm.get('currentPrice')?.touched" for="currentPrice"
+                     class="block mb-2 text-sm font-medium text-gray-300">Price</label>
+              <input type="number"
+                     id="currentPrice"
+                     formControlName="currentPrice"
+                     placeholder="e.g. 12"
+                     [class]="productForm.get('currentPrice')?.invalid && productForm.get('currentPrice')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                     required>
+              <div *ngIf="productForm.get('currentPrice')?.invalid && productForm.get('currentPrice')?.touched"
+                   class="mt-2 text-sm text-red-600 dark:text-red-500">
+                Price is required.
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-row gap-3 pt-3" >
+            <button type="submit"
+                    [disabled]="!productForm.valid"
+                    [class]="!productForm.valid ?
+                    'disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer' :
+                    'text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer'">
+              {{ title }}
+            </button>
+            <button type="button"
+                    class="text-gray-50 bg-red-600 transition-colors hover:bg-red-700 active:bg-red-800  font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer"
+                    (click)="cancel()">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
