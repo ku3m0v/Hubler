@@ -9,4 +9,5 @@ public interface IInventoryDAL
     void Update(Inventory inventory);
     void Delete(int id);
     IEnumerable<Inventory> GetAll();
+    string OrderProduct(int supermarketId);
 }

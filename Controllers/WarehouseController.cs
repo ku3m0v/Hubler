@@ -312,4 +312,13 @@ public class WarehouseController : ControllerBase
         
         return Ok(new { message = "Transfer successful." });
     }
+    
+    [HttpPost("oreder_products"), Authorize]
+    public ActionResult OrderProducts()
+    {
+        var managerId = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
+        var manager = _employeeDal.GetById(managerId);
+        string msg = _warehouseDal.OrderProduct(manager.SupermarketId);
+        return Ok(new { message = msg });
+    }
 }

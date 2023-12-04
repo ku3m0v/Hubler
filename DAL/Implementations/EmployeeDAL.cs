@@ -145,5 +145,23 @@ public class EmployeeDAL : IEmployeeDAL
                 };
             }
         }
+        
+        public string ValidateRegistration(Employee employee)
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_email", employee.Email, OracleMappingType.Varchar2);
+                parameters.Add("p_passhash", employee.PassHash, OracleMappingType.Varchar2);
+                parameters.Add("p_firstname", employee.FirstName, OracleMappingType.Varchar2);
+                parameters.Add("p_lastname", employee.LastName, OracleMappingType.Varchar2);
+                parameters.Add("p_supermarketid", employee.SupermarketId, OracleMappingType.Int32);
+                parameters.Add("p_validation_result", dbType: OracleMappingType.Varchar2, direction: ParameterDirection.ReturnValue, size: 100);
+
+                connection.Execute("BEGIN :p_validation_result := VALIDATE_REGISTRATION(:p_email, :p_passhash, :p_firstname, :p_lastname, :p_supermarketid); END;", parameters);
+
+                return parameters.Get<string>("p_validation_result");
+            }
+        }
 
     }

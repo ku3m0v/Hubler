@@ -93,4 +93,19 @@ public class WarehouseDAL : IWarehouseDAL
                 connection.Execute("TRANSFER_FROM_WAREHOUSE_TO_INVENTORY", parameters, commandType: CommandType.StoredProcedure);
             }
         }
+        
+        public string OrderProduct(int supermarketId)
+        {
+            using (var connection = DBConnection.GetConnection())
+            {
+                var parameters = new OracleDynamicParameters();
+                parameters.Add("p_supermarketid", supermarketId, OracleMappingType.Int32);
+                parameters.Add("resultMsg", dbType: (OracleMappingType?)OracleDbType.Varchar2, direction: ParameterDirection.ReturnValue, size: 1000);
+
+                connection.Execute("BEGIN :resultMsg := AutoOrderProductsFromWarehouse(:p_supermarketid); END;", parameters);
+
+                return parameters.Get<string>("resultMsg");
+            }
+        }
+
     }

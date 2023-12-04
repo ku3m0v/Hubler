@@ -10,5 +10,6 @@ public interface IEmployeeDAL
     void Delete(int? id);
     IEnumerable<Employee> GetAll();
     Employee GetByEmail(string email);
+    string ValidateRegistration(Employee employee);
 
 }
