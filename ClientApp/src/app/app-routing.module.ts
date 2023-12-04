@@ -26,6 +26,7 @@ import {ProductComponent} from "./product/product.component";
 import {PerishableComponent} from "./product/perishable/perishable.component";
 import {NonperishableComponent} from "./product/nonperishable/nonperishable.component";
 import {SettingsComponent} from "./settings/settings.component";
+import {AddProductComponent} from "./product/add-product/add-product.component";
 
 
 const routes: Routes = [
@@ -62,6 +63,8 @@ const routes: Routes = [
     {path: 'perishable', component: PerishableComponent, canActivate: [AuthGuard]},
     {path: 'nonperishable', component: NonperishableComponent, canActivate: [AuthGuard]},
     {path: 'products', component: ProductComponent, canActivate: [AuthGuard]},
+    {path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard]},
+    {path: 'edit-product/:title', component: AddProductComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

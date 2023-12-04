@@ -1,6 +1,13 @@
 <section class="container mx-auto px-4">
   <div class="sm:flex sm:items-center sm:justify-between">
     <h2 class="text-heading1-semibold font-medium text-gray-50">Products</h2>
+    <div class="flex items-center mt-4 gap-x-3">
+      <button
+        [routerLink]="['/add-product']"
+        class="w-1/2 px-5 py-1.5 text-sm text-white bg-fuchsia-700 transition-colors duration-200 border-2 border-fuchsia-800/70 rounded-lg sm:w-auto hover:bg-fuchsia-900 active:bg-fuchsia-900/70">
+        Add Product
+      </button>
+    </div>
   </div>
 
   <div class="flex flex-col mt-6">
