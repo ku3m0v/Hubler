@@ -47,6 +47,7 @@
       <Folder Include="ClientApp\src\app\service\role-service\" />
       <Folder Include="ClientApp\src\app\service\status-service\" />
       <Folder Include="ClientApp\src\app\service\store-service\" />
+      <Folder Include="ClientApp\src\app\service\view-service\" />
       <Folder Include="ClientApp\src\app\service\warehouse-service\" />
     </ItemGroup>
 

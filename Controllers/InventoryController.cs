@@ -286,7 +286,7 @@ public class InventoryController : ControllerBase
         _inventoryDal.Delete(id);
     }
     
-    [HttpPost("oreder_products"), Authorize]
+    [HttpPost("order_products"), Authorize]
     public ActionResult OrderProducts()
     {
         var managerId = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
