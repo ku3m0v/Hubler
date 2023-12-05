@@ -1,21 +1,57 @@
 <div>
   <div class="flex flex-row gap-3 items-center justify-content-center">
-    <div class="h-full">
-      <div class="h-[35em] w-[24rem] bg-gray-900 rounded-lg shadow p-4">
-        <div class="flex justify-between">
-          <div>
-            <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Sales</h5>
-          </div>
-          <div class="flex items-center">
-            <button class="p-2.5 text-4xl font-semibold bg-purple-950 rounded-lg text-gray-200">.CSV</button>
-          </div>
-        </div>
-        <div id="data-series-chart"></div>
-      </div>
-    </div>
+<!--    <div class="h-full">-->
+<!--      <div class="h-[35em] w-[24rem] bg-gray-900 rounded-lg shadow p-4">-->
+<!--        <div class="flex justify-between">-->
+<!--          <div>-->
+<!--            <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Sales</h5>-->
+<!--          </div>-->
+<!--          <div class="flex items-center">-->
+<!--            <button class="p-2.5 text-4xl font-semibold bg-purple-950 rounded-lg text-gray-200"></button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div id="data-series-chart"></div>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <div class="h-full">
-      <div class="h-[35em] w-[28rem] relative overflow-x-auto shadow-md md:rounded-lg">
+    <div class="h-[35em] w-full relative overflow-x-auto shadow-md md:rounded-lg">
+      <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
+        <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Sales</h5>
+      </div>
+      <table class="w-full text-sm text-left bg-gray-900 text-gray-400">
+        <thead class="text-xs text-gray-300 uppercase text-center">
+        <tr>
+          <th class="px-6 py-3" scope="col">
+            Store
+          </th>
+          <th class="px-10 py-3 whitespace-nowrap" scope="col">
+            Total Sales
+          </th>
+          <th class="px-6 py-3" scope="col">
+            Date
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of salesSummaries"
+            class="bg-gray-800 border-b border-gray-800 text-center">
+          <td class="px-4 py-4 font-semibold text-gray-400">
+            {{ product.title }}
+          </td>
+          <td class="px-4 py-4 font-semibold text-gray-400">
+            {{ product.totalSales }}
+          </td>
+          <td class="px-4 py-4 font-semibold text-gray-400 whitespace-nowrap">
+            {{ product.month }} / {{product.year}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+    <div class="h-full">
+      <div class="h-[35em] w-full relative overflow-x-auto shadow-md md:rounded-lg">
         <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
           <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Top Products</h5>
         </div>
@@ -25,26 +61,25 @@
             <th class="px-6 py-3" scope="col">
               Product
             </th>
-            <th class="px-10 py-3" scope="col">
-              Date
+            <th class="px-10 py-3 whitespace-nowrap" scope="col">
+              Sold Quantity
             </th>
             <th class="px-6 py-3" scope="col">
+              Store
             </th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let product of expiredProducts"
+          <tr *ngFor="let product of top5Products"
               class="bg-gray-800 border-b border-gray-800 text-center">
-            <td class="px-4 py-4">
-              <div class="flex items-center">
-                <img [alt]="product.title" [src]="product.imageUrl" class="w-16 mr-4 rounded-lg">
-                <span class="text-start font-semibold text-gray-400">
-                {{ product.title }}
-              </span>
-              </div>
+            <td class="px-4 py-4 font-semibold text-gray-400">
+              {{ product.productName }}
             </td>
             <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.date }}
+              {{ product.totalQuantitySold }}
+            </td>
+            <td class="px-4 py-4 font-semibold text-gray-400">
+              {{ product.supermarketName }}
             </td>
           </tr>
           </tbody>
@@ -54,7 +89,7 @@
     <div class="h-full">
       <div class="h-[35em] w-[28rem] relative overflow-x-auto shadow-md md:rounded-lg">
         <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
-          <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Expired Products</h5>
+          <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Expired Products: Inventory</h5>
         </div>
         <table class="w-full text-sm text-left bg-gray-900 text-gray-400">
           <thead class="text-xs text-gray-300 uppercase text-center">
@@ -66,49 +101,57 @@
               Date
             </th>
             <th class="px-6 py-3" scope="col">
+              Store
             </th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let product of expiredProducts"
+          <tr *ngFor="let product of expiredInventories"
               class="bg-gray-800 border-b border-gray-800 text-center">
-            <td class="px-4 py-4">
-              <div class="flex items-center">
-                <img [alt]="product.title" [src]="product.imageUrl" class="w-16 mr-4 rounded-lg">
-                <span class="text-start font-semibold text-gray-400">
-                {{ product.title }}
-              </span>
-              </div>
+            <td class="px-4 py-4 font-semibold text-gray-400">
+              {{ product.productTitle }}
             </td>
             <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.date }}
+              {{ product.expiryDate | date : 'MM/dd/yyyy' }}
             </td>
-            <td class="pr-8 py-4">
-              <button
-                class="cursor-pointer"
-                data-dropdown-placement="left"
-                data-dropdown-toggle="actionsDropdown"
-                id="actions"
-                type="button">
-                <img alt="actions" src="/assets/assets/more.svg" width="34"/>
-              </button>
-              <div class="z-10 text-center hidden divide-y divide-gray-100 rounded-lg shadow w-40 bg-gray-900"
-                   id="actionsDropdown">
-                <ul aria-labelledby="dropdownDefaultButton" class="py-2 text-sm text-gray-200">
-                  <li>
-                    <a
-                      class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">
-                      Ignore
-                    </a>
-                  </li>
-                  <li>
-                    <a [routerLink]="['/product-details', product.id]"
-                       class="block px-4 py-2 hover:bg-gray-600 hover:text-gray-100 cursor-pointer">
-                      View details
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            <td class="px-4 py-4 font-semibold text-gray-400">
+              {{ product.supermarketTitle }}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="h-full">
+      <div class="h-[35em] w-[28rem] relative overflow-x-auto shadow-md md:rounded-lg">
+        <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
+          <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Expired Products: Warehouse</h5>
+        </div>
+        <table class="w-full text-sm text-left bg-gray-900 text-gray-400">
+          <thead class="text-xs text-gray-300 uppercase text-center">
+          <tr>
+            <th class="px-6 py-3" scope="col">
+              Product
+            </th>
+            <th class="px-10 py-3" scope="col">
+              Date
+            </th>
+            <th class="px-10 py-3" scope="col">
+              Store
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let product of expiredWarehouses"
+              class="bg-gray-800 border-b border-gray-800 text-center">
+            <td class="px-4 py-4 font-semibold text-gray-400">
+              {{ product.productTitle }}
+            </td>
+            <td class="px-4 py-4 font-semibold text-gray-400">
+              {{ product.expiryDate | date: 'MM/dd/yyyy' }}
+            </td>
+            <td class="px-4 py-4 font-semibold text-gray-400">
+              {{ product.supermarketTitle }}
             </td>
           </tr>
           </tbody>
