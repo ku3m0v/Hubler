@@ -36,7 +36,7 @@ export interface SupermarketSalesSummary {
   title: string;
   month: number;
   year: number;
-  totalSales: number;
+  total_Sales: number;
 }
 
 @Injectable({

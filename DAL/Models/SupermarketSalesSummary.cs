@@ -6,5 +6,5 @@ public class SupermarketSalesSummary
     public string Title { get; set; }
     public int Month { get; set; }
     public int Year { get; set; }
-    public int TotalSales { get; set; }
+    public int Total_Sales { get; set; }
 }
