@@ -1,32 +1,36 @@
 <div class="px-16 grid md:grid-cols-4 grid-rows-2 xs:grid-cols-1 gap-4">
-  <div class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4 bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20">
+  <div [routerLink]="['/statuses']"
+    class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
+    bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
     <img src="assets/assets/flag.svg" height="32" width="32" alt="Statuses"/>
     <button
-      [routerLink]="['/statuses']"
       class="flex items-center leading-none z-2">
       Statuses
     </button>
   </div>
-  <div class="flex flex-row justify-evenly gap-1.5 text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4 bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20">
+  <div [routerLink]="['/cashregisters']"
+    class="flex flex-row justify-evenly gap-1.5 text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg
+    py-3 px-4 bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
     <img src="assets/assets/check.svg" height="32" width="32" alt="Cash Registers"/>
     <button
-      [routerLink]="['/cashregisters']"
       class="flex items-center leading-none z-2">
       Cash Registers
     </button>
   </div>
-  <div class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4 bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20">
+  <div [routerLink]="['/roles']"
+    class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
+    bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
     <img src="assets/assets/role.svg" height="32" width="32" alt="Roles"/>
     <button
-      [routerLink]="['/roles']"
       class="flex items-center leading-none z-2">
       Roles
     </button>
   </div>
-  <div class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4 bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20">
+  <div [routerLink]="['/logs']"
+    class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
+    bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
     <img src="assets/assets/logs.svg" height="32" width="32" alt="Roles"/>
     <button
-      [routerLink]="['/logs']"
       class="flex items-center leading-none z-2">
       Logs
     </button>
