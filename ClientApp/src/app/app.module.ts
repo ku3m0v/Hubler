@@ -34,6 +34,8 @@ import {PerishableComponent} from "./product/perishable/perishable.component";
 import {NonperishableComponent} from "./product/nonperishable/nonperishable.component";
 import {SettingsComponent} from "./settings/settings.component";
 import {AddProductComponent} from "./product/add-product/add-product.component";
+import {OrderComponent} from "./product/order/order/order.component";
+import {AddOrderComponent} from "./product/order/add-order/add-order.component";
 
 export function tokenGetter() {
     return localStorage.getItem("jwt");
@@ -77,7 +79,9 @@ export function tokenGetter() {
         PerishableComponent,
         NonperishableComponent,
         SettingsComponent,
-        AddProductComponent
+        AddProductComponent,
+        OrderComponent,
+        AddOrderComponent
     ],
     bootstrap: [AppComponent]
 })
