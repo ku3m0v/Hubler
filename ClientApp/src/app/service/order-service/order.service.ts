@@ -24,7 +24,7 @@ export class OrderService {
   }
 
   deleteOrder(id: number): Observable<any> {
-    return this.http.delete(`${this.myAppUrl}api/product_order/delete`, { headers: this.createHeaders() })
+    return this.http.delete(`${this.myAppUrl}api/product_order/delete/${id}`, {headers: this.createHeaders()})
       .pipe(catchError(this.errorHandler));
   }
 
@@ -46,7 +46,7 @@ export class OrderService {
 }
 
 export interface ProductOrderModel {
-  id: number;
+  id?: number;
   supermarketName: string;
   productName: string;
   expireDate: Date;

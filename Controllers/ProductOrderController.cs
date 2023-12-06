@@ -190,7 +190,7 @@ public class ProductOrderController : ControllerBase
         }
     }
     
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public void Delete(int id)
     {
         _productOrderDAL.Delete(id);
@@ -206,4 +206,6 @@ public class ProductOrderController : ControllerBase
         }
         return Ok(products);
     }
+    
+    
 }

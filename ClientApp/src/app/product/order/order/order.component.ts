@@ -30,10 +30,10 @@ export class OrderComponent implements OnInit {
     );
   }
 
-  delete(id: number): void {
+  delete(order: ProductOrderModel): void {
     const confirmation = confirm('Are you sure you want to delete this order?');
     if (confirmation) {
-      this.productOrderService.deleteOrder(id).subscribe(
+      this.productOrderService.deleteOrder(order.id!).subscribe(
         () => {
           this.loadProductOrders();
         },
