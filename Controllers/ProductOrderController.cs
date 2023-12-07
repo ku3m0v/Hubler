@@ -207,5 +207,10 @@ public class ProductOrderController : ControllerBase
         return Ok(products);
     }
     
-    
+    [HttpGet("titles")]
+    public IActionResult GetSupermarketTitles()
+    {
+        var result = _supermarketDAL.GetAllTitles();
+        return Ok(result);
+    }
 }

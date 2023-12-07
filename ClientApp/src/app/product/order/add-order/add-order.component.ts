@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ProductService, LkProduct } from "../../../service/product-service/product.service";
-import { OrderService, ProductOrderModel } from "../../../service/order-service/order.service";
-import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import {LkProduct} from "../../../service/product-service/product.service";
+import {OrderService, ProductOrderModel} from "../../../service/order-service/order.service";
 
 @Component({
   selector: 'app-add-order',
@@ -11,80 +11,54 @@ import { Router } from "@angular/router";
 })
 export class AddOrderComponent implements OnInit {
   orderForm: FormGroup;
+  productTypes: string[] = ['perishable', 'nonperishable'];
   products: LkProduct[] = [];
-  selectedProductType: string | null = null;
+  supermarketTitles: string[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private productService: ProductService,
-    private productOrderService: OrderService,
+    private orderService: OrderService,
     private router: Router
   ) {
     this.orderForm = this.fb.group({
+      supermarketName: ['', Validators.required],
       productName: ['', Validators.required],
-      quantity: [0, [Validators.required, Validators.min(1)]],
-      orderDate: [new Date(), Validators.required],
-      expireDate: [''],
-      storageType: [''],
-      shelfLife: [0]
+      expireDate: ['', Validators.required],
+      storageType:  [''],
+      shelfLife: [1],
+      quantity: [1, [Validators.required, Validators.min(1)]],
+      orderDate: ['', Validators.required],
+      productType: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
     this.loadProducts();
+    this.loadSupermarketTitles();
   }
 
-  loadProducts(): void {
-    this.productService.getAll().subscribe(
-      data => this.products = data,
-      error => console.error(error)
-    );
+  loadProducts() {
+    this.orderService.getProducts().subscribe(data => {
+      this.products = data;
+    }, error => console.error(error));
   }
 
-  onProductChange(productName: string): void {
-    this.selectedProductType = this.determineProductType(productName);
-    this.updateFormValidators();
-  }
-
-  determineProductType(productName: string): string {
-    // Placeholder logic to determine product type
-    if (productName.toLowerCase().includes("perishable")) {
-      return 'perishable';
-    }
-    return 'nonperishable';
-  }
-
-  updateFormValidators(): void {
-    if (this.selectedProductType === 'perishable') {
-      this.orderForm.get('expireDate')?.setValidators([Validators.required]);
-      this.orderForm.get('storageType')?.setValidators([Validators.required]);
-      this.orderForm.get('shelfLife')?.clearValidators();
-    } else {
-      this.orderForm.get('shelfLife')?.setValidators([Validators.required]);
-      this.orderForm.get('expireDate')?.clearValidators();
-      this.orderForm.get('storageType')?.clearValidators();
-    }
-
-    this.orderForm.get('expireDate')?.updateValueAndValidity();
-    this.orderForm.get('storageType')?.updateValueAndValidity();
-    this.orderForm.get('shelfLife')?.updateValueAndValidity();
+  loadSupermarketTitles() {
+    this.orderService.getSupermarketTitles().subscribe(data => {
+      this.supermarketTitles = data;
+    }, error => console.error(error));
   }
 
   saveOrder(): void {
     if (this.orderForm.invalid) {
-      console.log('Form is invalid');
       return;
     }
 
-    const orderData: ProductOrderModel = {
-      ...this.orderForm.value,
-      productType: this.selectedProductType
-    };
-    this.productOrderService.insertOrder(orderData, this.selectedProductType)
-      .subscribe({
-        next: () => this.router.navigate(['/orders']),
-        error: (err) => console.error('Error saving order:', err)
-      });
+    const orderData: ProductOrderModel = this.orderForm.value;
+    this.orderService.insertOrder(orderData, orderData.productType).subscribe(
+      () => this.router.navigate(['/orders']),
+      (error: any) => console.error(error)
+    );
   }
 
   cancel(): void {
