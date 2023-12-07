@@ -46,7 +46,7 @@ public class ProductOrderController : ControllerBase
         var productOrders = _productOrderDAL.GetAll();
         var productOrderModels = new List<ProductOrderModel>();
 
-        int id = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
+        var id = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
         var role = User.FindFirst(ClaimTypes.Role)?.Value;
 
         if (role == "admin")
@@ -70,7 +70,8 @@ public class ProductOrderController : ControllerBase
         }
         else if (role == "manager")
         {
-            var managerSupermarket = _supermarketDAL.GetById(id);
+            var manager = _employeeDAL.GetById(id);
+            var managerSupermarket = _supermarketDAL.GetById(manager.SupermarketId);
             foreach (var productOrder in productOrders)
             {
                 var product = _lkProductDAL.GetById(productOrder.ProductId);
@@ -99,9 +100,7 @@ public class ProductOrderController : ControllerBase
     [HttpPost("insert/{type}"), Authorize]
     public void Post([FromBody] ProductOrderModel model, string type)
     {
-        var userId = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
-        var employee = _employeeDAL.GetById(userId);
-        var managerSupermarket = _supermarketDAL.GetById(employee.SupermarketId);
+        var supermarket = _supermarketDAL.GetSupermarketByTitle(model.SupermarketName);
         if(type == "perishable")
         {
             
@@ -109,7 +108,7 @@ public class ProductOrderController : ControllerBase
             
             var newProductOrder = new ProductOrder
             {
-                SupermarketId = managerSupermarket.Id,
+                SupermarketId = supermarket.Id,
                 ProductId = product.Lk_Product_Id,
                 OrderedQuantity = model.Quantity,
                 OrderDate = DateTime.UtcNow
@@ -117,11 +116,10 @@ public class ProductOrderController : ControllerBase
             
             _productOrderDAL.Insert(newProductOrder);
             
-            var newProduct = new Product
+            var newProduct = new ProductNew
             {
-                Title = product.Title,
-                CurrentPrice = product.CurrentPrice,
-                ProductType = "P"
+                ProductType = "P",
+                LkProduct_Id = product.Lk_Product_Id
             };
             
             var productId = _productDAL.Insert(newProduct);
@@ -129,7 +127,7 @@ public class ProductOrderController : ControllerBase
             var newPerishableProduct = new Perishable
             {
                 ProductId = productId,
-                ExpiryDate = model.ExpireDate,
+                ExpiryDate = model.ExpireDate ?? DateTime.MinValue,
                 StorageType = model.StorageType
             };
             
@@ -137,7 +135,7 @@ public class ProductOrderController : ControllerBase
             
             var newWarehouse = new Warehouse
             {
-                SupermarketId = managerSupermarket.Id,
+                SupermarketId = supermarket.Id,
                 ProductId = productId,
                 Quantity = model.Quantity
             };
@@ -150,7 +148,7 @@ public class ProductOrderController : ControllerBase
             
             var newProductOrder = new ProductOrder
             {
-                SupermarketId = managerSupermarket.Id,
+                SupermarketId = supermarket.Id,
                 ProductId = product.Lk_Product_Id,
                 OrderedQuantity = model.Quantity,
                 OrderDate = DateTime.UtcNow
@@ -158,11 +156,10 @@ public class ProductOrderController : ControllerBase
             
             _productOrderDAL.Insert(newProductOrder);
             
-            var newProduct = new Product
+            var newProduct = new ProductNew
             {
-                Title = product.Title,
-                CurrentPrice = product.CurrentPrice,
-                ProductType = "N"
+                ProductType = "N",
+                LkProduct_Id = product.Lk_Product_Id
             };
             
             var productId = _productDAL.Insert(newProduct);
@@ -170,14 +167,14 @@ public class ProductOrderController : ControllerBase
             var newNonPerishableProduct = new NonPerishable
             {
                 ProductId = productId,
-                ShelfLife = model.ShelfLife
+                ShelfLife = model.ShelfLife ?? 0
             };
             
             _nonPerishableDAL.Insert(newNonPerishableProduct);
             
             var newWarehouse = new Warehouse
             {
-                SupermarketId = managerSupermarket.Id,
+                SupermarketId = supermarket.Id,
                 ProductId = productId,
                 Quantity = model.Quantity
             };
@@ -190,7 +187,7 @@ public class ProductOrderController : ControllerBase
         }
     }
     
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public void Delete(int id)
     {
         _productOrderDAL.Delete(id);
@@ -205,5 +202,30 @@ public class ProductOrderController : ControllerBase
             return NotFound();
         }
         return Ok(products);
+    }
+    
+    [HttpGet("titles"), Authorize]
+    public IActionResult GetSupermarketTitles()
+    {
+        var id = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
+        var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+        
+        var supermarketTitles = _supermarketDAL.GetAllTitles();
+
+
+        switch (role)
+        {
+            case "admin":
+                return Ok(supermarketTitles);
+            case "manager":
+            {
+                var manager = _employeeDAL.GetById(id);
+                var supermarket = _supermarketDAL.GetById(manager.SupermarketId);
+                supermarketTitles = supermarketTitles.Where(i => i == supermarket.Title);
+                return Ok(supermarketTitles);
+            }
+            default:
+                return BadRequest("You don't have permission to view this page.");
+        }
     }
 }

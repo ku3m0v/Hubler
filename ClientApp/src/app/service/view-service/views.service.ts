@@ -6,29 +6,29 @@ import configurl from "../../../assets/config/config.json";
 import {catchError} from "rxjs/operators";
 
 export interface ExpiredInventory {
-  inventoryId: number;
+  inventory_Id: number;
   productId: number;
-  productTitle: string;
+  product_Title: string;
   quantity: number;
   supermarketId: number;
-  supermarketTitle: string;
+  supermarket_Title: string;
   expiryDate: Date;
 }
 
 export interface ExpiredWarehouse {
-  warehouseId: number;
+  warehouse_Id: number;
   productId: number;
-  productTitle: string;
+  product_Title: string;
   quantity: number;
   supermarketId: number;
-  supermarketTitle: string;
+  supermarket_Title: string;
   expiryDate: Date;
 }
 
 export interface Top5ProductsBySupermarket {
-  supermarketName: string;
-  productName: string;
-  totalQuantitySold: number;
+  supermarket_Name: string;
+  product_Name: string;
+  total_Quantity_Sold: number;
 }
 
 export interface SupermarketSalesSummary {
@@ -36,7 +36,7 @@ export interface SupermarketSalesSummary {
   title: string;
   month: number;
   year: number;
-  totalSales: number;
+  total_Sales: number;
 }
 
 @Injectable({

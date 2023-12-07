@@ -31,13 +31,13 @@ public class ProductDAL : IProductDAL
             }
         }
 
-        public int Insert(Product item)
+        public int Insert(ProductNew item)
         {
             using (var connection = DBConnection.GetConnection())
             {
                 var parameters = new OracleDynamicParameters();
-                parameters.Add("p_title", item.Title, OracleMappingType.Varchar2);
-                parameters.Add("p_currentprice", item.CurrentPrice, OracleMappingType.Int32);
+        
+                parameters.Add("p_lkproduct_id", item.LkProduct_Id, OracleMappingType.Int32);
                 parameters.Add("p_producttype", item.ProductType, OracleMappingType.Varchar2);
                 parameters.Add("p_id", dbType: OracleMappingType.Int32, direction: ParameterDirection.Output);
 
@@ -46,6 +46,7 @@ public class ProductDAL : IProductDAL
                 return parameters.Get<int>("p_id");
             }
         }
+
 
 
         public void Update(Product item)
@@ -84,16 +85,17 @@ public class ProductDAL : IProductDAL
             }
         }
         
-        public IEnumerable<Product> GetProductsBySupermarket(int supermarketId)
+        public IEnumerable<ProductInInventory> GetProductsBySupermarket(int supermarketId)
         {
             using (var connection = DBConnection.GetConnection())
             {
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_supermarket_id", supermarketId, OracleMappingType.Int32);
-                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+                parameters.Add("p_recordset", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
 
-                var result = connection.Query<Product>("GET_PRODUCTS_BY_SUPERMARKET", parameters, commandType: CommandType.StoredProcedure);
+                var result = connection.Query<ProductInInventory>("GET_PRODUCT_TITLES_BY_SUPERMARKET_ID", parameters, commandType: CommandType.StoredProcedure);
                 return result;
             }
         }
+
     }

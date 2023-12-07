@@ -18,22 +18,25 @@ public class SaleController : ControllerBase
     private readonly IProductDAL _productDal;
     private readonly ISupermarketDAL _supermarketDal;
     private readonly IEmployeeDAL _employeeDal;
+    private readonly ILkProductDAL _lkProductDal;
 
     public SaleController(ISaleDAL saleDal,
         ISaleDetailDAL saleDetailDal,
         IProductDAL productDal,
         ISupermarketDAL supermarketDal,
-        IEmployeeDAL employeeDal)
+        IEmployeeDAL employeeDal,
+        ILkProductDAL lkpProductDal)
     {
         _saleDal = saleDal;
         _saleDetailDal = saleDetailDal;
         _productDal = productDal;
         _supermarketDal = supermarketDal;
         _employeeDal = employeeDal;
+        _lkProductDal = lkpProductDal;
     }
     
-    [HttpGet("list"), Authorize]
-    public ActionResult<List<SaleModel>> GetAll()
+    [HttpGet("list/{supermarketTitle}"), Authorize]
+    public ActionResult<List<SaleModel>> GetAll(string supermarketTitle)
     {
         var sales = _saleDal.GetAll();
         var saleDetails = _saleDetailDal.GetAll();
@@ -64,6 +67,7 @@ public class SaleController : ControllerBase
                 }
                 
             }
+            saleModels = saleModels.Where(s => s.SupermarketName == supermarketTitle).ToList();
         }
         else if(role == "manager")
         {
@@ -97,16 +101,16 @@ public class SaleController : ControllerBase
         return Ok(saleModels);
     }
     
-    [HttpPost("insert"), Authorize]
+    [HttpPost("insert")]
     public ActionResult Insert(SaleModel saleModel)
     {
-        var managerId = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
-        var manager = _employeeDal.GetById(managerId);
+        var supermarket = _supermarketDal.GetSupermarketByTitle(saleModel.SupermarketName);
+        var product = _lkProductDal.GetById(saleModel.ProductId);
         
         var sale = new Sale
         {
-            SupermarketId = manager.SupermarketId,
-            DateAndTime = saleModel.SaleDate
+            SupermarketId = supermarket.Id,
+            DateAndTime = DateTime.UtcNow
         };
         var saleId = _saleDal.Insert(sale);
         
@@ -115,14 +119,14 @@ public class SaleController : ControllerBase
             SaleId = saleId,
             ProductId = saleModel.ProductId,
             QuantitySold = saleModel.QuantitySold,
-            TotalPrice = saleModel.TotalPrice
+            TotalPrice = saleModel.QuantitySold * product.CurrentPrice
         };
         _saleDetailDal.Insert(saleDetail);
         
         return Ok();
     }
     
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public ActionResult Delete(int id)
     {
         var saleDetails = _saleDetailDal.GetAll();
@@ -135,14 +139,37 @@ public class SaleController : ControllerBase
         return Ok();
     }
     
-    [HttpGet("products"), Authorize]
-    public ActionResult<List<Product>> GetProducts()
+    [HttpGet("products/{supermarketTitle}"), Authorize]
+    public ActionResult<List<ProductInInventory>> GetProducts(string supermarketTitle)
     {
-        var id = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
-        var employee = _employeeDal.GetById(id);
-        var supermarket = _supermarketDal.GetById(employee.SupermarketId);
+        var supermarket = _supermarketDal.GetSupermarketByTitle(supermarketTitle);
         
         var products = _productDal.GetProductsBySupermarket(supermarket.Id);
         return Ok(products);
+    }
+    
+    [HttpGet("titles"), Authorize]
+    public IActionResult GetSupermarketTitles()
+    {
+        var id = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
+        var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+        
+        var supermarketTitles = _supermarketDal.GetAllTitles();
+
+
+        switch (role)
+        {
+            case "admin":
+                return Ok(supermarketTitles);
+            case "manager":
+            {
+                var manager = _employeeDal.GetById(id);
+                var supermarket = _supermarketDal.GetById(manager.SupermarketId);
+                supermarketTitles = supermarketTitles.Where(i => i == supermarket.Title);
+                return Ok(supermarketTitles);
+            }
+            default:
+                return BadRequest("You don't have permission to view this data.");
+        }
     }
 }

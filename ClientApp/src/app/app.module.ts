@@ -34,52 +34,62 @@ import {PerishableComponent} from "./product/perishable/perishable.component";
 import {NonperishableComponent} from "./product/nonperishable/nonperishable.component";
 import {SettingsComponent} from "./settings/settings.component";
 import {AddProductComponent} from "./product/add-product/add-product.component";
+import {OrderComponent} from "./product/order/order/order.component";
+import {AddOrderComponent} from "./product/order/add-order/add-order.component";
+import {InventoryComponent} from "./inventory/inventory.component";
+import {SaleComponent} from "./sale/sale.component";
+import {AddSaleComponent} from "./sale/add-sale/add-sale.component";
 
 export function tokenGetter() {
-    return localStorage.getItem("jwt");
+  return localStorage.getItem("jwt");
 }
 
 @NgModule({
-    imports: [
-        BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        NgApexchartsModule,
-    ],
-    declarations: [
-        AppComponent,
-        SidebarComponent,
-        UserComponent,
-        HomeComponent,
-        SignInComponent,
-        SignUpComponent,
-        NavComponent,
-        LandingComponent,
-        ChartComponent,
-        ToastComponent,
-        EmployeeComponent,
-        StoreComponent,
-        SpinnerComponent,
-        AddStoreComponent,
-        AddEmployeeComponent,
-        RoleComponent,
-        CashRegisterComponent,
-        AddRoleComponent,
-        WarehouseComponent,
-        StatusComponent,
-        AddStatusComponent,
-        AddCashregisterComponent,
-        LogsComponent,
-        ProductComponent,
-        PerishableComponent,
-        NonperishableComponent,
-        SettingsComponent,
-        AddProductComponent
-    ],
-    bootstrap: [AppComponent]
+  imports: [
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    NgApexchartsModule,
+  ],
+  declarations: [
+    AppComponent,
+    SidebarComponent,
+    UserComponent,
+    HomeComponent,
+    SignInComponent,
+    SignUpComponent,
+    NavComponent,
+    LandingComponent,
+    ChartComponent,
+    ToastComponent,
+    EmployeeComponent,
+    StoreComponent,
+    SpinnerComponent,
+    AddStoreComponent,
+    AddEmployeeComponent,
+    RoleComponent,
+    CashRegisterComponent,
+    AddRoleComponent,
+    WarehouseComponent,
+    StatusComponent,
+    AddStatusComponent,
+    AddCashregisterComponent,
+    LogsComponent,
+    ProductComponent,
+    PerishableComponent,
+    NonperishableComponent,
+    SettingsComponent,
+    AddProductComponent,
+    OrderComponent,
+    AddOrderComponent,
+    InventoryComponent,
+    SaleComponent,
+    AddSaleComponent
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

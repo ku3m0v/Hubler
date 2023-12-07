@@ -21,7 +21,7 @@ public class LogController : ControllerBase
     [HttpGet("list")]
     public ActionResult<IEnumerable<Log>> GetAll()
     {
-        var logs = _logDAL.GetAll();
+        var logs = _logDAL.GetAll().OrderByDescending(log => log.cas);
         return Ok(logs);
     }
 

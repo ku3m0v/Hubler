@@ -27,59 +27,74 @@ import {PerishableComponent} from "./product/perishable/perishable.component";
 import {NonperishableComponent} from "./product/nonperishable/nonperishable.component";
 import {SettingsComponent} from "./settings/settings.component";
 import {AddProductComponent} from "./product/add-product/add-product.component";
+import {OrderComponent} from "./product/order/order/order.component";
+import {AddOrderComponent} from "./product/order/add-order/add-order.component";
+import {InventoryComponent} from "./inventory/inventory.component";
+import {WarehouseComponent} from "./warehouse/warehouse.component";
+import {SaleComponent} from "./sale/sale.component";
+import {AddSaleComponent} from "./sale/add-sale/add-sale.component";
 
 
 const routes: Routes = [
-    {path: '', redirectTo: '/landing', pathMatch: 'full'},
-    {path: 'landing', component: LandingComponent, canActivate: [NoAuthGuard]},
-    {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
-    {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-    {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
-    {path: 'sign-in', component: SignInComponent},
-    {path: 'sign-up', component: SignUpComponent},
-    {path: 'contact', component: LandingComponent},
-    {path: 'about', component: LandingComponent},
-    {path: 'spinner', component: SpinnerComponent},
-    {path: 'chart', component: ChartComponent, canActivate: [AuthGuard]},
-    {path: 'employees', component: EmployeeComponent, canActivate: [AuthGuard]},
-    {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
-    {path: 'add-store', component: AddStoreComponent, canActivate: [AuthGuard]},
-    {path: 'edit-store/:title', component: AddStoreComponent, canActivate: [AuthGuard]},
-    {path: 'edit-employee/:email', component: AddEmployeeComponent, canActivate: [AuthGuard]},
-    {path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard]},
-    {path: 'roles', component: RoleComponent, canActivate: [AuthGuard]},
-    {path: 'add-role', component: AddRoleComponent, canActivate: [AuthGuard]},
-    {path: 'edit-role/:roleName', component: AddRoleComponent, canActivate: [AuthGuard]},
-    {path: 'cashregisters', component: CashRegisterComponent, canActivate: [AuthGuard]},
-    {path: 'edit-cashregister/:supermarketName/:registerNumber', component: AddCashregisterComponent, canActivate: [AuthGuard]},
-    {path: 'add-cashregister', component: AddCashregisterComponent, canActivate: [AuthGuard]},
-    {path: 'warehouses', component: CashRegisterComponent, canActivate: [AuthGuard]},
-    {path: 'edit-warehouse/:title', component: CashRegisterComponent, canActivate: [AuthGuard]},
-    {path: 'add-warehouse', component: CashRegisterComponent, canActivate: [AuthGuard]},
-    {path: 'statuses', component: StatusComponent, canActivate: [AuthGuard]},
-    {path: 'edit-status/:statusName', component: AddStatusComponent, canActivate: [AuthGuard]},
-    {path: 'add-status', component: AddStatusComponent, canActivate: [AuthGuard]},
-    {path: 'logs', component: LogsComponent, canActivate: [AuthGuard]},
-    {path: 'perishable', component: PerishableComponent, canActivate: [AuthGuard]},
-    {path: 'nonperishable', component: NonperishableComponent, canActivate: [AuthGuard]},
-    {path: 'products', component: ProductComponent, canActivate: [AuthGuard]},
-    {path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard]},
-    {path: 'edit-product/:title', component: AddProductComponent, canActivate: [AuthGuard]},
+  {path: '', redirectTo: '/landing', pathMatch: 'full'},
+  {path: 'landing', component: LandingComponent, canActivate: [NoAuthGuard]},
+  {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
+  {path: 'sign-in', component: SignInComponent},
+  {path: 'sign-up', component: SignUpComponent},
+  {path: 'contact', component: LandingComponent},
+  {path: 'about', component: LandingComponent},
+  {path: 'spinner', component: SpinnerComponent},
+  {path: 'chart', component: ChartComponent, canActivate: [AuthGuard]},
+  {path: 'employees', component: EmployeeComponent, canActivate: [AuthGuard]},
+  {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
+  {path: 'add-store', component: AddStoreComponent, canActivate: [AuthGuard]},
+  {path: 'edit-store/:title', component: AddStoreComponent, canActivate: [AuthGuard]},
+  {path: 'edit-employee/:email', component: AddEmployeeComponent, canActivate: [AuthGuard]},
+  {path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard]},
+  {path: 'roles', component: RoleComponent, canActivate: [AuthGuard]},
+  {path: 'add-role', component: AddRoleComponent, canActivate: [AuthGuard]},
+  {path: 'edit-role/:roleName', component: AddRoleComponent, canActivate: [AuthGuard]},
+  {path: 'cashregisters', component: CashRegisterComponent, canActivate: [AuthGuard]},
+  {
+    path: 'edit-cashregister/:supermarketName/:registerNumber',
+    component: AddCashregisterComponent,
+    canActivate: [AuthGuard]
+  },
+  {path: 'add-cashregister', component: AddCashregisterComponent, canActivate: [AuthGuard]},
+  {path: 'warehouses', component: WarehouseComponent, canActivate: [AuthGuard]},
+  {path: 'edit-warehouse/:title', component: CashRegisterComponent, canActivate: [AuthGuard]},
+  {path: 'add-warehouse', component: CashRegisterComponent, canActivate: [AuthGuard]},
+  {path: 'statuses', component: StatusComponent, canActivate: [AuthGuard]},
+  {path: 'edit-status/:statusName', component: AddStatusComponent, canActivate: [AuthGuard]},
+  {path: 'add-status', component: AddStatusComponent, canActivate: [AuthGuard]},
+  {path: 'logs', component: LogsComponent, canActivate: [AuthGuard]},
+  {path: 'perishable', component: PerishableComponent, canActivate: [AuthGuard]},
+  {path: 'nonperishable', component: NonperishableComponent, canActivate: [AuthGuard]},
+  {path: 'products', component: ProductComponent, canActivate: [AuthGuard]},
+  {path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard]},
+  {path: 'edit-product/:title', component: AddProductComponent, canActivate: [AuthGuard]},
+  {path: 'orders', component: OrderComponent, canActivate: [AuthGuard]},
+  {path: 'add-order', component: AddOrderComponent, canActivate: [AuthGuard]},
+  {path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard]},
+  {path: 'sales', component: SaleComponent, canActivate: [AuthGuard]},
+  {path: 'add-sale', component: AddSaleComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot(routes),
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: tokenGetter,
-                allowedDomains: ["localhost:7234"],
-                disallowedRoutes: []
-            }
-        }),
-    ],
-    providers: [AuthGuard],
-    exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:7234"],
+        disallowedRoutes: []
+      }
+    }),
+  ],
+  providers: [AuthGuard],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
 }
