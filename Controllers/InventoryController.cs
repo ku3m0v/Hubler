@@ -280,18 +280,42 @@ public class InventoryController : ControllerBase
     //     return Ok();
     // }
     
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public void Delete(int id)
     {
         _inventoryDal.Delete(id);
     }
     
     [HttpPost("order_products"), Authorize]
-    public ActionResult OrderProducts()
+    public ActionResult OrderProducts(string SupermarketTitle)
     {
-        var managerId = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
-        var manager = _employeeDal.GetById(managerId);
-        string msg = _inventoryDal.OrderProduct(manager.SupermarketId);
+        var supermarket = _supermarketDal.GetSupermarketByTitle(SupermarketTitle);
+        string msg = _inventoryDal.OrderProduct(supermarket.Id);
         return Ok(new { message = msg });
+    }
+    
+    [HttpGet("titles"), Authorize]
+    public IActionResult GetSupermarketTitles()
+    {
+        var id = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
+        var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+        
+        var supermarketTitles = _supermarketDal.GetAllTitles();
+
+
+        switch (role)
+        {
+            case "admin":
+                return Ok(supermarketTitles);
+            case "manager":
+            {
+                var manager = _employeeDal.GetById(id);
+                var supermarket = _supermarketDal.GetById(manager.SupermarketId);
+                supermarketTitles = supermarketTitles.Where(i => i == supermarket.Title);
+                return Ok(supermarketTitles);
+            }
+            default:
+                return BadRequest("You don't have permission to view this page.");
+        }
     }
 }

@@ -21,13 +21,18 @@ export class InventoryService {
 
   // Delete an inventory item
   deleteInventory(id: number): Observable<any> {
-    return this.http.delete(`${this.myAppUrl}api/inventory/delete?id=${id}`, { headers: this.createHeaders() })
+    return this.http.delete(`${this.myAppUrl}api/inventory/delete/${id}`, {headers: this.createHeaders()})
       .pipe(catchError(this.errorHandler));
   }
 
   // Order products
   orderProducts(): Observable<any> {
     return this.http.post(`${this.myAppUrl}api/inventory/order_products`, {}, { headers: this.createHeaders() })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getSupermarketTitles(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.myAppUrl}api/inventory/titles`, {headers: this.createHeaders()})
       .pipe(catchError(this.errorHandler));
   }
 
