@@ -33,8 +33,8 @@ public class InventoryController : ControllerBase
         _employeeDal = employeeDal;
     }
 
-    [HttpGet("list"), Authorize]
-    public ActionResult<List<InventoryModel>> GetAll()
+    [HttpGet("list/{supermarketTitle}"), Authorize]
+    public ActionResult<List<InventoryModel>> GetAll(string supermarketTitle)
     {
         var role = User.FindFirst(ClaimTypes.Role)?.Value;
 
@@ -75,6 +75,7 @@ public class InventoryController : ControllerBase
 
                     inventoryModels.Add(inventoryModel);
                 }
+                inventoryModels = inventoryModels.Where(w => w.SupermarketTitle == supermarketTitle).ToList();
 
                 return Ok(inventoryModels);
             }
