@@ -55,93 +55,93 @@ public class PerishableController : ControllerBase
 
         return BadRequest("You do not have permission to view this resource.");
     }
-    
-    // POST: api/{type}/insert
-    [HttpPost("insert")]
-    public IActionResult Insert(PerishableProductModel model)
-    {
-        if(model == null)
-        {
-            return BadRequest("Invalid model.");
-        }
-        
-        var product = new Product
-        {
-            Title = model.Title,
-            CurrentPrice = model.CurrentPrice,
-            ProductType = model.ProductType
-        };
-        
-        var productId = _productDAL.Insert(product);
-
-        var perishable = new Perishable
-        {
-            ProductId = productId,
-            ExpiryDate = model.ExpiryDate,
-            StorageType = model.StorageType
-        };
-        _perishableDAL.Insert(perishable);
-
-        return Ok();
-    }
-    
-    // GET: api/{type}/detail
-    [HttpGet("detail")]
-    public IActionResult GetById(int id)
-    {
-        var product = _productDAL.GetById(id);
-
-        if (product == null)
-        {
-            return NotFound();
-        }
-
-        if (product.ProductType == "P")
-        {
-            var perishable = _perishableDAL.GetByProductId(product.Id);
-            return Ok(new PerishableProductModel
-            {
-                ProductId = product.Id,
-                Title = product.Title,
-                CurrentPrice = product.CurrentPrice,
-                ProductType = product.ProductType,
-                ExpiryDate = perishable.ExpiryDate,
-                StorageType = perishable.StorageType
-            });
-        }
-        
-        return BadRequest("Id does not match a perishable product.");
-    }
-    
-    // POST: api/{type}/update
-    [HttpPost("update")]
-    public IActionResult Update(PerishableProductModel model)
-    {
-        if(model == null)
-        {
-            return BadRequest("Invalid model.");
-        }
-        
-        var product = new Product
-        {
-            Id = model.ProductId,
-            Title = model.Title,
-            CurrentPrice = model.CurrentPrice,
-            ProductType = model.ProductType
-        };
-        
-        _productDAL.Update(product);
-
-        var perishable = new Perishable
-        {
-            ProductId = model.ProductId,
-            ExpiryDate = model.ExpiryDate,
-            StorageType = model.StorageType
-        };
-        _perishableDAL.Update(perishable);
-
-        return Ok();
-    }
+    //
+    // // POST: api/{type}/insert
+    // [HttpPost("insert")]
+    // public IActionResult Insert(PerishableProductModel model)
+    // {
+    //     if(model == null)
+    //     {
+    //         return BadRequest("Invalid model.");
+    //     }
+    //     
+    //     var product = new Product
+    //     {
+    //         Title = model.Title,
+    //         CurrentPrice = model.CurrentPrice,
+    //         ProductType = model.ProductType
+    //     };
+    //     
+    //     var productId = _productDAL.Insert(product);
+    //
+    //     var perishable = new Perishable
+    //     {
+    //         ProductId = productId,
+    //         ExpiryDate = model.ExpiryDate,
+    //         StorageType = model.StorageType
+    //     };
+    //     _perishableDAL.Insert(perishable);
+    //
+    //     return Ok();
+    // }
+    //
+    // // GET: api/{type}/detail
+    // [HttpGet("detail")]
+    // public IActionResult GetById(int id)
+    // {
+    //     var product = _productDAL.GetById(id);
+    //
+    //     if (product == null)
+    //     {
+    //         return NotFound();
+    //     }
+    //
+    //     if (product.ProductType == "P")
+    //     {
+    //         var perishable = _perishableDAL.GetByProductId(product.Id);
+    //         return Ok(new PerishableProductModel
+    //         {
+    //             ProductId = product.Id,
+    //             Title = product.Title,
+    //             CurrentPrice = product.CurrentPrice,
+    //             ProductType = product.ProductType,
+    //             ExpiryDate = perishable.ExpiryDate,
+    //             StorageType = perishable.StorageType
+    //         });
+    //     }
+    //     
+    //     return BadRequest("Id does not match a perishable product.");
+    // }
+    //
+    // // POST: api/{type}/update
+    // [HttpPost("update")]
+    // public IActionResult Update(PerishableProductModel model)
+    // {
+    //     if(model == null)
+    //     {
+    //         return BadRequest("Invalid model.");
+    //     }
+    //     
+    //     var product = new Product
+    //     {
+    //         Id = model.ProductId,
+    //         Title = model.Title,
+    //         CurrentPrice = model.CurrentPrice,
+    //         ProductType = model.ProductType
+    //     };
+    //     
+    //     _productDAL.Update(product);
+    //
+    //     var perishable = new Perishable
+    //     {
+    //         ProductId = model.ProductId,
+    //         ExpiryDate = model.ExpiryDate,
+    //         StorageType = model.StorageType
+    //     };
+    //     _perishableDAL.Update(perishable);
+    //
+    //     return Ok();
+    // }
     
     // DELETE: api/{type}/delete
     [HttpDelete("delete")]

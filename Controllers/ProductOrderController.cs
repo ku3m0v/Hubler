@@ -99,9 +99,7 @@ public class ProductOrderController : ControllerBase
     [HttpPost("insert/{type}"), Authorize]
     public void Post([FromBody] ProductOrderModel model, string type)
     {
-        var userId = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
-        var employee = _employeeDAL.GetById(userId);
-        var managerSupermarket = _supermarketDAL.GetById(employee.SupermarketId);
+        var supermarket = _supermarketDAL.GetSupermarketByTitle(model.SupermarketName);
         if(type == "perishable")
         {
             
@@ -109,7 +107,7 @@ public class ProductOrderController : ControllerBase
             
             var newProductOrder = new ProductOrder
             {
-                SupermarketId = managerSupermarket.Id,
+                SupermarketId = supermarket.Id,
                 ProductId = product.Lk_Product_Id,
                 OrderedQuantity = model.Quantity,
                 OrderDate = DateTime.UtcNow
@@ -117,11 +115,10 @@ public class ProductOrderController : ControllerBase
             
             _productOrderDAL.Insert(newProductOrder);
             
-            var newProduct = new Product
+            var newProduct = new ProductNew
             {
-                Title = product.Title,
-                CurrentPrice = product.CurrentPrice,
-                ProductType = "P"
+                ProductType = "P",
+                LkProduct_Id = product.Lk_Product_Id
             };
             
             var productId = _productDAL.Insert(newProduct);
@@ -137,7 +134,7 @@ public class ProductOrderController : ControllerBase
             
             var newWarehouse = new Warehouse
             {
-                SupermarketId = managerSupermarket.Id,
+                SupermarketId = supermarket.Id,
                 ProductId = productId,
                 Quantity = model.Quantity
             };
@@ -150,7 +147,7 @@ public class ProductOrderController : ControllerBase
             
             var newProductOrder = new ProductOrder
             {
-                SupermarketId = managerSupermarket.Id,
+                SupermarketId = supermarket.Id,
                 ProductId = product.Lk_Product_Id,
                 OrderedQuantity = model.Quantity,
                 OrderDate = DateTime.UtcNow
@@ -158,11 +155,10 @@ public class ProductOrderController : ControllerBase
             
             _productOrderDAL.Insert(newProductOrder);
             
-            var newProduct = new Product
+            var newProduct = new ProductNew
             {
-                Title = product.Title,
-                CurrentPrice = product.CurrentPrice,
-                ProductType = "N"
+                ProductType = "N",
+                LkProduct_Id = product.Lk_Product_Id
             };
             
             var productId = _productDAL.Insert(newProduct);
@@ -177,7 +173,7 @@ public class ProductOrderController : ControllerBase
             
             var newWarehouse = new Warehouse
             {
-                SupermarketId = managerSupermarket.Id,
+                SupermarketId = supermarket.Id,
                 ProductId = productId,
                 Quantity = model.Quantity
             };
