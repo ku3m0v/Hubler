@@ -122,7 +122,7 @@ public class SaleController : ControllerBase
         return Ok();
     }
     
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public ActionResult Delete(int id)
     {
         var saleDetails = _saleDetailDal.GetAll();
@@ -136,7 +136,7 @@ public class SaleController : ControllerBase
     }
     
     [HttpGet("products/{supermarketTitle}"), Authorize]
-    public ActionResult<List<Product>> GetProducts(string supermarketTitle)
+    public ActionResult<List<ProductInInventory>> GetProducts(string supermarketTitle)
     {
         var supermarket = _supermarketDal.GetSupermarketByTitle(supermarketTitle);
         

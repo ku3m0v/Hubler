@@ -48,6 +48,7 @@
       <Folder Include="ClientApp\src\app\service\product-service\" />
       <Folder Include="ClientApp\src\app\service\profile-service\" />
       <Folder Include="ClientApp\src\app\service\role-service\" />
+      <Folder Include="ClientApp\src\app\service\sale-service\" />
       <Folder Include="ClientApp\src\app\service\status-service\" />
       <Folder Include="ClientApp\src\app\service\store-service\" />
       <Folder Include="ClientApp\src\app\service\view-service\" />

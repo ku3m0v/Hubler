@@ -1,0 +1,42 @@
+<div class="add-sale-component">
+  <form [formGroup]="saleForm" (ngSubmit)="saveSale()">
+    <div class="form-group">
+      <label for="supermarketName">Supermarket</label>
+      <select formControlName="supermarketName" id="supermarketName" (change)="onSelectSupermarketTitle(saleForm.get('supermarketName')?.value)">
+        <option value="" disabled selected>Select Supermarket</option>
+        <option *ngFor="let title of supermarketTitles" [value]="title">{{ title }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="productId">Product</label>
+      <select formControlName="productId" id="productId">
+        <option value="" disabled selected>Select Product</option>
+        <option *ngFor="let product of products" [value]="product.title">{{ product.title }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="productName">Product Name</label>
+      <input type="text" formControlName="productName" id="productName" placeholder="Product Name">
+    </div>
+
+    <div class="form-group">
+      <label for="quantitySold">Quantity Sold</label>
+      <input type="number" formControlName="quantitySold" id="quantitySold" placeholder="Quantity Sold">
+    </div>
+
+    <div class="form-group">
+      <label for="totalPrice">Total Price</label>
+      <input type="number" formControlName="totalPrice" id="totalPrice" placeholder="Total Price">
+    </div>
+
+    <div class="form-group">
+      <label for="saleDate">Sale Date</label>
+      <input type="date" formControlName="saleDate" id="saleDate">
+    </div>
+
+    <button type="submit" [disabled]="saleForm.invalid" class="btn btn-primary">Add Sale</button>
+    <button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button>
+  </form>
+</div>
