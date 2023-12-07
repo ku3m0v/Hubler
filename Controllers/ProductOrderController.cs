@@ -127,7 +127,7 @@ public class ProductOrderController : ControllerBase
             var newPerishableProduct = new Perishable
             {
                 ProductId = productId,
-                ExpiryDate = model.ExpireDate,
+                ExpiryDate = model.ExpireDate ?? DateTime.MinValue,
                 StorageType = model.StorageType
             };
             
@@ -167,7 +167,7 @@ public class ProductOrderController : ControllerBase
             var newNonPerishableProduct = new NonPerishable
             {
                 ProductId = productId,
-                ShelfLife = model.ShelfLife
+                ShelfLife = model.ShelfLife ?? 0
             };
             
             _nonPerishableDAL.Insert(newNonPerishableProduct);
