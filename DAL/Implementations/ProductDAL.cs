@@ -85,16 +85,17 @@ public class ProductDAL : IProductDAL
             }
         }
         
-        public IEnumerable<Product> GetProductsBySupermarket(int supermarketId)
+        public IEnumerable<ProductInInventory> GetProductsBySupermarket(int supermarketId)
         {
             using (var connection = DBConnection.GetConnection())
             {
                 var parameters = new OracleDynamicParameters();
                 parameters.Add("p_supermarket_id", supermarketId, OracleMappingType.Int32);
-                parameters.Add("p_cursor", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
+                parameters.Add("p_recordset", dbType: (OracleMappingType?)OracleDbType.RefCursor, direction: ParameterDirection.Output);
 
-                var result = connection.Query<Product>("GET_PRODUCTS_BY_SUPERMARKET", parameters, commandType: CommandType.StoredProcedure);
+                var result = connection.Query<ProductInInventory>("GET_PRODUCT_TITLES_BY_SUPERMARKET_ID", parameters, commandType: CommandType.StoredProcedure);
                 return result;
             }
         }
+
     }

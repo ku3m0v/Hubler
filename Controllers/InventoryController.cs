@@ -287,7 +287,7 @@ public class InventoryController : ControllerBase
         _inventoryDal.Delete(id);
     }
     
-    [HttpPost("order_products"), Authorize]
+    [HttpPost("order_products/{SupermarketTitle}"), Authorize]
     public ActionResult OrderProducts(string SupermarketTitle)
     {
         var supermarket = _supermarketDal.GetSupermarketByTitle(SupermarketTitle);
