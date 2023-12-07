@@ -3,13 +3,10 @@
   <div class="sm:flex sm:items-center sm:justify-between">
     <h2 class="text-heading1-semibold font-medium text-gray-50">Inventory</h2>
     <div class="flex items-center mt-4 gap-x-3">
-      <select class="bg-slate-800 text-gray-50 placeholder-gray-400 focus:ring-2 focus:ring-purple-main focus:border-none rounded-lg block w-full px-5 py-1.5 t-1.5 text-sm border-2 border-violet-950"
-              required>
+      <select class="bg-slate-800 text-gray-50 placeholder-gray-400 focus:ring-2 focus:ring-purple-main focus:border-none rounded-lg block w-full pl-2.5 pr-5 py-1.5 t-1.5 text-sm border-2 border-violet-800"
+              [(ngModel)]="selectedSupermarketTitle" (change)="onSelectSupermarketTitle(selectedSupermarketTitle)" required>
         <option value="" disabled selected>Select store</option>
-        <option class="font-medium p-2.5 rounded-3xl border-indigo-400"
-                *ngFor="let store of supermarketTitles" [value]="store">
-          {{ store }}
-        </option>
+        <option *ngFor="let store of supermarketTitles" [value]="store">{{ store }}</option>
       </select>
 <!--      FIXME: add class disabled-->
       <button
@@ -38,11 +35,27 @@
               </th>
               <th class="px-4 py-3.5 text-sm font-normal"
                   scope="col">
-                Price
+                Quantity
+              </th>
+              <th class="px-4 py-3.5 text-sm font-normal whitespace-nowrap"
+                  scope="col">
+                Product Type
+              </th>
+              <th class="px-4 py-3.5 text-sm font-normal whitespace-nowrap"
+                  scope="col">
+                Expiry Date
+              </th>
+              <th class="px-4 py-3.5 text-sm font-normal whitespace-nowrap"
+                  scope="col">
+                Storage Type
+              </th>
+              <th class="px-4 py-3.5 text-sm font-normal whitespace-nowrap"
+                  scope="col">
+                Shelf Life
               </th>
               <th class="px-4 py-3.5 text-sm font-normal"
                   scope="col">
-                Product Type
+                Price
               </th>
               <th class="px-4 py-3.5 text-sm font-normal"
                   scope="col">
@@ -58,8 +71,14 @@
             <tr *ngFor="let product of inventoryList; let i = index">
               <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ i + 1 }}.</td>
               <td class="px-4 py-4 text-sm font-medium text-gray-300 whitespace-nowrap">{{ product.title }}</td>
-              <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">&#8364; {{ product.currentPrice }}</td>
+              <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ product.quantity }} pcs.</td>
               <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ product.productType }}</td>
+              <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ product.expiryDate | date : 'MM/dd/yyyy' }}</td>
+              <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ product.storageType }} </td>
+              <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">
+                {{ product.shelfLife ? product.shelfLife + ' yrs.' : '' }}
+              </td>
+              <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">&#8364; {{ product.currentPrice }}</td>
               <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ product.supermarketTitle }}</td>
               <td class="px-4 py-4 text-sm whitespace-nowrap">
                 <div class="flex items-center gap-x-6">
@@ -85,7 +104,11 @@
 </section>
 <div *ngIf="!inventoryList.length">
   <app-spinner *ngIf="showSpinner"></app-spinner>
-  <div *ngIf="showMsg" class="flex justify-center items-center h-[calc(100vh-10rem)]">
-    <p class="text-heading1-semibold font-medium text-gray-100">No Nonperishable Products Found</p>
+  <div *ngIf="showMsg" class="flex justify-center flex-column gap-4 items-center h-[calc(100vh-10rem)]">
+    <select class="bg-slate-800 text-gray-50 placeholder-gray-400 focus:ring-2 focus:ring-purple-main focus:border-none text-start rounded-lg block w-full pl-2.5 pr-6 py-2.5 text-xl-start border-2 border-violet-800"
+            [(ngModel)]="selectedSupermarketTitle" (change)="onSelectSupermarketTitle(selectedSupermarketTitle)" required>
+      <option value="" disabled selected>Select store</option>
+      <option *ngFor="let store of supermarketTitles" [value]="store">{{ store }}</option>
+    </select>
   </div>
 </div>

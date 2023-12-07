@@ -14,7 +14,13 @@ export class InventoryComponent implements OnInit {
   showSpinner = true;
   showMsg = false;
 
-  constructor(private inventoryService: InventoryService) {}
+  constructor(private inventoryService: InventoryService) {
+    setTimeout(() => {
+      this.showSpinner = false;
+      this.showMsg = true;
+    }, 1500);
+
+  }
 
   ngOnInit(): void {
     this.loadInventory();
@@ -22,7 +28,7 @@ export class InventoryComponent implements OnInit {
   }
 
   loadInventory(): void {
-    this.inventoryService.getAllInventory().subscribe({
+    this.inventoryService.getAllInventory(this.selectedSupermarketTitle).subscribe({
       next: (data) => {
         this.inventoryList = data;
       },
@@ -30,6 +36,12 @@ export class InventoryComponent implements OnInit {
         console.error('There was an error!', error);
       }
     });
+  }
+
+  // Method to update the selected supermarket title
+  onSelectSupermarketTitle(title: string): void {
+    this.selectedSupermarketTitle = title;
+    this.loadInventory(); // Reload inventory based on selected title
   }
 
   loadSupermarketTitles(): void {

@@ -13,9 +13,9 @@ export class InventoryService {
 
   constructor(private http: HttpClient, private authService: AuthenticationService) {}
 
-  // Get all inventory items
-  getAllInventory(): Observable<InventoryModel[]> {
-    return this.http.get<InventoryModel[]>(`${this.myAppUrl}api/inventory/list`, { headers: this.createHeaders() })
+// Updated to take supermarketTitle as a parameter
+  getAllInventory(supermarketTitle: string): Observable<InventoryModel[]> {
+    return this.http.get<InventoryModel[]>(`${this.myAppUrl}api/inventory/list/${supermarketTitle}`, { headers: this.createHeaders() })
       .pipe(catchError(this.errorHandler));
   }
 
