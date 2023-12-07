@@ -106,7 +106,7 @@ public class SaleController : ControllerBase
         var sale = new Sale
         {
             SupermarketId = supermarket.Id,
-            DateAndTime = saleModel.SaleDate
+            DateAndTime = DateTime.UtcNow
         };
         var saleId = _saleDal.Insert(sale);
         
@@ -114,8 +114,8 @@ public class SaleController : ControllerBase
         {
             SaleId = saleId,
             ProductId = saleModel.ProductId,
-            QuantitySold = saleModel.QuantitySold,
-            TotalPrice = saleModel.TotalPrice
+            QuantitySold = saleModel.QuantitySold
+            //TotalPrice = saleModel.TotalPrice
         };
         _saleDetailDal.Insert(saleDetail);
         

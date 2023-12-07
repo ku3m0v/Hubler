@@ -21,9 +21,7 @@ export class AddSaleComponent implements OnInit {
     this.saleForm = this.fb.group({
       supermarketName: ['', Validators.required],
       productId: ['', Validators.required],
-      productName: ['', Validators.required],
       quantitySold: [1, [Validators.required, Validators.min(1)]],
-      totalPrice: [0, [Validators.required, Validators.min(0)]],
       saleDate: ['', Validators.required]
     });
   }

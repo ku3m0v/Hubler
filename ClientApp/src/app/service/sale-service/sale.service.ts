@@ -5,18 +5,19 @@ import { AuthenticationService } from '../auth-service/authentication.service'; 
 import configurl from '../../../assets/config/config.json';
 
 export interface SaleModel {
-  saleId: number;
+  saleId?: number;
   supermarketName: string;
   saleDate: Date;
-  saleDetailId: number;
+  saleDetailId?: number;
   productId: number;
-  productName: string;
+  productName?: string;
   quantitySold: number;
-  totalPrice: number; // Assuming decimal translates to number in TypeScript
+  totalPrice?: number; // Assuming decimal translates to number in TypeScript
 }
 
 
 export interface Product {
+  lk_Product_Id: number;
   title: string;
   quantity: number;
 }

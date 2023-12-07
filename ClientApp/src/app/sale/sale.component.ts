@@ -76,7 +76,7 @@ export class SaleComponent implements OnInit {
   deleteSale(sale: SaleModel): void {
     const confirmation = confirm('Are you sure you want to delete this sale?');
     if (confirmation) {
-      this.saleService.deleteSale(sale.saleId).subscribe({
+      this.saleService.deleteSale(sale.saleId!).subscribe({
         next: () => {
           this.loadSales();
           this.showMessage = true;
