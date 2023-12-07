@@ -1,47 +1,70 @@
-﻿<!--<div class="container">-->
-<!--  <h2>{{ title }} Order</h2>-->
-<!--  <form [formGroup]="orderForm" (ngSubmit)="saveOrder()">-->
+﻿<div class="container">
+  <form [formGroup]="orderForm" (ngSubmit)="saveOrder()" novalidate>
 
-<!--    <div class="form-group">-->
-<!--      <label for="productName">Product Name</label>-->
-<!--      <select formControlName="productName" class="form-control" (change)="onProductChange($event.target.value)">-->
-<!--        <option value="">Select a Product</option>-->
-<!--        <option *ngFor="let product of products" [value]="product.title">{{ product.title }}</option>-->
-<!--      </select>-->
-<!--    </div>-->
+    <!-- Select for Product Type -->
+    <div>
+      <label for="productType">Product Type:</label>
+      <select formControlName="productType" id="productType">
+        <option *ngFor="let type of productTypes" [value]="type">{{type}}</option>
+      </select>
+    </div>
 
-<!--    <div class="form-group">-->
-<!--      <label for="quantity">Quantity</label>-->
-<!--      <input type="number" formControlName="quantity" class="form-control">-->
-<!--    </div>-->
+    <!-- Select for Products -->
+    <div>
+      <label for="productName">Product Name:</label>
+      <select formControlName="productName" id="productName">
+        <option *ngFor="let product of products" [value]="product.title">{{product.title}}</option>
+      </select>
+    </div>
 
-<!--    <div class="form-group">-->
-<!--      <label for="orderDate">Order Date</label>-->
-<!--      <input type="date" formControlName="orderDate" class="form-control">-->
-<!--    </div>-->
+    <!-- Select for Supermarket Title -->
+    <div>
+      <label for="supermarketName">Supermarket:</label>
+      <select formControlName="supermarketName" id="supermarketName">
+        <option *ngFor="let title of supermarketTitles" [value]="title">{{title}}</option>
+      </select>
+    </div>
 
-<!--    &lt;!&ndash; Perishable Product Fields &ndash;&gt;-->
-<!--    <div *ngIf="selectedProductType === 'perishable'">-->
-<!--      <div class="form-group">-->
-<!--        <label for="expireDate">Expire Date</label>-->
-<!--        <input type="date" formControlName="expireDate" class="form-control">-->
-<!--      </div>-->
+    <!-- Conditional Inputs for Perishable Type -->
+    <div *ngIf="orderForm.get('productType')?.value === 'perishable'">
+      <div>
+        <label for="expireDate">Expire Date:</label>
+        <input type="date" formControlName="expireDate" id="expireDate">
+      </div>
+      <div>
+        <label for="storageType">Storage Type:</label>
+        <input type="text" formControlName="storageType" id="storageType">
+      </div>
+    </div>
 
-<!--      <div class="form-group">-->
-<!--        <label for="storageType">Storage Type</label>-->
-<!--        <input type="text" formControlName="storageType" class="form-control">-->
-<!--      </div>-->
-<!--    </div>-->
+    <!-- Conditional Input for Nonperishable Type -->
+    <div *ngIf="orderForm.get('productType')?.value === 'nonperishable'">
+      <div>
+        <label for="shelfLife">Shelf Life (days):</label>
+        <input type="number" formControlName="shelfLife" id="shelfLife">
+      </div>
+    </div>
 
-<!--    &lt;!&ndash; Non-Perishable Product Fields &ndash;&gt;-->
-<!--    <div *ngIf="selectedProductType === 'nonperishable'">-->
-<!--      <div class="form-group">-->
-<!--        <label for="shelfLife">Shelf Life</label>-->
-<!--        <input type="number" formControlName="shelfLife" class="form-control">-->
-<!--      </div>-->
-<!--    </div>-->
+    <!-- Quantity -->
+    <div>
+      <label for="quantity">Quantity:</label>
+      <input type="number" formControlName="quantity" id="quantity">
+    </div>
 
-<!--    <button type="submit" class="btn btn-primary">Save Order</button>-->
-<!--    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>-->
-<!--  </form>-->
-<!--</div>-->
+    <!-- Order Date -->
+    <div>
+      <label for="orderDate">Order Date:</label>
+      <input type="date" formControlName="orderDate" id="orderDate">
+    </div>
+
+    <!-- Submit and Cancel Buttons -->
+    <button type="submit"
+            [disabled]="!orderForm.valid"
+            [class]="!orderForm.valid ?
+                    'disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer' :
+                    'text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer'">
+      Submit
+    </button>
+    <button type="button" (click)="cancel()">Cancel</button>
+  </form>
+</div>

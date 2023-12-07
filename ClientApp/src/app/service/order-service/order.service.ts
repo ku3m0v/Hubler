@@ -18,7 +18,7 @@ export class OrderService {
       .pipe(catchError(this.errorHandler));
   }
 
-  insertOrder(model: ProductOrderModel, type: string | null): Observable<any> {
+  insertOrder(model: ProductOrderModel, type: string): Observable<any> {
     return this.http.post(`${this.myAppUrl}api/product_order/insert/${type}`, model, { headers: this.createHeaders() })
       .pipe(catchError(this.errorHandler));
   }
@@ -30,6 +30,11 @@ export class OrderService {
 
   getProducts(): Observable<any[]> {
     return this.http.get<any[]>(`${this.myAppUrl}api/product_order/products`, { headers: this.createHeaders() })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getSupermarketTitles(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.myAppUrl}api/product_order/titles`, {headers: this.createHeaders()})
       .pipe(catchError(this.errorHandler));
   }
 
@@ -47,6 +52,7 @@ export class OrderService {
 
 export interface ProductOrderModel {
   id?: number;
+  productType: string;
   supermarketName: string;
   productName: string;
   expireDate: Date;
