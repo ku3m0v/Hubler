@@ -287,7 +287,7 @@ public class WarehouseController : ControllerBase
     // }
     
     // DELETE: api/warehouse/delete
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public void Delete(int id)
     {
         _warehouseDal.Delete(id);
@@ -315,7 +315,7 @@ public class WarehouseController : ControllerBase
         return Ok(new { message = "Transfer successful." });
     }
     
-    [HttpPost("oreder_products/{supermarketTitle}"), Authorize]
+    [HttpPost("order_products/{supermarketTitle}"), Authorize]
     public ActionResult OrderProducts(string supermarketTitle)
     {
         var supermarket = _supermarketDal.GetSupermarketByTitle(supermarketTitle);

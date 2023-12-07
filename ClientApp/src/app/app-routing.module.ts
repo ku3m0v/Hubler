@@ -30,6 +30,7 @@ import {AddProductComponent} from "./product/add-product/add-product.component";
 import {OrderComponent} from "./product/order/order/order.component";
 import {AddOrderComponent} from "./product/order/add-order/add-order.component";
 import {InventoryComponent} from "./inventory/inventory.component";
+import {WarehouseComponent} from "./warehouse/warehouse.component";
 
 
 const routes: Routes = [
@@ -60,7 +61,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {path: 'add-cashregister', component: AddCashregisterComponent, canActivate: [AuthGuard]},
-  {path: 'warehouses', component: CashRegisterComponent, canActivate: [AuthGuard]},
+  {path: 'warehouses', component: WarehouseComponent, canActivate: [AuthGuard]},
   {path: 'edit-warehouse/:title', component: CashRegisterComponent, canActivate: [AuthGuard]},
   {path: 'add-warehouse', component: CashRegisterComponent, canActivate: [AuthGuard]},
   {path: 'statuses', component: StatusComponent, canActivate: [AuthGuard]},
