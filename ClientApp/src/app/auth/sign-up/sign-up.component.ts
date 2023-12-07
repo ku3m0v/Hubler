@@ -44,7 +44,6 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-
   toggleDropdown() {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
