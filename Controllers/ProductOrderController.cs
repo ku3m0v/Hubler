@@ -46,7 +46,7 @@ public class ProductOrderController : ControllerBase
         var productOrders = _productOrderDAL.GetAll();
         var productOrderModels = new List<ProductOrderModel>();
 
-        int id = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
+        var id = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
         var role = User.FindFirst(ClaimTypes.Role)?.Value;
 
         if (role == "admin")
@@ -70,7 +70,8 @@ public class ProductOrderController : ControllerBase
         }
         else if (role == "manager")
         {
-            var managerSupermarket = _supermarketDAL.GetById(id);
+            var manager = _employeeDAL.GetById(id);
+            var managerSupermarket = _supermarketDAL.GetById(manager.SupermarketId);
             foreach (var productOrder in productOrders)
             {
                 var product = _lkProductDAL.GetById(productOrder.ProductId);
@@ -203,10 +204,28 @@ public class ProductOrderController : ControllerBase
         return Ok(products);
     }
     
-    [HttpGet("titles")]
+    [HttpGet("titles"), Authorize]
     public IActionResult GetSupermarketTitles()
     {
-        var result = _supermarketDAL.GetAllTitles();
-        return Ok(result);
+        var id = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
+        var role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+        
+        var supermarketTitles = _supermarketDAL.GetAllTitles();
+
+
+        switch (role)
+        {
+            case "admin":
+                return Ok(supermarketTitles);
+            case "manager":
+            {
+                var manager = _employeeDAL.GetById(id);
+                var supermarket = _supermarketDAL.GetById(manager.SupermarketId);
+                supermarketTitles = supermarketTitles.Where(i => i == supermarket.Title);
+                return Ok(supermarketTitles);
+            }
+            default:
+                return BadRequest("You don't have permission to view this page.");
+        }
     }
 }
