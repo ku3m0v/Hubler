@@ -73,13 +73,13 @@
           <tr *ngFor="let product of top5Products"
               class="bg-gray-800 border-b border-gray-800 text-center">
             <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.productName }}
+              {{ product.product_Name }}
             </td>
             <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.totalQuantitySold }}
+              {{ product.total_Quantity_Sold }}
             </td>
             <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.supermarketName }}
+              {{ product.supermarket_Name }}
             </td>
           </tr>
           </tbody>
@@ -109,13 +109,13 @@
           <tr *ngFor="let product of expiredInventories"
               class="bg-gray-800 border-b border-gray-800 text-center">
             <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.productTitle }}
+              {{ product.product_Title }}
             </td>
             <td class="px-4 py-4 font-semibold text-gray-400">
               {{ product.expiryDate | date : 'MM/dd/yyyy' }}
             </td>
             <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.supermarketTitle }}
+              {{ product.supermarket_Title }}
             </td>
           </tr>
           </tbody>
@@ -145,13 +145,13 @@
           <tr *ngFor="let product of expiredWarehouses"
               class="bg-gray-800 border-b border-gray-800 text-center">
             <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.productTitle }}
+              {{ product.product_Title }}
             </td>
             <td class="px-4 py-4 font-semibold text-gray-400">
               {{ product.expiryDate | date: 'MM/dd/yyyy' }}
             </td>
             <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.supermarketTitle }}
+              {{ product.supermarket_Title }}
             </td>
           </tr>
           </tbody>
