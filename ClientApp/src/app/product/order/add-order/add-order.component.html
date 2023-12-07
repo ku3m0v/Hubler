@@ -40,7 +40,7 @@
     <!-- Conditional Input for Nonperishable Type -->
     <div *ngIf="orderForm.get('productType')?.value === 'nonperishable'">
       <div>
-        <label for="shelfLife">Shelf Life (days):</label>
+        <label for="shelfLife">Shelf Life (years):</label>
         <input type="number" formControlName="shelfLife" id="shelfLife">
       </div>
     </div>

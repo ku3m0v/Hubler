@@ -23,8 +23,8 @@ export class AddOrderComponent implements OnInit {
     this.orderForm = this.fb.group({
       supermarketName: ['', Validators.required],
       productName: ['', Validators.required],
-      expireDate: ['', Validators.required],
-      storageType:  [''],
+      expireDate: [''],
+      storageType: [''],
       shelfLife: [1],
       quantity: [1, [Validators.required, Validators.min(1)]],
       orderDate: ['', Validators.required],

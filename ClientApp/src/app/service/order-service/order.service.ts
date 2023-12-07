@@ -55,7 +55,7 @@ export interface ProductOrderModel {
   productType: string;
   supermarketName: string;
   productName: string;
-  expireDate: Date;
+  expireDate?: Date;
   storageType?: string;
   shelfLife?: number;
   quantity: number;
