@@ -75,8 +75,8 @@ export class InventoryComponent implements OnInit {
       alert('Please select a supermarket title.');
       return;
     }
-    // Logic for ordering products
-    this.inventoryService.orderProducts().subscribe({
+    // Logic for ordering products for the selected supermarket
+    this.inventoryService.orderProducts(this.selectedSupermarketTitle).subscribe({
       next: () => {
         console.log('Products ordered successfully');
         // Handle response for successful product ordering
@@ -86,4 +86,5 @@ export class InventoryComponent implements OnInit {
       }
     });
   }
+
 }

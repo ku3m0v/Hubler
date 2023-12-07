@@ -25,11 +25,12 @@ export class InventoryService {
       .pipe(catchError(this.errorHandler));
   }
 
-  // Order products
-  orderProducts(): Observable<any> {
-    return this.http.post(`${this.myAppUrl}api/inventory/order_products`, {}, { headers: this.createHeaders() })
+  // Order products for a specific supermarket
+  orderProducts(supermarketTitle: string): Observable<any> {
+    return this.http.post(`${this.myAppUrl}api/order_products/${supermarketTitle}`, { headers: this.createHeaders() })
       .pipe(catchError(this.errorHandler));
   }
+
 
   getSupermarketTitles(): Observable<string[]> {
     return this.http.get<string[]>(`${this.myAppUrl}api/inventory/titles`, {headers: this.createHeaders()})

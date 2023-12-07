@@ -287,10 +287,10 @@ public class InventoryController : ControllerBase
         _inventoryDal.Delete(id);
     }
     
-    [HttpPost("order_products/{SupermarketTitle}"), Authorize]
-    public ActionResult OrderProducts(string SupermarketTitle)
+    [HttpPost("order_products/{supermarketTitle}"), Authorize]
+    public ActionResult OrderProducts(string supermarketTitle)
     {
-        var supermarket = _supermarketDal.GetSupermarketByTitle(SupermarketTitle);
+        var supermarket = _supermarketDal.GetSupermarketByTitle(supermarketTitle);
         string msg = _inventoryDal.OrderProduct(supermarket.Id);
         return Ok(new { message = msg });
     }
