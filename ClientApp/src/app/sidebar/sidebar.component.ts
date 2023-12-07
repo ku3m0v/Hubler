@@ -33,6 +33,7 @@ export class SidebarComponent {
         {route: '/orders', label: 'Order', imgURL: '/assets/assets/order.svg'},
         {route: '/perishable', imgURL: '/assets/assets/members.svg', name: 'perishable'},
         {route: '/nonperishable', imgURL: '/assets/assets/members.svg', name: 'nonperishable'},
+        {route: '/inventory', imgURL: '/assets/assets/layers.svg', name: 'Inventory'},
         {route: '/settings', label: 'Warehouses', imgURL: '/assets/assets/settings.svg'},
       ];
     } else if (this.authService.isManager()) {
@@ -45,6 +46,7 @@ export class SidebarComponent {
         {route: '/orders', label: 'Order', imgURL: '/assets/assets/order.svg'},
         {route: '/perishable', imgURL: '/assets/assets/members.svg', name: 'perishable'},
         {route: '/nonperishable', imgURL: '/assets/assets/members.svg', name: 'nonperishable'},
+        {route: '/inventory', imgURL: '/assets/assets/layers.svg', name: 'Inventory'},
         {route: '/settings', label: 'Warehouses', imgURL: '/assets/assets/settings.svg'},
       ];
     } else if (this.authService.isCashier()) {

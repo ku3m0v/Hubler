@@ -42,6 +42,7 @@
       <Folder Include="ClientApp\src\app\product\order\" />
       <Folder Include="ClientApp\src\app\service\cashregister-service\" />
       <Folder Include="ClientApp\src\app\service\employee-service\" />
+      <Folder Include="ClientApp\src\app\service\inventory-service\" />
       <Folder Include="ClientApp\src\app\service\logs-service\" />
       <Folder Include="ClientApp\src\app\service\order-service\" />
       <Folder Include="ClientApp\src\app\service\product-service\" />
