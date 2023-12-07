@@ -18,18 +18,21 @@ public class SaleController : ControllerBase
     private readonly IProductDAL _productDal;
     private readonly ISupermarketDAL _supermarketDal;
     private readonly IEmployeeDAL _employeeDal;
+    private readonly ILkProductDAL _lkProductDal;
 
     public SaleController(ISaleDAL saleDal,
         ISaleDetailDAL saleDetailDal,
         IProductDAL productDal,
         ISupermarketDAL supermarketDal,
-        IEmployeeDAL employeeDal)
+        IEmployeeDAL employeeDal,
+        ILkProductDAL lkpProductDal)
     {
         _saleDal = saleDal;
         _saleDetailDal = saleDetailDal;
         _productDal = productDal;
         _supermarketDal = supermarketDal;
         _employeeDal = employeeDal;
+        _lkProductDal = lkpProductDal;
     }
     
     [HttpGet("list/{supermarketTitle}"), Authorize]
@@ -102,6 +105,7 @@ public class SaleController : ControllerBase
     public ActionResult Insert(SaleModel saleModel)
     {
         var supermarket = _supermarketDal.GetSupermarketByTitle(saleModel.SupermarketName);
+        var product = _lkProductDal.GetById(saleModel.ProductId);
         
         var sale = new Sale
         {
@@ -114,8 +118,8 @@ public class SaleController : ControllerBase
         {
             SaleId = saleId,
             ProductId = saleModel.ProductId,
-            QuantitySold = saleModel.QuantitySold
-            //TotalPrice = saleModel.TotalPrice
+            QuantitySold = saleModel.QuantitySold,
+            TotalPrice = saleModel.QuantitySold * product.CurrentPrice
         };
         _saleDetailDal.Insert(saleDetail);
         
