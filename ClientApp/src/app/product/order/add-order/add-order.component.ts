@@ -1,6 +1,6 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+﻿import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 import {LkProduct} from "../../../service/product-service/product.service";
 import {OrderService, ProductOrderModel} from "../../../service/order-service/order.service";
 
@@ -35,6 +35,22 @@ export class AddOrderComponent implements OnInit {
   ngOnInit(): void {
     this.loadProducts();
     this.loadSupermarketTitles();
+
+    this.orderForm.get('productType')?.valueChanges.subscribe((type) => {
+      this.updateFormValidations(type);
+    });
+  }
+
+  updateFormValidations(productType: string): void {
+    if (productType === 'perishable') {
+      this.orderForm.get('expireDate')?.setValidators(Validators.required);
+      this.orderForm.get('storageType')?.setValidators(Validators.required);
+    } else {
+      this.orderForm.get('expireDate')?.clearValidators();
+      this.orderForm.get('storageType')?.clearValidators();
+    }
+    this.orderForm.get('expireDate')?.updateValueAndValidity();
+    this.orderForm.get('storageType')?.updateValueAndValidity();
   }
 
   loadProducts() {
@@ -54,7 +70,13 @@ export class AddOrderComponent implements OnInit {
       return;
     }
 
-    const orderData: ProductOrderModel = this.orderForm.value;
+    let orderData: ProductOrderModel = this.orderForm.value;
+
+    if (orderData.productType === 'nonperishable') {
+      const {expireDate, storageType, ...rest} = orderData;
+      orderData = rest;
+    }
+
     this.orderService.insertOrder(orderData, orderData.productType).subscribe(
       () => this.router.navigate(['/orders']),
       (error: any) => console.error(error)
