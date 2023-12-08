@@ -33,6 +33,7 @@ import {InventoryComponent} from "./inventory/inventory.component";
 import {WarehouseComponent} from "./warehouse/warehouse.component";
 import {SaleComponent} from "./sale/sale.component";
 import {AddSaleComponent} from "./sale/add-sale/add-sale.component";
+import {PManagerComponent} from "./product/p-manager/p-manager.component";
 
 
 const routes: Routes = [
@@ -72,7 +73,7 @@ const routes: Routes = [
   {path: 'logs', component: LogsComponent, canActivate: [AuthGuard]},
   {path: 'perishable', component: PerishableComponent, canActivate: [AuthGuard]},
   {path: 'nonperishable', component: NonperishableComponent, canActivate: [AuthGuard]},
-  {path: 'products', component: ProductComponent, canActivate: [AuthGuard]},
+  {path: 'catalogue', component: ProductComponent, canActivate: [AuthGuard]},
   {path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard]},
   {path: 'edit-product/:title', component: AddProductComponent, canActivate: [AuthGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [AuthGuard]},
@@ -80,6 +81,7 @@ const routes: Routes = [
   {path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard]},
   {path: 'sales', component: SaleComponent, canActivate: [AuthGuard]},
   {path: 'add-sale', component: AddSaleComponent, canActivate: [AuthGuard]},
+  {path: 'product-manager', component: PManagerComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

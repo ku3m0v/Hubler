@@ -1,0 +1,56 @@
+<div class="px-16 grid md:grid-cols-3 grid-rows-2 xs:grid-cols-1 gap-4">
+  <div [routerLink]="['/catalogue']"
+       class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
+    bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
+    <img src="assets/assets/catalog.svg" height="32" width="32" alt="catalogue"/>
+    <button
+      class="flex items-center leading-none z-2">
+      Catalogue
+    </button>
+  </div>
+  <div [routerLink]="['/perishable']"
+       class="flex flex-row justify-evenly gap-1.5 text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg
+    py-3 px-4 bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
+    <img src="assets/assets/check.svg" height="32" width="32" alt="perishable"/>
+    <button
+      class="flex items-center leading-none z-2">
+      Perishable
+    </button>
+  </div>
+  <div [routerLink]="['/nonperishable']"
+       class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
+    bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
+    <img src="assets/assets/check.svg" height="32" width="32" alt="nonperishable"/>
+    <button
+      class="flex items-center leading-none z-2">
+      Non Perishable
+    </button>
+  </div>
+  <div [routerLink]="['/orders']"
+       class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
+    bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
+    <img src="assets/assets/order.svg" height="32" width="32" alt="order"/>
+    <button
+      class="flex items-center leading-none z-2">
+      Orders
+    </button>
+  </div>
+  <div [routerLink]="['/inventory']"
+       class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
+    bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
+    <img src="assets/assets/layers.svg" height="32" width="32" alt="inventory"/>
+    <button
+      class="flex items-center leading-none z-2">
+      Inventory
+    </button>
+  </div>
+  <div [routerLink]="['/warehouses']"
+       class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
+    bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
+    <img src="assets/assets/warehouse.svg" height="32" width="32" alt="warehouse"/>
+    <button
+      class="flex items-center leading-none z-2">
+      Warehouse
+    </button>
+  </div>
+</div>
