@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SaleService, SaleModel, Product } from '../../service/sale-service/sale.service';
 
 @Component({
@@ -12,40 +12,61 @@ export class AddSaleComponent implements OnInit {
   saleForm: FormGroup;
   products: Product[] = [];
   supermarketTitles: string[] = [];
+  title: string = 'Add'; // Dynamic title
+  successMessage: string = ''; // Add a property for the success message
 
   constructor(
     private fb: FormBuilder,
     private saleService: SaleService,
-    private router: Router
+    private router: Router,
+  private route: ActivatedRoute // Add this
   ) {
+    const today = new Date().toISOString().split('T')[0];
+
     this.saleForm = this.fb.group({
+      saleId: 0, // Assuming you might need this for editing
       supermarketName: ['', Validators.required],
       productId: ['', Validators.required],
       quantitySold: [1, [Validators.required, Validators.min(1)]],
-      saleDate: ['', Validators.required]
+      saleDate: [{value: '', disabled: true}, Validators.required] // Disable the saleDate control
     });
   }
 
   ngOnInit(): void {
     this.loadSupermarketTitles();
+    this.route.queryParams.subscribe(params => {
+      if (params['supermarket']) {
+        this.saleForm.get('supermarketName')?.setValue(params['supermarket']);
+        this.loadProducts(params['supermarket']);
+      }
+    });
+    this.loadSupermarketTitles();
+    const today = new Date().toISOString().split('T')[0];
+    this.saleForm.get('saleDate')?.setValue(today);
   }
 
   loadSupermarketTitles(): void {
     this.saleService.getSupermarketTitles().subscribe(data => {
       this.supermarketTitles = data;
+      // Check if supermarketName is already set before setting it again
+      if (this.supermarketTitles.length === 1 && !this.saleForm.get('supermarketName')?.value) {
+        this.saleForm.get('supermarketName')?.setValue(this.supermarketTitles[0]);
+        this.loadProducts(this.supermarketTitles[0]);
+      }
     }, error => console.error(error));
   }
 
-  onSelectSupermarketTitle(title: string): void {
-    this.saleForm.get('supermarketName')?.setValue(title);
-    this.loadProducts(title);
-  }
 
   loadProducts(supermarketTitle: string): void {
-    this.saleService.getProducts(supermarketTitle).subscribe(data => {
-      this.products = data;
-    }, error => console.error(error));
+    if (supermarketTitle) {
+      this.saleService.getProducts(supermarketTitle).subscribe(data => {
+        this.products = data;
+      }, error => console.error(error));
+    } else {
+      this.products = []; // Clear products if no supermarket is selected
+    }
   }
+
 
   saveSale(): void {
     if (this.saleForm.invalid) {
@@ -55,10 +76,19 @@ export class AddSaleComponent implements OnInit {
     const saleData: SaleModel = this.saleForm.value;
 
     this.saleService.insertSale(saleData).subscribe(
-      () => this.router.navigate(['/sales']),
-      (error: any) => console.error(error)
+      () => {
+        this.successMessage = 'Sale added successfully! Please, wait...';
+        setTimeout(() => {
+          this.router.navigate(['/sales']);
+        }, 1500);
+      },
+      (error: any) => {
+        console.error(error);
+        this.successMessage = 'Adding failed!'; // Set the failure message
+      }
     );
   }
+
 
   cancel(): void {
     this.router.navigate(['/sales']);

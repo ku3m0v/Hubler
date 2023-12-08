@@ -4,13 +4,15 @@
     <h2 class="text-heading1-semibold font-medium text-gray-50">Sales</h2>
     <div class="flex items-center mt-4 gap-x-3">
       <select class="bg-slate-800 text-gray-50 placeholder-gray-400 focus:ring-2 focus:ring-purple-main focus:border-none rounded-lg block w-full pl-2.5 pr-5 py-1.5 t-1.5 text-sm border-2 border-violet-800"
-              [(ngModel)]="selectedSupermarketTitle" (change)="onSelectSupermarketTitle(selectedSupermarketTitle)" required>
-        <option value="" disabled selected>Select store</option>
+              [(ngModel)]="selectedSupermarketTitle" (change)="onSelectSupermarketTitle(selectedSupermarketTitle)" [disabled]="supermarketTitles.length === 1" required>
+        <option *ngIf="supermarketTitles.length > 1" value="" disabled>Select store</option>
         <option *ngFor="let store of supermarketTitles" [value]="store">{{ store }}</option>
       </select>
+
       <!--      FIXME: add class disabled-->
       <button
         [routerLink]="['/add-sale']"
+        [queryParams]="{ supermarket: selectedSupermarketTitle }"
         [disabled]="!selectedSupermarketTitle"
         class="disabled: w-1/2 px-5 py-1.5 text-sm text-white bg-fuchsia-700 transition-colors duration-200 border-2 border-fuchsia-800/70 rounded-lg sm:w-auto hover:bg-fuchsia-900 active:bg-fuchsia-900/70 whitespace-nowrap">
         Add sale

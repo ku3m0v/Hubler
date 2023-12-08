@@ -95,6 +95,4 @@ export class SaleComponent implements OnInit {
       });
     }
   }
-
-  // Additional methods such as addSale, updateSale, etc., can be added here
 }
