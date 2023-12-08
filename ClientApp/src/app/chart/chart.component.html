@@ -1,161 +1,162 @@
 <div>
-  <div class="flex flex-row gap-3 items-center justify-content-center">
-<!--    <div class="h-full">-->
-<!--      <div class="h-[35em] w-[24rem] bg-gray-900 rounded-lg shadow p-4">-->
-<!--        <div class="flex justify-between">-->
-<!--          <div>-->
-<!--            <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Sales</h5>-->
-<!--          </div>-->
-<!--          <div class="flex items-center">-->
-<!--            <button class="p-2.5 text-4xl font-semibold bg-purple-950 rounded-lg text-gray-200"></button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div id="data-series-chart"></div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-    <div class="h-full">
-    <div class="h-[35em] w-full relative overflow-x-auto shadow-md md:rounded-lg">
-      <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
-        <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Sales</h5>
-      </div>
-      <table class="w-full text-sm text-left bg-gray-900 text-gray-400">
-        <thead class="text-xs text-gray-300 uppercase text-center">
-        <tr>
-          <th class="px-6 py-3" scope="col">
-            Store
-          </th>
-          <th class="px-10 py-3 whitespace-nowrap" scope="col">
-            Total Sales
-          </th>
-          <th class="px-6 py-3" scope="col">
-            Date
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let product of salesSummaries"
-            class="bg-gray-800 border-b border-gray-800 text-center">
-          <td class="px-4 py-4 font-semibold text-gray-400">
-            {{ product.title }}
-          </td>
-          <td class="px-4 py-4 font-semibold text-gray-400">
-            {{ product.total_Sales }}
-          </td>
-          <td class="px-4 py-4 font-semibold text-gray-400 whitespace-nowrap">
-            {{ product.month }} / {{product.year}}
-          </td>
-        </tr>
-        </tbody>
-      </table>
+  <div class="p-2 rounded-lg grid md:grid-cols-2 sm:xs:grid-cols-1 gap-3 items-start justify-evenly overflow-hidden">
+    <div class="col-start-1 col-span-full">
+      <select
+        (change)="onSelectSupermarketTitle(selectedSupermarketTitle)"
+        [(ngModel)]="selectedSupermarketTitle"
+        class="bg-slate-800 text-gray-50 placeholder-gray-400 focus:ring-2 focus:ring-purple-main focus:border-none rounded-lg block w-full pl-2.5 pr-5 py-1.5 t-1.5 text-sm border-2 border-violet-800"
+        required>
+        <option disabled selected value="">Select store</option>
+        <option *ngFor="let store of supermarketTitles" [value]="store">{{ store }}</option>
+      </select>
     </div>
-  </div>
-    <div class="h-full">
-      <div class="h-[35em] w-full relative overflow-x-auto shadow-md md:rounded-lg">
-        <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
-          <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Top Products</h5>
+    <div>
+      <div class="mb-3">
+        <div class=" w-full block overflow-y-hidden shadow-md md:rounded-lg">
+          <div class="w-full space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
+            <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Top Products</h5>
+          </div>
+          <table *ngIf="selectedSupermarketTitle"
+                 class="block md:h-[22rem] h-[36rem] overflow-y-scroll w-full text-sm text-left Ctext-gray-400">
+            <thead class="sticky-top text-xs bg-gray-900 text-gray-300 uppercase text-center">
+            <tr>
+              <th class="px-4 py-3" scope="col">
+                Product
+              </th>
+              <th class="px-6 py-3 whitespace-nowrap" scope="col">
+                Sold Quantity
+              </th>
+              <th class="px-4 py-3" scope="col">
+                Store
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let product of top5Products"
+                class="bg-gray-800 border-b border-gray-800 text-center">
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.product_Name }}
+              </td>
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.total_Quantity_Sold }}
+              </td>
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.supermarket_Name }}
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-        <table class="w-full text-sm text-left bg-gray-900 text-gray-400">
-          <thead class="text-xs text-gray-300 uppercase text-center">
-          <tr>
-            <th class="px-6 py-3" scope="col">
-              Product
-            </th>
-            <th class="px-10 py-3 whitespace-nowrap" scope="col">
-              Sold Quantity
-            </th>
-            <th class="px-6 py-3" scope="col">
-              Store
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let product of top5Products"
-              class="bg-gray-800 border-b border-gray-800 text-center">
-            <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.product_Name }}
-            </td>
-            <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.total_Quantity_Sold }}
-            </td>
-            <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.supermarket_Name }}
-            </td>
-          </tr>
-          </tbody>
-        </table>
       </div>
-    </div>
-    <div class="h-full">
-      <div class="h-[35em] w-[28rem] relative overflow-x-auto shadow-md md:rounded-lg">
-        <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
-          <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Expired Products: Inventory</h5>
+      <div class="">
+        <div class="w-full relative overflow-x-auto shadow-md md:rounded-lg">
+          <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
+            <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Sales</h5>
+          </div>
+          <table *ngIf="selectedSupermarketTitle" class="w-full text-sm text-left bg-gray-900 text-gray-400">
+            <thead class="text-xs text-gray-300 uppercase text-center">
+            <tr>
+              <th class="px-10 py-3 whitespace-nowrap" scope="col">
+                Total Sales
+              </th>
+              <th class="px-6 py-3" scope="col">
+                Date
+              </th>
+              <th class="px-6 py-3" scope="col">
+                Store
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let product of salesSummaries"
+                class="bg-gray-800 border-b border-gray-800 text-center">
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.total_Sales }}
+              </td>
+              <td class="px-4 py-4 font-semibold text-gray-400 whitespace-nowrap">
+                {{ product.month }} / {{ product.year }}
+              </td>
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.title }}
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-        <table class="w-full text-sm text-left bg-gray-900 text-gray-400">
-          <thead class="text-xs text-gray-300 uppercase text-center">
-          <tr>
-            <th class="px-6 py-3" scope="col">
-              Product
-            </th>
-            <th class="px-10 py-3" scope="col">
-              Date
-            </th>
-            <th class="px-6 py-3" scope="col">
-              Store
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let product of expiredInventories"
-              class="bg-gray-800 border-b border-gray-800 text-center">
-            <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.product_Title }}
-            </td>
-            <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.expiryDate | date : 'MM/dd/yyyy' }}
-            </td>
-            <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.supermarket_Title }}
-            </td>
-          </tr>
-          </tbody>
-        </table>
       </div>
     </div>
-    <div class="h-full">
-      <div class="h-[35em] w-[28rem] relative overflow-x-auto shadow-md md:rounded-lg">
-        <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
-          <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Expired Products: Warehouse</h5>
+    <div>
+      <div class="mb-3">
+        <div class="wrelative overflow-x-auto shadow-md md:rounded-lg">
+          <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
+            <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Expired Products: Inventory</h5>
+          </div>
+          <table *ngIf="selectedSupermarketTitle" class="w-full text-sm text-left bg-gray-900 text-gray-400">
+            <thead class="text-xs text-gray-300 uppercase text-center">
+            <tr>
+              <th class="px-6 py-3" scope="col">
+                Product
+              </th>
+              <th class="px-10 py-3" scope="col">
+                Date
+              </th>
+              <th class="px-6 py-3" scope="col">
+                Store
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let product of expiredInventories"
+                class="bg-gray-800 border-b border-gray-800 text-center">
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.product_Title }}
+              </td>
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.expiryDate | date : 'MM/dd/yyyy' }}
+              </td>
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.supermarket_Title }}
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-        <table class="w-full text-sm text-left bg-gray-900 text-gray-400">
-          <thead class="text-xs text-gray-300 uppercase text-center">
-          <tr>
-            <th class="px-6 py-3" scope="col">
-              Product
-            </th>
-            <th class="px-10 py-3" scope="col">
-              Date
-            </th>
-            <th class="px-10 py-3" scope="col">
-              Store
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let product of expiredWarehouses"
-              class="bg-gray-800 border-b border-gray-800 text-center">
-            <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.product_Title }}
-            </td>
-            <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.expiryDate | date: 'MM/dd/yyyy' }}
-            </td>
-            <td class="px-4 py-4 font-semibold text-gray-400">
-              {{ product.supermarket_Title }}
-            </td>
-          </tr>
-          </tbody>
-        </table>
+      </div>
+      <div class="">
+        <div class="relative overflow-x-auto shadow-md md:rounded-lg">
+          <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
+            <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Expired Products: Warehouse</h5>
+          </div>
+          <table *ngIf="selectedSupermarketTitle" class="w-full text-sm text-left bg-gray-900 text-gray-400">
+            <thead class="text-xs text-gray-300 uppercase text-center">
+            <tr>
+              <th class="px-6 py-3" scope="col">
+                Product
+              </th>
+              <th class="px-10 py-3" scope="col">
+                Date
+              </th>
+              <th class="px-10 py-3" scope="col">
+                Store
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let product of expiredWarehouses"
+                class="bg-gray-800 border-b border-gray-800 text-center">
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.product_Title }}
+              </td>
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.expiryDate | date: 'MM/dd/yyyy' }}
+              </td>
+              <td class="px-4 py-4 font-semibold text-gray-400">
+                {{ product.supermarket_Title }}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

@@ -12,6 +12,8 @@ export class WarehouseComponent implements OnInit {
   selectedSupermarketTitle: string = '';
   showSpinner = true;
   showMsg = false;
+  messageContent: string = '';
+  showMessage: boolean = false;
 
   constructor(private warehouseService: WarehouseService) {
     setTimeout(() => {
@@ -45,6 +47,10 @@ export class WarehouseComponent implements OnInit {
     this.warehouseService.getSupermarketTitles().subscribe({
       next: (data) => {
         this.supermarketTitles = data;
+        if (this.supermarketTitles.length === 1) {
+          this.selectedSupermarketTitle = this.supermarketTitles[0];
+          this.onSelectSupermarketTitle(this.selectedSupermarketTitle);
+        }
       },
       error: (error) => {
         console.error('Error loading supermarket titles', error);
@@ -75,28 +81,38 @@ export class WarehouseComponent implements OnInit {
 
     this.warehouseService.transferProduct(warehouseEntry).subscribe({
       next: () => {
-        console.log('Product transferred successfully');
+        this.showMessageWithTimeout('Product transferred successfully');
         this.loadWarehouse();
       },
       error: (error) => {
-        console.error('There was an error during the transfer!', error);
+        this.showMessageWithTimeout('There was an error during the transfer!');
       }
     });
   }
 
   orderProducts(): void {
     if (!this.selectedSupermarketTitle) {
-      alert('Please select a supermarket title.');
+      this.showMessageWithTimeout('Please select a supermarket title.');
       return;
     }
     this.warehouseService.orderProducts(this.selectedSupermarketTitle).subscribe({
       next: () => {
+        this.showMessageWithTimeout('Products ordered successfully');
         console.log('Products ordered successfully');
-        this.loadWarehouse(); // Refresh the warehouse list
+        // Additional logic after successful order
       },
       error: (error) => {
+        this.showMessageWithTimeout('There was an error processing your order.');
         console.error('There was an error!', error);
       }
     });
+  }
+
+  showMessageWithTimeout(message: string) {
+    this.messageContent = message;
+    this.showMessage = true;
+    setTimeout(() => {
+      this.showMessage = false;
+    }, 1500); // Hide the message after 1.5 seconds
   }
 }

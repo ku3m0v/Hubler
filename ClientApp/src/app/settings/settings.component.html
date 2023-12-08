@@ -1,5 +1,5 @@
 <div class="px-16 grid md:grid-cols-4 grid-rows-2 xs:grid-cols-1 gap-4">
-  <div [routerLink]="['/statuses']"
+  <div *ngIf="isAdmin()" [routerLink]="['/statuses']"
     class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
     bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
     <img src="assets/assets/flag.svg" height="32" width="32" alt="Statuses"/>
@@ -17,7 +17,7 @@
       Cash Registers
     </button>
   </div>
-  <div [routerLink]="['/roles']"
+  <div *ngIf="isAdmin()" [routerLink]="['/roles']"
     class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
     bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
     <img src="assets/assets/role.svg" height="32" width="32" alt="Roles"/>
@@ -26,13 +26,22 @@
       Roles
     </button>
   </div>
-  <div [routerLink]="['/logs']"
+  <div *ngIf="isAdmin()" [routerLink]="['/logs']"
     class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
     bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
     <img src="assets/assets/logs.svg" height="32" width="32" alt="Roles"/>
     <button
       class="flex items-center leading-none z-2">
       Logs
+    </button>
+  </div>
+  <div [routerLink]="['/sales']"
+    class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
+    bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">
+    <img src="assets/assets/dollar.svg" height="32" width="32" alt="sales"/>
+    <button
+      class="flex items-center leading-none z-2">
+      Sales
     </button>
   </div>
 </div>

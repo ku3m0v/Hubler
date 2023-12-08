@@ -47,19 +47,19 @@ export class AddProductComponent implements OnInit {
     const productData: LkProduct = this.productForm.value;
     if (this.title === 'Add') {
       this.productService.insert(productData).subscribe(
-        () => this.router.navigate(['/products']),
+        () => this.router.navigate(['/catalogue']),
         (error: any) => console.error(error)
       );
     } else {
       this.productService.update(productData).subscribe(
-        () => this.router.navigate(['/products']),
+        () => this.router.navigate(['/catalogue']),
         (error: any) => console.error(error)
       );
     }
   }
 
   cancel(): void {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/catalogue']);
   }
 
   public isUserAuthenticated(): boolean {

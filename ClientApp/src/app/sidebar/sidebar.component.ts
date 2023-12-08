@@ -25,35 +25,23 @@ export class SidebarComponent {
   constructor(private authService: AuthenticationService) {
     if (this.authService.isAdmin()) {
       this.sidebarLinks = [
-        {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
-        {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
+        {route: '/chart', label: 'Dashboard', imgURL: '/assets/assets/home.svg'},
+        {route: '/user', label: 'Profile', imgURL: '/assets/assets/user.svg'},
         {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
-        {route: '/products', label: 'Catalog', imgURL: '/assets/assets/catalog.svg'},
         {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
-        {route: '/orders', label: 'Order', imgURL: '/assets/assets/order.svg'},
-        {route: '/perishable', imgURL: '/assets/assets/members.svg', name: 'perishable'},
-        {route: '/nonperishable', imgURL: '/assets/assets/members.svg', name: 'nonperishable'},
-        {route: '/inventory', imgURL: '/assets/assets/layers.svg', name: 'Inventory'},
-        {route: '/sales', imgURL: '/assets/assets/dollar.svg', name: 'Sales'},
+        {route: '/product-manager', label: 'Product Manager', imgURL: '/assets/assets/manager.svg'},
         {route: '/settings', label: 'Warehouses', imgURL: '/assets/assets/settings.svg'},
       ];
     } else if (this.authService.isManager()) {
       this.sidebarLinks = [
-        {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
-        {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
-        {route: '/products', label: 'Catalog', imgURL: '/assets/assets/catalog.svg'},
-        {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
+        {route: '/chart', label: 'Dashboard', imgURL: '/assets/assets/home.svg'},
+        {route: '/user', label: 'Profile', imgURL: '/assets/assets/user.svg'},
         {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
-        {route: '/orders', label: 'Order', imgURL: '/assets/assets/order.svg'},
-        {route: '/perishable', imgURL: '/assets/assets/members.svg', name: 'perishable'},
-        {route: '/nonperishable', imgURL: '/assets/assets/members.svg', name: 'nonperishable'},
-        {route: '/inventory', imgURL: '/assets/assets/layers.svg', name: 'Inventory'},
-        {route: '/sales', imgURL: '/assets/assets/dollar.svg', name: 'Sales'},
+        {route: '/product-manager', label: 'Product Manager', imgURL: '/assets/assets/manager.svg'},
         {route: '/settings', label: 'Warehouses', imgURL: '/assets/assets/settings.svg'},
       ];
     } else if (this.authService.isCashier()) {
       this.sidebarLinks = [
-        {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
         {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
         {route: '/cashregisters', label: 'Cashregisters', imgURL: '/assets/assets/check.svg'},
       ];
