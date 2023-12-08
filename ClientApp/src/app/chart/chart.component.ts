@@ -24,7 +24,7 @@ interface Product {
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements AfterViewInit, OnInit {
+export class ChartComponent implements OnInit {
   expiredInventories: ExpiredInventory[] = [];
   expiredWarehouses: ExpiredWarehouse[] = [];
   top5Products: Top5ProductsBySupermarket[] = [];
@@ -35,75 +35,11 @@ export class ChartComponent implements AfterViewInit, OnInit {
   private options: any;
 
   constructor(private elRef: ElementRef, private authService: AuthenticationService, private viewsService: ViewsService) {
-    // this.options = {
-    //   chart: {
-    //     height: "100%",
-    //     maxWidth: "100%",
-    //     type: "area",
-    //     fontFamily: "Inter, sans-serif",
-    //     dropShadow: {
-    //       enabled: false,
-    //     },
-    //     toolbar: {
-    //       show: false,
-    //     },
-    //   },
-    //   tooltip: {
-    //     enabled: true,
-    //     x: {
-    //       show: false,
-    //     },
-    //   },
-    //   fill: {
-    //     type: "gradient",
-    //     gradient: {
-    //       opacityFrom: 0.65,
-    //       opacityTo: 0,
-    //       shade: "#ffd400",
-    //       gradientToColors: ["#ff9200"],
-    //     },
-    //   },
-    //   dataLabels: {
-    //     enabled: false,
-    //   },
-    //   stroke: {
-    //     width: 6,
-    //   },
-    //   grid: {
-    //     show: false,
-    //     strokeDashArray: 4,
-    //     padding: {
-    //       left: 2,
-    //       right: 2,
-    //       top: 0
-    //     },
-    //   },
-    //   series: [{
-    //     name: "Total Sales",
-    //     data: []  // Data will be set dynamically
-    //   }],
-    //   xaxis: {
-    //     categories: ['1.1.23', '1.2.23', '1.3.23', '1.4.23', '1.5.23', '1.5.23', '1.6.23', '1.7.23', '1.10.23', '1.11.23', '1.12.23', '1.13.23'],
-    //     labels: {
-    //       show: false,
-    //     },
-    //     axisBorder: {
-    //       show: false,
-    //     },
-    //     axisTicks: {
-    //       show: false,
-    //     },
-    //   },
-    //   yaxis: {
-    //     show: false,
-    //   },
-    // };
   }
 
   ngOnInit(): void {
     this.fetchSupermarketTitles();
   }
-
 
   fetchSupermarketTitles(): void {
     this.viewsService.getSupermarketTitles().subscribe(
@@ -143,7 +79,6 @@ export class ChartComponent implements AfterViewInit, OnInit {
     this.viewsService.getSupermarketSalesSummary(this.selectedSupermarketTitle).subscribe(
       (data: SupermarketSalesSummary[]) => {
         this.salesSummaries = data;
-        // Update chart data if applicable
         this.loading = false;
       },
       (error) => {
@@ -152,22 +87,32 @@ export class ChartComponent implements AfterViewInit, OnInit {
       }
     );
   }
+
   // private updateChartData(data: SupermarketSalesSummary[]): void {
-  //   this.options.series[0].data = data.map(item => item.totalSales);
-  //   this.options.xaxis.categories = data.map(item => `${item.month}/${item.year}`);
-  //   // Re-initialize the chart to update data
+  //   const newSeries = [{
+  //     name: "Total Sales",
+  //     data: data.map(item => item.total_Sales)
+  //   }];
+  //
+  //   const chartContainer = this.elRef.nativeElement.querySelector('#data-series-chart');
+  //   if (chartContainer && ApexCharts) {
+  //     // Assuming `chart` is an instance of ApexCharts that you've initialized elsewhere
+  //     const chart = new ApexCharts(chartContainer, this.options);
+  //     chart.updateSeries(newSeries, true); // true to redraw the chart
+  //   }
+  // }
+
+
+  // ngAfterViewInit(): void {
   //   this.initChart();
   // }
 
-  ngAfterViewInit(): void {
-    this.initChart();
-  }
-
-  private initChart(): void {
-    const chartContainer = this.elRef.nativeElement.querySelector('#data-series-chart');
-    if (chartContainer && ApexCharts) {
-      const chart = new ApexCharts(chartContainer, this.options);
-      chart.render();
-    }
-  }
+  // private initChart(): void {
+  //   const chartContainer = this.elRef.nativeElement.querySelector('#data-series-chart');
+  //   if (chartContainer && ApexCharts) {
+  //     const chart = new ApexCharts(chartContainer, this.options);
+  //     chart.render();
+  //   }
+  // }
+  protected readonly HTMLBodyElement = HTMLBodyElement;
 }
