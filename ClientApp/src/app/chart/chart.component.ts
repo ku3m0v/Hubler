@@ -7,6 +7,7 @@ import {
   Top5ProductsBySupermarket,
   ViewsService
 } from "../service/view-service/views.service";
+import {FormControl} from "@angular/forms";
 
 declare var ApexCharts: any;
 
@@ -28,156 +29,121 @@ export class ChartComponent implements AfterViewInit, OnInit {
   expiredWarehouses: ExpiredWarehouse[] = [];
   top5Products: Top5ProductsBySupermarket[] = [];
   salesSummaries: SupermarketSalesSummary[] = [];
+  supermarketTitles: string[] = [];
+  selectedSupermarketTitle: string = '';
   loading = true;
-
-  selectedValue: string = 'Last 7 days';
-  isDropdownVisible: boolean = false;
-  salesValue: string = '12,423';
-  percentageChange: number = 23;
-  topProducts: Product[] = [
-    {
-      imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
-      id: 1,
-      title: 'Product 1',
-      soldQuantity: 100
-    },
-    {
-      imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg',
-      id: 2,
-      title: 'Product 2',
-      soldQuantity: 100
-    },
-    {
-      imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg',
-      id: 3,
-      title: 'Product 3',
-      soldQuantity: 100
-    },
-  ];
-  expiredProducts: Product[] = [
-    {
-      imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg',
-      id: 1,
-      title: 'Fresh Peaches',
-      date: '2021/02/01'
-    },
-    {
-      imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
-      id: 2,
-      title: 'Corn Onion Muffaleta Bread',
-      date: '2021/02/01'
-    },
-    {
-      imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
-      id: 3,
-      title: 'Fresh Blueberries',
-      date: '2021/02/03'
-    },
-    {
-      imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
-      id: 4,
-      title: 'Fresh Blueberries',
-      date: '2021/02/03'
-    },
-    {
-      imageUrl: 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
-      id: 5,
-      title: 'Fresh Blueberries',
-      date: '2021/02/03'
-    },
-  ];
   private options: any;
 
   constructor(private elRef: ElementRef, private authService: AuthenticationService, private viewsService: ViewsService) {
-    this.options = {
-      chart: {
-        height: "100%",
-        maxWidth: "100%",
-        type: "area",
-        fontFamily: "Inter, sans-serif",
-        dropShadow: {
-          enabled: false,
-        },
-        toolbar: {
-          show: false,
-        },
-      },
-      tooltip: {
-        enabled: true,
-        x: {
-          show: false,
-        },
-      },
-      fill: {
-        type: "gradient",
-        gradient: {
-          opacityFrom: 0.65,
-          opacityTo: 0,
-          shade: "#ffd400",
-          gradientToColors: ["#ff9200"],
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        width: 6,
-      },
-      grid: {
-        show: false,
-        strokeDashArray: 4,
-        padding: {
-          left: 2,
-          right: 2,
-          top: 0
-        },
-      },
-      series: [{
-        name: "Total Sales",
-        data: []  // Data will be set dynamically
-      }],
-      xaxis: {
-        categories: ['1.1.23', '1.2.23', '1.3.23', '1.4.23', '1.5.23', '1.5.23', '1.6.23', '1.7.23', '1.10.23', '1.11.23', '1.12.23', '1.13.23'],
-        labels: {
-          show: false,
-        },
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-      },
-      yaxis: {
-        show: false,
-      },
-    };
+    // this.options = {
+    //   chart: {
+    //     height: "100%",
+    //     maxWidth: "100%",
+    //     type: "area",
+    //     fontFamily: "Inter, sans-serif",
+    //     dropShadow: {
+    //       enabled: false,
+    //     },
+    //     toolbar: {
+    //       show: false,
+    //     },
+    //   },
+    //   tooltip: {
+    //     enabled: true,
+    //     x: {
+    //       show: false,
+    //     },
+    //   },
+    //   fill: {
+    //     type: "gradient",
+    //     gradient: {
+    //       opacityFrom: 0.65,
+    //       opacityTo: 0,
+    //       shade: "#ffd400",
+    //       gradientToColors: ["#ff9200"],
+    //     },
+    //   },
+    //   dataLabels: {
+    //     enabled: false,
+    //   },
+    //   stroke: {
+    //     width: 6,
+    //   },
+    //   grid: {
+    //     show: false,
+    //     strokeDashArray: 4,
+    //     padding: {
+    //       left: 2,
+    //       right: 2,
+    //       top: 0
+    //     },
+    //   },
+    //   series: [{
+    //     name: "Total Sales",
+    //     data: []  // Data will be set dynamically
+    //   }],
+    //   xaxis: {
+    //     categories: ['1.1.23', '1.2.23', '1.3.23', '1.4.23', '1.5.23', '1.5.23', '1.6.23', '1.7.23', '1.10.23', '1.11.23', '1.12.23', '1.13.23'],
+    //     labels: {
+    //       show: false,
+    //     },
+    //     axisBorder: {
+    //       show: false,
+    //     },
+    //     axisTicks: {
+    //       show: false,
+    //     },
+    //   },
+    //   yaxis: {
+    //     show: false,
+    //   },
+    // };
   }
 
   ngOnInit(): void {
+    this.fetchSupermarketTitles();
+  }
+
+
+  fetchSupermarketTitles(): void {
+    this.viewsService.getSupermarketTitles().subscribe(
+      (titles: string[]) => {
+        this.supermarketTitles = titles;
+      },
+      (error) => console.error('Error fetching supermarket titles:', error)
+    );
+  }
+
+  onSelectSupermarketTitle(title: string): void {
+    this.selectedSupermarketTitle = title;
     this.fetchData();
   }
 
   fetchData(): void {
-    this.viewsService.getExpiredInventory().subscribe(
+    if (!this.selectedSupermarketTitle) {
+      console.error('Supermarket title is required');
+      return;
+    }
+
+    this.viewsService.getExpiredInventory(this.selectedSupermarketTitle).subscribe(
       (data: ExpiredInventory[]) => this.expiredInventories = data,
       (error) => console.error('Error fetching expired inventories:', error)
     );
 
-    this.viewsService.getExpiredWarehouse().subscribe(
+    this.viewsService.getExpiredWarehouse(this.selectedSupermarketTitle).subscribe(
       (data: ExpiredWarehouse[]) => this.expiredWarehouses = data,
       (error) => console.error('Error fetching expired warehouses:', error)
     );
 
-    this.viewsService.getTop5ProductsBySupermarket().subscribe(
+    this.viewsService.getTop5ProductsBySupermarket(this.selectedSupermarketTitle).subscribe(
       (data: Top5ProductsBySupermarket[]) => this.top5Products = data,
       (error) => console.error('Error fetching top 5 products:', error)
     );
 
-    this.viewsService.getSupermarketSalesSummary().subscribe(
+    this.viewsService.getSupermarketSalesSummary(this.selectedSupermarketTitle).subscribe(
       (data: SupermarketSalesSummary[]) => {
         this.salesSummaries = data;
-        // this.updateChartData(data);
+        // Update chart data if applicable
         this.loading = false;
       },
       (error) => {
@@ -186,7 +152,6 @@ export class ChartComponent implements AfterViewInit, OnInit {
       }
     );
   }
-
   // private updateChartData(data: SupermarketSalesSummary[]): void {
   //   this.options.series[0].data = data.map(item => item.totalSales);
   //   this.options.xaxis.categories = data.map(item => `${item.month}/${item.year}`);

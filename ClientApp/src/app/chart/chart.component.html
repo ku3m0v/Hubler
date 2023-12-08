@@ -1,4 +1,9 @@
 <div>
+  <select class="bg-slate-800 text-gray-50 placeholder-gray-400 focus:ring-2 focus:ring-purple-main focus:border-none rounded-lg block w-full pl-2.5 pr-5 py-1.5 t-1.5 text-sm border-2 border-violet-800"
+          [(ngModel)]="selectedSupermarketTitle" (change)="onSelectSupermarketTitle(selectedSupermarketTitle)" required>
+    <option value="" disabled selected>Select store</option>
+    <option *ngFor="let store of supermarketTitles" [value]="store">{{ store }}</option>
+  </select>
   <div class="flex flex-row gap-3 items-center justify-content-center">
 <!--    <div class="h-full">-->
 <!--      <div class="h-[35em] w-[24rem] bg-gray-900 rounded-lg shadow p-4">-->
