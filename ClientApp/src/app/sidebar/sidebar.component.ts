@@ -36,14 +36,12 @@ export class SidebarComponent {
       this.sidebarLinks = [
         {route: '/chart', label: 'Dashboard', imgURL: '/assets/assets/home.svg'},
         {route: '/user', label: 'Profile', imgURL: '/assets/assets/user.svg'},
-        // {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
         {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
         {route: '/product-manager', label: 'Product Manager', imgURL: '/assets/assets/manager.svg'},
         {route: '/settings', label: 'Warehouses', imgURL: '/assets/assets/settings.svg'},
       ];
     } else if (this.authService.isCashier()) {
       this.sidebarLinks = [
-        {route: '/chart', label: 'Home', imgURL: '/assets/assets/home.svg'},
         {route: '/user', label: 'User', imgURL: '/assets/assets/user.svg'},
         {route: '/cashregisters', label: 'Cashregisters', imgURL: '/assets/assets/check.svg'},
       ];
