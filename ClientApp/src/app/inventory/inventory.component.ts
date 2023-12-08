@@ -13,13 +13,14 @@ export class InventoryComponent implements OnInit {
   selectedSupermarketTitle: string = '';
   showSpinner = true;
   showMsg = false;
+  messageContent: string = '';
+  showMessage: boolean = false;
 
   constructor(private inventoryService: InventoryService) {
     setTimeout(() => {
       this.showSpinner = false;
       this.showMsg = true;
     }, 1500);
-
   }
 
   ngOnInit(): void {
@@ -48,6 +49,10 @@ export class InventoryComponent implements OnInit {
     this.inventoryService.getSupermarketTitles().subscribe({
       next: (data) => {
         this.supermarketTitles = data;
+        if (this.supermarketTitles.length === 1) {
+          this.selectedSupermarketTitle = this.supermarketTitles[0];
+          this.onSelectSupermarketTitle(this.selectedSupermarketTitle);
+        }
       },
       error: (error) => {
         console.error('Error loading supermarket titles', error);
@@ -72,19 +77,28 @@ export class InventoryComponent implements OnInit {
 
   orderProducts(): void {
     if (!this.selectedSupermarketTitle) {
-      alert('Please select a supermarket title.');
+      this.showMessageWithTimeout('Please select a supermarket title.');
       return;
     }
-    // Logic for ordering products for the selected supermarket
     this.inventoryService.orderProducts(this.selectedSupermarketTitle).subscribe({
       next: () => {
+        this.showMessageWithTimeout('Products ordered successfully');
         console.log('Products ordered successfully');
-        // Handle response for successful product ordering
+        // Additional logic after successful order
       },
       error: (error) => {
+        this.showMessageWithTimeout('There was an error processing your order.');
         console.error('There was an error!', error);
       }
     });
+  }
+
+  showMessageWithTimeout(message: string) {
+    this.messageContent = message;
+    this.showMessage = true;
+    setTimeout(() => {
+      this.showMessage = false;
+    }, 1500); // Hide the message after 1.5 seconds
   }
 
 }

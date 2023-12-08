@@ -42,12 +42,20 @@ export class ChartComponent implements OnInit {
   }
 
   fetchSupermarketTitles(): void {
-    this.viewsService.getSupermarketTitles().subscribe(
-      (titles: string[]) => {
-        this.supermarketTitles = titles;
+    this.viewsService.getSupermarketTitles().subscribe({
+      next: (data) => {
+        this.supermarketTitles = data;
+        if (this.supermarketTitles.length === 1) {
+          this.selectedSupermarketTitle = this.supermarketTitles[0];
+          this.onSelectSupermarketTitle(this.selectedSupermarketTitle);
+        }
       },
-      (error) => console.error('Error fetching supermarket titles:', error)
-    );
+      error: (error) => {
+        console.error('Error loading supermarket titles', error);
+        // this.showMessage = true;
+        // this.messageContent = 'Error loading supermarket titles.';
+      }
+    });
   }
 
   onSelectSupermarketTitle(title: string): void {

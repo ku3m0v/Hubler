@@ -64,6 +64,10 @@ export class SaleComponent implements OnInit {
     this.saleService.getSupermarketTitles().subscribe({
       next: (data) => {
         this.supermarketTitles = data;
+        if (this.supermarketTitles.length === 1) {
+          this.selectedSupermarketTitle = this.supermarketTitles[0];
+          this.onSelectSupermarketTitle(this.selectedSupermarketTitle);
+        }
       },
       error: (error) => {
         console.error('Error loading supermarket titles', error);
@@ -72,6 +76,7 @@ export class SaleComponent implements OnInit {
       }
     });
   }
+
 
   deleteSale(sale: SaleModel): void {
     const confirmation = confirm('Are you sure you want to delete this sale?');
