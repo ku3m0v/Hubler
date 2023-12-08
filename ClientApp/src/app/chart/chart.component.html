@@ -7,7 +7,7 @@
     <option disabled selected value="">Select store</option>
     <option *ngFor="let store of supermarketTitles" [value]="store">{{ store }}</option>
   </select>
-  <div class="grid grid-cols-2 gap-3 items-start justify-evenly overflow-hidden">
+  <div class="grid md:grid-cols-2 sm:xs:grid-cols-1 gap-3 items-start justify-evenly overflow-hidden">
     <div>
       <div class="mb-3">
         <div class=" w-full block overflow-y-hidden shadow-md md:rounded-lg">
