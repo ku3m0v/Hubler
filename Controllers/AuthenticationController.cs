@@ -134,4 +134,54 @@ public class AuthenticationController : ControllerBase
         }
     }
     
+    [HttpPost("impersonate")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult Impersonate([FromBody] ImpersonateRequest impersonateRequest)
+    {
+        if (impersonateRequest == null || string.IsNullOrWhiteSpace(impersonateRequest.Email))
+        {
+            return BadRequest("Invalid impersonation request.");
+        }
+
+        try
+        {
+            Employee employeeToImpersonate = _employeeDAL.GetByEmail(impersonateRequest.Email);
+            LkRole role = _lkRoleDAL.GetById(employeeToImpersonate.RoleId);
+
+            if (employeeToImpersonate != null)
+            {
+                var tokenClaims = new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, employeeToImpersonate.Id.ToString()),
+                    new Claim(ClaimTypes.Email, employeeToImpersonate.Email),
+                    new Claim(ClaimTypes.Role, role.RoleName)
+                };
+
+                var jwtSettings = _configuration.GetSection("JWTSettings");
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["securityKey"]));
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                var tokenOptions = new JwtSecurityToken(
+                    issuer: jwtSettings["validIssuer"],
+                    audience: jwtSettings["validAudience"],
+                    claims: tokenClaims,
+                    expires: DateTime.Now.AddMinutes(60),
+                    signingCredentials: signinCredentials
+                );
+
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                
+                _logger.LogInformation($"User {User.Identity.Name} impersonated {employeeToImpersonate.Email}");
+
+                return Ok(new { Token = tokenString });
+            }
+
+            return NotFound("User to impersonate not found.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during impersonation.");
+            return StatusCode(500, "An error occurred while processing your request.");
+        }
+    }
+    
 }
