@@ -83,6 +83,7 @@ export class WarehouseComponent implements OnInit {
       next: () => {
         this.showMessageWithTimeout('Product transferred successfully');
         this.loadWarehouse();
+        this.deleteWarehouseEntry(warehouseEntry)
       },
       error: (error) => {
         this.showMessageWithTimeout('There was an error during the transfer!');

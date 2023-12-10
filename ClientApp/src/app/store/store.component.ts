@@ -30,6 +30,10 @@ export class StoreComponent {
     }
   }
 
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
   public isUserAuthenticated(): boolean {
     return this.authService.isUserSignedIn();
   }

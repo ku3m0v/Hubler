@@ -70,7 +70,7 @@ export class AuthenticationService {
     return this.getRole() === 'cashier';
   }
 
-  private getRole(): string {
+  getRole(): string {
     let token = localStorage.getItem("jwt");
     if (token !== null) {
       let decodedToken = this.jwtHelper.decodeToken(token);
@@ -80,6 +80,21 @@ export class AuthenticationService {
       }
     }
     return '';
+  }
+
+  impersonateUser(email: string): Observable<any> {
+    return this.http.post<any>(`${this.url}api/authentication/impersonate`, { email }, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }).pipe(
+      tap(res => {
+        if (res && res.token) {
+          localStorage.setItem('jwt', res.token);
+          this.router.navigate(['/user']).then(() => {
+            window.location.reload();
+          });
+        }
+      })
+    );
   }
 }
 

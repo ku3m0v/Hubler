@@ -42,6 +42,28 @@ export class EmployeeComponent {
     }
   }
 
+  impersonateEmployee(employee: EmployeeModel) {
+    if (employee.email) {
+      this.authService.impersonateUser(employee.email).subscribe(
+        () => {
+          console.log('Impersonation successful');
+          // Navigate to a dashboard or a specific route if needed
+          // this.router.navigate(['/dashboard']);
+        },
+        error => {
+          console.error('Error during impersonation:', error);
+          // Handle error scenario
+        }
+      );
+    } else {
+      console.error('Employee email is not available');
+      // Handle the scenario where employee email is missing
+    }
+  }
+
+  public isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
 
   public isUserAuthenticated(): boolean {
     return this.authService.isUserSignedIn();

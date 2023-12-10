@@ -18,7 +18,7 @@ export class SignInComponent {
             response => {
                 localStorage.setItem('jwt', response.token);
                 this.invalidLogin = false;
-                this.router.navigate(['/chart']);
+                this.router.navigate(['/user']);
             },
             error => {
                 this.invalidLogin = true;

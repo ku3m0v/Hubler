@@ -45,8 +45,8 @@ public class AuthenticationController : ControllerBase
 
         Employee employee = _employeeDAL.GetByEmail(model.Username);
         LkRole role = _lkRoleDAL.GetById(employee.RoleId);
-        
-        
+
+
         if (employee != null && model.Username.Equals(employee.Email) &&
             BCrypt.Net.BCrypt.Verify(model.Password, employee.PassHash))
         {
@@ -74,8 +74,7 @@ public class AuthenticationController : ControllerBase
         return Unauthorized("Invalid email or password.");
     }
 
-    
-    
+
     [HttpPost("register")]
     public IActionResult Register([FromBody] RegistrationModel model)
     {
@@ -84,10 +83,10 @@ public class AuthenticationController : ControllerBase
         {
             return BadRequest("Invalid registration request.");
         }
-        
-        
+
+
         Supermarket supermarket = _supermarketDAL.GetSupermarketByTitle(model.SupermarketTitle);
-        
+
         var newEmployee = new Employee
         {
             Email = model.Email,
@@ -97,28 +96,28 @@ public class AuthenticationController : ControllerBase
             SupermarketId = supermarket.Id,
             RoleId = 1
         };
-        
+
         var validationMessage = _employeeDAL.ValidateRegistration(newEmployee);
-        
+
         if (validationMessage != "Good")
         {
             return BadRequest(new { message = validationMessage });
         }
-        
+
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
         newEmployee.PassHash = hashedPassword;
-        
+
         var result = _employeeDAL.Insert(newEmployee);
-        
-        if(result != "Employee was successfully created")
+
+        if (result != "Employee was successfully created")
         {
             return BadRequest(result);
         }
 
         return Ok(new { message = "Registration successful." });
     }
-    
-    
+
+
     [HttpGet("titles")]
     public IActionResult GetSupermarketTitles()
     {
@@ -133,5 +132,117 @@ public class AuthenticationController : ControllerBase
             return StatusCode(500, "An error occurred while processing your request.");
         }
     }
-    
+
+    // POST: api/authentication/impersonate
+    [HttpPost("impersonate")]
+    [Authorize(Roles = "admin")]
+    public IActionResult Impersonate([FromBody] ImpersonateRequest impersonateRequest)
+    {
+        if (impersonateRequest == null || string.IsNullOrWhiteSpace(impersonateRequest.Email))
+        {
+            return BadRequest("Invalid impersonation request.");
+        }
+
+        try
+        {
+            Employee employeeToImpersonate = _employeeDAL.GetByEmail(impersonateRequest.Email);
+            LkRole role = _lkRoleDAL.GetById(employeeToImpersonate.RoleId);
+
+            if (employeeToImpersonate != null)
+            {
+                var tokenClaims = new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, employeeToImpersonate.Id.ToString()),
+                    new Claim(ClaimTypes.Email, employeeToImpersonate.Email),
+                    new Claim(ClaimTypes.Role, role.RoleName)
+                };
+
+                var jwtSettings = _configuration.GetSection("JWTSettings");
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["securityKey"]));
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                var tokenOptions = new JwtSecurityToken(
+                    issuer: jwtSettings["validIssuer"],
+                    audience: jwtSettings["validAudience"],
+                    claims: tokenClaims,
+                    expires: DateTime.Now.AddMinutes(60),
+                    signingCredentials: signinCredentials
+                );
+
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+                _logger.LogInformation($"User {User.Identity.Name} impersonated {employeeToImpersonate.Email}");
+
+                return Ok(new { Token = tokenString });
+            }
+
+            return NotFound("User to impersonate not found.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during impersonation.");
+            return StatusCode(500, "An error occurred while processing your request.");
+        }
+    }
+
+    // POST: api/authentication/stopImpersonation
+    [HttpPost("stopImpersonation")]
+    [Authorize] // This ensures that the endpoint is accessible only by authenticated users
+    public IActionResult StopImpersonation([FromBody] StopImpersonationRequest stopRequest)
+    {
+        if (stopRequest == null || string.IsNullOrWhiteSpace(stopRequest.OriginalToken))
+        {
+            return BadRequest("Invalid request.");
+        }
+
+        try
+        {
+            var handler = new JwtSecurityTokenHandler();
+
+            // Validate the token's integrity and expiry
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = _configuration["JWTSettings:validIssuer"],
+                ValidAudience = _configuration["JWTSettings:validAudience"],
+                IssuerSigningKey =
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTSettings:securityKey"]))
+            };
+
+            SecurityToken validatedToken;
+            var principal = handler.ValidateToken(stopRequest.OriginalToken, validationParameters, out validatedToken);
+
+            var emailClaim = principal.FindFirst(ClaimTypes.Email)?.Value;
+            var nameIdentifierClaim = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var newTokenClaims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, nameIdentifierClaim),
+                new Claim(ClaimTypes.Email, emailClaim),
+                new Claim(ClaimTypes.Role, "admin")
+            };
+
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWTSettings:securityKey"]));
+            var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+            var newTokenOptions = new JwtSecurityToken(
+                issuer: _configuration["JWTSettings:validIssuer"],
+                audience: _configuration["JWTSettings:validAudience"],
+                claims: newTokenClaims,
+                expires: DateTime.Now.AddMinutes(60),
+                signingCredentials: signinCredentials
+            );
+
+            var newAdminTokenString = handler.WriteToken(newTokenOptions);
+
+            _logger.LogInformation($"User {emailClaim} stopped impersonation");
+            return Ok(new { Token = newAdminTokenString });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during stopping impersonation.");
+            return StatusCode(500, "An error occurred while processing your request.");
+        }
+    }
 }
