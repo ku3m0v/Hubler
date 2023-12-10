@@ -1,40 +1,117 @@
-<div class="container">
-  <h2>{{ title }} Cash Register</h2>
+<div class="relative bg-slate-900 rounded-lg overflow-hidden">
 
-  <form [formGroup]="cashRegisterForm" (ngSubmit)="saveCashRegister()">
+  <div class="absolute inset-0 bg-cover bg-center"
+       style="background-image: url('/assets/store.png'); filter: blur(0px);"></div>
 
-    <!-- Supermarket Name -->
-    <div class="form-group">
-      <label for="supermarketName">Supermarket Name</label>
-      <input type="text" class="form-control" id="supermarketName" formControlName="supermarketName" placeholder="Enter supermarket name">
+  <div class="absolute inset-0 bg-slate-900 opacity-50"></div>
+
+  <div class="py-3 px-3 mx-auto max-w-screen-xl grid lg:grid-cols-2 gap-4 lg:gap-16 relative">
+    <div class="flex justify-center mt-6">
+      <h2 class="text-[4rem] font-bold text-gray-50 mb-6"></h2>
     </div>
+    <div>
+      <div class="lg:max-w-xl px-6 py-3 sm:p-8 rounded-lg shadow-xl bg-slate-900">
+        <form class="space-y-3" [formGroup]="cashRegisterForm" (ngSubmit)="saveCashRegister()" novalidate>
+          <div>
+            <label *ngIf="cashRegisterForm.get('supermarketName')?.invalid && cashRegisterForm.get('supermarketName')?.touched" for="supermarketName"
+                   class="block mb-2 text-sm font-medium text-red-600">Store</label>
+            <label *ngIf="!cashRegisterForm.get('supermarketName')?.invalid || !cashRegisterForm.get('supermarketName')?.touched" for="supermarketName"
+                   class="block mb-2 text-sm font-medium text-gray-300">Store</label>
+            <select [class]="cashRegisterForm.get('supermarketName')?.invalid && cashRegisterForm.get('supermarketName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                    id="supermarketName"
+                    name="supermarketName"
+                    formControlName="supermarketName"
+                    required>
+              <option value="" disabled selected>Select store</option>
+              <option class="font-medium p-2.5 rounded-3xl border-indigo-400"
+                      *ngFor="let store of supermarketTitles" [value]="store">
+                {{ store }}
+              </option>
+            </select>
+            <div *ngIf="cashRegisterForm.get('supermarketName')?.invalid && cashRegisterForm.get('supermarketName')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Store is required.
+            </div>
+          </div>
 
-    <!-- Register Number -->
-    <div class="form-group">
-      <label for="registerNumber">Register Number</label>
-      <input type="number" class="form-control" id="registerNumber" formControlName="registerNumber" placeholder="Enter register number">
+          <!-- Register Number -->
+          <div>
+            <label *ngIf="cashRegisterForm.get('registerNumber')?.invalid && cashRegisterForm.get('registerNumber')?.touched" for="registerNumber"
+                   class="block mb-2 text-sm font-medium text-red-600">Register number</label>
+            <label *ngIf="!cashRegisterForm.get('registerNumber')?.invalid || !cashRegisterForm.get('registerNumber')?.touched" for="registerNumber"
+                   class="block mb-2 text-sm font-medium text-gray-300">Register number</label>
+            <input type="number"
+                   id="registerNumber"
+                   formControlName="registerNumber"
+                   placeholder="e.g 2"
+                   [class]="cashRegisterForm.get('registerNumber')?.invalid && cashRegisterForm.get('registerNumber')?.touched ?
+              'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                   required>
+            <div *ngIf="cashRegisterForm.get('registerNumber')?.invalid && cashRegisterForm.get('registerNumber')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Register number is required.
+            </div>
+          </div>
+
+          <!-- Status Name -->
+          <div>
+            <label *ngIf="cashRegisterForm.get('statusName')?.invalid && cashRegisterForm.get('statusName')?.touched" for="statusName"
+                   class="block mb-2 text-sm font-medium text-red-600">Status</label>
+            <label *ngIf="!cashRegisterForm.get('statusName')?.invalid || !cashRegisterForm.get('statusName')?.touched" for="statusName"
+                   class="block mb-2 text-sm font-medium text-gray-300">Status</label>
+            <select [class]="cashRegisterForm.get('statusName')?.invalid && cashRegisterForm.get('statusName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                    id="statusName"
+                    name="statusName"
+                    formControlName="statusName"
+                    required>
+              <option value="" disabled selected>Select status</option>
+              <option class="font-medium p-2.5 rounded-3xl border-indigo-400"
+                      *ngFor="let status of statuses" [value]="status">
+                {{ status }}
+              </option>
+            </select>
+            <div *ngIf="cashRegisterForm.get('statusName')?.invalid && cashRegisterForm.get('statusName')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Status is required.
+            </div>
+          </div>
+
+          <!-- Employee ID -->
+          <div>
+            <label *ngIf="cashRegisterForm.get('employeeId')?.invalid && cashRegisterForm.get('employeeId')?.touched" for="employeeId"
+                   class="block mb-2 text-sm font-medium text-red-600">Employee</label>
+            <label *ngIf="!cashRegisterForm.get('employeeId')?.invalid || !cashRegisterForm.get('employeeId')?.touched" for="employeeId"
+                   class="block mb-2 text-sm font-medium text-gray-300">Employee</label>
+            <select [class]="cashRegisterForm.get('employeeId')?.invalid && cashRegisterForm.get('employeeId')?.touched ?
+      'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                    id="employeeId"
+                    name="employeeId"
+                    formControlName="employeeId"
+                    required>
+              <option value="" disabled selected>Select employee</option>
+              <option *ngFor="let employee of employees" [value]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</option>
+            </select>
+            <div *ngIf="cashRegisterForm.get('employeeId')?.invalid && cashRegisterForm.get('employeeId')?.touched"
+                 class="mt-2 text-sm text-red-600 dark:text-red-500">
+              Employee is required.
+            </div>
+          </div>
+          <div class="flex flex-row gap-3 pt-3" >
+            <button type="submit"
+                    [disabled]="!cashRegisterForm.valid"
+                    [class]="!cashRegisterForm.valid ?
+                    'disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer' :
+                    'text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer'">
+              {{ title }}
+            </button>
+            <button type="button"
+                    class="text-gray-50 bg-red-600 transition-colors hover:bg-red-700 active:bg-red-800  font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer"
+                    (click)="cancel()">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <!-- Status Name -->
-    <div class="form-group">
-      <label for="statusName">Status</label>
-      <select class="form-control" id="statusName" formControlName="statusName">
-        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
-      </select>
-    </div>
-
-    <!-- Employee ID -->
-    <div class="form-group">
-      <label for="employeeId">Employee</label>
-      <select class="form-control" id="employeeId" formControlName="employeeId">
-        <option [value]=0>None</option>
-        <option *ngFor="let employee of employees" [value]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</option>
-      </select>
-    </div>
-
-    <!-- Buttons -->
-    <button type="submit" class="btn btn-primary" [disabled]="cashRegisterForm.invalid">Save</button>
-    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
-
-  </form>
+  </div>
 </div>

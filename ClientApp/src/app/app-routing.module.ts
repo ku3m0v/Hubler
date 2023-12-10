@@ -96,7 +96,7 @@ const routes: Routes = [
   },
   {
     path: 'add-cashregister', component: AddCashregisterComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
   },
   {
     path: 'warehouses', component: WarehouseComponent,

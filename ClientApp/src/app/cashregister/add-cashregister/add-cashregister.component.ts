@@ -13,6 +13,7 @@ export class AddCashregisterComponent implements OnInit {
   cashRegisterForm: FormGroup;
   title: string = 'Add';
   statuses: string[] = [];
+  supermarketTitles: string[] = [];
   employees: Employee[] = [];
 
   constructor(
@@ -24,7 +25,7 @@ export class AddCashregisterComponent implements OnInit {
   ) {
     this.cashRegisterForm = this.fb.group({
       id: 0,
-      supermarketName: ['', Validators.required],
+      supermarketName: ['', Validators.required], // Include validation as necessary
       registerNumber: [null, Validators.required],
       statusName: ['', Validators.required],
       employeeId: 0
@@ -47,6 +48,7 @@ export class AddCashregisterComponent implements OnInit {
     }
     this.loadStatuses();
     this.loadEmployees();
+    this.loadSupermarketTitles();
   }
 
   loadStatuses() {
@@ -58,6 +60,12 @@ export class AddCashregisterComponent implements OnInit {
   loadEmployees() {
     this.cashRegisterService.getEmployees().subscribe(data => {
       this.employees = data;
+    }, error => console.error(error));
+  }
+
+  loadSupermarketTitles() {
+    this.cashRegisterService.getSupermarketTitles().subscribe(data => {
+      this.supermarketTitles = data;
     }, error => console.error(error));
   }
 

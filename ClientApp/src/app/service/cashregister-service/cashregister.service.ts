@@ -66,7 +66,18 @@ export class CashRegisterService {
     ).pipe(catchError(this.errorHandler));
   }
 
+  getSupermarketTitles(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}api/cashregister/titles`, {headers: this.createHeaders()})
+      .pipe(catchError(this.errorHandler));
+  }
+
   private getAuthorizationHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+  }
+
+  private createHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Authorization': `Bearer ${this.authService.getToken()}`
     });
