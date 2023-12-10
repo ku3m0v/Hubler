@@ -2,7 +2,8 @@
   <div class="sm:flex sm:items-center sm:justify-between">
     <h2 class="text-heading1-semibold font-medium text-gray-50">Stores</h2>
 
-    <div class="flex items-center gap-x-3">
+    <div *ngIf="isAdmin()"
+         class="flex items-center gap-x-3">
       <button
         [routerLink]="['/add-store']"
         class="w-1/2 px-5 py-1.5 text-sm text-white bg-purple-main transition-colors duration-200 border-2 border-violet-600/30 rounded-lg sm:w-auto hover:bg-violet-700 active:bg-violet-800/70">
@@ -34,7 +35,8 @@
                   scope="col">
                 Address
               </th>
-              <th class="px-4 py-3.5"
+              <th *ngIf="isAdmin()"
+                  class="px-4 py-3.5"
                   scope="col">
                 Actions
               </th>
@@ -49,7 +51,7 @@
                 {{ store.street }}, {{ store.house }}, {{ store.city }}, {{ store.postalCode }}
                 , {{ store.country }}
               </td>
-              <td class="px-4 py-4 text-sm whitespace-nowrap">
+              <td *ngIf="isAdmin()" class="px-4 py-4 text-sm whitespace-nowrap">
                 <div class="flex items-center gap-x-6">
                   <button
                     (click)="deleteStore(store.title)"

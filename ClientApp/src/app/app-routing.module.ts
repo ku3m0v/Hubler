@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {HomeComponent} from "./home/home.component";
 import {SignInComponent} from "./auth/sign-in/sign-in.component";
 import {SignUpComponent} from "./auth/sign-up/sign-up.component";
 import {LandingComponent} from "./landing/landing.component";
@@ -11,7 +10,6 @@ import {JwtModule} from "@auth0/angular-jwt";
 import {tokenGetter} from "./app.module";
 import {StoreComponent} from "./store/store.component";
 import {EmployeeComponent} from "./employee/employee.component";
-import {SpinnerComponent} from "./spinner/spinner.component";
 import {AddStoreComponent} from "./store/add-store/add-store.component";
 import {NoAuthGuard} from "./guards/no-auth-guard.service";
 import {AddEmployeeComponent} from "./employee/add-employee/add-employee.component";
@@ -34,54 +32,145 @@ import {WarehouseComponent} from "./warehouse/warehouse.component";
 import {SaleComponent} from "./sale/sale.component";
 import {AddSaleComponent} from "./sale/add-sale/add-sale.component";
 import {PManagerComponent} from "./product/p-manager/p-manager.component";
+import {NotFoundComponent} from "./not-found/not-found.component";
+import {RoleGuard} from "./guards/guards/role.guard";
 
 
 const routes: Routes = [
   {path: '', redirectTo: '/landing', pathMatch: 'full'},
   {path: 'landing', component: LandingComponent, canActivate: [NoAuthGuard]},
-  {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {
+    path: 'settings', component: SettingsComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
   {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
-  {path: 'sign-in', component: SignInComponent},
-  {path: 'sign-up', component: SignUpComponent},
-  {path: 'contact', component: LandingComponent},
-  {path: 'about', component: LandingComponent},
-  {path: 'spinner', component: SpinnerComponent},
-  {path: 'chart', component: ChartComponent, canActivate: [AuthGuard]},
-  {path: 'employees', component: EmployeeComponent, canActivate: [AuthGuard]},
-  {path: 'stores', component: StoreComponent, canActivate: [AuthGuard]},
-  {path: 'add-store', component: AddStoreComponent, canActivate: [AuthGuard]},
-  {path: 'edit-store/:title', component: AddStoreComponent, canActivate: [AuthGuard]},
-  {path: 'edit-employee/:email', component: AddEmployeeComponent, canActivate: [AuthGuard]},
-  {path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard]},
-  {path: 'roles', component: RoleComponent, canActivate: [AuthGuard]},
-  {path: 'add-role', component: AddRoleComponent, canActivate: [AuthGuard]},
-  {path: 'edit-role/:roleName', component: AddRoleComponent, canActivate: [AuthGuard]},
+  {path: 'sign-in', component: SignInComponent, canActivate: [NoAuthGuard]},
+  {path: 'sign-up', component: SignUpComponent, canActivate: [NoAuthGuard]},
+  {path: 'contact', component: LandingComponent, canActivate: [NoAuthGuard]},
+  {path: 'about', component: LandingComponent, canActivate: [NoAuthGuard]},
+  {
+    path: 'chart', component: ChartComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'employees', component: EmployeeComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'stores', component: StoreComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'add-store', component: AddStoreComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'edit-store/:title', component: AddStoreComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'edit-employee/:email', component: AddEmployeeComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'add-employee', component: AddEmployeeComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'roles', component: RoleComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'add-role', component: AddRoleComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'edit-role/:roleName', component: AddRoleComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
   {path: 'cashregisters', component: CashRegisterComponent, canActivate: [AuthGuard]},
   {
     path: 'edit-cashregister/:supermarketName/:registerNumber',
     component: AddCashregisterComponent,
     canActivate: [AuthGuard]
   },
-  {path: 'add-cashregister', component: AddCashregisterComponent, canActivate: [AuthGuard]},
-  {path: 'warehouses', component: WarehouseComponent, canActivate: [AuthGuard]},
-  {path: 'edit-warehouse/:title', component: CashRegisterComponent, canActivate: [AuthGuard]},
-  {path: 'add-warehouse', component: CashRegisterComponent, canActivate: [AuthGuard]},
-  {path: 'statuses', component: StatusComponent, canActivate: [AuthGuard]},
-  {path: 'edit-status/:statusName', component: AddStatusComponent, canActivate: [AuthGuard]},
-  {path: 'add-status', component: AddStatusComponent, canActivate: [AuthGuard]},
-  {path: 'logs', component: LogsComponent, canActivate: [AuthGuard]},
-  {path: 'perishable', component: PerishableComponent, canActivate: [AuthGuard]},
-  {path: 'nonperishable', component: NonperishableComponent, canActivate: [AuthGuard]},
-  {path: 'catalogue', component: ProductComponent, canActivate: [AuthGuard]},
-  {path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard]},
-  {path: 'edit-product/:title', component: AddProductComponent, canActivate: [AuthGuard]},
-  {path: 'orders', component: OrderComponent, canActivate: [AuthGuard]},
-  {path: 'add-order', component: AddOrderComponent, canActivate: [AuthGuard]},
-  {path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard]},
-  {path: 'sales', component: SaleComponent, canActivate: [AuthGuard]},
-  {path: 'add-sale', component: AddSaleComponent, canActivate: [AuthGuard]},
-  {path: 'product-manager', component: PManagerComponent, canActivate: [AuthGuard]},
+  {
+    path: 'add-cashregister', component: AddCashregisterComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'warehouses', component: WarehouseComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'edit-warehouse/:title', component: CashRegisterComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'add-warehouse', component: CashRegisterComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'statuses', component: StatusComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'edit-status/:statusName', component: AddStatusComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'add-status', component: AddStatusComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'logs', component: LogsComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'perishable', component: PerishableComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'nonperishable', component: NonperishableComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'catalogue', component: ProductComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+  },
+  {
+    path: 'add-product', component: AddProductComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'edit-product/:title', component: AddProductComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'orders', component: OrderComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'add-order', component: AddOrderComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'inventory', component: InventoryComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'sales', component: SaleComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'add-sale', component: AddSaleComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {
+    path: 'product-manager', component: PManagerComponent,
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
+  },
+  {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({
