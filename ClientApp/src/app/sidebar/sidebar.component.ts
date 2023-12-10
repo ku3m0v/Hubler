@@ -25,7 +25,7 @@ export class SidebarComponent {
   constructor(private authService: AuthenticationService) {
     if (this.authService.isAdmin()) {
       this.sidebarLinks = [
-        {route: '/chart', label: 'Dashboard', imgURL: '/assets/assets/home.svg'},
+        {route: '/dashboard', label: 'Dashboard', imgURL: '/assets/assets/home.svg'},
         {route: '/user', label: 'Profile', imgURL: '/assets/assets/user.svg'},
         {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
         {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},
@@ -34,7 +34,7 @@ export class SidebarComponent {
       ];
     } else if (this.authService.isManager()) {
       this.sidebarLinks = [
-        {route: '/chart', label: 'Dashboard', imgURL: '/assets/assets/home.svg'},
+        {route: '/dashboard', label: 'Dashboard', imgURL: '/assets/assets/home.svg'},
         {route: '/user', label: 'Profile', imgURL: '/assets/assets/user.svg'},
         {route: '/stores', label: 'Stores', imgURL: '/assets/assets/store.svg'},
         {route: '/employees', label: 'Employees', imgURL: '/assets/assets/members.svg'},

@@ -49,7 +49,7 @@ const routes: Routes = [
   {path: 'contact', component: LandingComponent, canActivate: [NoAuthGuard]},
   {path: 'about', component: LandingComponent, canActivate: [NoAuthGuard]},
   {
-    path: 'chart', component: ChartComponent,
+    path: 'dashboard', component: ChartComponent,
     canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
   },
   {

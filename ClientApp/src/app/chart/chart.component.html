@@ -1,4 +1,7 @@
 <div>
+  <div class="sm:flex sm:items-center justify-start p-2 mb-2">
+    <h2 class="text-heading1-semibold font-medium text-gray-50">Dashboard</h2>
+  </div>
   <div class="p-2 rounded-lg grid md:grid-cols-2 sm:xs:grid-cols-1 gap-3 items-start justify-evenly overflow-hidden">
     <div class="col-start-1 col-span-full">
       <select
@@ -6,7 +9,7 @@
         [(ngModel)]="selectedSupermarketTitle"
         class="bg-slate-800 text-gray-50 placeholder-gray-400 focus:ring-2 focus:ring-purple-main focus:border-none rounded-lg block w-full pl-2.5 pr-5 py-1.5 t-1.5 text-sm border-2 border-violet-800"
         required>
-        <option disabled selected value="">Select store</option>
+        <option disabled selected value="">Select store...</option>
         <option *ngFor="let store of supermarketTitles" [value]="store">{{ store }}</option>
       </select>
     </div>

@@ -32,6 +32,8 @@ export class ChartComponent implements OnInit {
   supermarketTitles: string[] = [];
   selectedSupermarketTitle: string = '';
   loading = true;
+  showSpinner = true;
+  showMsg = false;
   private options: any;
 
   constructor(private elRef: ElementRef, private authService: AuthenticationService, private viewsService: ViewsService) {
@@ -70,24 +72,33 @@ export class ChartComponent implements OnInit {
     }
 
     this.viewsService.getExpiredInventory(this.selectedSupermarketTitle).subscribe(
-      (data: ExpiredInventory[]) => this.expiredInventories = data,
+      (data: ExpiredInventory[]) => {
+        this.expiredInventories = data;
+        this.showSpinner = false;
+      },
       (error) => console.error('Error fetching expired inventories:', error)
     );
 
     this.viewsService.getExpiredWarehouse(this.selectedSupermarketTitle).subscribe(
-      (data: ExpiredWarehouse[]) => this.expiredWarehouses = data,
+      (data: ExpiredWarehouse[]) => {
+        this.expiredWarehouses = data;
+        this.showSpinner = false;
+      },
       (error) => console.error('Error fetching expired warehouses:', error)
     );
 
     this.viewsService.getTop5ProductsBySupermarket(this.selectedSupermarketTitle).subscribe(
-      (data: Top5ProductsBySupermarket[]) => this.top5Products = data,
+      (data: Top5ProductsBySupermarket[]) => {
+        this.top5Products = data;
+        this.showSpinner = false;
+      },
       (error) => console.error('Error fetching top 5 products:', error)
     );
 
     this.viewsService.getSupermarketSalesSummary(this.selectedSupermarketTitle).subscribe(
       (data: SupermarketSalesSummary[]) => {
         this.salesSummaries = data;
-        this.loading = false;
+        this.showSpinner = false;
       },
       (error) => {
         console.error('Error fetching sales summaries:', error);
@@ -96,31 +107,5 @@ export class ChartComponent implements OnInit {
     );
   }
 
-  // private updateChartData(data: SupermarketSalesSummary[]): void {
-  //   const newSeries = [{
-  //     name: "Total Sales",
-  //     data: data.map(item => item.total_Sales)
-  //   }];
-  //
-  //   const chartContainer = this.elRef.nativeElement.querySelector('#data-series-chart');
-  //   if (chartContainer && ApexCharts) {
-  //     // Assuming `chart` is an instance of ApexCharts that you've initialized elsewhere
-  //     const chart = new ApexCharts(chartContainer, this.options);
-  //     chart.updateSeries(newSeries, true); // true to redraw the chart
-  //   }
-  // }
-
-
-  // ngAfterViewInit(): void {
-  //   this.initChart();
-  // }
-
-  // private initChart(): void {
-  //   const chartContainer = this.elRef.nativeElement.querySelector('#data-series-chart');
-  //   if (chartContainer && ApexCharts) {
-  //     const chart = new ApexCharts(chartContainer, this.options);
-  //     chart.render();
-  //   }
-  // }
   protected readonly HTMLBodyElement = HTMLBodyElement;
 }
