@@ -44,28 +44,32 @@ export interface SupermarketSalesSummary {
 })
 export class ViewsService {
   private myAppUrl: string = "";
-
   constructor(private http: HttpClient, private authService: AuthenticationService) {
     this.myAppUrl = configurl.apiServer.url;
   }
 
-  getExpiredInventory(): Observable<ExpiredInventory[]> {
-    return this.http.get<ExpiredInventory[]>(`${this.myAppUrl}api/view/ExpiredInventory`, { headers: this.createHeaders() })
+  getExpiredInventory(supermarketTitle: string): Observable<ExpiredInventory[]> {
+    return this.http.get<ExpiredInventory[]>(`${this.myAppUrl}api/view/ExpiredInventory/${supermarketTitle}`, { headers: this.createHeaders() })
       .pipe(catchError(this.errorHandler));
   }
 
-  getExpiredWarehouse(): Observable<ExpiredWarehouse[]> {
-    return this.http.get<ExpiredWarehouse[]>(`${this.myAppUrl}api/view/ExpiredWarehouse`, { headers: this.createHeaders() })
+  getExpiredWarehouse(supermarketTitle: string): Observable<ExpiredWarehouse[]> {
+    return this.http.get<ExpiredWarehouse[]>(`${this.myAppUrl}api/view/ExpiredWarehouse/${supermarketTitle}`, { headers: this.createHeaders() })
       .pipe(catchError(this.errorHandler));
   }
 
-  getTop5ProductsBySupermarket(): Observable<Top5ProductsBySupermarket[]> {
-    return this.http.get<Top5ProductsBySupermarket[]>(`${this.myAppUrl}api/view/Top5ProductsBySupermarket`, { headers: this.createHeaders() })
+  getTop5ProductsBySupermarket(supermarketTitle: string): Observable<Top5ProductsBySupermarket[]> {
+    return this.http.get<Top5ProductsBySupermarket[]>(`${this.myAppUrl}api/view/Top5ProductsBySupermarket/${supermarketTitle}`, { headers: this.createHeaders() })
       .pipe(catchError(this.errorHandler));
   }
 
-  getSupermarketSalesSummary(): Observable<SupermarketSalesSummary[]> {
-    return this.http.get<SupermarketSalesSummary[]>(`${this.myAppUrl}api/view/SupermarketSalesSummary`, { headers: this.createHeaders() })
+  getSupermarketSalesSummary(supermarketTitle: string): Observable<SupermarketSalesSummary[]> {
+    return this.http.get<SupermarketSalesSummary[]>(`${this.myAppUrl}api/view/SupermarketSalesSummary/${supermarketTitle}`, { headers: this.createHeaders() })
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getSupermarketTitles(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.myAppUrl}api/view/titles`, {headers: this.createHeaders()})
       .pipe(catchError(this.errorHandler));
   }
 

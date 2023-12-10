@@ -39,6 +39,7 @@ import {AddOrderComponent} from "./product/order/add-order/add-order.component";
 import {InventoryComponent} from "./inventory/inventory.component";
 import {SaleComponent} from "./sale/sale.component";
 import {AddSaleComponent} from "./sale/add-sale/add-sale.component";
+import {PManagerComponent} from "./product/p-manager/p-manager.component";
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -87,7 +88,8 @@ export function tokenGetter() {
     AddOrderComponent,
     InventoryComponent,
     SaleComponent,
-    AddSaleComponent
+    AddSaleComponent,
+    PManagerComponent
   ],
   bootstrap: [AppComponent]
 })

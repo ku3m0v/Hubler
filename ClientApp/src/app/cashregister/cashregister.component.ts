@@ -45,4 +45,16 @@ export class CashRegisterComponent {
   public isUserAuthenticated(): boolean {
     return this.authService.isUserSignedIn();
   }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  isCashier(): boolean {
+    return this.authService.isCashier();
+  }
+
+  isManager(): boolean {
+    return this.authService.isManager();
+  }
 }
