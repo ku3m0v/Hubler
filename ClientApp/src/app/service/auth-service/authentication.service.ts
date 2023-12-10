@@ -81,6 +81,21 @@ export class AuthenticationService {
     }
     return '';
   }
+
+  impersonateUser(email: string): Observable<any> {
+    return this.http.post<any>(`${this.url}api/authentication/impersonate`, { email }, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    }).pipe(
+      tap(res => {
+        if (res && res.token) {
+          localStorage.setItem('jwt', res.token);
+          this.router.navigate(['/user']).then(() => {
+            window.location.reload();
+          });
+        }
+      })
+    );
+  }
 }
 
 export interface RegistrationData {
