@@ -62,11 +62,11 @@ const routes: Routes = [
   },
   {
     path: 'add-store', component: AddStoreComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'edit-store/:title', component: AddStoreComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'edit-employee/:email', component: AddEmployeeComponent,
@@ -78,15 +78,15 @@ const routes: Routes = [
   },
   {
     path: 'roles', component: RoleComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'add-role', component: AddRoleComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'edit-role/:roleName', component: AddRoleComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {path: 'cashregisters', component: CashRegisterComponent, canActivate: [AuthGuard]},
   {
@@ -96,7 +96,7 @@ const routes: Routes = [
   },
   {
     path: 'add-cashregister', component: AddCashregisterComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: ['admin', 'manager']}
   },
   {
     path: 'warehouses', component: WarehouseComponent,
@@ -104,11 +104,11 @@ const routes: Routes = [
   },
   {
     path: 'edit-warehouse/:title', component: CashRegisterComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'add-warehouse', component: CashRegisterComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'statuses', component: StatusComponent,
@@ -116,27 +116,27 @@ const routes: Routes = [
   },
   {
     path: 'edit-status/:statusName', component: AddStatusComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'add-status', component: AddStatusComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'logs', component: LogsComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'perishable', component: PerishableComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'nonperishable', component: NonperishableComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'catalogue', component: ProductComponent,
-    canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'}
+    canActivate: [AuthGuard, RoleGuard], data: {roles: 'admin'}
   },
   {
     path: 'add-product', component: AddProductComponent,

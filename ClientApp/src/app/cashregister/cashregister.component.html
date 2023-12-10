@@ -38,7 +38,8 @@
                                 scope="col">
                                 Cashier
                             </th>
-                            <th class="py-3.5 px-4 text-sm font-normal"
+                            <th *ngIf="!isCashier()"
+                                class="py-3.5 px-4 text-sm font-normal"
                                 scope="col">
                                 Actions
                             </th>
@@ -51,7 +52,8 @@
                             <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">No. {{ cashregister.registerNumber }}</td>
                             <td class="px-4 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ cashregister.statusName }}</td>
                             <td class="px-12 py-4 text-sm font-light text-gray-300 whitespace-nowrap">{{ cashregister.employeeName }}</td>
-                            <td class="px-4 py-4 text-sm whitespace-nowrap">
+                            <td *ngIf="!isCashier()"
+                                class="px-4 py-4 text-sm whitespace-nowrap">
                                 <div class="flex items-center gap-x-6">
                                     <button
                                             (click)="deleteCashRegister(cashregister)"

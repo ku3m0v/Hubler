@@ -13,7 +13,8 @@ export class UserComponent implements OnInit {
   error: string | null = null;
   public profileForm!: FormGroup;
   profileImageUrl: string | null = null;
-
+  messageContent: string = '';
+  showMessage: boolean = false;
 
   @ViewChild('imageInput', {static: false}) imageInput!: ElementRef;
 
@@ -39,15 +40,27 @@ export class UserComponent implements OnInit {
     this.loadProfilePicture();
   }
 
+  showMessageWithTimeout(message: string) {
+    this.messageContent = message;
+    this.showMessage = true;
+    setTimeout(() => {
+      this.showMessage = false;
+    }, 1500); // Hide the message after 1.5 seconds
+  }
+
   saveProfile() {
     if (this.profileForm.valid) {
       const updatedProfile = this.profileForm.getRawValue();
       this.profileService.updateProfile(updatedProfile).subscribe({
         next: () => {
-          this.loadProfile();
-          this.loadProfilePicture();
+          this.showMessageWithTimeout('Changes been submitted successfully');
+          console.log('Changes been submitted successfully');
+          // Additional logic after successful order
         },
-        error: (err) => this.error = err.message
+        error: (error) => {
+          this.showMessageWithTimeout('There was an error processing your changes.');
+          console.error('There was an error!', error);
+        }
       });
     }
   }
