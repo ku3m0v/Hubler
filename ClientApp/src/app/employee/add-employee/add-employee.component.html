@@ -14,9 +14,9 @@
         <form class="space-y-3" [formGroup]="employeeForm" (ngSubmit)="saveEmployee()" novalidate>
           <div class="">
             <label *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" for="email"
-                   class="block mb-2 text-sm font-medium text-red-600">email</label>
+                   class="block mb-2 text-sm font-medium text-red-600">Email</label>
             <label *ngIf="!employeeForm.get('email')?.invalid || !employeeForm.get('email')?.touched" for="email"
-                   class="block mb-2 text-sm font-medium text-gray-300">email</label>
+                   class="block mb-2 text-sm font-medium text-gray-300">Email</label>
             <input type="email"
                    id="email"
                    formControlName="email"
@@ -30,9 +30,9 @@
           </div>
           <div class="">
             <label *ngIf="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched" for="password"
-                   class="block mb-2 text-sm font-medium text-red-600">password number</label>
+                   class="block mb-2 text-sm font-medium text-red-600">Password</label>
             <label *ngIf="!employeeForm.get('password')?.invalid || !employeeForm.get('password')?.touched" for="password"
-                   class="block mb-2 text-sm font-medium text-gray-300">password number</label>
+                   class="block mb-2 text-sm font-medium text-gray-300">Password</label>
             <input type="password"
                    id="password"
                    formControlName="password"
@@ -47,9 +47,9 @@
           <div class="grid gap-4 lg:grid-cols-2">
             <div>
               <label *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched" for="firstName"
-                     class="block mb-2 text-sm font-medium text-red-600">firstName</label>
+                     class="block mb-2 text-sm font-medium text-red-600">First Name</label>
               <label *ngIf="!employeeForm.get('firstName')?.invalid || !employeeForm.get('firstName')?.touched" for="firstName"
-                     class="block mb-2 text-sm font-medium text-gray-300">firstName</label>
+                     class="block mb-2 text-sm font-medium text-gray-300">First Name</label>
               <input type="text"
                      id="firstName"
                      formControlName="firstName"
@@ -63,9 +63,9 @@
             </div>
             <div>
               <label *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched" for="lastName"
-                     class="block mb-2 text-sm font-medium text-red-600">lastName</label>
+                     class="block mb-2 text-sm font-medium text-red-600">Last Name</label>
               <label *ngIf="!employeeForm.get('lastName')?.invalid || !employeeForm.get('lastName')?.touched" for="lastName"
-                     class="block mb-2 text-sm font-medium text-gray-300">lastName</label>
+                     class="block mb-2 text-sm font-medium text-gray-300">Last Name</label>
               <input type="text"
                      id="lastName"
                      formControlName="lastName"
@@ -104,8 +104,7 @@
                      class="block mb-2 text-sm font-medium text-red-600">Store</label>
               <label *ngIf="!employeeForm.get('supermarketName')?.invalid || !employeeForm.get('supermarketName')?.touched" for="roleName"
                      class="block mb-2 text-sm font-medium text-gray-300">Store</label>
-              <select #roleName
-                      [class]="employeeForm.get('supermarketName')?.invalid && employeeForm.get('supermarketName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+              <select [class]="employeeForm.get('supermarketName')?.invalid && employeeForm.get('supermarketName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                       id="supermarketName"
                       name="supermarketName"
                       formControlName="supermarketName"
