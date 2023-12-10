@@ -61,6 +61,10 @@ export class EmployeeComponent {
     }
   }
 
+  public isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
   public isUserAuthenticated(): boolean {
     return this.authService.isUserSignedIn();
   }

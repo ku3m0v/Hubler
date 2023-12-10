@@ -70,7 +70,7 @@ export class AuthenticationService {
     return this.getRole() === 'cashier';
   }
 
-  private getRole(): string {
+  getRole(): string {
     let token = localStorage.getItem("jwt");
     if (token !== null) {
       let decodedToken = this.jwtHelper.decodeToken(token);

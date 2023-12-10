@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthenticationService} from "../../service/auth-service/authentication.service";
 
 @Component({
   selector: 'app-p-manager',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class PManagerComponent {
 
+  constructor(private authService: AuthenticationService) { }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
 }
