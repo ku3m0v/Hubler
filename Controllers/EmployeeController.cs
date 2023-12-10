@@ -252,11 +252,29 @@ public class EmployeeController : ControllerBase
         return Ok(employeeModels);
     }
     
-    [HttpGet("titles")]
+    [HttpGet("titles"), Authorize]
     public IActionResult GetSupermarketTitles()
     {
+        string roleRegistered = this.User.Claims.First(i => i.Type.Equals(ClaimTypes.Role)).Value;
+        if(roleRegistered == "admin")
+        {
             var result = _supermarketDAL.GetAllTitles();
             return Ok(result);
+        }
+        else if(roleRegistered == "manager")
+        {
+            var userId = this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            int idRegistered = int.Parse(userId);
+            var manager = _employeeDAL.GetById(idRegistered);
+            var supermarket = _supermarketDAL.GetById(manager.SupermarketId);
+            var result = new List<string>();
+            result.Add(supermarket.Title);
+            return Ok(result);
+        }
+        else
+        {
+            return BadRequest("You do not have permission to view this resource.");
+        }
     }
     
     [HttpGet("roles")]
