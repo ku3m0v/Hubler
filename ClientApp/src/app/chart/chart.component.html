@@ -19,7 +19,7 @@
           <div class="w-full space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
             <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Top Products</h5>
           </div>
-          <table *ngIf="selectedSupermarketTitle"
+          <table *ngIf="selectedSupermarketTitle && top5Products.length"
                  class="block md:h-[22rem] h-[36rem] overflow-y-scroll w-full text-sm text-left Ctext-gray-400">
             <thead class="sticky-top text-xs bg-gray-900 text-gray-300 uppercase text-center">
             <tr>
@@ -56,7 +56,8 @@
           <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
             <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Sales</h5>
           </div>
-          <table *ngIf="selectedSupermarketTitle" class="w-full text-sm text-left bg-gray-900 text-gray-400">
+          <table *ngIf="selectedSupermarketTitle && salesSummaries.length"
+                 class="w-full text-sm text-left bg-gray-900 text-gray-400">
             <thead class="text-xs text-gray-300 uppercase text-center">
             <tr>
               <th class="px-10 py-3 whitespace-nowrap" scope="col">
@@ -94,7 +95,8 @@
           <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
             <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Expired Products: Inventory</h5>
           </div>
-          <table *ngIf="selectedSupermarketTitle" class="w-full text-sm text-left bg-gray-900 text-gray-400">
+          <table *ngIf="selectedSupermarketTitle && expiredInventories.length"
+                 class="w-full text-sm text-left bg-gray-900 text-gray-400">
             <thead class="text-xs text-gray-300 uppercase text-center">
             <tr>
               <th class="px-6 py-3" scope="col">
@@ -130,7 +132,8 @@
           <div class="space-y-3 p-4 bg-gray-900 shadow rounded-t-lg">
             <h5 class="leading-none text-heading3-bold font-bold text-white pb-2">Expired Products: Warehouse</h5>
           </div>
-          <table *ngIf="selectedSupermarketTitle" class="w-full text-sm text-left bg-gray-900 text-gray-400">
+          <table *ngIf="selectedSupermarketTitle && expiredWarehouses.length"
+                 class="w-full text-sm text-left bg-gray-900 text-gray-400">
             <thead class="text-xs text-gray-300 uppercase text-center">
             <tr>
               <th class="px-6 py-3" scope="col">

@@ -6,9 +6,6 @@
   <div class="absolute inset-0 bg-slate-900 opacity-50"></div>
 
   <div class="py-3 px-3 mx-auto max-w-screen-xl grid lg:grid-cols-2 gap-4 lg:gap-16 relative">
-    <div class="flex justify-center mt-6">
-      <h2 class="text-[4rem] font-bold text-gray-50 mb-6">{{ title }} Sale</h2>
-    </div>
     <div>
       <div class="lg:max-w-xl px-6 py-3 sm:p-8 rounded-lg shadow-xl bg-slate-900">
         <form class="space-y-3" [formGroup]="saleForm" (ngSubmit)="saveSale()" novalidate>
@@ -34,7 +31,7 @@
             <label for="productId" class="block mb-2 text-sm font-medium text-gray-300">Product</label>
             <select id="productId" formControlName="productId" class="form-input-store text-sm border-2 border-violet-950">
               <option value="" disabled selected>Select Product</option>
-              <option *ngFor="let product of products" [value]="product.lk_Product_Id">{{ product.title }}</option>
+              <option *ngFor="let product of products" [value]="product.lk_Product_Id">{{ product.title }} / {{product.quantity}} pcs.</option>
             </select>
             <div *ngIf="saleForm.get('productId')?.invalid && saleForm.get('productId')?.touched"
                  class="mt-2 text-sm text-red-600 dark:text-red-500">
