@@ -100,8 +100,11 @@
                     </svg>
                   </button>
                   <button
-                    (click)="transferProduct(product)">
-                    <img src="assets/assets/transfer.svg" alt="transer" class="text-gray-400 transition-colors duration-200 hover:text-sky-700 active:text-sky-600 focus:outline-none w-5 h-5">
+                    (click)="transferProduct(product)"
+                    class="text-gray-400 transition-colors duration-200 hover:text-blue active:text-violet-500 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7l7 7-7 7"/>
+                    </svg>
                   </button>
                 </div>
               </td>
@@ -143,7 +146,7 @@
   <div id="toast-default" class="flex items-center w-full p-4 gap-x-2 text-gray-50 bg-slate-700 rounded-lg shadow" role="alert">
     <div class="inline-flex items-center justify-center rounded-lg">
       <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-        <path stroke="orange" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.147 15.085a7.159 7.159 0 0 1-6.189 3.307A6.713 6.713 0 0 1 3.1 15.444c-2.679-4.513.287-8.737.888-9.548A4.373 4.373 0 0 0 5 1.608c1.287.953 6.445 3.218 5.537 10.5 1.5-1.122 2.706-3.01 2.853-6.14 1.433 1.049 3.993 5.395 1.757 9.117Z"/>
+        <path stroke="violet" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.147 15.085a7.159 7.159 0 0 1-6.189 3.307A6.713 6.713 0 0 1 3.1 15.444c-2.679-4.513.287-8.737.888-9.548A4.373 4.373 0 0 0 5 1.608c1.287.953 6.445 3.218 5.537 10.5 1.5-1.122 2.706-3.01 2.853-6.14 1.433 1.049 3.993 5.395 1.757 9.117Z"/>
       </svg>
       <span class="sr-only">Fire icon</span>
     </div>

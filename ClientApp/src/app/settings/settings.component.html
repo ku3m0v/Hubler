@@ -1,4 +1,7 @@
-<div class="px-16 grid md:grid-cols-4 grid-rows-2 xs:grid-cols-1 gap-4">
+<div class="sm:flex sm:items-center justify-start px-16 mb-6">
+  <h2 class="text-heading1-semibold font-medium text-gray-50">Settings</h2>
+</div>
+<div class="px-16 grid md:grid-cols-3 grid-rows-2 xs:grid-cols-1 gap-4">
   <div *ngIf="isAdmin()" [routerLink]="['/statuses']"
     class="flex flex-row justify-evenly text-slate-100 text-heading4-medium font-light bg-slate-900 rounded-lg py-3 px-4
     bg-slate-900/60 border-2 border-slate-700/40 shadow-inner shadow-slate-500/20 cursor-pointer">

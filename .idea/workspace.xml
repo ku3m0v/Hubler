@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5d3fc0a3-47e7-41ac-89de-75be44dece4f" name="Changes" comment="sign-up: 400 error / dropdown menu stores">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientApp/src/assets/assets/sleeping.svg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +45,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;back&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -79,6 +80,9 @@
       <workItem from="1701358415608" duration="855000" />
       <workItem from="1701369990072" duration="1057000" />
       <workItem from="1701609566977" duration="2322000" />
+      <workItem from="1702133466419" duration="609000" />
+      <workItem from="1702136415520" duration="222000" />
+      <workItem from="1702154849489" duration="346000" />
     </task>
     <task id="LOCAL-00001" summary="sign-up: fix style">
       <option name="closed" value="true" />
