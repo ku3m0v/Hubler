@@ -234,29 +234,28 @@ public class CashRegisterController : ControllerBase
         return Ok(employee);
     }
     
-    [HttpGet("supermarkets"), Authorize]
-    public ActionResult<IEnumerable<Supermarket>> GetSupermarkets()
+    [HttpGet("titles"), Authorize]
+    public IActionResult GetSupermarketTitles()
     {
-        var userId = int.Parse(this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value);
-        var role = User.FindFirst(ClaimTypes.Role)?.Value;
-        
-        IEnumerable<Supermarket> supermarkets;
-        
-        if (role == "admin")
+        string roleRegistered = this.User.Claims.First(i => i.Type.Equals(ClaimTypes.Role)).Value;
+        if(roleRegistered == "admin")
         {
-            supermarkets = _supermarketDAL.GetAll();
-            return Ok(supermarkets);
+            var result = _supermarketDAL.GetAllTitles();
+            return Ok(result);
         }
-        else if(role == "manager")
+        else if(roleRegistered == "manager")
         {
-            var employee = _employeeDAL.GetById(userId);
-            supermarkets = _supermarketDAL.GetAll()
-                .Where(e => e.Id == employee.SupermarketId);
+            var userId = this.User.Claims.First(i => i.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+            int idRegistered = int.Parse(userId);
+            var manager = _employeeDAL.GetById(idRegistered);
+            var supermarket = _supermarketDAL.GetById(manager.SupermarketId);
+            var result = new List<string>();
+            result.Add(supermarket.Title);
+            return Ok(result);
         }
         else
         {
             return BadRequest("You do not have permission to view this resource.");
         }
-        return Ok(supermarkets);
     }
 }
