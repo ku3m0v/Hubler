@@ -15,6 +15,8 @@ export class SignUpComponent implements OnInit {
   errorMessage: string = '';
   isDropdownVisible = false;
   selectedMarketTitle: string | null = null;
+  showError: boolean = false;
+
 
   constructor(
     private authService: AuthenticationService,
@@ -72,11 +74,16 @@ export class SignUpComponent implements OnInit {
         error: (error) => {
           // Assume error response is in the format { message: "Error message here" }
           this.errorMessage = error.error.message;
+          this.showError = true;
           console.error('Registration failed:', error);
         }
       });
     } else {
       this.signUpForm.markAllAsTouched();
     }
+  }
+
+  cancel(): void {
+    this.showError = false
   }
 }

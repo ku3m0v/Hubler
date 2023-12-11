@@ -10,8 +10,9 @@ import { AuthenticationService } from '../../service/auth-service/authentication
 })
 export class SignInComponent {
     invalidLogin?: boolean;
+    showError: boolean = false;
 
-    constructor(private authService: AuthenticationService, private router: Router) {}
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
     public login = (form: NgForm) => {
         this.authService.signIn(form.value).subscribe(
@@ -21,9 +22,14 @@ export class SignInComponent {
                 this.router.navigate(['/user']);
             },
             error => {
-                this.invalidLogin = true;
-                setTimeout(() => this.invalidLogin = false, 3000);
+                // this.invalidLogin = true;
+                this.showError = true;
+              setTimeout(() => this.invalidLogin = false, 3000);
             }
         );
     }
+
+  cancel(): void {
+    this.showError = false
+  }
 }
