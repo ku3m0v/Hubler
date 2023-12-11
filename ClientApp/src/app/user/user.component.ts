@@ -28,6 +28,10 @@ export class UserComponent implements OnInit {
     return this.authService.isUserSignedIn();
   }
 
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
   ngOnInit(): void {
     this.profileForm = this.fb.group({
       email: [{value: '', disabled: true}],

@@ -69,7 +69,7 @@
             type="date"
           >
         </div>
-        <div class="w-full md:w-1/2 px-3 mb-6">
+        <div *ngIf="!isAdmin()" class="w-full md:w-1/2 px-3 mb-6">
           <label class="text-gray-400">Supermarket Name</label>
           <input
             class="form_input text-sm text-muted"
