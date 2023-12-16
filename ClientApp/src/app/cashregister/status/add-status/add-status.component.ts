@@ -11,6 +11,7 @@ export class AddStatusComponent implements OnInit {
   statusForm: FormGroup;
   title: string = 'Add';
   statusName: string | null = null;
+  message: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -46,13 +47,33 @@ export class AddStatusComponent implements OnInit {
     const statusData: StatusModel = this.statusForm.value;
     if (this.title === 'Add') {
       this.statusService.create(statusData).subscribe(
-        () => this.router.navigate(['/statuses']),
-        (error: any) => console.error(error)
+        () => {
+          this.message = 'Status been added successfully! Please, wait...';
+          setTimeout(() => {
+            this.router.navigate(['/statuses']);
+          }, 1500);
+        },
+        (error: any) => {
+          setTimeout(() => {
+            this.message = 'Failed to add!';
+          }, 1500);
+          console.error(error)
+        }
       );
     } else {
       this.statusService.updateStatus(statusData).subscribe(
-        () => this.router.navigate(['/statuses']),
-        (error: any) => console.error(error)
+        () => {
+          this.message = 'Status been updated successfully! Please, wait...';
+          setTimeout(() => {
+            this.router.navigate(['/statuses']);
+          }, 1500);
+        },
+        (error: any) => {
+          setTimeout(() => {
+            this.message = 'Failed to update!';
+          }, 1500);
+          console.error(error)
+        }
       );
     }
   }

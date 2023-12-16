@@ -11,34 +11,35 @@
     </div>
     <div>
       <div class="lg:max-w-xl px-6 py-3 sm:p-8 rounded-lg shadow-xl bg-slate-900">
-        <form class="space-y-3" [formGroup]="employeeForm" (ngSubmit)="saveEmployee()" novalidate>
+        <form (ngSubmit)="saveEmployee()" [formGroup]="employeeForm" class="space-y-3" novalidate>
           <div class="">
-            <label *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" for="email"
-                   class="block mb-2 text-sm font-medium text-red-600">Email</label>
-            <label *ngIf="!employeeForm.get('email')?.invalid || !employeeForm.get('email')?.touched" for="email"
-                   class="block mb-2 text-sm font-medium text-gray-300">Email</label>
-            <input type="email"
-                   id="email"
+            <label *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched" class="block mb-2 text-sm font-medium text-red-600"
+                   for="email">Email</label>
+            <label *ngIf="!employeeForm.get('email')?.invalid || !employeeForm.get('email')?.touched" class="block mb-2 text-sm font-medium text-gray-300"
+                   for="email">Email</label>
+            <input [class]="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                    formControlName="email"
+                   id="email"
                    placeholder="e.g. MaxMustermann@web.de"
-                   [class]="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
-                   required>
+                   required
+                   type="email">
             <div *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched"
                  class="mt-2 text-sm text-red-600 dark:text-red-500">
               Email is required.
             </div>
           </div>
           <div class="">
-            <label *ngIf="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched" for="password"
-                   class="block mb-2 text-sm font-medium text-red-600">Password</label>
-            <label *ngIf="!employeeForm.get('password')?.invalid || !employeeForm.get('password')?.touched" for="password"
-                   class="block mb-2 text-sm font-medium text-gray-300">Password</label>
-            <input type="password"
-                   id="password"
+            <label *ngIf="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched" class="block mb-2 text-sm font-medium text-red-600"
+                   for="password">Password</label>
+            <label *ngIf="!employeeForm.get('password')?.invalid || !employeeForm.get('password')?.touched"
+                   class="block mb-2 text-sm font-medium text-gray-300"
+                   for="password">Password</label>
+            <input [class]="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                    formControlName="password"
+                   id="password"
                    placeholder="••••••••"
-                   [class]="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
-                   >
+                   type="password"
+            >
             <div *ngIf="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched"
                  class="mt-2 text-sm text-red-600 dark:text-red-500">
               Password is required.
@@ -46,51 +47,57 @@
           </div>
           <div class="grid gap-4 lg:grid-cols-2">
             <div>
-              <label *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched" for="firstName"
-                     class="block mb-2 text-sm font-medium text-red-600">First Name</label>
-              <label *ngIf="!employeeForm.get('firstName')?.invalid || !employeeForm.get('firstName')?.touched" for="firstName"
-                     class="block mb-2 text-sm font-medium text-gray-300">First Name</label>
-              <input type="text"
-                     id="firstName"
+              <label *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched"
+                     class="block mb-2 text-sm font-medium text-red-600"
+                     for="firstName">First Name</label>
+              <label *ngIf="!employeeForm.get('firstName')?.invalid || !employeeForm.get('firstName')?.touched"
+                     class="block mb-2 text-sm font-medium text-gray-300"
+                     for="firstName">First Name</label>
+              <input [class]="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                      formControlName="firstName"
+                     id="firstName"
                      placeholder="e.g Max"
-                     [class]="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
-                     required>
+                     required
+                     type="text">
               <div *ngIf="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched"
                    class="mt-2 text-sm text-red-600 dark:text-red-500">
                 First Name is required.
               </div>
             </div>
             <div>
-              <label *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched" for="lastName"
-                     class="block mb-2 text-sm font-medium text-red-600">Last Name</label>
-              <label *ngIf="!employeeForm.get('lastName')?.invalid || !employeeForm.get('lastName')?.touched" for="lastName"
-                     class="block mb-2 text-sm font-medium text-gray-300">Last Name</label>
-              <input type="text"
-                     id="lastName"
+              <label *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched"
+                     class="block mb-2 text-sm font-medium text-red-600"
+                     for="lastName">Last Name</label>
+              <label *ngIf="!employeeForm.get('lastName')?.invalid || !employeeForm.get('lastName')?.touched"
+                     class="block mb-2 text-sm font-medium text-gray-300"
+                     for="lastName">Last Name</label>
+              <input [class]="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
                      formControlName="lastName"
+                     id="lastName"
                      placeholder="e.g. Mustermann"
-                     [class]="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
-                     required>
+                     required
+                     type="text">
               <div *ngIf="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched"
                    class="mt-2 text-sm text-red-600 dark:text-red-500">
                 Last Name is required.
               </div>
             </div>
             <div>
-              <label *ngIf="employeeForm.get('roleName')?.invalid && employeeForm.get('roleName')?.touched" for="roleName"
-                     class="block mb-2 text-sm font-medium text-red-600">Role</label>
-              <label *ngIf="!employeeForm.get('roleName')?.invalid || !employeeForm.get('roleName')?.touched" for="roleName"
-                     class="block mb-2 text-sm font-medium text-gray-300">Role</label>
+              <label *ngIf="employeeForm.get('roleName')?.invalid && employeeForm.get('roleName')?.touched"
+                     class="block mb-2 text-sm font-medium text-red-600"
+                     for="roleName">Role</label>
+              <label *ngIf="!employeeForm.get('roleName')?.invalid || !employeeForm.get('roleName')?.touched"
+                     class="block mb-2 text-sm font-medium text-gray-300"
+                     for="roleName">Role</label>
               <select #roleName
                       [class]="employeeForm.get('roleName')?.invalid && employeeForm.get('roleName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                      formControlName="roleName"
                       id="roleName"
                       name="roleName"
-                      formControlName="roleName"
                       required>
-                <option value="" disabled selected>Select role</option>
-                <option class="font-medium p-2.5 rounded-3xl border-indigo-400"
-                        *ngFor="let role of roles" [value]="role">
+                <option disabled selected value="">Select role</option>
+                <option *ngFor="let role of roles"
+                        [value]="role" class="font-medium p-2.5 rounded-3xl border-indigo-400">
                   {{ role }}
                 </option>
               </select>
@@ -100,18 +107,23 @@
               </div>
             </div>
             <div>
-              <label *ngIf="employeeForm.get('supermarketName')?.invalid && employeeForm.get('supermarketName')?.touched" for="roleName"
-                     class="block mb-2 text-sm font-medium text-red-600">Store</label>
-              <label *ngIf="!employeeForm.get('supermarketName')?.invalid || !employeeForm.get('supermarketName')?.touched" for="roleName"
-                     class="block mb-2 text-sm font-medium text-gray-300">Store</label>
-              <select [class]="employeeForm.get('supermarketName')?.invalid && employeeForm.get('supermarketName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
-                      id="supermarketName"
-                      name="supermarketName"
-                      formControlName="supermarketName"
-                      required>
-                <option value="" disabled selected>Select store</option>
-                <option class="font-medium p-2.5 rounded-3xl border-indigo-400"
-                        *ngFor="let store of supermarketTitles" [value]="store">
+              <label
+                *ngIf="employeeForm.get('supermarketName')?.invalid && employeeForm.get('supermarketName')?.touched"
+                class="block mb-2 text-sm font-medium text-red-600"
+                for="roleName">Store</label>
+              <label
+                *ngIf="!employeeForm.get('supermarketName')?.invalid || !employeeForm.get('supermarketName')?.touched"
+                class="block mb-2 text-sm font-medium text-gray-300"
+                for="roleName">Store</label>
+              <select
+                [class]="employeeForm.get('supermarketName')?.invalid && employeeForm.get('supermarketName')?.touched ? 'form-input-store text-sm border-2 border-red-600' : 'form-input-store text-sm border-2 border-violet-950'"
+                formControlName="supermarketName"
+                id="supermarketName"
+                name="supermarketName"
+                required>
+                <option disabled selected value="">Select store</option>
+                <option *ngFor="let store of supermarketTitles"
+                        [value]="store" class="font-medium p-2.5 rounded-3xl border-indigo-400">
                   {{ store }}
                 </option>
               </select>
@@ -122,37 +134,60 @@
             </div>
           </div>
           <div>
-            <label for="manager"
-                   class="block mb-2 text-sm font-medium text-gray-300">Manager</label>
+            <label class="block mb-2 text-sm font-medium text-gray-300"
+                   for="manager">Manager</label>
             <select #managerSelector
                     class="form-input-store text-sm border-2 border-violet-950"
+                    formControlName="adminId"
                     id="manager"
                     name="manager"
-                    formControlName="adminId"
-                    required>
-              <option value="" disabled selected>Select superior</option>
-              <option class="font-medium p-2.5 rounded-3xl border-indigo-400"
-                      *ngFor="let manager of managers" [value]="manager.id">
-                {{manager.firstName}} {{manager.lastName}}
+            >
+              <option disabled selected value="">Select superior</option>
+              <option *ngFor="let manager of managers"
+                      [value]="manager.id" class="font-medium p-2.5 rounded-3xl border-indigo-400">
+                {{ manager.firstName }} {{ manager.lastName }}
               </option>
             </select>
           </div>
-          <div class="flex flex-row gap-3 pt-3" >
-            <button type="submit"
-                    [disabled]="!employeeForm.valid"
-                    [class]="!employeeForm.valid ?
+          <div class="flex flex-row gap-3 pt-3">
+            <button [class]="!employeeForm.valid ?
                     'disabled:bg-purple-900 disabled:text-violet-500 font-medium rounded-lg border-2 disabled:border-purple-900/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer' :
-                    'text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer'">
+                    'text-gray-50 hover:text-gray-50 active:text-gray-50 bg-purple-main transition-colors hover:bg-purple-700 active:bg-purple-800 font-medium rounded-lg border-2 border-purple-600/30 hover:border-purple-600/30 active:border-purple-800/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer'"
+                    [disabled]="!employeeForm.valid"
+                    type="submit">
               {{ title }}
             </button>
-            <button type="button"
+            <button (click)="cancel()"
                     class="text-gray-50 bg-red-600 transition-colors hover:bg-red-700 active:bg-red-800  font-medium rounded-lg border-2 border-red-700/30 text-sm w-full sm:w-auto px-5 py-2 text-center cursor-pointer"
-                    (click)="cancel()">
+                    type="button">
               Cancel
             </button>
           </div>
         </form>
       </div>
     </div>
+  </div>
+</div>
+
+<div *ngIf="message" class="absolute bottom-4 right-4">
+  <div class="flex items-center w-full p-4 gap-x-2 text-gray-50 bg-slate-800 rounded-lg shadow" id="toast-default"
+       role="alert">
+    <div class="inline-flex items-center justify-center rounded-lg">
+      <svg aria-hidden="true" class="w-4 h-4" fill="none" viewBox="0 0 18 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.147 15.085a7.159 7.159 0 0 1-6.189 3.307A6.713 6.713 0 0 1 3.1 15.444c-2.679-4.513.287-8.737.888-9.548A4.373 4.373 0 0 0 5 1.608c1.287.953 6.445 3.218 5.537 10.5 1.5-1.122 2.706-3.01 2.853-6.14 1.433 1.049 3.993 5.395 1.757 9.117Z" stroke="violet" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2"/>
+      </svg>
+      <span class="sr-only">Fire icon</span>
+    </div>
+    <div class="ms-3 text-sm font-normal whitespace-nowrap">{{ message }}</div>
+    <button aria-label="Close"
+            class="ms-auto -mx-1.5 -my-1.5 bg-none text-gray-400 rounded-lg focus:ring-0 focus:ring-gray-300 p-1.5 hover:text-red-600 inline-flex items-center justify-center h-8 w-8"
+            data-dismiss-target="#toast-default" type="button">
+      <span class="sr-only">Close</span>
+      <svg aria-hidden="true" class="w-3 h-3" fill="none" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+        <path d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2"/>
+      </svg>
+    </button>
   </div>
 </div>

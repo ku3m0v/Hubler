@@ -12,23 +12,23 @@ export class AddSaleComponent implements OnInit {
   saleForm: FormGroup;
   products: Product[] = [];
   supermarketTitles: string[] = [];
-  title: string = 'Add'; // Dynamic title
-  successMessage: string = ''; // Add a property for the success message
+  title: string = 'Add';
+  successMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
     private saleService: SaleService,
     private router: Router,
-  private route: ActivatedRoute // Add this
+  private route: ActivatedRoute
   ) {
     const today = new Date().toISOString().split('T')[0];
 
     this.saleForm = this.fb.group({
-      saleId: 0, // Assuming you might need this for editing
+      saleId: 0,
       supermarketName: ['', Validators.required],
       productId: ['', Validators.required],
       quantitySold: [1, [Validators.required, Validators.min(1)]],
-      saleDate: [{value: '', disabled: true}, Validators.required] // Disable the saleDate control
+      saleDate: [{value: '', disabled: true}, Validators.required]
     });
   }
 
@@ -63,7 +63,7 @@ export class AddSaleComponent implements OnInit {
         this.products = data;
       }, error => console.error(error));
     } else {
-      this.products = []; // Clear products if no supermarket is selected
+      this.products = [];
     }
   }
 
@@ -84,7 +84,7 @@ export class AddSaleComponent implements OnInit {
       },
       (error: any) => {
         console.error(error);
-        this.successMessage = 'Adding failed!'; // Set the failure message
+        this.successMessage = 'Adding failed!';
       }
     );
   }

@@ -15,6 +15,7 @@ export class AddCashregisterComponent implements OnInit {
   statuses: string[] = [];
   supermarketTitles: string[] = [];
   employees: Employee[] = [];
+  message: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -77,16 +78,33 @@ export class AddCashregisterComponent implements OnInit {
     const cashRegisterData: CashRegisterData = this.cashRegisterForm.value;
     if (this.title === 'Add') {
       this.cashRegisterService.insert(cashRegisterData).subscribe(
-        () => this.router.navigate(['/cashregisters']),
-        (error: any) => console.error(error)
+        () => {
+          this.message = 'Cash register been added successfully! Please, wait...';
+          setTimeout(() => {
+            this.router.navigate(['/cashregisters']);
+          }, 1500);
+        },
+        (error: any) => {
+          setTimeout(() => {
+            this.message = 'Failed to add!';
+          }, 1500);
+          console.error(error)
+        }
       );
     } else {
       this.cashRegisterService.update(cashRegisterData).subscribe(
-        (response) => {
-          console.log(response);
-          this.router.navigate(['/cashregisters']);
+        () => {
+          this.message = 'Cash egister been updated successfully! Please, wait...';
+          setTimeout(() => {
+            this.router.navigate(['/cashregisters']);
+          }, 1500);
         },
-        (error: any) => console.error(error)
+        (error: any) => {
+          setTimeout(() => {
+            this.message = 'Failed to update!';
+          }, 1500);
+          console.error(error)
+        }
       );
     }
   }

@@ -14,6 +14,7 @@ export class AddOrderComponent implements OnInit {
   productTypes: string[] = ['perishable', 'nonperishable'];
   products: LkProduct[] = [];
   supermarketTitles: string[] = [];
+  message: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -78,8 +79,18 @@ export class AddOrderComponent implements OnInit {
     }
 
     this.orderService.insertOrder(orderData, orderData.productType).subscribe(
-      () => this.router.navigate(['/orders']),
-      (error: any) => console.error(error)
+      () => {
+        this.message = 'Order been added successfully! Please, wait...';
+        setTimeout(() => {
+          this.router.navigate(['/orders']);
+        }, 1500);
+      },
+      (error: any) => {
+        setTimeout(() => {
+          this.message = 'Failed to add!';
+        }, 1500);
+        console.error(error)
+      }
     );
   }
 

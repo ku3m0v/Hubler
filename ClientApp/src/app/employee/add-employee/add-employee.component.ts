@@ -15,6 +15,7 @@ export class AddEmployeeComponent implements OnInit {
   managers: EmployeeModel[] = [];
   supermarketTitles: string[] = [];
   roles: string[] = [];
+  message: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -24,15 +25,15 @@ export class AddEmployeeComponent implements OnInit {
     private authService: AuthenticationService
 ) {
     this.employeeForm = this.fb.group({
-      id: 0, // Include validation as necessary
+      id: 0,
       email: ['', [Validators.required, Validators.email]],
-      password: [''], // Include validation as necessary
+      password: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      createdDate: [new Date()], // Default to current date, adjust as necessary
-      supermarketName: [''], // Include validation as necessary
+      createdDate: [new Date()],
+      supermarketName: [''],
       roleName: ['', Validators.required],
-      adminId: 0 // Include validation as necessary
+      adminId: 0
     });
   }
 
@@ -78,16 +79,33 @@ export class AddEmployeeComponent implements OnInit {
   const employeeData: EmployeeModel = this.employeeForm.value;
   if (this.title === 'Add') {
     this.employeeService.insert(employeeData).subscribe(
-      () => this.router.navigate(['/employees']),
-      (error: any) => console.error(error)
+      () => {
+        this.message = 'Employee been added successfully! Please, wait...';
+        setTimeout(() => {
+          this.router.navigate(['/employees']);
+        }, 1500);
+      },
+      (error: any) => {
+        setTimeout(() => {
+          this.message = 'Failed to add!';
+        }, 1500);
+        console.error(error)
+      }
     );
   } else {
     this.employeeService.edit(employeeData).subscribe(
-      (response) => {
-        console.log(response);
-        this.router.navigate(['/employees']);
+      () => {
+        this.message = 'Employee been updated successfully! Please, wait...';
+        setTimeout(() => {
+          this.router.navigate(['/employees']);
+        }, 1500);
       },
-      (error: any) => console.error(error)
+      (error: any) => {
+        setTimeout(() => {
+          this.message = 'Failed to update!';
+        }, 1500);
+        console.error(error)
+      }
     );
   }
 }

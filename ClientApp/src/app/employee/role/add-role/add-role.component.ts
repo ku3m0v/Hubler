@@ -11,6 +11,7 @@ export class AddRoleComponent implements OnInit {
   roleForm: FormGroup;
   title: string = 'Add';
   roleName: string | null = null;
+  message: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -46,13 +47,33 @@ export class AddRoleComponent implements OnInit {
     const roleData: RoleData = this.roleForm.value;
     if (this.title === 'Add') {
       this.roleService.createRole(roleData).subscribe(
-        () => this.router.navigate(['/roles']),
-        (error: any) => console.error(error)
+        () => {
+          this.message = 'Role been added successfully! Please, wait...';
+          setTimeout(() => {
+            this.router.navigate(['/roles']);
+          }, 1500);
+        },
+        (error: any) => {
+          setTimeout(() => {
+            this.message = 'Failed to add!';
+          }, 1500);
+          console.error(error)
+        }
       );
     } else {
       this.roleService.updateRole(roleData).subscribe(
-        () => this.router.navigate(['/roles']),
-        (error: any) => console.error(error)
+        () => {
+          this.message = 'Role been updated successfully! Please, wait...';
+          setTimeout(() => {
+            this.router.navigate(['/roles']);
+          }, 1500);
+        },
+        (error: any) => {
+          setTimeout(() => {
+            this.message = 'Failed to update!';
+          }, 1500);
+          console.error(error)
+        }
       );
     }
   }

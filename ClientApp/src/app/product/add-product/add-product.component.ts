@@ -11,6 +11,7 @@ export class AddProductComponent implements OnInit {
   productForm: FormGroup;
   title: string = 'Add';
   productTitle: string | null = null;
+  message: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -47,13 +48,33 @@ export class AddProductComponent implements OnInit {
     const productData: LkProduct = this.productForm.value;
     if (this.title === 'Add') {
       this.productService.insert(productData).subscribe(
-        () => this.router.navigate(['/catalogue']),
-        (error: any) => console.error(error)
+        () => {
+          this.message = 'Product been added to Catalogue successfully! Please, wait...';
+          setTimeout(() => {
+            this.router.navigate(['/catalogue']);
+          }, 1500);
+        },
+        (error: any) => {
+          setTimeout(() => {
+            this.message = 'Failed to add!';
+          }, 1500);
+          console.error(error)
+        }
       );
     } else {
       this.productService.update(productData).subscribe(
-        () => this.router.navigate(['/catalogue']),
-        (error: any) => console.error(error)
+        () => {
+          this.message = 'Product been updated successfully! Please, wait...';
+          setTimeout(() => {
+            this.router.navigate(['/catalogue']);
+          }, 1500);
+        },
+        (error: any) => {
+          setTimeout(() => {
+            this.message = 'Failed to update!';
+          }, 1500);
+          console.error(error)
+        }
       );
     }
   }
