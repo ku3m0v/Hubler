@@ -20,17 +20,12 @@ This web application serves as an information system for a network of supermarke
 
 ## Installation and Setup
 
-### Web Application Nature
-- No installation required for the user end. Administrators have access to `backend.exe` and `frontend.zip`.
-
 ### Backend Setup
 - Requires .NET runtime installed on the system.
 - Launch the backend application by double-clicking `backend.exe` or using the command line in the directory containing `Hubler.exe`:
   ```
   ./Hubler.exe
   ```
-- Upon running `backend.exe`, the application starts listening for requests from the frontend.
-
 ### Frontend Setup
 - Requires Node.js and NPM installed on the system.
 - To start the frontend part with Angular, execute the following commands in the terminal within the unzipped `Hubler.zip` folder:
