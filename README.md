@@ -40,3 +40,7 @@ This web application serves as an information system for a network of supermarke
 
 ### Design
 - Intuitive and user-friendly, ensuring efficient and comfortable system use for all user types.
+
+### Credentials
+ - #### Username: `admin@admin.com`
+ - #### Password: `admin`
