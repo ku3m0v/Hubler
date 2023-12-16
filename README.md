@@ -1,54 +1,58 @@
-Overview
+# README for Supermarket Network Information System
 
-This web application is an information system for a supermarket network. It offers different access levels for unregistered users, administrators, managers, and workers.
-Unregistered Users
+## Introduction
+This web application serves as an information system for a network of supermarkets. It offers different functionalities based on the user's access level: unregistered users, registered users (categorized into administrators, managers, and workers), each having distinct privileges and access rights.
 
-    Limited access: Can only view the app's offerings and features.
+## User Roles and Permissions
 
-Registered Users
+### Unregistered Users
+- Can only view basic information about the application and its functionalities.
 
-    Administrator: Access to all supermarkets' data, modify any data, manage user accounts, and obtain supermarket operation statistics.
-    Manager: Access to their supermarket's data, view statistics, order new goods, assign workers to tills, open/close tills, add new employees, and set positions.
-    Worker: Can edit their profile and check their assigned till.
+### Registered Users
+- **Administrators**: Have access to data of all supermarkets, can modify any data, manage user accounts, and acquire statistics about supermarket operations.
+- **Managers**: Limited access to the supermarket they work in. They can view their supermarket's statistics, order new goods, assign workers to cash registers, open or close the store, add new employees, and set their positions.
+- **Workers**: Can edit their profiles and view their assigned cash register for the day.
 
-Installation
+### Registration Process
+- Users register with their surname, first name, supermarket name, email, and password. By default, they are assigned the role of a standard worker.
+- Their profiles appear in the manager's list of the chosen supermarket or the administrator's list, where their role can be changed.
+- Users can only change their surname and first name. Any other changes, like supermarket, email, or role, must be done by an administrator or manager.
 
-As a web application, no installation is required for end-users. For administrators, backend.exe and frontend.zip are available.
-Backend Setup (.NET)
+## Installation and Setup
 
-    Requires .NET runtime installed.
-    Start the backend application by double-clicking backend.exe or using the command line:
+### Web Application Nature
+- No installation required for the user end. Administrators have access to `backend.exe` and `frontend.zip`.
 
-    ./Hubler.exe
+### Backend Setup
+- Requires .NET runtime installed on the system.
+- Launch the backend application by double-clicking `backend.exe` or using the command line in the directory containing `Hubler.exe`:
+  ```
+  ./Hubler.exe
+  ```
+- Upon running `backend.exe`, the application starts listening for requests from the frontend.
 
-    After starting backend.exe, the application will listen to requests from the frontend.
+### Frontend Setup
+- Requires Node.js and NPM installed on the system.
+- To start the frontend part with Angular, execute the following commands in the terminal within the unzipped `Hubler.zip` folder:
+  ```
+  cd frontend  // Navigate to the frontend folder
+  npm install  // Install dependencies
+  ng serve     // Start the Angular server
+  ```
 
-Frontend Setup (Angular)
+### Oracle Database Connection
+- For the current university project version, an Oracle database connection is required.
 
-    Requires Node.js and NPM installed.
-    Execute these commands in the terminal in the unzipped Hubler.zip folder:
+## Application Usage
 
-    arduino
+### Interface
+- After logging in, users see the supermarket statistics or their profile (for workers).
+- A navigation panel on the left side of the screen allows switching between different sections: statistics, profile, supermarket list, worker list, products, products in stock, products on shelves, and settings.
 
-    cd frontend     // Navigate to the frontend folder
-    npm install     // Install dependencies
-    ng serve        // Start the Angular server
+### Features
+- Settings section allows role modifications, monitoring cash registers, and viewing application logs.
+- Managers in their product stock section can order products with a simple button press or make manual orders by entering necessary details.
+- A logout button at the bottom left ensures a safe end to the session.
 
-Access Permissions
-
-    During registration, users provide their last name, first name, supermarket name, email, and password.
-    Default role: Ordinary worker with profile access.
-    Administrators or managers can change user roles.
-    Users can change their last name and first name. Other data modifications require administrator or manager intervention.
-
-Application Usage
-
-    Upon login, users see their supermarket statistics (workers see their profiles).
-    The left-hand side navigation panel switches between sections: statistics, profile, supermarket list, worker list, products, inventory, shelf products, and settings.
-    In the settings section, users can edit roles, monitor tills, and view application logs.
-    Managers have additional inventory options, including automatic and manual ordering.
-    A logout button in the lower left corner ensures secure application exit.
-
-Additional Requirement for University Project
-
-    To run this project, you need to connect to an Oracle database.
+### Design
+- Intuitive and user-friendly, ensuring efficient and comfortable system use for all user types.
