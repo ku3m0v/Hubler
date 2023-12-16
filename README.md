@@ -20,20 +20,9 @@ This web application serves as an information system for a network of supermarke
 
 ## Installation and Setup
 
-### Backend Setup
+### Setup
 - Requires .NET runtime installed on the system.
-- Launch the backend application by double-clicking `backend.exe` or using the command line in the directory containing `Hubler.exe`:
-  ```
-  ./Hubler.exe
-  ```
-### Frontend Setup
 - Requires Node.js and NPM installed on the system.
-- To start the frontend part with Angular, execute the following commands in the terminal within the unzipped `Hubler.zip` folder:
-  ```
-  cd frontend  // Navigate to the frontend folder
-  npm install  // Install dependencies
-  ng serve     // Start the Angular server
-  ```
 
 ### Oracle Database Connection
 - For the current university project version, an Oracle database connection is required.
